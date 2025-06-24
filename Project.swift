@@ -21,7 +21,7 @@ let project = Project(
             infoPlist: .default,
             sources: ["Magnus/Core/Sources/**"],
             resources: ["Magnus/Core/Resources/**"],
-            dependencies: [.target(name: "MagnusDomain")]
+            dependencies: [.target(name: "MagnusDomain")],
         ),
         .target(
             name: "MagnusFeatures",
@@ -31,7 +31,7 @@ let project = Project(
             infoPlist: .default,
             sources: ["Magnus/Features/Sources/**"],
             resources: ["Magnus/Features/Resources/**"],
-            dependencies: [.target(name: "MagnusDomain"), .target(name: "MagnusCore")]
+            dependencies: [.target(name: "MagnusDomain"), .target(name: "MagnusCore")],
         ),
         .target(
             name: "NovoNordiskApp",
@@ -48,7 +48,11 @@ let project = Project(
             ),
             sources: ["Magnus/UI/NovoNordiskApp/Sources/**"],
             resources: ["Magnus/UI/NovoNordiskApp/Resources/**"],
-            dependencies: [.target(name: "MagnusCore"), .target(name: "MagnusDomain"), .target(name: "MagnusFeatures")]
+            settings: .settings(
+                base: [
+                    "ASSETCATALOG_COMPILER_APPICON_NAME": "NovoNordiskAppIcon"
+                ]
+            )
         ),
         .target(
             name: "ChMApp",
@@ -65,7 +69,12 @@ let project = Project(
             ),
             sources: ["Magnus/UI/ChMApp/Sources/**"],
             resources: ["Magnus/UI/ChMApp/Resources/**"],
-            dependencies: [.target(name: "MagnusCore"), .target(name: "MagnusDomain"), .target(name: "MagnusFeatures")]
+            dependencies: [.target(name: "MagnusCore"), .target(name: "MagnusDomain"), .target(name: "MagnusFeatures")],
+            settings: .settings(
+                base: [
+                    "ASSETCATALOG_COMPILER_APPICON_NAME": "AppIconChMApp"
+                ]
+            )
         )
     ]
 )
