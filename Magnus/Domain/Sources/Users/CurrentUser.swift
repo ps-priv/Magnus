@@ -1,4 +1,4 @@
-public struct User {
+public struct CurrentUser {
     public let id: String
     public let email: String
     public let firstname: String
