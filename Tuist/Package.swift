@@ -16,7 +16,10 @@ let package = Package(
     name: "Magnus",
     dependencies: [
         // Add your own dependencies here:
-        // .package(url: "https://github.com/Alamofire/Alamofire", from: "5.0.0"),
-        // You can read more about dependencies here: https://docs.tuist.io/documentation/tuist/dependencies
+        .package(url: "https://github.com/Alamofire/Alamofire", from: "5.8.0"),
+        .package(url: "https://github.com/Swinject/Swinject.git", from: "2.9.1")
+        // You can read more about dependencies here: //https://docs.tuist.io/documentation/tuist/dependencies
     ]
 )
+
+

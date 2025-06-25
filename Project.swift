@@ -1,7 +1,13 @@
 import ProjectDescription
 
+let packages: [Package] = [
+    .package(url: "https://github.com/Alamofire/Alamofire.git", from: "5.8.0"),
+    .package(url: "https://github.com/Swinject/Swinject.git", from: "2.9.1")
+]
+
 let project = Project(
     name: "Magnus",
+    packages: packages,
     targets: [
         .target(
             name: "MagnusDomain",
@@ -31,7 +37,10 @@ let project = Project(
             infoPlist: .default,
             sources: ["Magnus/Features/Sources/**"],
             resources: ["Magnus/Features/Resources/**"],
-            dependencies: [.target(name: "MagnusDomain"), .target(name: "MagnusCore")],
+            dependencies: [
+                .target(name: "MagnusDomain"), 
+                .target(name: "MagnusCore"),
+                .package(product: "Swinject")],
         ),
         .target(
             name: "NovoNordiskApp",
@@ -48,7 +57,11 @@ let project = Project(
             ),
             sources: ["Magnus/UI/NovoNordiskApp/Sources/**"],
             resources: ["Magnus/UI/NovoNordiskApp/Resources/**"],
-            dependencies: [.target(name: "MagnusCore"), .target(name: "MagnusDomain"), .target(name: "MagnusFeatures")],
+            dependencies: [
+                .target(name: "MagnusCore"), 
+                .target(name: "MagnusDomain"), 
+                .target(name: "MagnusFeatures"),
+            ],
             settings: .settings(
                 base: [
                     "ASSETCATALOG_COMPILER_APPICON_NAME": "NovoNordiskAppIcon",
