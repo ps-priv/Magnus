@@ -48,9 +48,23 @@ let project = Project(
             ),
             sources: ["Magnus/UI/NovoNordiskApp/Sources/**"],
             resources: ["Magnus/UI/NovoNordiskApp/Resources/**"],
+            dependencies: [.target(name: "MagnusCore"), .target(name: "MagnusDomain"), .target(name: "MagnusFeatures")],
             settings: .settings(
                 base: [
-                    "ASSETCATALOG_COMPILER_APPICON_NAME": "NovoNordiskAppIcon"
+                    "ASSETCATALOG_COMPILER_APPICON_NAME": "NovoNordiskAppIcon",
+                    "CODE_SIGN_STYLE": "Automatic",
+                    "DEVELOPMENT_TEAM": "Apple Development: Pawel Salek (WP36EZATFS)",
+                    "CODE_SIGN_IDENTITY": "iPhone Developer"
+                ],
+                configurations: [
+                    .debug(name: .debug, settings: [
+                        "CODE_SIGN_IDENTITY": "iPhone Developer",
+                        "PROVISIONING_PROFILE_SPECIFIER": "" // Automatyczne
+                    ]),
+                    .release(name: .release, settings: [
+                        "CODE_SIGN_IDENTITY": "iPhone Distribution",
+                        "PROVISIONING_PROFILE_SPECIFIER": "" // Automatyczne
+                    ])
                 ]
             )
         ),
@@ -72,7 +86,20 @@ let project = Project(
             dependencies: [.target(name: "MagnusCore"), .target(name: "MagnusDomain"), .target(name: "MagnusFeatures")],
             settings: .settings(
                 base: [
-                    "ASSETCATALOG_COMPILER_APPICON_NAME": "AppIconChMApp"
+                    "ASSETCATALOG_COMPILER_APPICON_NAME": "AppIconChMApp",
+                    "CODE_SIGN_STYLE": "Automatic",
+                    "DEVELOPMENT_TEAM": "Apple Development: Pawel Salek (WP36EZATFS)",
+                    "CODE_SIGN_IDENTITY": "iPhone Developer"
+                ],
+                configurations: [
+                    .debug(name: .debug, settings: [
+                        "CODE_SIGN_IDENTITY": "iPhone Developer",
+                        "PROVISIONING_PROFILE_SPECIFIER": ""
+                    ]),
+                    .release(name: .release, settings: [
+                        "CODE_SIGN_IDENTITY": "iPhone Distribution",
+                        "PROVISIONING_PROFILE_SPECIFIER": ""
+                    ])
                 ]
             )
         )

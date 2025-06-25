@@ -1,5 +1,4 @@
 {
-    "swift.path": "/usr/bin/swift",
     "swift.buildPath": "./Derived",
     "swift.targetBuildPath": "./Derived",
     "swift.debuggerPath": "/usr/bin/lldb",
