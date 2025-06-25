@@ -7,7 +7,7 @@ let project = Project(
             name: "MagnusDomain",
             destinations: .iOS,
             product: .framework,
-            bundleId: "io.tuist.MagnusDomain",
+            bundleId: "pl.mz.magnus.MagnusDomain",
             infoPlist: .default,
             sources: ["Magnus/Domain/Sources/**"],
             resources: ["Magnus/Domain/Resources/**"],
@@ -17,7 +17,7 @@ let project = Project(
             name: "MagnusCore",
             destinations: .iOS,
             product: .framework,
-            bundleId: "io.tuist.MagnusCore",
+            bundleId: "pl.mz.magnus.MagnusCore",
             infoPlist: .default,
             sources: ["Magnus/Core/Sources/**"],
             resources: ["Magnus/Core/Resources/**"],
@@ -27,7 +27,7 @@ let project = Project(
             name: "MagnusFeatures",
             destinations: .iOS,
             product: .framework,
-            bundleId: "io.tuist.MagnusFeatures",
+            bundleId: "pl.mz.magnus.MagnusFeatures",
             infoPlist: .default,
             sources: ["Magnus/Features/Sources/**"],
             resources: ["Magnus/Features/Resources/**"],
@@ -37,7 +37,7 @@ let project = Project(
             name: "NovoNordiskApp",
             destinations: .iOS,
             product: .app,
-            bundleId: "io.tuist.NovoNordiskApp",
+            bundleId: "pl.mz.magnus.NovoNordiskApp",
             infoPlist: .extendingDefault(
                 with: [
                     "UILaunchScreen": [
@@ -58,7 +58,7 @@ let project = Project(
             name: "ChMApp",
             destinations: .iOS,
             product: .app,
-            bundleId: "io.tuist.ChMApp",
+            bundleId: "pl.mz.magnust.ChMApp",
             infoPlist: .extendingDefault(
                 with: [
                     "UILaunchScreen": [
