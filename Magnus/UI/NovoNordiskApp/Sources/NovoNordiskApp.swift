@@ -7,7 +7,7 @@ import MagnusCore
 struct NovoNordiskApp: App {
     var body: some Scene {
         WindowGroup {
-            NovoNordiskContentView()
+            SplashView()
         }
     }
 } 
