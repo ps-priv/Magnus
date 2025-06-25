@@ -38,4 +38,7 @@ extension User: Hashable {
 // MARK: - Identifiable
 extension User: Identifiable {
     public var identifier: String { id }
-} 
+}
+
+// MARK: - Codable
+extension User: Codable {} 
