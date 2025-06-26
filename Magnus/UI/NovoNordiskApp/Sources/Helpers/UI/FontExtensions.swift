@@ -38,16 +38,26 @@ extension Font {
     
     /// Mały tekst, opisy, podpisy
     static var novoNordiskCaption: Font {
-        return openSansLight(size: 14)
+        return openSansLight(size: 16)
+    }
+    
+    /// Pogrubiony tekst opisowy (np. etykiety pól)
+    static var novoNordiskCaptionBold: Font {
+        return openSansBold(size: 16)
     }
     
     /// Tekst na przyciskach
     static var novoNordiskButton: Font {
-        return openSansRegular(size: 16)
+        return openSansBold(size: 18)
+    }
+
+        /// Tekst na przyciskach
+    static var novoNordiskLinkButton: Font {
+        return openSansRegular(size: 18)
     }
     
-    /// Bardzo mały tekst
-    static var prze: Font {
+    /// Bardzo mały tekst, podpisy, helper text
+    static var novoNordiskFootnote: Font {
         return openSansLight(size: 12)
     }
 }

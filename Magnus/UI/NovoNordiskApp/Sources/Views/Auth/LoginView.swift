@@ -23,32 +23,25 @@ struct LoginView: View {
                     
                     // Login form
                     VStack(spacing: 24) {
-                        // Email field
+ 
                         VStack(alignment: .leading, spacing: 8) {
-                            Text("Email:")
-                                .font(.novoNordiskBody)
-                                .foregroundColor(.primary)
-                            
+
                             NovoNordiskTextBox(
                                 placeholder: "email@domena.pl",
                                 text: $email,
-                                style: .standard
+                                style: .withTitle("Email", bold: true),
                             )
                             .keyboardType(.emailAddress)
                             .textInputAutocapitalization(.never)
                         }
                         
-                        // Password field
+
                         VStack(alignment: .leading, spacing: 8) {
-                            Text("Hasło")
-                                .font(.novoNordiskBody)
-                                .foregroundColor(.primary)
-                            
                             NovoNordiskTextBox(
                                 placeholder: "••••••••••••",
                                 text: $password,
-                                style: .standard,
-                                isSecure: true
+                                style: .withTitle("Hasło", bold: true),
+                                isSecure: true,
                             )
                         }
                         
@@ -60,14 +53,14 @@ struct LoginView: View {
                             
                             NovoNordiskLinkButton(
                                 title: "Nie pamiętam hasła",
-                                style: .standard
+                                style: .underlined
                             ) {
                                 print("Forgot password tapped")
                             }
                             
                             Spacer()
                         }
-                        .padding(.top, 8)
+                        //.padding(.top, 8)
                         
                         // Buttons
                         VStack(spacing: 16) {
@@ -90,7 +83,7 @@ struct LoginView: View {
                             }
                             .disabled(isLoading)
                         }
-                        .padding(.top, 24)
+                        //.padding(.top, 12)
                     }
                     .padding(.horizontal, 24)
                     

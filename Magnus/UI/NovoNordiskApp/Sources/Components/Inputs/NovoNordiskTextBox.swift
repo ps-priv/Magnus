@@ -28,7 +28,7 @@ struct NovoNordiskTextBox: View {
         VStack(alignment: .leading, spacing: 4) {
             if !style.title.isEmpty {
                 Text(style.title)
-                    .font(.novoNordiskCaption)
+                    .font(style.titleFont)
                     .foregroundColor(Color("NovoNordiskBlue"))
             }
             
@@ -46,7 +46,7 @@ struct NovoNordiskTextBox: View {
             
             if !style.helperText.isEmpty {
                 Text(style.helperText)
-                   // .font(.novoNordiskFootnote)
+                    .font(.novoNordiskFootnote)
                     .foregroundColor(.gray)
             }
         }
@@ -75,19 +75,24 @@ private extension View {
 struct NovoNordiskTextBoxStyle {
     let title: String
     let helperText: String
+    let isTitleBold: Bool
     
-    static let standard = NovoNordiskTextBoxStyle(title: "", helperText: "")
+    static let standard = NovoNordiskTextBoxStyle(title: "", helperText: "", isTitleBold: false)
     
-    static func withTitle(_ title: String) -> NovoNordiskTextBoxStyle {
-        NovoNordiskTextBoxStyle(title: title, helperText: "")
+    static func withTitle(_ title: String, bold: Bool = false) -> NovoNordiskTextBoxStyle {
+        NovoNordiskTextBoxStyle(title: title, helperText: "", isTitleBold: bold)
     }
     
     static func withHelper(_ helperText: String) -> NovoNordiskTextBoxStyle {
-        NovoNordiskTextBoxStyle(title: "", helperText: helperText)
+        NovoNordiskTextBoxStyle(title: "", helperText: helperText, isTitleBold: false)
     }
     
-    static func complete(title: String, helperText: String) -> NovoNordiskTextBoxStyle {
-        NovoNordiskTextBoxStyle(title: title, helperText: helperText)
+    static func complete(title: String, helperText: String, boldTitle: Bool = false) -> NovoNordiskTextBoxStyle {
+        NovoNordiskTextBoxStyle(title: title, helperText: helperText, isTitleBold: boldTitle)
+    }
+    
+    var titleFont: Font {
+        return isTitleBold ? .novoNordiskCaptionBold : .novoNordiskCaption
     }
 }
 
@@ -100,11 +105,11 @@ struct NovoNordiskTextBoxStyle {
             text: .constant("")
         )
         
-        // With title
+        // With title (bold)
         NovoNordiskTextBox(
             placeholder: "jan.kowalski@email.com",
             text: .constant(""),
-            style: .withTitle("Email")
+            style: .withTitle("Email", bold: true),
         )
         
         // With helper text
@@ -114,19 +119,19 @@ struct NovoNordiskTextBoxStyle {
             style: .withHelper("Hasło musi zawierać co najmniej 8 znaków")
         )
         
-        // Complete with title and helper
+        // Complete with title and helper (bold title)
         NovoNordiskTextBox(
             placeholder: "Potwierdź hasło",
             text: .constant(""),
-            style: .complete(title: "Powtórz hasło", helperText: "Hasła muszą być identyczne"),
+            style: .complete(title: "Powtórz hasło", helperText: "Hasła muszą być identyczne", boldTitle: true),
             isSecure: true
         )
         
-        // Filled example
+        // Filled example (normal title)
         NovoNordiskTextBox(
             placeholder: "Nazwa użytkownika",
             text: .constant("jan.kowalski"),
-            style: .withTitle("Użytkownik")
+            style: .withTitle("Użytkownik", bold: false)
         )
     }
     .padding()
