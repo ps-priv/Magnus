@@ -20,13 +20,13 @@ let project = Project(
             dependencies: []
         ),
         .target(
-            name: "MagnusCore",
+            name: "MagnusApplication",
             destinations: .iOS,
             product: .framework,
-            bundleId: "pl.mz.magnus.MagnusCore",
+            bundleId: "pl.mz.magnus.MagnusApplication",
             infoPlist: .default,
-            sources: ["Magnus/Core/Sources/**"],
-            resources: ["Magnus/Core/Resources/**"],
+            sources: ["Magnus/Application/Sources/**"],
+            resources: ["Magnus/Application/Resources/**"],
             dependencies: [.target(name: "MagnusDomain")],
         ),
         .target(
@@ -39,7 +39,7 @@ let project = Project(
             resources: ["Magnus/Features/Resources/**"],
             dependencies: [
                 .target(name: "MagnusDomain"), 
-                .target(name: "MagnusCore"),
+                .target(name: "MagnusApplication"),
                 .package(product: "Swinject")],
         ),
         .target(
@@ -70,7 +70,7 @@ let project = Project(
             sources: ["Magnus/UI/NovoNordiskApp/Sources/**"],
             resources: ["Magnus/UI/NovoNordiskApp/Resources/**"],
             dependencies: [
-                .target(name: "MagnusCore"), 
+                .target(name: "MagnusApplication"), 
                 .target(name: "MagnusDomain"), 
                 .target(name: "MagnusFeatures"),
             ],
@@ -108,7 +108,7 @@ let project = Project(
             ),
             sources: ["Magnus/UI/ChMApp/Sources/**"],
             resources: ["Magnus/UI/ChMApp/Resources/**"],
-            dependencies: [.target(name: "MagnusCore"), .target(name: "MagnusDomain"), .target(name: "MagnusFeatures")],
+            dependencies: [.target(name: "MagnusApplication"), .target(name: "MagnusDomain"), .target(name: "MagnusFeatures")],
             settings: .settings(
                 base: [
                     "ASSETCATALOG_COMPILER_APPICON_NAME": "AppIconChMApp",
