@@ -53,6 +53,13 @@ let project = Project(
                         "UIColorName": "",
                         "UIImageName": "",
                     ],
+                    "UIAppFonts": [
+                        "FontAwesome6Brands-Regular-400.otf",
+                        "FontAwesome6Pro-Light-300.otf", 
+                        "FontAwesome6Pro-Regular-400.otf",
+                        "FontAwesome6Pro-Solid-900.otf",
+                        "FontAwesome6Pro-Thin-100.otf"
+                    ]
                 ]
             ),
             sources: ["Magnus/UI/NovoNordiskApp/Sources/**"],
