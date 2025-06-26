@@ -60,7 +60,8 @@ let project = Project(
                         "FontAwesome6Pro-Solid-900.otf",
                         "FontAwesome6Pro-Thin-100.otf",
                         "OpenSans-Light.ttf",
-                        "OpenSans-Regular.ttf"
+                        "OpenSans-Regular.ttf",
+                        "OpenSans-Bold.ttf"
                     ]
                 ]
             ),

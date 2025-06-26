@@ -14,11 +14,16 @@ extension Font {
         return .custom("OpenSans-Light", size: size)
     }
     
+    /// OpenSans Bold czcionka z różnymi rozmiarami
+    static func openSansBold(size: CGFloat) -> Font {
+        return .custom("OpenSans-Bold", size: size)
+    }
+    
     // MARK: - NovoNordisk Default Typography Styles
     
     /// Główny tytuł aplikacji - duży, pogrubiony
     static var novoNordiskTitle: Font {
-        return openSansRegular(size: 28)
+        return openSansBold(size: 36)
     }
     
     /// Nagłówek sekcji
