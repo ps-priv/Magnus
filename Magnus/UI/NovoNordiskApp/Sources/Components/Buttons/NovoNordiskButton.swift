@@ -22,7 +22,7 @@ struct NovoNordiskButton: View {
     var body: some View {
         Button(action: action) {
             Text(title)
-                .font(.system(size: 16, weight: .semibold))
+                .font(.novoNordiskButton)
                 .foregroundColor(style.textColor)
                 .frame(maxWidth: .infinity)
                 .frame(height: 50)

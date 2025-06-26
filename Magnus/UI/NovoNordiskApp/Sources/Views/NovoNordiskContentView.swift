@@ -9,12 +9,11 @@ struct NovoNordiskContentView: View {
             NavigationView {
                 VStack(spacing: 20) {
                     Text("Novo Nordisk App")
-                        .font(.largeTitle)
-                        .fontWeight(.bold)
+                        .font(.novoNordiskTitle)
                         .foregroundColor(Color("NovoNordiskBlue"))
 
                     Text(welcome)
-                        .font(.body)
+                        .font(.novoNordiskBody)
                         .foregroundColor(.gray)
 
                     NovoNordiskButton(title: "Zaloguj uzytkownika", style: .primary) {

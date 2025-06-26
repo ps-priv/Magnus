@@ -49,15 +49,15 @@ enum NovoNordiskLinkButtonStyle {
     var font: Font {
         switch self {
         case .standard:
-            return .system(size: 16, weight: .medium)
+            return .novoNordiskButton
         case .small:
-            return .system(size: 14, weight: .medium)
+            return .novoNordiskCaption
         case .large:
-            return .system(size: 18, weight: .semibold)
+            return .novoNordiskHeadline
         case .underlined:
-            return .system(size: 16, weight: .medium)
+            return .novoNordiskButton
         case .subtitle:
-            return .system(size: 14, weight: .regular)
+            return .novoNordiskCaption
         }
     }
     

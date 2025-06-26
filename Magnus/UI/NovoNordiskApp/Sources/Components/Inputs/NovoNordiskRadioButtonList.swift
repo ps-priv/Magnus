@@ -213,24 +213,24 @@ enum NovoNordiskRadioButtonStyle {
     }
     
     var titleFont: Font {
-        return .system(size: 16, weight: .semibold)
+        return .novoNordiskButton
     }
     
     var optionFont: Font {
         switch self {
         case .standard, .card:
-            return .system(size: 16, weight: .medium)
+            return .novoNordiskBody
         case .compact:
-            return .system(size: 14, weight: .medium)
+            return .novoNordiskCaption
         }
     }
     
     var subtitleFont: Font {
         switch self {
         case .standard, .card:
-            return .system(size: 14, weight: .regular)
+            return .novoNordiskCaption
         case .compact:
-            return .system(size: 12, weight: .regular)
+            return .novoNordiskFootnote
         }
     }
     

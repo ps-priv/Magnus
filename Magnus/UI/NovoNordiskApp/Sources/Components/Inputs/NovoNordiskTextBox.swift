@@ -28,7 +28,7 @@ struct NovoNordiskTextBox: View {
         VStack(alignment: .leading, spacing: 4) {
             if !style.title.isEmpty {
                 Text(style.title)
-                    .font(.system(size: 14, weight: .medium))
+                    .font(.novoNordiskCaption)
                     .foregroundColor(Color("NovoNordiskBlue"))
             }
             
@@ -46,7 +46,7 @@ struct NovoNordiskTextBox: View {
             
             if !style.helperText.isEmpty {
                 Text(style.helperText)
-                    .font(.system(size: 12))
+                    .font(.novoNordiskFootnote)
                     .foregroundColor(.gray)
             }
         }
@@ -57,7 +57,7 @@ struct NovoNordiskTextBox: View {
 private extension View {
     func textFieldStyle() -> some View {
         self
-            .font(.system(size: 16))
+            .font(.novoNordiskBody)
             .foregroundColor(Color("NovoNordiskBlue"))
             .padding(.horizontal, 12)
             .padding(.vertical, 14)

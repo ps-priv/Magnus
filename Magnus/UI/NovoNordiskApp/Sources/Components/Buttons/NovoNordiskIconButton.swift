@@ -149,11 +149,11 @@ enum NovoNordiskIconButtonStyle {
     var textFont: Font {
         switch self {
         case .primary, .secondary, .outline:
-            return .system(size: 16, weight: .semibold)
+            return .novoNordiskButton
         case .iconOnly:
-            return .system(size: 16, weight: .semibold)
+            return .novoNordiskButton
         case .small:
-            return .system(size: 14, weight: .medium)
+            return .novoNordiskCaption
         }
     }
     
