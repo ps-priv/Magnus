@@ -1,30 +1,27 @@
 import SwiftUI
 
-struct ChMContentView: View {
+struct NovoNordiskContentView: View {
 
     var body: some View {
         NavigationView {
             VStack(spacing: 20) {
-                Text("ChM App")
+                Text("Novo Nordisk App")
                     .font(.largeTitle)
                     .fontWeight(.bold)
-                    .foregroundColor(.green)
+                    .foregroundColor(.blue)
                 
-             
-                Spacer()
+                    Spacer()
             }
             .padding()
-            .navigationTitle("ChM")
             .onAppear {
 
-                
             }
         }
     }
 }
 
-struct ChMContentView_Previews: PreviewProvider {
+struct NovoNordiskContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ChMContentView()
+        NovoNordiskContentView()
     }
 } 
