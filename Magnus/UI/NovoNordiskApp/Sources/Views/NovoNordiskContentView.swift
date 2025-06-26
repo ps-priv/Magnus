@@ -1,32 +1,57 @@
 import SwiftUI
 
 struct NovoNordiskContentView: View {
-
     @State private var welcome = "Kliknij przycisk aby zalogować się"
 
     var body: some View {
-        NavigationView {
-            VStack(spacing: 20) {
-                Text("Novo Nordisk App")
-                    .font(.largeTitle)
-                    .fontWeight(.bold)
-                    .foregroundColor(.blue)
+        TabView {
+            // Home tab
+            NavigationView {
+                VStack(spacing: 20) {
+                    Text("Novo Nordisk App")
+                        .font(.largeTitle)
+                        .fontWeight(.bold)
+                        .foregroundColor(Color("NovoNordiskBlue"))
 
-                Text(welcome)
-                    .font(.body)
-                    .foregroundColor(.gray)
+                    Text(welcome)
+                        .font(.body)
+                        .foregroundColor(.gray)
 
-                NovoNordiskButton(title: "Zaloguj uzytkownika", style: .primary) {
-                    print("Zaloguj uzytkownika")
-                }
+                    NovoNordiskButton(title: "Zaloguj uzytkownika", style: .primary) {
+                        print("Zaloguj uzytkownika")
+                    }
 
                     Spacer()
+                }
+                .padding()
             }
-            .padding()
-            .onAppear {
-
+            .tabItem {
+                FAIcon(.home, type: .light)
+                Text("Home")
             }
+            
+            // Buttons examples
+            ButtonExamplesView()
+                .tabItem {
+                    FAIcon(.bell, type: .light)
+                    Text("Buttons")
+                }
+            
+            // Text boxes examples
+            TextBoxExamplesView()
+                .tabItem {
+                    FAIcon(.calendar, type: .light)
+                    Text("Text Boxes")
+                }
+            
+            // Radio buttons examples
+            RadioButtonExamplesView()
+                .tabItem {
+                    FAIcon(.chartLine, type: .light)
+                    Text("Radio Buttons")
+                }
         }
+        .accentColor(Color("NovoNordiskBlue"))
     }
 }
 
