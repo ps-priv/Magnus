@@ -46,7 +46,7 @@ struct SplashView: View {
             startSplashAnimation()
         }
         .fullScreenCover(isPresented: $isActive) {
-            NovoNordiskContentView()
+            LoginView()
         }
     }
     

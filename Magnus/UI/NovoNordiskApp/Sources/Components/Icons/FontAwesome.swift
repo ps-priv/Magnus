@@ -18,6 +18,10 @@ struct FontAwesome {
     
     // MARK: - Common Icons
     enum Icon: String {
+        // NovoNordisk Icons
+        case questionCircle = "\u{f059}"
+        case signIn = "\u{f090}"
+
         // Navigation
         case home = "\u{f015}"
         case back = "\u{f060}"

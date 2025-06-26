@@ -46,7 +46,7 @@ struct NovoNordiskTextBox: View {
             
             if !style.helperText.isEmpty {
                 Text(style.helperText)
-                    .font(.novoNordiskFootnote)
+                   // .font(.novoNordiskFootnote)
                     .foregroundColor(.gray)
             }
         }

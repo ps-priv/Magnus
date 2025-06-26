@@ -42,7 +42,7 @@ extension Font {
     }
     
     /// Bardzo mały tekst
-    static var novoNordiskFootnote: Font {
+    static var prze: Font {
         return openSansLight(size: 12)
     }
 }

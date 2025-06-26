@@ -49,6 +49,7 @@ struct NovoNordiskContentView: View {
                     FAIcon(.chartLine, type: .light)
                     Text("Radio Buttons")
                 }
+    
         }
         .accentColor(Color("NovoNordiskBlue"))
     }

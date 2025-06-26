@@ -230,7 +230,8 @@ enum NovoNordiskRadioButtonStyle {
         case .standard, .card:
             return .novoNordiskCaption
         case .compact:
-            return .novoNordiskFootnote
+            return .novoNordiskCaption
+          //  return .novoNordiskFootnote
         }
     }
     
