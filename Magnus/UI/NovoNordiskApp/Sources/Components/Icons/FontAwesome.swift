@@ -73,7 +73,7 @@ struct FontAwesome {
     // MARK: - Create Icon View
     static func icon(
         _ icon: Icon, 
-        type: FontType = .solid, 
+        type: FontType = .light, 
         size: CGFloat = 16, 
         color: Color = Color("NovoNordiskBlue")
     ) -> some View {
@@ -106,7 +106,7 @@ struct FAIcon: View {
     
     init(
         _ icon: FontAwesome.Icon,
-        type: FontAwesome.FontType = .solid,
+        type: FontAwesome.FontType = .light,
         size: CGFloat = 16,
         color: Color = Color("NovoNordiskBlue")
     ) {
