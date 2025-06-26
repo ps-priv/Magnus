@@ -1,0 +1,31 @@
+/* Login View */
+"LOGIN_TITLE" = "ZALOGUJ";
+"EMAIL_LABEL" = "Email";
+"EMAIL_PLACEHOLDER" = "email@domena.pl";
+"PASSWORD_LABEL" = "Hasło";
+"PASSWORD_PLACEHOLDER" = "••••••••••••";
+"FORGOT_PASSWORD" = "Nie pamiętam hasła";
+"LOGIN_BUTTON" = "Zaloguj";
+"REGISTER_BUTTON" = "Zarejestruj";
+
+/* Common */
+"LOADING" = "Ładowanie...";
+"ERROR" = "Błąd";
+"OK" = "OK";
+"CANCEL" = "Anuluj";
+
+/* Validation */
+"FIELD_REQUIRED" = "To pole jest wymagane";
+"INVALID_EMAIL" = "Nieprawidłowy format email";
+"PASSWORD_TOO_SHORT" = "Hasło musi mieć co najmniej 6 znaków";
+
+/* Main App */
+"APP_TITLE" = "Novo Nordisk App";
+"WELCOME_MESSAGE" = "Kliknij przycisk aby zalogować się";
+"LOGIN_USER_BUTTON" = "Zaloguj użytkownika";
+
+/* Tab Bar */
+"TAB_HOME" = "Główna";
+"TAB_BUTTONS" = "Przyciski";
+"TAB_TEXT_BOXES" = "Pola tekstowe";
+"TAB_RADIO_BUTTONS" = "Przyciski radio"; 

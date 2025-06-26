@@ -13,7 +13,7 @@ struct LoginView: View {
                     // Top section with logo and title
                     VStack(spacing: 24) {
                         // Title
-                        Text("ZALOGUJ")
+                        Text(LocalizedStrings.loginTitle)
                             .font(.novoNordiskTitle)
                             .foregroundColor(Color("NovoNordiskBlue"))
                             .tracking(2)
@@ -27,9 +27,9 @@ struct LoginView: View {
                         VStack(alignment: .leading, spacing: 8) {
 
                             NovoNordiskTextBox(
-                                placeholder: "email@domena.pl",
+                                placeholder: LocalizedStrings.emailPlaceholder,
                                 text: $email,
-                                style: .withTitle("Email", bold: true),
+                                style: .withTitle(LocalizedStrings.emailLabel, bold: true),
                             )
                             .keyboardType(.emailAddress)
                             .textInputAutocapitalization(.never)
@@ -38,9 +38,9 @@ struct LoginView: View {
 
                         VStack(alignment: .leading, spacing: 8) {
                             NovoNordiskTextBox(
-                                placeholder: "••••••••••••",
+                                placeholder: LocalizedStrings.passwordPlaceholder,
                                 text: $password,
-                                style: .withTitle("Hasło", bold: true),
+                                style: .withTitle(LocalizedStrings.passwordLabel, bold: true),
                                 isSecure: true,
                             )
                         }
@@ -52,7 +52,7 @@ struct LoginView: View {
                                 .font(.system(size: 16))
                             
                             NovoNordiskLinkButton(
-                                title: "Nie pamiętam hasła",
+                                title: LocalizedStrings.forgotPassword,
                                 style: .underlined
                             ) {
                                 print("Forgot password tapped")
@@ -66,7 +66,7 @@ struct LoginView: View {
                         VStack(spacing: 16) {
                             // Login button
                             NovoNordiskButton(
-                                title: "Zaloguj",
+                                title: LocalizedStrings.loginButton,
                                 style: .primary,
                                 isEnabled: !email.isEmpty && !password.isEmpty && !isLoading
                             ) {
@@ -76,7 +76,7 @@ struct LoginView: View {
                             
                             // Register button
                             NovoNordiskButton(
-                                title: "Zarejestruj",
+                                title: LocalizedStrings.registerButton,
                                 style: .outline
                             ) {
                                 registerAction()

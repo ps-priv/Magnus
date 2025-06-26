@@ -1,0 +1,31 @@
+/* Login View */
+"LOGIN_TITLE" = "LOGIN";
+"EMAIL_LABEL" = "Email";
+"EMAIL_PLACEHOLDER" = "email@domain.com";
+"PASSWORD_LABEL" = "Password";
+"PASSWORD_PLACEHOLDER" = "••••••••••••";
+"FORGOT_PASSWORD" = "Forgot password";
+"LOGIN_BUTTON" = "Login";
+"REGISTER_BUTTON" = "Register";
+
+/* Common */
+"LOADING" = "Loading...";
+"ERROR" = "Error";
+"OK" = "OK";
+"CANCEL" = "Cancel";
+
+/* Validation */
+"FIELD_REQUIRED" = "This field is required";
+"INVALID_EMAIL" = "Invalid email format";
+"PASSWORD_TOO_SHORT" = "Password must be at least 6 characters";
+
+/* Main App */
+"APP_TITLE" = "Novo Nordisk App";
+"WELCOME_MESSAGE" = "Click the button to log in";
+"LOGIN_USER_BUTTON" = "Login User";
+
+/* Tab Bar */
+"TAB_HOME" = "Home";
+"TAB_BUTTONS" = "Buttons";
+"TAB_TEXT_BOXES" = "Text Boxes";
+"TAB_RADIO_BUTTONS" = "Radio Buttons"; 

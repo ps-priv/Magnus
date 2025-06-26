@@ -1,23 +1,21 @@
 import SwiftUI
 
 struct NovoNordiskContentView: View {
-    @State private var welcome = "Kliknij przycisk aby zalogować się"
-
     var body: some View {
         TabView {
             // Home tab
             NavigationView {
                 VStack(spacing: 20) {
-                    Text("Novo Nordisk App")
+                    Text(LocalizedStrings.appTitle)
                         .font(.novoNordiskTitle)
                         .foregroundColor(Color("NovoNordiskBlue"))
 
-                    Text(welcome)
+                    Text(LocalizedStrings.welcomeMessage)
                         .font(.novoNordiskBody)
                         .foregroundColor(.gray)
 
-                    NovoNordiskButton(title: "Zaloguj uzytkownika", style: .primary) {
-                        print("Zaloguj uzytkownika")
+                    NovoNordiskButton(title: LocalizedStrings.loginUserButton, style: .primary) {
+                        print("Login user button tapped")
                     }
 
                     Spacer()
@@ -26,28 +24,28 @@ struct NovoNordiskContentView: View {
             }
             .tabItem {
                 FAIcon(.home, type: .light)
-                Text("Home")
+                Text(LocalizedStrings.tabHome)
             }
             
             // Buttons examples
             ButtonExamplesView()
                 .tabItem {
                     FAIcon(.bell, type: .light)
-                    Text("Buttons")
+                    Text(LocalizedStrings.tabButtons)
                 }
             
             // Text boxes examples
             TextBoxExamplesView()
                 .tabItem {
                     FAIcon(.calendar, type: .light)
-                    Text("Text Boxes")
+                    Text(LocalizedStrings.tabTextBoxes)
                 }
             
             // Radio buttons examples
             RadioButtonExamplesView()
                 .tabItem {
                     FAIcon(.chartLine, type: .light)
-                    Text("Radio Buttons")
+                    Text(LocalizedStrings.tabRadioButtons)
                 }
                 
         }

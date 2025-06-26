@@ -62,7 +62,9 @@ let project = Project(
                         "OpenSans-Light.ttf",
                         "OpenSans-Regular.ttf",
                         "OpenSans-Bold.ttf"
-                    ]
+                    ],
+                    "CFBundleLocalizations": ["en", "pl"],
+                    "CFBundleDevelopmentRegion": "en"
                 ]
             ),
             sources: ["Magnus/UI/NovoNordiskApp/Sources/**"],
