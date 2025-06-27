@@ -45,7 +45,7 @@ public struct AuthUser: Codable {
         return "\(first) \(last)".trimmingCharacters(in: .whitespaces)
     }
 
-    public var role: String {
+    public var roleName: String {
         switch role {
         case .uczestnik:
             return "Uczestnik wydarzenia"

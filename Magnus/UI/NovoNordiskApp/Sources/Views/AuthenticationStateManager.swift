@@ -1,8 +1,8 @@
 import SwiftUI
+import MagnusDomain
 import MagnusFeatures
 import Combine
 
-@MainActor
 class AuthenticationStateManager: ObservableObject {
     @Published var isAuthenticated: Bool = false
     @Published var isCheckingAuthentication: Bool = true
@@ -14,6 +14,7 @@ class AuthenticationStateManager: ObservableObject {
         self.authStorageService = DIContainer.shared.authStorageService
     }
     
+    @MainActor
     func checkAuthenticationStatus() {
         isCheckingAuthentication = true
         
@@ -43,6 +44,7 @@ class AuthenticationStateManager: ObservableObject {
         }
     }
     
+    @MainActor
     func setAuthenticated(_ authenticated: Bool) {
         isAuthenticated = authenticated
     }
