@@ -52,10 +52,6 @@ struct LoginView: View {
                         
                         // Forgot password link
                         HStack {
-                            FAIcon(.questionCircle, type: .light)
-                                .foregroundColor(Color("NovoNordiskBlue"))
-                                .font(.system(size: 16))
-                            
                             NovoNordiskLinkButton(
                                 title: LocalizedStrings.forgotPassword,
                                 style: .underlined

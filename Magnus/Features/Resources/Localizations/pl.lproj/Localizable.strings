@@ -1,0 +1,10 @@
+/* Auth Errors */
+"AUTH_ERROR_INVALID_CREDENTIALS" = "Niepoprawny email lub hasło";
+"AUTH_ERROR_INVALID_EMAIL" = "Niepoprawny format adresu email";
+"AUTH_ERROR_PASSWORD_TOO_SHORT" = "Hasło jest zbyt krótkie";
+"AUTH_ERROR_NETWORK_ERROR" = "Błąd połączenia: %@";
+"AUTH_ERROR_USER_NOT_FOUND" = "Nie znaleziono użytkownika";
+"AUTH_ERROR_SERVER_ERROR" = "Błąd serwera (%d)";
+"AUTH_ERROR_UNKNOWN" = "Wystąpił nieznany błąd";
+"AUTH_ERROR_LOGOUT_FAILED" = "Wylogowanie nieudane";
+"AUTH_ERROR_LOGIN_FAILED" = "Błąd logowania"; 

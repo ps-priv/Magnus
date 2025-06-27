@@ -34,7 +34,12 @@ let project = Project(
             destinations: .iOS,
             product: .framework,
             bundleId: "pl.mz.magnus.MagnusFeatures",
-            infoPlist: .default,
+            infoPlist: .extendingDefault(
+                with: [
+                    "CFBundleLocalizations": ["en", "pl"],
+                    "CFBundleDevelopmentRegion": "en"
+                ]
+            ),
             sources: ["Magnus/Features/Sources/**"],
             resources: ["Magnus/Features/Resources/**"],
             dependencies: [

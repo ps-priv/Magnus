@@ -132,9 +132,9 @@ public class LoginViewModel: ObservableObject {
                 clearForm()
             }
             
-        } catch {
+                    } catch {
             await MainActor.run {
-                errorMessage = "Logout failed: \(error.localizedDescription)"
+                errorMessage = FeaturesLocalizedStrings.logoutFailed
                 isLoading = false
             }
         }
@@ -171,19 +171,19 @@ public class LoginViewModel: ObservableObject {
         
         switch error {
         case .invalidCredentials:
-            message = "Niepoprawny email lub hasło"
+            message = FeaturesLocalizedStrings.invalidCredentials
         case .invalidEmail:
-            message = "Niepoprawny format adresu email"
+            message = FeaturesLocalizedStrings.invalidEmail
         case .passwordTooShort:
-            message = "Hasło jest zbyt krótkie"
+            message = FeaturesLocalizedStrings.passwordTooShort
         case .networkError(let details):
-            message = "Błąd połączenia: \(details)"
+            message = FeaturesLocalizedStrings.networkError(details)
         case .userNotFound:
-            message = "Nie znaleziono użytkownika"
+            message = FeaturesLocalizedStrings.userNotFound
         case .serverError(let code):
-            message = "Błąd serwera (\(code))"
+            message = FeaturesLocalizedStrings.serverError(code)
         case .unknown:
-            message = "Wystąpił nieznany błąd"
+            message = FeaturesLocalizedStrings.unknownError
         }
         
         await MainActor.run {
@@ -194,7 +194,7 @@ public class LoginViewModel: ObservableObject {
     
     private func handleGenericError(_ error: Error) async {
         await MainActor.run {
-            errorMessage = "Błąd logowania: \(error.localizedDescription)"
+            errorMessage = FeaturesLocalizedStrings.loginFailed
             isLoading = false
         }
     }

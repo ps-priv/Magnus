@@ -1,0 +1,10 @@
+/* Auth Errors */
+"AUTH_ERROR_INVALID_CREDENTIALS" = "Invalid email or password";
+"AUTH_ERROR_INVALID_EMAIL" = "Invalid email format";
+"AUTH_ERROR_PASSWORD_TOO_SHORT" = "Password is too short";
+"AUTH_ERROR_NETWORK_ERROR" = "Connection error: %@";
+"AUTH_ERROR_USER_NOT_FOUND" = "User not found";
+"AUTH_ERROR_SERVER_ERROR" = "Server error (%d)";
+"AUTH_ERROR_UNKNOWN" = "An unknown error occurred";
+"AUTH_ERROR_LOGOUT_FAILED" = "Logout failed";
+"AUTH_ERROR_LOGIN_FAILED" = "Login error"; 
