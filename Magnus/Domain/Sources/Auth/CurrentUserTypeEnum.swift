@@ -1,6 +1,6 @@
 import Foundation
 
-public enum CurrentUserTypeEnum {
-    case uczestnik
-    case przedstawiciel
+public enum CurrentUserTypeEnum: Int, Codable {
+    case uczestnik = 1
+    case przedstawiciel = 2
 }

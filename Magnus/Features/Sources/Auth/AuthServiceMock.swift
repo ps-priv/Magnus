@@ -25,7 +25,8 @@ public class AuthServiceMock: AuthService {
     private let validCredentials = [
         "user1@test.pl": "test123",
         "user2@test.pl": "test123",
-        "user3@test.pl": "test123"
+        "user3@test.pl": "test123",
+        "przedstawiciel@test.pl": "test123"
     ]
 
     
@@ -127,28 +128,40 @@ public class AuthServiceMock: AuthService {
                 id: "3F7A9B2E-8C45-4D91-B6E3-7F2A5C8E9D14",
                 email: email,
                 firstName: "Jan",
-                lastName: "Kowalski"
+                lastName: "Kowalski",
+                role: .uczestnik
             )
         case "user2@test.pl":
             return AuthUser(
                 id: "A8D6F3B1-2E7C-4598-9A42-6B8E3F5D7C91",
                 email: email,
                 firstName: "Jan",
-                lastName: "Nowak"
+                lastName: "Nowak",
+                role: .uczestnik
             )
         case "user3@test.pl":
             return AuthUser(
                 id: "5C9E2A47-B3D8-4F61-8E29-4A7B6C9F2E85",
                 email: email,
                 firstName: "Anna",
-                lastName: "Kowalska"
+                lastName: "Kowalska",
+                role: .uczestnik
+            )
+        case "przedstawiciel@test.pl":
+            return AuthUser(
+                id: "F2B8D4A6-7E51-49C3-A296-8D5F1B7E4A92",
+                email: email,
+                firstName: "Józef",
+                lastName: "Kowalski",
+                role: .przedstawiciel
             )
         default:
             return AuthUser(
                 id: "F2B8D4A6-7E51-49C3-A296-8D5F1B7E4A92",
                 email: email,
                 firstName: "Nieznany",
-                lastName: "User"
+                lastName: "User",
+                role: .uczestnik
             )
         }
     }
@@ -163,7 +176,8 @@ public extension AuthServiceMock {
         return [
             ("user1@test.pl", "test123"),
             ("user2@test.pl", "test123"),
-            ("user3@test.pl", "test123")
+            ("user3@test.pl", "test123"),
+            ("przedstawiciel@test.pl", "test123")
         ]
     }
     

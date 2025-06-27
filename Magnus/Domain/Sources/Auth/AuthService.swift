@@ -27,20 +27,31 @@ public struct AuthResponse {
 public struct AuthUser: Codable {
     public let id: String
     public let email: String
-    public let firstName: String?
-    public let lastName: String?
+    public let firstName: String
+    public let lastName: String
+    public let role: CurrentUserTypeEnum
     
-    public init(id: String, email: String, firstName: String? = nil, lastName: String? = nil) {
+    public init(id: String, email: String, firstName: String, lastName: String, role: CurrentUserTypeEnum = .uczestnik) {
         self.id = id
         self.email = email
         self.firstName = firstName
         self.lastName = lastName
+        self.role = role
     }
     
     public var fullName: String {
         let first = firstName ?? ""
         let last = lastName ?? ""
         return "\(first) \(last)".trimmingCharacters(in: .whitespaces)
+    }
+
+    public var role: String {
+        switch role {
+        case .uczestnik:
+            return "Uczestnik wydarzenia"
+        case .przedstawiciel:
+            return "Przedstawiciel firmy"
+        }
     }
 }
 
