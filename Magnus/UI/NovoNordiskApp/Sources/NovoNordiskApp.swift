@@ -12,7 +12,7 @@ struct NovoNordiskApp: App {
     
     var body: some Scene {
         WindowGroup {
-            SplashView()
+            RootView()
                 .novoNordiskTypography()
         }
     }

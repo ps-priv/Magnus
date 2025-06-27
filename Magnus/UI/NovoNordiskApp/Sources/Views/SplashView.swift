@@ -2,7 +2,8 @@ import SwiftUI
 import Foundation
 
 struct SplashView: View {
-    @State private var isActive = false
+    let onAnimationComplete: () -> Void
+    
     @State private var ballOpacity = 1.0
     @State private var ballOffset: CGFloat = -200
     @State private var ballScale = 0.1
@@ -10,6 +11,10 @@ struct SplashView: View {
     @State private var logoScale = 0.0
     @State private var backgroundOpacity = 1.0
     @State private var showLogo = false
+    
+    init(onAnimationComplete: @escaping () -> Void = {}) {
+        self.onAnimationComplete = onAnimationComplete
+    }
     
     var body: some View {
         ZStack {
@@ -45,9 +50,6 @@ struct SplashView: View {
         .onAppear {
             startSplashAnimation()
         }
-        .fullScreenCover(isPresented: $isActive) {
-            LoginView()
-        }
     }
     
     private func startSplashAnimation() {
@@ -66,14 +68,14 @@ struct SplashView: View {
             }
         }
         
-        // Phase 3: Transition to main view
+        // Phase 3: Complete animation and notify parent
         DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
             withAnimation(.easeInOut(duration: 0.5)) {
                 backgroundOpacity = 0.0
             }
             
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                isActive = true
+                onAnimationComplete()
             }
         }
     }

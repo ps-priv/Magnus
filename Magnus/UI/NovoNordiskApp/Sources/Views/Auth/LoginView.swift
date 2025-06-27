@@ -2,8 +2,14 @@ import SwiftUI
 import MagnusFeatures
 
 struct LoginView: View {
+    let onAuthenticationSuccess: () -> Void
+    
     @StateObject private var viewModel = LoginViewModel()
     @State private var showError = false
+    
+    init(onAuthenticationSuccess: @escaping () -> Void = {}) {
+        self.onAuthenticationSuccess = onAuthenticationSuccess
+    }
     
     var body: some View {
         GeometryReader { geometry in
@@ -117,8 +123,10 @@ struct LoginView: View {
         }
         .background(Color.white)
         .ignoresSafeArea(.keyboard, edges: .bottom)
-        .fullScreenCover(isPresented: $viewModel.isAuthenticated) {
-            NovoNordiskContentView()
+        .onChange(of: viewModel.isAuthenticated) { isAuthenticated in
+            if isAuthenticated {
+                onAuthenticationSuccess()
+            }
         }
     }
     
