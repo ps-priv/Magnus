@@ -1,5 +1,46 @@
 import Foundation
 
+// MARK: - Storage Keys
+
+public enum AuthStorageKey: String, CaseIterable {
+    case accessToken = "auth_access_token"
+    case refreshToken = "auth_refresh_token"
+    case userData = "auth_user_data"
+    case isAuthenticated = "auth_is_authenticated"
+    case tokenExpirationDate = "auth_token_expiration"
+    
+    public var keychain: String {
+        return "pl.mz.magnus.\(self.rawValue)"
+    }
+}
+
+// MARK: - Storage Errors
+
+public enum AuthStorageError: Error, LocalizedError {
+    case keyNotFound
+    case invalidData
+    case encodingFailed
+    case decodingFailed
+    case keychainError(OSStatus)
+    case userDefaultsError
+    
+    public var errorDescription: String? {
+        switch self {
+        case .keyNotFound:
+            return "Storage key not found"
+        case .invalidData:
+            return "Invalid data format"
+        case .encodingFailed:
+            return "Failed to encode data"
+        case .decodingFailed:
+            return "Failed to decode data"
+        case .keychainError(let status):
+            return "Keychain error: \(status)"
+        case .userDefaultsError:
+            return "UserDefaults error"
+        }
+    }
+}
 
 // MARK: - AuthStorageService Protocol
 
@@ -49,7 +90,13 @@ public protocol AuthStorageService {
     /// - Throws: AuthStorageError if retrieval fails
     func getUserData() throws -> AuthUser?
     
-
+    // MARK: - Authentication State
+    
+    /// Sets authentication state
+    /// - Parameter isAuthenticated: Authentication status
+    /// - Throws: AuthStorageError if save fails
+    func setAuthenticated(_ isAuthenticated: Bool) throws
+    
     /// Checks if user is authenticated
     /// - Returns: Authentication status
     /// - Throws: AuthStorageError if retrieval fails

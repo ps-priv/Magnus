@@ -1,10 +1,9 @@
 import SwiftUI
+import MagnusFeatures
 
 struct LoginView: View {
-    @State private var email = ""
-    @State private var password = ""
-    @State private var isLoading = false
-    @State private var isLoggedIn = false
+    @StateObject private var viewModel = LoginViewModel()
+    @State private var showError = false
     
     var body: some View {
         GeometryReader { geometry in
@@ -28,7 +27,7 @@ struct LoginView: View {
 
                             NovoNordiskTextBox(
                                 placeholder: LocalizedStrings.emailPlaceholder,
-                                text: $email,
+                                text: $viewModel.email,
                                 style: .withTitle(LocalizedStrings.emailLabel, bold: true),
                             )
                             .keyboardType(.emailAddress)
@@ -39,7 +38,7 @@ struct LoginView: View {
                         VStack(alignment: .leading, spacing: 8) {
                             NovoNordiskTextBox(
                                 placeholder: LocalizedStrings.passwordPlaceholder,
-                                text: $password,
+                                text: $viewModel.password,
                                 style: .withTitle(LocalizedStrings.passwordLabel, bold: true),
                                 isSecure: true,
                             )
@@ -64,15 +63,29 @@ struct LoginView: View {
                         
                         // Buttons
                         VStack(spacing: 16) {
+                            // Error message
+                            if !viewModel.errorMessage.isEmpty {
+                                Text(viewModel.errorMessage)
+                                    .font(.novoNordiskCaption)
+                                    .foregroundColor(.red)
+                                    .multilineTextAlignment(.center)
+                                    .padding(.horizontal, 16)
+                                    .onTapGesture {
+                                        viewModel.clearError()
+                                    }
+                            }
+                            
                             // Login button
                             NovoNordiskButton(
-                                title: LocalizedStrings.loginButton,
+                                title: viewModel.isLoading ? LocalizedStrings.loading : LocalizedStrings.loginButton,
                                 style: .primary,
-                                isEnabled: !email.isEmpty && !password.isEmpty && !isLoading
+                                isEnabled: viewModel.canLogin
                             ) {
-                                loginAction()
+                                Task {
+                                    await viewModel.login()
+                                }
                             }
-                            .disabled(isLoading)
+                            .disabled(!viewModel.canLogin)
                             
                             // Register button
                             NovoNordiskButton(
@@ -81,7 +94,7 @@ struct LoginView: View {
                             ) {
                                 registerAction()
                             }
-                            .disabled(isLoading)
+                            .disabled(viewModel.isLoading)
                         }
                         //.padding(.top, 12)
                     }
@@ -104,20 +117,8 @@ struct LoginView: View {
         }
         .background(Color.white)
         .ignoresSafeArea(.keyboard, edges: .bottom)
-        .fullScreenCover(isPresented: $isLoggedIn) {
+        .fullScreenCover(isPresented: $viewModel.isAuthenticated) {
             NovoNordiskContentView()
-        }
-    }
-    
-    private func loginAction() {
-        isLoading = true
-        
-        // Simulate login process
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
-            isLoading = false
-            print("Login attempt with email: \(email)")
-            // Simulate successful login
-            isLoggedIn = true
         }
     }
     

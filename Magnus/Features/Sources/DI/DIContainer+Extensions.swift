@@ -13,10 +13,23 @@ public extension DIContainer {
         return service
     }
     
+    /// Returns registered AuthStorageService instance
+    var authStorageService: AuthStorageService {
+        guard let service = resolve(AuthStorageService.self) else {
+            fatalError("AuthStorageService not registered in DI container")
+        }
+        return service
+    }
+    
     // MARK: - Convenience Methods
     
     /// Returns AuthService as specific type for testing
     func authServiceMock() -> AuthServiceMock? {
         return resolve(AuthService.self) as? AuthServiceMock
+    }
+    
+    /// Returns AuthStorageService as specific type for testing
+    func authStorageServiceMock() -> AuthStorageServiceMock? {
+        return resolve(AuthStorageService.self) as? AuthStorageServiceMock
     }
 } 
