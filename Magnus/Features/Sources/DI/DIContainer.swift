@@ -1,5 +1,5 @@
 import Swinject
-import MagnusCore
+import MagnusDomain
 
 public class DIContainer {
     public static let shared = DIContainer()
@@ -8,20 +8,24 @@ public class DIContainer {
     private init() {}
     
     public func configure(with applicationType: ApplicationContainerTypeEnum) {
-        // switch applicationType {
-        // // case .novonordisk:
-        // //     // container.register(UserRepositoryProtocol.self) { _ in
-        // //     //     UserRepository()
-        // //     // }.inObjectScope(.container)
-        // // case .chm:
-        // //     // container.register(UserRepositoryProtocol.self) { _ in
-        // //     //     UserRepositoryCartoon()
-        // //     // }.inObjectScope(.container)
-        // }
+        // Register AuthService based on application type
+        switch applicationType {
+        case .novonordisk:
+            // Register mock AuthService for NovoNordisk app
+            container.register(AuthService.self) { _ in
+                AuthServiceMock()
+            }.inObjectScope(.container)
+        case .chm:
+            // Register mock AuthService for ChM app  
+            container.register(AuthService.self) { _ in
+                AuthServiceMock()
+            }.inObjectScope(.container)
+        }
         
-//        container.register(UserListViewModel.self) { resolver in
-//            UserListViewModel(userRepository: resolver.resolve(UserRepositoryProtocol.self)!)
-//        }
+        // Register other services here as needed
+        // container.register(UserListViewModel.self) { resolver in
+        //     UserListViewModel(userRepository: resolver.resolve(UserRepositoryProtocol.self)!)
+        // }
     }
     
     public func resolve<T>(_ type: T.Type) -> T? {

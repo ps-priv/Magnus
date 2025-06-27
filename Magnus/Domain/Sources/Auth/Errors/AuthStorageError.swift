@@ -1,3 +1,5 @@
+import Foundation
+
 public enum AuthStorageError: Error, LocalizedError {
     case keyNotFound
     case invalidData
