@@ -10,10 +10,10 @@ public struct PasswordValidator {
     /// - Parameter password: Password to validate
     /// - Returns: True if password is valid
     public static func isValid(_ password: String) -> Bool {
-        return password.count >= 6 &&
-               containsLowercase(password) &&
-               containsUppercase(password) &&
-               containsDigit(password)
+        return password.count >= 6
+//               containsLowercase(password) &&
+//               containsUppercase(password) &&
+//               containsDigit(password)
     }
     
     /// Validates if password meets strong requirements

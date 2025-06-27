@@ -68,7 +68,7 @@ public class LoginViewModel: ObservableObject {
         $password
             .debounce(for: .milliseconds(300), scheduler: RunLoop.main)
             .map { password in
-                PasswordValidator.hasValidLength(password, minLength: 6)
+                PasswordValidator.hasValidLength(password, minLength: 8)
             }
             .assign(to: \.isPasswordValid, on: self)
             .store(in: &cancellables)
@@ -166,6 +166,8 @@ public class LoginViewModel: ObservableObject {
     
     private func handleAuthError(_ error: AuthError) async {
         let message: String
+
+        print("Error: \(error)")
         
         switch error {
         case .invalidCredentials:
@@ -173,7 +175,7 @@ public class LoginViewModel: ObservableObject {
         case .invalidEmail:
             message = "Niepoprawny format adresu email"
         case .passwordTooShort:
-            message = "Hasło musi mieć co najmniej 6 znaków"
+            message = "Hasło jest zbyt krótkie"
         case .networkError(let details):
             message = "Błąd połączenia: \(details)"
         case .userNotFound:
