@@ -67,14 +67,12 @@ struct LoginView: View {
                         VStack(spacing: 16) {
                             // Error message
                             if !viewModel.errorMessage.isEmpty {
-                                Text(viewModel.errorMessage)
-                                    .font(.novoNordiskCaption)
-                                    .foregroundColor(.red)
-                                    .multilineTextAlignment(.center)
-                                    .padding(.horizontal, 16)
-                                    .onTapGesture {
-                                        viewModel.clearError()
-                                    }
+                                NovoNordiskErrorView.error(
+                                    viewModel.errorMessage,
+                                    style: .compact
+                                ) {
+                                    viewModel.clearError()
+                                }
                             }
                             
                             // Login button

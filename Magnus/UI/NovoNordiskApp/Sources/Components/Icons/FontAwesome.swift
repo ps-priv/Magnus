@@ -51,8 +51,8 @@ struct FontAwesome {
         
         // Status
         case check = "\u{f00c}"
-       // case times = "\u{f00d}"
         case exclamation = "\u{f12a}"
+        case exclamationTriangle = "\u{f071}"
         case question = "\u{f128}"
         case info = "\u{f129}"
         
