@@ -6,6 +6,9 @@ struct NovoNordiskErrorView: View {
     let onDismiss: (() -> Void)?
     let style: NovoNordiskErrorStyle
     
+    @State private var shakeOffset: CGFloat = 0
+    @State private var isVisible: Bool = false
+    
     init(
         error: ErrorDisplayModel,
         style: NovoNordiskErrorStyle = .standard,
@@ -25,6 +28,8 @@ struct NovoNordiskErrorView: View {
                     size: style.iconSize,
                     color: error.type.iconColor
                 )
+                .scaleEffect(1.0)
+                .animation(.easeInOut(duration: 0.3).delay(0.1), value: error.type.icon)
             }
             
             // Error content
@@ -47,7 +52,9 @@ struct NovoNordiskErrorView: View {
             // Dismiss button
             if onDismiss != nil {
                 Button(action: {
-                    onDismiss?()
+                    withAnimation(.easeInOut(duration: 0.2)) {
+                        onDismiss?()
+                    }
                 }) {
                     FAIcon(
                         .close,
@@ -56,6 +63,12 @@ struct NovoNordiskErrorView: View {
                     )
                 }
                 .buttonStyle(PlainButtonStyle())
+                .scaleEffect(1.0)
+                .onHover { isHovering in
+                    withAnimation(.easeInOut(duration: 0.2)) {
+                        // Hover effect for dismiss button
+                    }
+                }
             }
         }
         .padding(style.padding)
@@ -73,6 +86,50 @@ struct NovoNordiskErrorView: View {
             x: 0,
             y: style.shadowOffset
         )
+        .offset(x: shakeOffset)
+        .scaleEffect(isVisible ? 1.0 : 0.8)
+        .opacity(isVisible ? 1.0 : 0.0)
+        .transition(.asymmetric(
+            insertion: .move(edge: .top).combined(with: .opacity).combined(with: .scale),
+            removal: .move(edge: .top).combined(with: .opacity).combined(with: .scale)
+        ))
+        .onAppear {
+            withAnimation(.spring(response: 0.6, dampingFraction: 0.7, blendDuration: 0)) {
+                isVisible = true
+            }
+            
+            // Shake effect for critical errors
+            if error.type == .error {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                    shakeAnimation()
+                }
+            }
+        }
+    }
+    
+    // MARK: - Private Methods
+    private func shakeAnimation() {
+        withAnimation(.easeInOut(duration: 0.1)) {
+            shakeOffset = -5
+        }
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            withAnimation(.easeInOut(duration: 0.1)) {
+                shakeOffset = 5
+            }
+        }
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+            withAnimation(.easeInOut(duration: 0.1)) {
+                shakeOffset = -3
+            }
+        }
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+            withAnimation(.easeInOut(duration: 0.1)) {
+                shakeOffset = 0
+            }
+        }
     }
 }
 
@@ -243,6 +300,20 @@ struct NovoNordiskErrorStyle {
         shadowRadius: 0,
         shadowOffset: 0
     )
+    
+    static let animated = NovoNordiskErrorStyle(
+        showIcon: true,
+        iconSize: 22,
+        iconSpacing: 14,
+        titleFont: .novoNordiskCaptionBold,
+        messageFont: .novoNordiskCaption,
+        padding: EdgeInsets(top: 16, leading: 20, bottom: 16, trailing: 20),
+        cornerRadius: 12,
+        borderWidth: 1.5,
+        dismissButtonSize: 18,
+        shadowRadius: 4,
+        shadowOffset: 2
+    )
 }
 
 // MARK: - Convenience Extensions
@@ -340,6 +411,15 @@ extension NovoNordiskErrorView {
             "Błąd walidacji",
             style: .minimal
         )
+        
+        // Animated style
+        NovoNordiskErrorView.error(
+            "Błąd logowania z animacjami",
+            title: "Błąd krytyczny",
+            style: .animated
+        ) {
+            print("Animated error dismissed")
+        }
     }
     .padding()
 } 

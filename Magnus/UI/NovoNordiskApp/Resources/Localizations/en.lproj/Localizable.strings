@@ -7,6 +7,7 @@
 "FORGOT_PASSWORD" = "Forgot password";
 "LOGIN_BUTTON" = "Login";
 "REGISTER_BUTTON" = "Register";
+"LOGIN_ERROR" = "Login Error";
 
 /* Common */
 "LOADING" = "Loading...";

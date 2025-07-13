@@ -28,6 +28,17 @@ struct LoginView: View {
                     
                     // Login form
                     VStack(spacing: 24) {
+                        
+                                                 if !viewModel.errorMessage.isEmpty {
+                             NovoNordiskErrorView.error(
+                                 viewModel.errorMessage,
+                                 title: LocalizedStrings.loginError,
+                                 style: .animated
+                             ) {
+                                 viewModel.clearError()
+                             }
+                             .padding(.top, 8)
+                         }
  
                         VStack(alignment: .leading, spacing: 8) {
 
@@ -62,18 +73,10 @@ struct LoginView: View {
                             Spacer()
                         }
                         //.padding(.top, 8)
+                
                         
                         // Buttons
                         VStack(spacing: 16) {
-                            // Error message
-                            if !viewModel.errorMessage.isEmpty {
-                                NovoNordiskErrorView.error(
-                                    viewModel.errorMessage,
-                                    style: .compact
-                                ) {
-                                    viewModel.clearError()
-                                }
-                            }
                             
                             // Login button
                             NovoNordiskButton(
