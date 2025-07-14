@@ -16,6 +16,17 @@ struct LoginView: View {
         GeometryReader { geometry in
             ScrollView {
                 VStack(spacing: 0) {
+                    Spacer(minLength: 40)
+                    
+                    // Bottom logo
+                    VStack(spacing: 16) {
+                        Image("NovoNordiskLogo")
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(height: 120)
+                            .opacity(0.8)
+                    }
+
                     // Top section with logo and title
                     VStack(spacing: 24) {
                         // Title
@@ -24,13 +35,13 @@ struct LoginView: View {
                             .foregroundColor(Color("NovoNordiskBlue"))
                             .tracking(2)
                     }
-                    .padding(.bottom, 60)
+                    .padding(.bottom, 20)
                     .padding(.top, geometry.safeAreaInsets.top + 24)
                     
                     // Login form
                     VStack(spacing: 24) {
                         
-                                                 if !viewModel.errorMessage.isEmpty {
+                        if !viewModel.errorMessage.isEmpty {
                              NovoNordiskErrorView.error(
                                  viewModel.errorMessage,
                                  title: LocalizedStrings.loginError,
@@ -39,7 +50,7 @@ struct LoginView: View {
                                  viewModel.clearError()
                              }
                              .padding(.top, 8)
-                         }
+                        }
  
                         VStack(alignment: .leading, spacing: 8) {
 
@@ -74,9 +85,9 @@ struct LoginView: View {
                             Spacer()
                         }
                         //.padding(.top, 8)
-                
-                        
-                        // Buttons
+                        Spacer(minLength: 20)
+
+                        // Buttons 
                         VStack(spacing: 16) {
                             
                             // Login button
@@ -100,21 +111,10 @@ struct LoginView: View {
                             }
                             .disabled(viewModel.isLoading)
                         }
-                        //.padding(.top, 12)
                     }
                     .padding(.horizontal, 24)
                     
-                    Spacer(minLength: 40)
-                    
-                    // Bottom logo
-                    VStack(spacing: 16) {
-                        Image("NovoNordiskLogo")
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .frame(height: 120)
-                            .opacity(0.8)
-                    }
-                    .padding(.bottom, 40)
+
                 }
                 .frame(minHeight: geometry.size.height)
             }
