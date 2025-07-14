@@ -70,6 +70,11 @@ struct FontAwesome {
         case calendar = "\u{f073}"
         case clock = "\u{f017}"
         
+        // Bottom Menu Icons
+        case newspaper = "\u{f1ea}"
+        case fileAlt = "\u{f15c}"
+        case graduationCap = "\u{f19d}"
+        
         var unicode: String {
             return self.rawValue
         }

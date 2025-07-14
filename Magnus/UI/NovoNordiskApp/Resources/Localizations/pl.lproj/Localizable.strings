@@ -43,4 +43,11 @@
 "TAB_HOME" = "Główna";
 "TAB_BUTTONS" = "Przyciski";
 "TAB_TEXT_BOXES" = "Pola tekstowe";
-"TAB_RADIO_BUTTONS" = "Przyciski radio"; 
+"TAB_RADIO_BUTTONS" = "Przyciski radio";
+
+/* Bottom Menu */
+"BOTTOM_MENU_START" = "Start";
+"BOTTOM_MENU_NEWS" = "Aktualności";
+"BOTTOM_MENU_EVENTS" = "Wydarzenia";
+"BOTTOM_MENU_MATERIALS" = "Materiały";
+"BOTTOM_MENU_ACADEMY" = "Akademia"; 

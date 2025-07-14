@@ -43,4 +43,11 @@
 "TAB_HOME" = "Home";
 "TAB_BUTTONS" = "Buttons";
 "TAB_TEXT_BOXES" = "Text Boxes";
-"TAB_RADIO_BUTTONS" = "Radio Buttons"; 
+"TAB_RADIO_BUTTONS" = "Radio Buttons";
+
+/* Bottom Menu */
+"BOTTOM_MENU_START" = "Start";
+"BOTTOM_MENU_NEWS" = "News";
+"BOTTOM_MENU_EVENTS" = "Events";
+"BOTTOM_MENU_MATERIALS" = "Materials";
+"BOTTOM_MENU_ACADEMY" = "Academy"; 
