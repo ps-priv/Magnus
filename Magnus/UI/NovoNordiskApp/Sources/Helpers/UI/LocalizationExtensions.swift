@@ -31,6 +31,10 @@ struct LocalizedStrings {
     static let resetPasswordButton = "RESET_PASSWORD_BUTTON".localized
     static let haveVerificationCode = "HAVE_VERIFICATION_CODE".localized
     
+    // Password Reset Confirmation
+    static let emailSentMessage = "EMAIL_SENT_MESSAGE".localized
+    static let goToPasswordReset = "GO_TO_PASSWORD_RESET".localized
+    
     // Common
     static let loading = "LOADING".localized
     static let error = "ERROR".localized

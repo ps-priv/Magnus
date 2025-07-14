@@ -12,6 +12,7 @@ public class ForgotPasswordViewModel: ObservableObject {
     @Published public var isLoading: Bool = false
     @Published public var isEmailValid: Bool = false
     @Published public var errorMessage: String = ""
+    @Published public var emailSentSuccessfully: Bool = false
 
     private var cancellables = Set<AnyCancellable>()
 
@@ -57,27 +58,39 @@ public class ForgotPasswordViewModel: ObservableObject {
         await MainActor.run {
             isLoading = true
             errorMessage = ""
+            emailSentSuccessfully = false
         }
         
-        // do {
-        //     // let credentials = LoginCredentials(
-        //     //     email: email.normalizedEmail,
-        //     //     password: password
-        //     // )
+        do {
+            // TODO: Implement actual password reset API call
+            // For now, simulate API call
+            try await Task.sleep(nanoseconds: 1_000_000_000) // 1 second delay
             
-        //     // let authResponse = try await authService.login(credentials: credentials)
+            // Simulate success or error based on email format
+            if email.contains("@") && email.contains(".") {
+                await MainActor.run {
+                    emailSentSuccessfully = true
+                    isLoading = false
+                }
+            } else {
+                await MainActor.run {
+                    errorMessage = FeaturesLocalizedStrings.invalidEmail
+                    isLoading = false
+                }
+            }
             
-        //     // // Save authentication data
-        //     // try await saveAuthenticationData(authResponse)
-            
-        //     // await MainActor.run {
-        //     //     isAuthenticated = true
-        //     //     isLoading = false
-        //     //     clearForm()
-        //     // }
-            
-        // } catch {
-        //     await handleGenericError(error)
-        // }
+        } catch {
+            await MainActor.run {
+                errorMessage = "Wystąpił błąd podczas wysyłania emaila"
+                isLoading = false
+            }
+        }
+    }
+    
+    private func handleGenericError(_ error: Error) async {
+        await MainActor.run {
+            errorMessage = "Wystąpił nieoczekiwany błąd"
+            isLoading = false
+        }
     }
 }

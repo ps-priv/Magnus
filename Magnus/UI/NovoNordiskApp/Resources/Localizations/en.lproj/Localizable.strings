@@ -15,6 +15,10 @@
 "RESET_PASSWORD_BUTTON" = "Reset password";
 "HAVE_VERIFICATION_CODE" = "I have verification code";
 
+/* Password Reset Confirmation */
+"EMAIL_SENT_MESSAGE" = "Check your inbox and follow the instructions sent to you.";
+"GO_TO_PASSWORD_RESET" = "Go to password reset";
+
 /* Common */
 "LOADING" = "Loading...";
 "ERROR" = "Error";

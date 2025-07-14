@@ -6,8 +6,7 @@ struct ForgotPasswordView: View {
     
     @StateObject private var viewModel = ForgotPasswordViewModel()
 
-    @State private var showError = false
-    @State private var showForgotPassword = false
+    @State private var showConfirmation = false
 
 
     init(onCancel: @escaping () -> Void) {
@@ -123,6 +122,19 @@ struct ForgotPasswordView: View {
         .ignoresSafeArea(.keyboard, edges: .bottom)
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarBackButtonHidden(true)
+        .onChange(of: viewModel.emailSentSuccessfully) { success in
+            if success {
+                showConfirmation = true
+            }
+        }
+        .fullScreenCover(isPresented: $showConfirmation) {
+            PasswordResetConfirmationView(emailAddress: viewModel.email) {
+                // When user taps "Go to password reset" 
+                showConfirmation = false
+                // TODO: Navigate to password reset screen or back to login
+                onCancel() // For now, go back to login
+            }
+        }
         }
     }
     

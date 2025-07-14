@@ -15,6 +15,10 @@
 "RESET_PASSWORD_BUTTON" = "Zresetuj hasło";
 "HAVE_VERIFICATION_CODE" = "Mam już kod weryfikacyjny";
 
+/* Password Reset Confirmation */
+"EMAIL_SENT_MESSAGE" = "Sprawdź swoją skrzynkę pocztową i postępuj zgodnie z przesłanymi instrukcjami.";
+"GO_TO_PASSWORD_RESET" = "Przejdź do resetu hasła";
+
 /* Common */
 "LOADING" = "Ładowanie...";
 "ERROR" = "Błąd";
