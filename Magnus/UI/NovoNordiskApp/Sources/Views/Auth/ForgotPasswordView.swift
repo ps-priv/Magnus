@@ -128,12 +128,12 @@ struct ForgotPasswordView: View {
             }
         }
         .fullScreenCover(isPresented: $showConfirmation) {
-            PasswordResetConfirmationView() {
-                // When user taps "Go to password reset" 
-                showConfirmation = false
-                // TODO: Navigate to password reset screen or back to login
-                onCancel() // For now, go back to login
-            }
+//            PasswordResetConfirmationView() {
+//                // When user taps "Go to password reset" 
+//                showConfirmation = false
+//                // TODO: Navigate to password reset screen or back to login
+//                onCancel() // For now, go back to login
+//            }
         }
         }
     }

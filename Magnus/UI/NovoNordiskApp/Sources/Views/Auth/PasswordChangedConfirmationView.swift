@@ -1,19 +1,26 @@
 import SwiftUI
 
-struct PasswordResetConfirmationView: View {
+struct PasswordChangedConfirmationView: View {
+    let onGoToLogin: () -> Void
+    
+    init(onGoToLogin: @escaping () -> Void) {
+        self.onGoToLogin = onGoToLogin
+    }
+    
     var body: some View {
         NavigationView {
             GeometryReader { geometry in
                 ScrollView {
                     VStack(spacing: 0) {
-                           // Bottom logo
-                            VStack(spacing: 16) {
-                                Image("NovoNordiskLogo")
-                                    .resizable()
-                                    .aspectRatio(contentMode: .fit)
-                                    .frame(height: 120)
-                                    .opacity(0.8)
-                            }.padding(.top, 40)
+                        // Bottom logo at top
+                        VStack(spacing: 16) {
+                            Image("NovoNordiskLogo")
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                                .frame(height: 120)
+                                .opacity(0.8)
+                        }
+                        .padding(.top, 40)
                         
                         Spacer(minLength: geometry.size.height * 0.15)
                         
@@ -34,14 +41,13 @@ struct PasswordResetConfirmationView: View {
                             
                             // Message
                             VStack(spacing: 16) {
-                                Text(LocalizedStrings.emailSentMessage)
+                                Text(LocalizedStrings.passwordChangedMessage)
                                     .font(.novoNordiskBody)
                                     .fontWeight(.bold)
                                     .foregroundColor(.primary)
                                     .multilineTextAlignment(.center)
                                     .lineSpacing(4)
                                     .padding(.horizontal, 32)
-                                
                             }
                         }
                         
@@ -50,12 +56,12 @@ struct PasswordResetConfirmationView: View {
                         // Bottom section
                         VStack(spacing: 32) {
                             
-                            // Go to password reset button
+                            // Go to login button
                             NovoNordiskButton(
-                                title: LocalizedStrings.goToPasswordReset,
+                                title: LocalizedStrings.goToLogin,
                                 style: .primary
                             ) {
-  
+                                onGoToLogin()
                             }
                             .padding(.horizontal, 24)
                         }
@@ -76,5 +82,7 @@ struct PasswordResetConfirmationView: View {
 }
 
 #Preview {
-    PasswordResetConfirmationView()
-}
+    PasswordChangedConfirmationView {
+        print("Go to login tapped")
+    }
+} 

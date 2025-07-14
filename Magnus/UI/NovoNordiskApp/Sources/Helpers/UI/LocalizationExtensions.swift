@@ -35,6 +35,10 @@ struct LocalizedStrings {
     static let emailSentMessage = "EMAIL_SENT_MESSAGE".localized
     static let goToPasswordReset = "GO_TO_PASSWORD_RESET".localized
     
+    // Password Change Confirmation
+    static let passwordChangedMessage = "PASSWORD_CHANGED_MESSAGE".localized
+    static let goToLogin = "GO_TO_LOGIN".localized
+    
     // Common
     static let loading = "LOADING".localized
     static let error = "ERROR".localized

@@ -19,6 +19,10 @@
 "EMAIL_SENT_MESSAGE" = "Sprawdź swoją skrzynkę pocztową i postępuj zgodnie z przesłanymi instrukcjami.";
 "GO_TO_PASSWORD_RESET" = "Przejdź do resetu hasła";
 
+/* Password Change Confirmation */
+"PASSWORD_CHANGED_MESSAGE" = "Twoje hasło zostało zmienione";
+"GO_TO_LOGIN" = "Zaloguj";
+
 /* Common */
 "LOADING" = "Ładowanie...";
 "ERROR" = "Błąd";

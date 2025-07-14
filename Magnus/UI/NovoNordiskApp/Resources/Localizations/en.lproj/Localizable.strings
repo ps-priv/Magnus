@@ -19,6 +19,10 @@
 "EMAIL_SENT_MESSAGE" = "Check your inbox and follow the instructions sent to you.";
 "GO_TO_PASSWORD_RESET" = "Go to password reset";
 
+/* Password Change Confirmation */
+"PASSWORD_CHANGED_MESSAGE" = "Your password has been changed";
+"GO_TO_LOGIN" = "Go to login";
+
 /* Common */
 "LOADING" = "Loading...";
 "ERROR" = "Error";
