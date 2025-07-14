@@ -1,12 +1,15 @@
 import SwiftUI
+import MagnusFeatures
 
 struct ForgotPasswordView: View {
     let onCancel: () -> Void
     
-    @State private var email: String = ""
-    @State private var isLoading: Bool = false
-    @State private var errorMessage: String = ""
-    
+    @StateObject private var viewModel = ForgotPasswordViewModel()
+
+    @State private var showError = false
+    @State private var showForgotPassword = false
+
+
     init(onCancel: @escaping () -> Void) {
         self.onCancel = onCancel
     }
@@ -45,15 +48,15 @@ struct ForgotPasswordView: View {
                     VStack(spacing: 24) {
                         
                         // Error message
-                        if !errorMessage.isEmpty {
-                            NovoNordiskErrorView.error(
-                                errorMessage,
-                                title: LocalizedStrings.error,
-                                style: .animated
-                            ) {
-                                errorMessage = ""
-                            }
-                            .padding(.top, 8)
+                        if !viewModel.errorMessage.isEmpty {
+                             NovoNordiskErrorView.error(
+                                 viewModel.errorMessage,
+                                 title: LocalizedStrings.loginError,
+                                 style: .animated
+                             ) {
+                                 viewModel.clearError()
+                             }
+                             .padding(.top, 8)
                         }
                         
                         // Instructions
@@ -62,13 +65,12 @@ struct ForgotPasswordView: View {
                             .fontWeight(.bold)
                             .foregroundColor(.primary)
                             .multilineTextAlignment(.center)
-                            //.padding(.horizontal, 24)
                         
                         // Email input
                         VStack(alignment: .leading, spacing: 8) {
                             NovoNordiskTextBox(
                                 placeholder: LocalizedStrings.emailPlaceholder,
-                                text: $email,
+                                text: $viewModel.email,
                                 style: .withTitle(LocalizedStrings.emailLabel, bold: true)
                             )
                             .keyboardType(.emailAddress)
@@ -81,13 +83,15 @@ struct ForgotPasswordView: View {
                         VStack(spacing: 16) {
                             // Reset password button
                             NovoNordiskButton(
-                                title: isLoading ? LocalizedStrings.loading : LocalizedStrings.resetPasswordButton,
+                                title: viewModel.isLoading ? LocalizedStrings.loading : LocalizedStrings.resetPasswordButton,
                                 style: .primary,
-                                isEnabled: !email.isEmpty && !isLoading
+                                isEnabled: viewModel.canSendResetPasswordEmail
                             ) {
-                                resetPassword()
+                             Task {
+                                    await viewModel.sendResetPasswordEmail()
+                                }
                             }
-                            .disabled(email.isEmpty || isLoading)
+                            .disabled(!viewModel.canSendResetPasswordEmail)
                             
                             // Have verification code button
                             NovoNordiskButton(
@@ -96,7 +100,7 @@ struct ForgotPasswordView: View {
                             ) {
                                 haveVerificationCodeAction()
                             }
-                            .disabled(isLoading)
+                            .disabled(viewModel.isLoading)
                             
                             // Cancel button
                             NovoNordiskButton(
@@ -105,7 +109,7 @@ struct ForgotPasswordView: View {
                             ) {
                                 onCancel()
                             }
-                            .disabled(isLoading)
+                            .disabled(viewModel.isLoading)
                         }
                         .padding(.top, 12)
                     }
@@ -122,29 +126,7 @@ struct ForgotPasswordView: View {
         }
     }
     
-    // MARK: - Private Methods
-    
-    private func resetPassword() {
-        guard !email.isEmpty else { return }
-        
-        isLoading = true
-        errorMessage = ""
-        
-        // TODO: Implement password reset logic
-        // For now, simulate API call
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-            isLoading = false
-            
-            // Simulate success or error
-            if email.contains("@") {
-                print("Password reset sent to: \(email)")
-                // TODO: Show success message or navigate to next screen
-            } else {
-                errorMessage = "Nieprawidłowy format email"
-            }
-        }
-    }
-    
+
     private func haveVerificationCodeAction() {
         print("Have verification code tapped")
         // TODO: Navigate to verification code screen
