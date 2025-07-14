@@ -16,16 +16,30 @@ struct ForgotPasswordView: View {
             GeometryReader { geometry in
                 ScrollView {
                     VStack(spacing: 0) {
+
+                    Spacer(minLength: 20)
+                    
+                    // Bottom logo
+                    VStack(spacing: 16) {
+                        Image("NovoNordiskLogo")
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(height: 120)
+                            .opacity(0.8)
+                    }
+
                     // Top section with logo and title
                     VStack(spacing: 24) {
                         // Title
                         Text(LocalizedStrings.forgotPasswordTitle)
                             .font(.novoNordiskTitle)
                             .foregroundColor(Color("NovoNordiskBlue"))
+                            .multilineTextAlignment(.center)
                             .tracking(2)
                     }
-                    .padding(.bottom, 60)
                     .padding(.top, geometry.safeAreaInsets.top + 24)
+                    
+                    Spacer(minLength: 20)
                     
                     // Form content
                     VStack(spacing: 24) {
@@ -45,9 +59,10 @@ struct ForgotPasswordView: View {
                         // Instructions
                         Text(LocalizedStrings.forgotPasswordMessage)
                             .font(.novoNordiskBody)
+                            .fontWeight(.bold)
                             .foregroundColor(.primary)
                             .multilineTextAlignment(.center)
-                            .padding(.horizontal, 24)
+                            //.padding(.horizontal, 24)
                         
                         // Email input
                         VStack(alignment: .leading, spacing: 8) {
@@ -60,6 +75,8 @@ struct ForgotPasswordView: View {
                             .textInputAutocapitalization(.never)
                         }
                         
+                        Spacer(minLength: 20)
+
                         // Buttons
                         VStack(spacing: 16) {
                             // Reset password button
@@ -93,18 +110,7 @@ struct ForgotPasswordView: View {
                         .padding(.top, 12)
                     }
                     .padding(.horizontal, 24)
-                    
-                    Spacer(minLength: 40)
-                    
-                    // Bottom logo
-                    VStack(spacing: 16) {
-                        Image("NovoNordiskLogo")
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .frame(height: 120)
-                            .opacity(0.8)
-                    }
-                    .padding(.bottom, 40)
+
                 }
                 .frame(minHeight: geometry.size.height)
             }
