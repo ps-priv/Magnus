@@ -25,6 +25,12 @@ struct LocalizedStrings {
     static let registerButton = "REGISTER_BUTTON".localized
     static let loginError = "LOGIN_ERROR".localized
     
+    // Forgot Password View
+    static let forgotPasswordTitle = "FORGOT_PASSWORD_TITLE".localized
+    static let forgotPasswordMessage = "FORGOT_PASSWORD_MESSAGE".localized
+    static let resetPasswordButton = "RESET_PASSWORD_BUTTON".localized
+    static let haveVerificationCode = "HAVE_VERIFICATION_CODE".localized
+    
     // Common
     static let loading = "LOADING".localized
     static let error = "ERROR".localized

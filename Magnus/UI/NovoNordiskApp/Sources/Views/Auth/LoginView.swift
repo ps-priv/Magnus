@@ -6,6 +6,7 @@ struct LoginView: View {
     
     @StateObject private var viewModel = LoginViewModel()
     @State private var showError = false
+    @State private var showForgotPassword = false
     
     init(onAuthenticationSuccess: @escaping () -> Void = {}) {
         self.onAuthenticationSuccess = onAuthenticationSuccess
@@ -67,7 +68,7 @@ struct LoginView: View {
                                 title: LocalizedStrings.forgotPassword,
                                 style: .underlined
                             ) {
-                                print("Forgot password tapped")
+                                showForgotPassword = true
                             }
                             
                             Spacer()
@@ -123,6 +124,11 @@ struct LoginView: View {
         .onChange(of: viewModel.isAuthenticated) { isAuthenticated in
             if isAuthenticated {
                 onAuthenticationSuccess()
+            }
+        }
+        .fullScreenCover(isPresented: $showForgotPassword) {
+            ForgotPasswordView {
+                showForgotPassword = false
             }
         }
     }

@@ -9,6 +9,12 @@
 "REGISTER_BUTTON" = "Register";
 "LOGIN_ERROR" = "Login Error";
 
+/* Forgot Password View */
+"FORGOT_PASSWORD_TITLE" = "PASSWORD RESET";
+"FORGOT_PASSWORD_MESSAGE" = "Enter email associated with your account:";
+"RESET_PASSWORD_BUTTON" = "Reset password";
+"HAVE_VERIFICATION_CODE" = "I have verification code";
+
 /* Common */
 "LOADING" = "Loading...";
 "ERROR" = "Error";

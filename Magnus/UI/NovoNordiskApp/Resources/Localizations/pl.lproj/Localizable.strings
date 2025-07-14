@@ -9,6 +9,12 @@
 "REGISTER_BUTTON" = "Zarejestruj";
 "LOGIN_ERROR" = "Błąd logowania";
 
+/* Forgot Password View */
+"FORGOT_PASSWORD_TITLE" = "PRZYPOMNIENIE HASŁA";
+"FORGOT_PASSWORD_MESSAGE" = "Podaj email powiązany z Twoim kontem:";
+"RESET_PASSWORD_BUTTON" = "Zresetuj hasło";
+"HAVE_VERIFICATION_CODE" = "Mam już kod weryfikacyjny";
+
 /* Common */
 "LOADING" = "Ładowanie...";
 "ERROR" = "Błąd";
