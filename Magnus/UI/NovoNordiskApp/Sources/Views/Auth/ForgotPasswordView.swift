@@ -128,7 +128,7 @@ struct ForgotPasswordView: View {
             }
         }
         .fullScreenCover(isPresented: $showConfirmation) {
-            PasswordResetConfirmationView(emailAddress: viewModel.email) {
+            PasswordResetConfirmationView() {
                 // When user taps "Go to password reset" 
                 showConfirmation = false
                 // TODO: Navigate to password reset screen or back to login
