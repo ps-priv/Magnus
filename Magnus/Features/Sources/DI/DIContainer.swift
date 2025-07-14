@@ -21,6 +21,11 @@ public class DIContainer {
                 AuthStorageServiceMock()
             }.inObjectScope(.container)
             
+            // Register mock DashboardService
+            container.register(DashboardService.self) { _ in
+                DashboardServiceMock()
+            }.inObjectScope(.container)
+            
         case .chm:
             // Register mock AuthService for ChM app  
             container.register(AuthService.self) { _ in
@@ -30,6 +35,11 @@ public class DIContainer {
             // Register mock AuthStorageService
             container.register(AuthStorageService.self) { _ in
                 AuthStorageServiceMock()
+            }.inObjectScope(.container)
+            
+            // Register mock DashboardService
+            container.register(DashboardService.self) { _ in
+                DashboardServiceMock()
             }.inObjectScope(.container)
         }
         

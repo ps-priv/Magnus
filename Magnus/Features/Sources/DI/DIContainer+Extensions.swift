@@ -21,6 +21,14 @@ public extension DIContainer {
         return service
     }
     
+    /// Returns registered DashboardService instance
+    var dashboardService: DashboardService {
+        guard let service = resolve(DashboardService.self) else {
+            fatalError("DashboardService not registered in DI container")
+        }
+        return service
+    }
+    
     // MARK: - Convenience Methods
     
     /// Returns AuthService as specific type for testing
@@ -31,5 +39,10 @@ public extension DIContainer {
     /// Returns AuthStorageService as specific type for testing
     func authStorageServiceMock() -> AuthStorageServiceMock? {
         return resolve(AuthStorageService.self) as? AuthStorageServiceMock
+    }
+    
+    /// Returns DashboardService as specific type for testing
+    func dashboardServiceMock() -> DashboardServiceMock? {
+        return resolve(DashboardService.self) as? DashboardServiceMock
     }
 } 
