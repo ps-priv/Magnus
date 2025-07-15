@@ -16,21 +16,21 @@ struct RoundedTopBar : View {
             Spacer()
             buttonSection
         }
-        .frame(height: 34)
-        .padding()
+        .frame(height: 54)
+        .frame(maxWidth: .infinity)
+        .padding(.horizontal)
         .background {
             Rectangle()
                 .fill(Color.white)
-               //.fill(Material.ultraThin)
                 .clipShape(
                     .rect(
                         topLeadingRadius: 0,
-                        bottomLeadingRadius:  25,
+                        bottomLeadingRadius: 25,
                         bottomTrailingRadius: 25,
                         topTrailingRadius: 0
                     )
                 )
-                .ignoresSafeArea(edges: .top)
+                .ignoresSafeArea(edges: .all)
                 .shadow(color: .black.opacity(0.2), radius: 20, y: 5)
         }
     }
@@ -70,4 +70,8 @@ struct RoundedTopBar : View {
         }
         
     }
+}
+
+#Preview("Dashboard") {
+    Dashboard()
 }
