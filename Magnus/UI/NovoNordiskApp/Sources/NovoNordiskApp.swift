@@ -1,6 +1,5 @@
 import SwiftUI
 import MagnusFeatures
-import MagnusCore
 
 @main
 struct NovoNordiskApp: App {

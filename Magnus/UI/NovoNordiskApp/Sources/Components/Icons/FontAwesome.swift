@@ -75,6 +75,8 @@ struct FontAwesome {
         case fileAlt = "\u{f15c}"
         case graduationCap = "\u{f19d}"
         
+        //top bar buttons
+        
         var unicode: String {
             return self.rawValue
         }
