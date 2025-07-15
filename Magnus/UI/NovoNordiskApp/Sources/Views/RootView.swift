@@ -20,7 +20,7 @@ struct RootView: View {
                 })
                 
             case .authenticated:
-                NovoNordiskContentView()
+                Dashboard()
                     .transition(.opacity)
                 
             case .unauthenticated:
