@@ -28,6 +28,7 @@ struct FontAwesome {
         case forward = "\u{f061}"
         case menu = "\u{f0c9}"
         case close = "\u{f00d}"
+        case circle_arrow_right = "\u{f0a9}"
         
         // User
         case user = "\u{f007}"
@@ -74,6 +75,7 @@ struct FontAwesome {
         case newspaper = "\u{f1ea}"
         case fileAlt = "\u{f15c}"
         case graduationCap = "\u{f19d}"
+        
         
         //top bar buttons
         

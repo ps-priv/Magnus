@@ -2,6 +2,7 @@ import SwiftUI
 
 // MARK: - NovoNordiskLinkButton
 struct NovoNordiskLinkButton: View {
+    let icon: FontAwesome.Icon?
     let title: String
     let action: () -> Void
     let style: NovoNordiskLinkButtonStyle
@@ -10,11 +11,13 @@ struct NovoNordiskLinkButton: View {
     @State private var isPressed = false
     
     init(
+        icon: FontAwesome.Icon? = nil,
         title: String,
         style: NovoNordiskLinkButtonStyle = .standard,
         isEnabled: Bool = true,
         action: @escaping () -> Void
     ) {
+        self.icon = icon
         self.title = title
         self.style = style
         self.isEnabled = isEnabled
@@ -23,11 +26,21 @@ struct NovoNordiskLinkButton: View {
     
     var body: some View {
         Button(action: action) {
-            Text(title)
-                .font(style.font)
-                .foregroundColor(isEnabled ? style.textColor : style.disabledTextColor)
-                .underline(style.showUnderline)
-                .scaleEffect(isPressed ? 0.95 : 1.0)
+            HStack() {
+                Text(title)
+                    .font(style.font)
+                    .foregroundColor(isEnabled ? style.textColor : style.disabledTextColor)
+                    .underline(style.showUnderline)
+                    .scaleEffect(isPressed ? 0.95 : 1.0)
+                
+                if let icon = icon {
+                    FAIcon(
+                        icon,
+                        size: style.iconSize,
+                        color: isEnabled ? style.textColor : style.disabledTextColor
+                    )
+                }
+            }
         }
         .disabled(!isEnabled)
         .onLongPressGesture(minimumDuration: 0, maximumDistance: .infinity, pressing: { pressing in
@@ -82,6 +95,17 @@ enum NovoNordiskLinkButtonStyle {
             return false
         }
     }
+    
+    var iconSize: CGFloat {
+        switch self {
+        case .standard, .underlined, .subtitle:
+            return 20
+        case .large:
+            return 20
+        case .small:
+            return 14
+        }
+    }
 }
 
 // MARK: - Preview
@@ -93,9 +117,15 @@ enum NovoNordiskLinkButtonStyle {
         
         VStack(alignment: .leading, spacing: 15) {
             // Standard link button
-            NovoNordiskLinkButton(title: "Standard Link", style: .standard) {
+            NovoNordiskLinkButton(icon: FontAwesome.Icon.circle_arrow_right,
+                title: "Standard Link", style: .standard) {
                 print("Standard link tapped")
             }
+            
+            NovoNordiskLinkButton(title: "Standard Link with Icon", style: .standard) {
+                print("Standard link tapped")
+            }
+            
             
             // Small link button
             NovoNordiskLinkButton(title: "Small Link", style: .small) {

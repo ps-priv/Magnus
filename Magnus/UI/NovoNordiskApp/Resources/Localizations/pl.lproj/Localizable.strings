@@ -50,4 +50,8 @@
 "BOTTOM_MENU_NEWS" = "Aktualności";
 "BOTTOM_MENU_EVENTS" = "Wydarzenia";
 "BOTTOM_MENU_MATERIALS" = "Materiały";
-"BOTTOM_MENU_ACADEMY" = "Akademia"; 
+"BOTTOM_MENU_ACADEMY" = "Akademia";
+
+/* Dashboard */
+"DASHBOARD_NEWS_TITLE" = "Aktualności";
+"DASHBOARD_EVENTS_LOAD_MORE" = "Więcej";

@@ -69,7 +69,10 @@ let project = Project(
                         "OpenSans-Bold.ttf"
                     ],
                     "CFBundleLocalizations": ["en", "pl"],
-                    "CFBundleDevelopmentRegion": "en"
+                    "CFBundleDevelopmentRegion": "en",
+                    "NSAppTransportSecurity": [
+                        "NSAllowsArbitraryLoads": true
+                    ]
                 ]
             ),
             sources: ["Magnus/UI/NovoNordiskApp/Sources/**"],

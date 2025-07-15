@@ -13,8 +13,8 @@ public struct DashboardResponse {
     }
 }
 
-public struct NewsItem {
-    public let id: String    
+public struct NewsItem :Identifiable {
+    public let id: String
     public let title: String
     public let publish_date: String
     public let image: String

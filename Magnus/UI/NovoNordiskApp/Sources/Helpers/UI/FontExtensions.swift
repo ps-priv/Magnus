@@ -60,6 +60,10 @@ extension Font {
     static var novoNordiskFootnote: Font {
         return openSansLight(size: 12)
     }
+    
+    static var novoNordiskSectionTitle: Font {
+        return openSansRegular(size: 19)
+    }
 }
 
 // MARK: - NovoNordisk Typography Environment

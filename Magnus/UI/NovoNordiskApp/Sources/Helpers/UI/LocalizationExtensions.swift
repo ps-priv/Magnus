@@ -60,4 +60,8 @@ struct LocalizedStrings {
     static let tabButtons = "TAB_BUTTONS".localized
     static let tabTextBoxes = "TAB_TEXT_BOXES".localized
     static let tabRadioButtons = "TAB_RADIO_BUTTONS".localized
-} 
+    
+    //Dashboard
+    static let dashboardNewsTitle = "DASHBOARD_NEWS_TITLE".localized
+    static let dashboardEventsSectionLoadMore = "DASHBOARD_EVENTS_LOAD_MORE".localized
+}
