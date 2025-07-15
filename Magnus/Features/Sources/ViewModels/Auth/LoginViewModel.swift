@@ -68,7 +68,7 @@ public class LoginViewModel: ObservableObject {
         $password
             .debounce(for: .milliseconds(300), scheduler: RunLoop.main)
             .map { password in
-                PasswordValidator.hasValidLength(password, minLength: 8)
+                PasswordValidator.hasValidLength(password, minLength: 6)
             }
             .assign(to: \.isPasswordValid, on: self)
             .store(in: &cancellables)
