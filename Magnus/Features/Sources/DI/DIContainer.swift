@@ -1,5 +1,6 @@
 import Swinject
 import MagnusDomain
+import MagnusApplication
 
 public class DIContainer {
     public static let shared = DIContainer()
@@ -16,9 +17,9 @@ public class DIContainer {
                 AuthServiceMock()
             }.inObjectScope(.container)
             
-            // Register mock AuthStorageService
+            // Register real AuthStorageService for iOS
             container.register(AuthStorageService.self) { _ in
-                AuthStorageServiceMock()
+                IosAuthStorageService()
             }.inObjectScope(.container)
             
             // Register mock DashboardService
@@ -32,9 +33,9 @@ public class DIContainer {
                 AuthServiceMock()
             }.inObjectScope(.container)
             
-            // Register mock AuthStorageService
+            // Register real AuthStorageService for iOS
             container.register(AuthStorageService.self) { _ in
-                AuthStorageServiceMock()
+                IosAuthStorageService()
             }.inObjectScope(.container)
             
             // Register mock DashboardService

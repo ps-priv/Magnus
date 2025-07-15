@@ -43,6 +43,12 @@ struct RootView: View {
                 let isAuthenticated = try authStorageService.isAuthenticated()
                 let isTokenExpired = authStorageService.isTokenExpired()
                 
+                print("isAuthenticated:", isAuthenticated)
+                print("isTokenExpired:", isTokenExpired)
+                
+                let user = try authStorageService.getUserData()
+                print("User data:", user ?? "No user data found")
+                
                 withAnimation(.easeInOut(duration: 0.5)) {
                     if isAuthenticated && !isTokenExpired {
                         appState = .authenticated
