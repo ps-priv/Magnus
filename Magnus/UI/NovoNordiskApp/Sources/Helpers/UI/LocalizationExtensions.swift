@@ -64,4 +64,16 @@ struct LocalizedStrings {
     //Dashboard
     static let dashboardNewsTitle = "DASHBOARD_NEWS_TITLE".localized
     static let dashboardEventsSectionLoadMore = "DASHBOARD_EVENTS_LOAD_MORE".localized
+    
+    //Pages titles
+    static let dashboardScreenTitle = "DASHBOARD_SCREEN_TITLE".localized
+    static let eventsListScreenTitle = "EVENTS_LIST_SCREEN_TITLE".localized
+    static let eventDetailsScreenTitle = "EVENT_DETAILS_SCREEN_TITLE".localized
+    static let materialsListScreenTitle = "MATERIALS_LIST_SCREEN_TITLE".localized
+    static let materialDetailsScreenTitle = "MATERIAL_DETAILS_SCREEN_TITLE".localized
+    static let newsListScreenTitle = "NEWS_LIST_SCREEN_TITLE".localized
+    static let newsDetailsScreenTitle = "NEWS_DETAILS_SCREEN_TITLE".localized
+    static let userProfileScreenTitle = "USER_PROFILE_SCREEN_TITLE".localized
+    static let settingsScreenTitle = "SETTINGS_SCREEN_TITLE".localized
+    static let academyScreenTitle = "ACADEMY_SCREEN_TITLE".localized
 }

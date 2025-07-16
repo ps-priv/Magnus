@@ -1,4 +1,5 @@
 import SwiftUI
+import MagnusDomain
 
 // MARK: - Bottom Menu Examples View
 struct BottomMenuExamplesView: View {

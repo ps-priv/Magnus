@@ -9,9 +9,30 @@ import SwiftUI
 
 struct RoundedTopBar : View {
     let title: String
+    let canGoBack: Bool
+    let onBackTap: () -> Void
+    let onProfileTap: () -> Void
+    let onSettingsTap: () -> Void
+    
+    init(
+        title: String,
+        canGoBack: Bool = false,
+        onBackTap: @escaping () -> Void = {},
+        onProfileTap: @escaping () -> Void = {},
+        onSettingsTap: @escaping () -> Void = {}
+    ) {
+        self.title = title
+        self.canGoBack = canGoBack
+        self.onBackTap = onBackTap
+        self.onProfileTap = onProfileTap
+        self.onSettingsTap = onSettingsTap
+    }
     
     var body: some View {
         HStack {
+            if canGoBack {
+                backButton
+            }
             titleSection
             Spacer()
             buttonSection
@@ -36,6 +57,18 @@ struct RoundedTopBar : View {
     }
     
     @ViewBuilder
+    var backButton: some View {
+        Button(action: onBackTap) {
+            FAIcon(.back, type: .light, size: 20, color: Color.novoNordiskBlue)
+                .frame(width: 40, height: 40)
+                .background(Color.white)
+                .clipShape(Circle())
+                .shadow(color: .black.opacity(0.1), radius: 2, x: 0, y: 1)
+        }
+        .buttonStyle(PlainButtonStyle())
+    }
+    
+    @ViewBuilder
     var titleSection: some View {
         VStack {
             Text(title)
@@ -54,7 +87,7 @@ struct RoundedTopBar : View {
                 .padding(.trailing, 4)
             TopBarAlertButton(action: {})
                 .padding(.trailing, 4)
-            TopBarUserButton(action: {})
+            TopBarUserButton(action: onProfileTap)
         }
         .padding(0)
     }

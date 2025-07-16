@@ -1,0 +1,176 @@
+import SwiftUI
+
+// MARK: - App Screen Enumeration with Parameters
+enum AppScreen: Equatable, Identifiable {
+    case dashboard
+    case eventsList
+    case eventDetail(eventId: String)
+    case materialsList
+    case materialDetail(materialId: String)
+    case newsList
+    case newsDetail(newsId: String)
+    case profile
+    case settings
+    case academy
+    
+    var id: String {
+        switch self {
+        case .dashboard:
+            return "dashboard"
+        case .eventsList:
+            return "events_list"
+        case .eventDetail(let eventId):
+            return "event_detail_\(eventId)"
+        case .materialsList:
+            return "materials_list"
+        case .materialDetail(let materialId):
+            return "material_detail_\(materialId)"
+        case .newsList:
+            return "news_list"
+        case .newsDetail(let newsId):
+            return "news_detail_\(newsId)"
+        case .profile:
+            return "profile"
+        case .settings:
+            return "settings"
+        case .academy:
+            return "academy"
+        }
+    }
+    
+    var title: String {
+        switch self {
+        case .dashboard:
+            return LocalizedStrings.dashboardScreenTitle
+        case .eventsList:
+            return LocalizedStrings.eventsListScreenTitle
+        case .eventDetail:
+            return LocalizedStrings.eventDetailsScreenTitle
+        case .materialsList:
+            return LocalizedStrings.materialsListScreenTitle
+        case .materialDetail:
+            return LocalizedStrings.materialDetailsScreenTitle
+        case .newsList:
+            return LocalizedStrings.newsListScreenTitle
+        case .newsDetail:
+            return LocalizedStrings.newsDetailsScreenTitle
+        case .profile:
+            return LocalizedStrings.userProfileScreenTitle
+        case .settings:
+            return LocalizedStrings.settingsScreenTitle
+        case .academy:
+            return LocalizedStrings.academyScreenTitle
+        }
+    }
+
+    var bottomMenuTab: BottomMenuTab? {
+        switch self {
+        case .dashboard:
+            return .start
+        case .eventsList, .eventDetail:
+            return .events
+        case .materialsList, .materialDetail:
+            return .materials
+        case .newsList, .newsDetail:
+            return .news
+        case .academy:
+            return .academy
+        case .profile, .settings:
+            return nil
+        }
+    }
+    
+    // Helper to check if this is a detail screen
+    var isDetailScreen: Bool {
+        switch self {
+        case .eventDetail, .materialDetail, .newsDetail:
+            return true
+        default:
+            return false
+        }
+    }
+}
+
+// MARK: - Navigation Manager with Parameter Support
+class NavigationManager: ObservableObject {
+    @Published var currentScreen: AppScreen = .dashboard
+    @Published var navigationStack: [AppScreen] = []
+    @Published var selectedBottomTab: BottomMenuTab = .start
+    
+    // Navigation method with parameters
+    func navigate(to screen: AppScreen) {
+        if screen != currentScreen {
+            navigationStack.append(currentScreen)
+            currentScreen = screen
+            
+            // Update bottom tab if needed
+            if let tab = screen.bottomMenuTab {
+                selectedBottomTab = tab
+            }
+        }
+    }
+    
+    // Convenience methods for specific navigation with parameters
+    func navigateToEventDetail(eventId: String) {
+        navigate(to: .eventDetail(eventId: eventId))
+    }
+    
+    func navigateToMaterialDetail(materialId: String) {
+        navigate(to: .materialDetail(materialId: materialId))
+    }
+    
+    func navigateToNewsDetail(newsId: String) {
+        navigate(to: .newsDetail(newsId: newsId))
+    }
+    
+    // Back navigation
+    func goBack() {
+        if !navigationStack.isEmpty {
+            currentScreen = navigationStack.removeLast()
+            
+            // Update bottom tab
+            if let tab = currentScreen.bottomMenuTab {
+                selectedBottomTab = tab
+            }
+        }
+    }
+    
+    // Navigate to root screen for a tab
+    func navigateToTabRoot(_ tab: BottomMenuTab) {
+        let screen: AppScreen
+        switch tab {
+        case .start:
+            screen = .dashboard
+        case .news:
+            screen = .newsList
+        case .events:
+            screen = .eventsList
+        case .materials:
+            screen = .materialsList
+        case .academy:
+            screen = .academy
+        }
+        
+        // Clear navigation stack and go to tab root
+        navigationStack.removeAll()
+        currentScreen = screen
+        selectedBottomTab = tab
+    }
+    
+    // Check if can go back
+    var canGoBack: Bool {
+        !navigationStack.isEmpty
+    }
+}
+
+// MARK: - Navigation Environment Key
+struct NavigationManagerKey: EnvironmentKey {
+    static let defaultValue = NavigationManager()
+}
+
+extension EnvironmentValues {
+    var navigationManager: NavigationManager {
+        get { self[NavigationManagerKey.self] }
+        set { self[NavigationManagerKey.self] = newValue }
+    }
+} 

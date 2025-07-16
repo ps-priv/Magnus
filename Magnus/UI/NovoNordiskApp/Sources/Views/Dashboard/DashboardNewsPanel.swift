@@ -46,7 +46,7 @@ struct DashboardNewsPanel: View {
             if !items.isEmpty {
                 TabView(selection: $currentPage) {
                     ForEach(Array(items.enumerated()), id: \.element.id) { index, newsItem in
-                        NewsItemCard(item: newsItem)
+                        NewsItemCard2(item: newsItem)
                             .tag(index)
                     }
                 }
@@ -77,7 +77,7 @@ struct DashboardNewsPanel: View {
     }
 }
 
-struct NewsItemCard: View {
+struct NewsItemCard2: View {
     let item: NewsItem
     
     var body: some View {

@@ -29,6 +29,8 @@ struct FontAwesome {
         case menu = "\u{f0c9}"
         case close = "\u{f00d}"
         case circle_arrow_right = "\u{f0a9}"
+        case settings = "\u{f013}"
+        case signOut = "\u{f08b}"
         
         // User
         case user = "\u{f007}"

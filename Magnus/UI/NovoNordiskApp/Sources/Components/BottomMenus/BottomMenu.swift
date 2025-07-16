@@ -73,6 +73,12 @@ struct BottomMenuItemView: View {
 // MARK: - Bottom Menu View
 struct BottomMenu: View {
     @Binding var selectedTab: BottomMenuTab
+    let onTabSelected: ((BottomMenuTab) -> Void)?
+    
+    init(selectedTab: Binding<BottomMenuTab>, onTabSelected: ((BottomMenuTab) -> Void)? = nil) {
+        self._selectedTab = selectedTab
+        self.onTabSelected = onTabSelected
+    }
     
     var body: some View {
         VStack(spacing: 0) {
@@ -89,6 +95,7 @@ struct BottomMenu: View {
                         isSelected: selectedTab == tab
                     ) {
                         selectedTab = tab
+                        onTabSelected?(tab)
                     }
                 }
             }

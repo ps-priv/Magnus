@@ -20,7 +20,7 @@ struct RootView: View {
                 })
                 
             case .authenticated:
-                Dashboard()
+                MainNavigationContainer()
                     .transition(.opacity)
                 
             case .unauthenticated:

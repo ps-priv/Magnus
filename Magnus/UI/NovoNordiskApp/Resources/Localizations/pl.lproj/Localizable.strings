@@ -55,3 +55,16 @@
 /* Dashboard */
 "DASHBOARD_NEWS_TITLE" = "Aktualności";
 "DASHBOARD_EVENTS_LOAD_MORE" = "Więcej";
+
+/* Screen titles*/
+"DASHBOARD_SCREEN_TITLE" = "Start";
+"NEWS_SCREEN_TITLE" = "Aktualności";
+"EVENTS_LIST_SCREEN_TITLE" = "Wydarzenia";
+"EVENT_DETAILS_SCREEN_TITLE" ="Wydarzenie";
+"MATERIALS_LIST_SCREEN_TITLE" = "Materiały";
+"MATERIAL_DETAILS_SCREEN_TITLE" = "Materiał";
+"NEWS_LIST_SCREEN_TITLE" = "Aktualności";
+"NEWS_DETAILS_SCREEN_TITLE" = "Aktualność";
+"USER_PROFILE_SCREEN_TITLE" = "Moje konto";
+"SETTINGS_SCREEN_TITLE" = "Ustawienia";
+"ACADEMY_SCREEN_TITLE" = "Akademia";
