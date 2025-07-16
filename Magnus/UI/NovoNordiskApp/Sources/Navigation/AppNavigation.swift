@@ -89,6 +89,60 @@ enum AppScreen: Equatable, Identifiable {
             return false
         }
     }
+    
+    // Helper to check if bottom menu should be shown
+    var shouldShowBottomMenu: Bool {
+        switch self {
+        case .profile, .settings:
+            return false
+        case .eventDetail, .materialDetail, .newsDetail:
+            return false // Ukryj również na ekranach szczegółów
+        default:
+            return true
+        }
+    }
+    
+    // Helper to check if top bar search button should be shown
+    var shouldShowSearchButton: Bool {
+        switch self {
+        case .eventsList, .materialsList, .newsList:
+            return true
+        default:
+            return false
+        }
+    }
+    
+    // Helper to check if top bar notification buttons should be shown
+    var shouldShowNotificationButtons: Bool {
+        switch self {
+        case .dashboard, .eventsList, .materialsList, .newsList:
+            return true
+        default:
+            return false
+        }
+    }
+    
+    // Helper to check if profile button should be shown
+    var shouldShowProfileButton: Bool {
+        switch self {
+        case .profile:
+            return false // Don't show profile button on profile screen
+        default:
+            return true
+        }
+    }
+    
+    // Helper to check if settings button should be shown
+    var shouldShowSettingsButton: Bool {
+        switch self {
+        case .profile:
+            return true // Show settings button on profile screen
+        case .settings:
+            return false // Don't show settings button on settings screen
+        default:
+            return false
+        }
+    }
 }
 
 // MARK: - Navigation Manager with Parameter Support

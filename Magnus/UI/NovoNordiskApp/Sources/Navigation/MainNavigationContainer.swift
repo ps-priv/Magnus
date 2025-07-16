@@ -10,6 +10,10 @@ struct MainNavigationContainer: View {
                 RoundedTopBar(
                     title: navigationManager.currentScreen.title,
                     canGoBack: navigationManager.canGoBack,
+                    showSearchButton: navigationManager.currentScreen.shouldShowSearchButton,
+                    showNotificationButtons: navigationManager.currentScreen.shouldShowNotificationButtons,
+                    showProfileButton: navigationManager.currentScreen.shouldShowProfileButton,
+                    showSettingsButton: navigationManager.currentScreen.shouldShowSettingsButton,
                     onBackTap: {
                         navigationManager.goBack()
                     },
@@ -23,23 +27,27 @@ struct MainNavigationContainer: View {
                 
                 // Main Content Area
                 currentScreenView()
-//                    .frame(
-//                        width: geometry.size.width,
-//                        height: geometry.size.height - topBarHeight - bottomMenuHeight(geometry: geometry)
-//                    )
-                Spacer()
-                // Bottom Menu
-                BottomMenu(
-                    selectedTab: $navigationManager.selectedBottomTab,
-                    onTabSelected: { tab in
-                        navigationManager.navigateToTabRoot(tab)
-                    }
-                )
-                //.frame(height: bottomMenuHeight(geometry: geometry))
+                    // .frame(
+                    //     width: geometry.size.width,
+                    //     height: geometry.size.height - topBarHeight - (navigationManager.currentScreen.shouldShowBottomMenu ? bottomMenuHeight(geometry: geometry) : 0)
+                    // )
+                
+                // Bottom Menu - Show conditionally
+                if navigationManager.currentScreen.shouldShowBottomMenu {
+                    BottomMenu(
+                        selectedTab: $navigationManager.selectedBottomTab,
+                        onTabSelected: { tab in
+                            navigationManager.navigateToTabRoot(tab)
+                        }
+                    )
+                    .frame(height: bottomMenuHeight(geometry: geometry))
+                    .transition(.move(edge: .bottom).combined(with: .opacity))
+                }
             }
         }
         .environmentObject(navigationManager)
         .animation(.easeInOut(duration: 0.3), value: navigationManager.currentScreen)
+        .animation(.easeInOut(duration: 0.3), value: navigationManager.currentScreen.shouldShowBottomMenu)
     }
     
     @ViewBuilder

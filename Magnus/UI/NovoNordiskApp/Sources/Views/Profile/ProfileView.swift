@@ -45,7 +45,7 @@ struct ProfileView: View {
                     }
                     
                     ProfileActionRow(icon: .signOut, title: "Wyloguj się", isDestructive: true) {
-                        // Handle logout
+                        handleLogout()
                     }
                 }
                 
@@ -64,6 +64,18 @@ struct ProfileView: View {
             user = try DIContainer.shared.authStorageService.getUserData()
         } catch {
             print("Failed to load user data: \(error)")
+        }
+    }
+    
+    private func handleLogout() {
+        Task {
+            do {
+                try DIContainer.shared.authStorageService.clearAllAuthData()
+                // Navigate back to login (this would need proper implementation in real app)
+                print("User logged out successfully")
+            } catch {
+                print("Failed to logout: \(error)")
+            }
         }
     }
 }
