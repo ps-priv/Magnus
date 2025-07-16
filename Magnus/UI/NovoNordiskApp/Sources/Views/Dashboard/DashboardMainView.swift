@@ -132,6 +132,7 @@ struct QuickActionCard: View {
     }
 }
 
+// MARK: - SwiftUI Previews
 #Preview {
     DashboardMainView()
         .environmentObject(NavigationManager())

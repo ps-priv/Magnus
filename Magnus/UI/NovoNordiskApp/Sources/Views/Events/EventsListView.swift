@@ -213,6 +213,7 @@ struct EventMockData {
     ]
 }
 
+// MARK: - SwiftUI Previews
 #Preview {
     EventsListView()
         .environmentObject(NavigationManager())

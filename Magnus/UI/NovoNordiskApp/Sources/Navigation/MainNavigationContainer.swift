@@ -80,7 +80,7 @@ struct MainNavigationContainer: View {
     
     private func bottomMenuHeight(geometry: GeometryProxy) -> CGFloat {
         let safeAreaBottom = geometry.safeAreaInsets.bottom
-        let menuHeight: CGFloat = 60
+        let menuHeight: CGFloat = 30
         return menuHeight + safeAreaBottom
     }
 } 

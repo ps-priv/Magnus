@@ -139,6 +139,8 @@ struct LoginView: View {
     }
 }
 
+// MARK: - SwiftUI Previews
 #Preview {
     LoginView()
+        .environmentObject(LoginViewModel())
 } 

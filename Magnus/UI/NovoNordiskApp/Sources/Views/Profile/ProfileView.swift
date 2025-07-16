@@ -111,6 +111,7 @@ struct ProfileActionRow: View {
     }
 }
 
+// MARK: - SwiftUI Previews
 #Preview {
     ProfileView()
         .environmentObject(NavigationManager())
