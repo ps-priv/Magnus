@@ -7,22 +7,31 @@ struct DashboardMainView: View {
     @EnvironmentObject var navigationManager: NavigationManager
     
     var body: some View {
-        ScrollView {
-            VStack(spacing: 20) {
-                // Welcome Section
-                welcomeSection
-                
-                // News Panel
-                DashboardNewsPanel(items: $newsItems)
-                
-                // Quick Actions
-                quickActionsSection
-                
-                Spacer(minLength: 20)
+        ZStack {
+            Color(.systemGray6)
+                .ignoresSafeArea()
+            VStack(spacing: 0) {
+                //RoundedTopBar(title: "Start")
+                Spacer()
+                //BottomMenu(selectedTab: .constant(.start))
             }
-            .padding()
         }
-        .background(Color(.systemGray6))
+//        ScrollView {
+//            VStack(spacing: 20) {
+//                // Welcome Section
+//                //welcomeSection
+//                
+//                // News Panel
+//                DashboardNewsPanel(items: $newsItems)
+//                
+//                // Quick Actions
+//                //quickActionsSection
+//                
+//                Spacer(minLength: 20)
+//            }
+//            .padding()
+//        }
+//        .background(Color(.systemGray6))
     }
     
     @ViewBuilder

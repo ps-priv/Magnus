@@ -83,9 +83,9 @@ struct BottomMenu: View {
     var body: some View {
         VStack(spacing: 0) {
             // Separator line
-            Rectangle()
-                .fill(Color.gray.opacity(0.2))
-                .frame(height: 0.5)
+//            Rectangle()
+//                .fill(Color.gray.opacity(0.2))
+//                .frame(height: 0.5)
             
             // Menu items
             HStack(spacing: 0) {
@@ -102,13 +102,13 @@ struct BottomMenu: View {
             .padding(.top, 20)
             .background(Color.white)
         }
-        .background(Color.white)
-        .shadow(
-            color: Color.black.opacity(0.1),
-            radius: 8,
-            x: 0,
-            y: -2
-        )
+       // .background(Color.white)
+//        .shadow(
+//            color: Color.black.opacity(0.1),
+//            radius: 24,
+//            x: 0,
+//            y: -4
+//        )
     }
 }
 

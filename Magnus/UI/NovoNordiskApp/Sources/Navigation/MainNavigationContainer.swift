@@ -23,11 +23,11 @@ struct MainNavigationContainer: View {
                 
                 // Main Content Area
                 currentScreenView()
-                    .frame(
-                        width: geometry.size.width,
-                        height: geometry.size.height - topBarHeight - bottomMenuHeight(geometry: geometry)
-                    )
-                
+//                    .frame(
+//                        width: geometry.size.width,
+//                        height: geometry.size.height - topBarHeight - bottomMenuHeight(geometry: geometry)
+//                    )
+                Spacer()
                 // Bottom Menu
                 BottomMenu(
                     selectedTab: $navigationManager.selectedBottomTab,
@@ -35,7 +35,7 @@ struct MainNavigationContainer: View {
                         navigationManager.navigateToTabRoot(tab)
                     }
                 )
-                .frame(height: bottomMenuHeight(geometry: geometry))
+                //.frame(height: bottomMenuHeight(geometry: geometry))
             }
         }
         .environmentObject(navigationManager)
