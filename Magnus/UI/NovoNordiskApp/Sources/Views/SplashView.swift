@@ -1,5 +1,8 @@
 import SwiftUI
 import Foundation
+#if DEBUG
+import Inject
+#endif
 
 struct SplashView: View {
     let onAnimationComplete: () -> Void
@@ -11,6 +14,9 @@ struct SplashView: View {
     @State private var logoScale = 0.0
     @State private var backgroundOpacity = 1.0
     @State private var showLogo = false
+    #if DEBUG
+    @ObserveInjection var inject
+    #endif
     
     init(onAnimationComplete: @escaping () -> Void = {}) {
         self.onAnimationComplete = onAnimationComplete
@@ -50,6 +56,9 @@ struct SplashView: View {
         .onAppear {
             startSplashAnimation()
         }
+        #if DEBUG
+        .enableInjection()
+        #endif
     }
     
     private func startSplashAnimation() {

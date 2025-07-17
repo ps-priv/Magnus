@@ -1,5 +1,8 @@
 import SwiftUI
 import MagnusFeatures
+#if DEBUG
+import Inject
+#endif
 
 enum AppState {
     case splash
@@ -10,6 +13,9 @@ enum AppState {
 struct RootView: View {
     @State private var appState: AppState = .splash
     @State private var authCheckCompleted = false
+    #if DEBUG
+    @ObserveInjection var inject
+    #endif
     
     var body: some View {
         ZStack {
@@ -33,6 +39,9 @@ struct RootView: View {
             }
         }
         .animation(.easeInOut(duration: 0.5), value: appState)
+        #if DEBUG
+        .enableInjection()
+        #endif
     }
     
     private func checkAuthenticationStatus() {

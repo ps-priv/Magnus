@@ -1,7 +1,13 @@
 import SwiftUI
+#if DEBUG
+import Inject
+#endif
 
 struct MainNavigationContainer: View {
     @StateObject private var navigationManager = NavigationManager()
+    #if DEBUG
+    @ObserveInjection var inject
+    #endif
     
     var body: some View {
         GeometryReader { geometry in
@@ -48,6 +54,9 @@ struct MainNavigationContainer: View {
         .environmentObject(navigationManager)
         .animation(.easeInOut(duration: 0.3), value: navigationManager.currentScreen)
         .animation(.easeInOut(duration: 0.3), value: navigationManager.currentScreen.shouldShowBottomMenu)
+        #if DEBUG
+        .enableInjection()
+        #endif
     }
     
     @ViewBuilder

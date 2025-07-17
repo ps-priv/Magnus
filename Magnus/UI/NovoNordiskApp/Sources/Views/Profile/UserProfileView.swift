@@ -2,6 +2,10 @@ import SwiftUI
 import MagnusFeatures
 import MagnusDomain
 
+#if DEBUG
+import Inject
+#endif
+
 enum UserProfilePanel {
     case informacje
     case identyfikator
@@ -15,6 +19,10 @@ struct UserProfileView: View {
     @State private var newPassword: String = ""
     @State private var confirmPassword: String = ""
     @State private var showSuccessAlert = false
+
+    #if DEBUG
+    @ObserveInjection var inject
+    #endif
 
     var body: some View {
         ScrollView {
@@ -48,7 +56,7 @@ struct UserProfileView: View {
                 VStack(spacing: 12) {
                     HStack(spacing: 12) {
                         UserProfileMainButton(
-                            title: "Informacje",
+                            title: "Informacje ogólne",
                             icon: .settings,
                             isSelected: selectedPanel == .informacje
                         ) {
@@ -56,7 +64,7 @@ struct UserProfileView: View {
                         }
                         
                         UserProfileMainButton(
-                            title: "Identyfikator",
+                            title: "QR Code",
                             icon: .settings,
                             isSelected: selectedPanel == .identyfikator
                         ) {

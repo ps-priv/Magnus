@@ -2,7 +2,8 @@ import ProjectDescription
 
 let packages: [Package] = [
     .package(url: "https://github.com/Alamofire/Alamofire.git", from: "5.8.0"),
-    .package(url: "https://github.com/Swinject/Swinject.git", from: "2.9.1")
+    .package(url: "https://github.com/Swinject/Swinject.git", from: "2.9.1"),
+    .package(url: "https://github.com/krzysztofzablocki/Inject.git", from: "1.5.2")
 ]
 
 let project = Project(
@@ -81,6 +82,7 @@ let project = Project(
                 .target(name: "MagnusApplication"), 
                 .target(name: "MagnusDomain"), 
                 .target(name: "MagnusFeatures"),
+                .package(product: "Inject"),
             ],
             settings: .settings(
                 base: [
@@ -92,7 +94,9 @@ let project = Project(
                 configurations: [
                     .debug(name: .debug, settings: [
                         "CODE_SIGN_IDENTITY": "iPhone Developer",
-                        "PROVISIONING_PROFILE_SPECIFIER": "" // Automatyczne
+                        "PROVISIONING_PROFILE_SPECIFIER": "", // Automatyczne
+                        "OTHER_LDFLAGS": ["-Xlinker", "-interposable"],
+                        "EMIT_FRONTEND_COMMAND_LINES": "YES"
                     ]),
                     .release(name: .release, settings: [
                         "CODE_SIGN_IDENTITY": "iPhone Distribution",

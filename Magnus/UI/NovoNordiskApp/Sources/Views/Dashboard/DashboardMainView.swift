@@ -1,21 +1,38 @@
 import SwiftUI
 import MagnusFeatures
 import MagnusDomain
+#if DEBUG
+import Inject
+#endif
 
 struct DashboardMainView: View {
     @State private var newsItems: [NewsItem] = NewsItemMockGenerator.createMany(count: 3)
     @EnvironmentObject var navigationManager: NavigationManager
+    #if DEBUG
+    @ObserveInjection var inject
+    #endif
     
     var body: some View {
         ZStack {
             Color(.systemGray6)
                 .ignoresSafeArea()
+                Text("Hello World4")
+                .fontWeight(.bold)
+                .font(.system(size: 14))
+                .foregroundColor(.novoNordiskBlue)
+                .padding()
+                .background(Color.white)
+                .cornerRadius(12)
+                .shadow(color: .black.opacity(0.1), radius: 2, x: 0, y: 1)
             VStack(spacing: 0) {
                 //RoundedTopBar(title: "Start")
                 Spacer()
                 //BottomMenu(selectedTab: .constant(.start))
             }
         }
+        #if DEBUG
+        .enableInjection()
+        #endif
 //        ScrollView {
 //            VStack(spacing: 20) {
 //                // Welcome Section
