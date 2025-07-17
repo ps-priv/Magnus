@@ -93,5 +93,8 @@
 "USER_PROFILE_MARKETING" = "Wyrażam zgodę na otrzymywanie informacji marketingowych i promocyjnych";
 "USER_PROFILE_MARKETING_LINK" = "Zobacz treść zgody";
 
+"USER_PROFILE_QRCODE_ID" = "Twój identyfikator";
+"USER_PROFILE_QRCODE_DESCRIPTION" = "Zeskanuj ten identyfikator w odpowiednim punkcie. To twoja przepustka na wydarzenia Novo Nordisk.";
+
 "BUTTON_SAVE" = "Zapisz";
 "BUTTON_LOGOUT" = "Wyloguj";

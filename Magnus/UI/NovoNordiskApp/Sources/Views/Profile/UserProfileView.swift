@@ -1,6 +1,8 @@
 import SwiftUI
 import MagnusFeatures
 import MagnusDomain
+import CoreImage
+import CoreImage.CIFilterBuiltins
 
 #if DEBUG
 import Inject
@@ -253,33 +255,71 @@ struct UserProfileView: View {
     
     @ViewBuilder
     private func identyfikatorPanel() -> some View {
-        VStack(alignment: .leading, spacing: 16) {
-            HStack {
-                FAIcon(.settings, type: .solid, size: 20, color: .novoNordiskBlue)
-                Text("Identyfikator użytkownika")
-                    .font(.headline)
-                    .foregroundColor(.novoNordiskBlue)
-                Spacer()
-            }
-            
+        VStack(alignment: .center, spacing: 20) { 
             if let user = user {
-                VStack(alignment: .leading, spacing: 12) {
+                VStack(alignment: .center, spacing: 16) {
+                    Text(LocalizedStrings.userProfileQrcodeId)
+                        .font(.headline)
+                        .foregroundColor(.primary)
+                        .fontWeight(.bold)
 
-                    HStack {
-                        Text("Kod QR")
-                            .font(.body)
-                            .foregroundColor(.secondary)
-                        Spacer()
-                        RoundedRectangle(cornerRadius: 8)
+                    // QR Code
+                    if let qrImage = generateQRCode(from: generateQRCodeText(user: user)) {
+                        Image(uiImage: qrImage)
+                            .interpolation(.none)
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 270, height: 270)
+                            .background(Color.white)
+                            .cornerRadius(12)
+                            .shadow(color: .gray.opacity(0.3), radius: 4, x: 0, y: 2)
+                    } else {
+                        RoundedRectangle(cornerRadius: 12)
                             .fill(Color.gray.opacity(0.2))
-                            .frame(width: 80, height: 80)
+                            .frame(width: 270, height: 270)
                             .overlay(
-                                FAIcon(.info, type: .solid, size: 30, color: .gray)
+                                Text("Błąd generowania QR")
+                                    .foregroundColor(.gray)
                             )
                     }
+                
+                    Text(LocalizedStrings.userProfileQrcodeDescription)
+                        .font(.body)
+                        .foregroundColor(.secondary)
+                        .multilineTextAlignment(.center)
                 }
             }
         }
+        .padding()
+    }
+    
+    // MARK: - QR Code Generation
+    private func generateQRCodeText(user: AuthUser) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd.MM.yyyy HH:mm:ss"
+        let currentDateTime = dateFormatter.string(from: Date())
+        
+        return "\(user.firstName) \(user.lastName ?? "")\n\(currentDateTime)"
+    }
+    
+    private func generateQRCode(from string: String) -> UIImage? {
+        let context = CIContext()
+        let filter = CIFilter.qrCodeGenerator()
+        
+        filter.message = Data(string.utf8)
+        
+        if let outputImage = filter.outputImage {
+            // Scale up the QR code for better quality
+            let scaleX = 270 / outputImage.extent.size.width
+            let scaleY = 270 / outputImage.extent.size.height
+            let transformedImage = outputImage.transformed(by: CGAffineTransform(scaleX: scaleX, y: scaleY))
+            
+            if let cgimg = context.createCGImage(transformedImage, from: transformedImage.extent) {
+                return UIImage(cgImage: cgimg)
+            }
+        }
+        
+        return nil
     }
     
     @ViewBuilder
@@ -349,6 +389,15 @@ struct UserProfileView: View {
             print("Failed to load user data: \(error)")
         }
     }
+}
+
+// MARK: - DateFormatter Extension
+extension DateFormatter {
+    static let displayFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "dd.MM.yyyy HH:mm:ss"
+        return formatter
+    }()
 }
 
 struct UserProfileMainButton: View {

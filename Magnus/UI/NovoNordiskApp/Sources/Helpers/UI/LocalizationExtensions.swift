@@ -103,6 +103,9 @@ struct LocalizedStrings {
     static let userProfileMarketing = "USER_PROFILE_MARKETING".localized
     static let userProfileMarketingLink = "USER_PROFILE_MARKETING_LINK".localized
 
+    static let userProfileQrcodeId = "USER_PROFILE_QRCODE_ID".localized
+    static let userProfileQrcodeDescription = "USER_PROFILE_QRCODE_DESCRIPTION".localized
+
     // Buttons
     static let buttonSave = "BUTTON_SAVE".localized
     static let buttonLogout = "BUTTON_LOGOUT".localized

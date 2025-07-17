@@ -93,5 +93,8 @@
 "USER_PROFILE_MARKETING" = "I agree to receive marketing and promotional information";
 "USER_PROFILE_MARKETING_LINK" = "View consent text";
 
+"USER_PROFILE_QRCODE_ID" = "Your identifier";
+"USER_PROFILE_QRCODE_DESCRIPTION" = "can this identifier at the designated point. It is your pass for Novo Nordisk events.";
+
 "BUTTON_SAVE" = "Save";
 "BUTTON_LOGOUT" = "Logout";
