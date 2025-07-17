@@ -29,16 +29,16 @@ struct NovoNordiskTextBox: View {
             if !style.title.isEmpty {
                 Text(style.title)
                     .font(style.titleFont)
-                    .foregroundColor(Color("NovoNordiskBlue"))
+                    .foregroundColor(isEnabled ? Color("NovoNordiskBlue") : Color.novoNordiskTextGrey)
             }
             
             Group {
                 if isSecure {
                     SecureField(placeholder, text: $text)
-                        .textFieldStyle()
+                        .novoNordiskTextFieldStyle(isEnabled: isEnabled)
                 } else {
                     TextField(placeholder, text: $text)
-                        .textFieldStyle()
+                        .novoNordiskTextFieldStyle(isEnabled: isEnabled)
                 }
             }
             .focused($isFocused)
@@ -55,16 +55,18 @@ struct NovoNordiskTextBox: View {
 
 // MARK: - TextField Style Extension
 private extension View {
-    func textFieldStyle() -> some View {
+    func novoNordiskTextFieldStyle(isEnabled: Bool = true) -> some View {
         self
             .font(.novoNordiskBody)
-            .foregroundColor(Color("NovoNordiskBlue"))
+            .foregroundColor(isEnabled ? Color("NovoNordiskBlue") : Color.novoNordiskTextGrey)
             .padding(.horizontal, 12)
             .padding(.vertical, 14)
-            .background(Color.white)
+            .background(isEnabled ? Color.white : Color.gray.opacity(0.1))
             .overlay(
                 RoundedRectangle(cornerRadius: 8)
-                    .stroke(Color("NovoNordiskBlue"), lineWidth: 1.5)
+                    .stroke(
+                        isEnabled ? Color("NovoNordiskBlue") : Color.novoNordiskGreyButton
+                        , lineWidth: 1.5)
             )
             .autocapitalization(.none)
             .disableAutocorrection(true)
