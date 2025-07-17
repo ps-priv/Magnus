@@ -6,4 +6,6 @@ extension Color {
     static let novoNordiskSelectedLightBlue = Color("NovoNordiskSelectedLightBlue")
     static let novoNordiskGreyButton = Color("NovoNordiskGreyButton")
     static let novoNordiskTextGrey = Color("NovoNordiskTextGrey")
+    static let novoNordiskLightGrey = Color("NovoNordiskLightGrey")
+    static let novoNordiskGrey = Color("NovoNordiskGrey")
 }

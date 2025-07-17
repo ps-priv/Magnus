@@ -73,4 +73,25 @@
 "USER_PROFILE_INFORMATION_BUTTON" = "Informacje";
 "USER_PROFILE_ID_BUTTON" = "Identyfikator";
 "USER_PROFILE_CHANGE_PASSWORD" = "Zmień hasło";
-ļ
+"USER_PROFILE_FIRSTNAME"="Imię";
+"USER_PROFILE_LASTNAME"="Nazwisko";
+"USER_PROFILE_DEPARTMENT"= "Dział";
+"USER_PROFILE_EMAIL" = "Email";
+"USER_PROFILE_NPWZ" = "NPWZ";
+"USER_PROFILE_ADDRESS" = "Adres";
+"USER_PROFILE_POSTALCODE" = "Kod pocztowy";
+"USER_PROFILE_CITY" = "Miejscowość";
+"USER_PROFILE_PESEL" = "PESEL";
+"USER_PROFILE_HAS_COMPANY" = "Prowadzę działalność gospodarczą";
+"USER_PROFILE_NIP" = "NIP";
+"USER_PROFILE_COMPANY_NAME" = "Nazwa firmy";
+"USER_PROFILE_TAX_OFFICE" = "Urząd skarbowy";
+"USER_PROFILE_POLICY" = "Akceptuję regulamin aplikacji";
+"USER_PROFILE_POLICY_LINK" = "Zobacz Regulamin";
+"USER_PROFILE_RODO" = "Akceptuję postanowienia Polityki Prywatności i zapisy RODO";
+"USER_PROFILE_RODO_LINK" = "Zobacz Politykę Prywatności";
+"USER_PROFILE_MARKETING" = "Wyrażam zgodę na otrzymywanie informacji marketingowych i promocyjnych";
+"USER_PROFILE_MARKETING_LINK" = "Zobacz treść zgody";
+
+"BUTTON_SAVE" = "Zapisz";
+"BUTTON_LOGOUT" = "Wyloguj";

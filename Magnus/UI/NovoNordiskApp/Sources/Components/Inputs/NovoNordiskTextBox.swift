@@ -61,11 +61,11 @@ private extension View {
             .foregroundColor(isEnabled ? Color("NovoNordiskBlue") : Color.novoNordiskTextGrey)
             .padding(.horizontal, 12)
             .padding(.vertical, 14)
-            .background(isEnabled ? Color.white : Color.gray.opacity(0.1))
+            .background(isEnabled ? Color.white : Color.white)
             .overlay(
                 RoundedRectangle(cornerRadius: 8)
                     .stroke(
-                        isEnabled ? Color("NovoNordiskBlue") : Color.novoNordiskGreyButton
+                        isEnabled ? Color("NovoNordiskBlue") : Color.novoNordiskGrey
                         , lineWidth: 1.5)
             )
             .autocapitalization(.none)

@@ -98,71 +98,62 @@ struct UserProfileView: View {
         VStack(alignment: .leading, spacing: 16) {
             HStack {
                 FAIcon(.userCircle, type: .regular, size: 20, color: .novoNordiskBlue)
-                Text("Informacje o profilu")
+                Text(LocalizedStrings.userProfileInformationButton)
                     .font(.headline)
                 Spacer()
             }
             
             if let user = user {
-                // VStack(alignment: .leading, spacing: 12) {
-                //     UserInfoRow(label: "Imię i nazwisko", value: user.fullName)
-                //     UserInfoRow(label: "Adres email", value: user.email)
-                //     UserInfoRow(label: "Rola", value: user.roleName)
-                //     UserInfoRow(label: "Status konta", value: "Aktywne")
-                //     UserInfoRow(label: "Data rejestracji", value: "15.03.2024")
-                //     UserInfoRow(label: "Ostatnie logowanie", value: "Dziś, 14:30")
-                // }
-
                 VStack (alignment: .leading, spacing: 12) {
                     NovoNordiskTextBox(
-                        placeholder: "Imię",
+                        placeholder: LocalizedStrings.userProfileFirstname,
                         text: .constant(user.firstName),
-                        style: .withTitle("Imię:", bold: true)
+                        style: .withTitle(LocalizedStrings.userProfileFirstname + ":", bold: true)
                     )
 
                     NovoNordiskTextBox(
-                        placeholder: "Nazwisko",
+                        placeholder: LocalizedStrings.userProfileLastname,
                         text: .constant(""),
-                        style: .withTitle("Nazwisko:", bold: true)
+                        style: .withTitle(LocalizedStrings.userProfileLastname + ":", bold: true)
                     )
 
                     NovoNordiskTextBox(
-                        placeholder: "Dział",
+                        placeholder: LocalizedStrings.userProfileDepartment,
                         text: .constant(""),
-                        style: .withTitle("Dział:", bold: true)
+                        style: .withTitle(LocalizedStrings.userProfileDepartment + ":", bold: true)
                     )
 
                     NovoNordiskTextBox(
-                        placeholder: "Email",
+                        placeholder: LocalizedStrings.userProfileEmail,
                         text: .constant(""),
-                        style: .withTitle("Email:", bold: true)
+                        style: .withTitle(LocalizedStrings.userProfileEmail + ":", bold: true)
                     )
 
                     NovoNordiskTextBox(
-                        placeholder: "NPWZ",
+                        placeholder: LocalizedStrings.userProfileNpwz,
                         text: .constant(""),
-                        style: .withTitle("NPWZ:", bold: true)
+                        style: .withTitle(LocalizedStrings.userProfileNpwz + ":", bold: true)
                     )
 
                     NovoNordiskTextBox(
-                        placeholder: "Adres",
+                        placeholder: LocalizedStrings.userProfileAddress,
                         text: .constant(""),
-                        style: .withTitle("Adres:", bold: true)
+                        style: .withTitle(LocalizedStrings.userProfileAddress + ":", bold: true)
                     )
 
                     GeometryReader { geometry in
                         HStack(spacing: 12) {
                             NovoNordiskTextBox(
-                                placeholder: "Kod pocztowy",
+                                placeholder: LocalizedStrings.userProfilePostalcode,
                                 text: .constant(""),
-                                style: .withTitle("Kod pocztowy:", bold: true)
+                                style: .withTitle(LocalizedStrings.userProfilePostalcode + ":", bold: true)
                             )
                             .frame(width: (geometry.size.width - 12) / 3) // 1/3 szerokości minus spacing
                             
                             NovoNordiskTextBox(
-                                placeholder: "Miejscowość",
+                                placeholder: LocalizedStrings.userProfileCity,
                                 text: .constant(""),
-                                style: .withTitle("Miejscowość:", bold: true)
+                                style: .withTitle(LocalizedStrings.userProfileCity + ":", bold: true)
                             )
                             .frame(width: (geometry.size.width - 12) * 2 / 3) // 2/3 szerokości minus spacing
                         }
@@ -170,13 +161,13 @@ struct UserProfileView: View {
                     .frame(height: 80) 
 
                     NovoNordiskTextBox(
-                        placeholder: "PESEL",
+                        placeholder: LocalizedStrings.userProfilePesel,
                         text: .constant(""),
-                        style: .withTitle("PESEL:", bold: true)
+                        style: .withTitle(LocalizedStrings.userProfilePesel + ":", bold: true)
                     )
 
                     NovoNordiskCheckbox(
-                        title: "Prowadzę działalność gospodarczą",
+                        title: LocalizedStrings.userProfileHasCompany,
                         isChecked: $hasBusiness,
                         //style: .regular
                     ) { isChecked in
@@ -189,33 +180,33 @@ struct UserProfileView: View {
                     }
 
                        NovoNordiskTextBox(
-                            placeholder: "NIP",
+                            placeholder: LocalizedStrings.userProfileNip,
                             text: .constant(""),
-                            style: .withTitle("NIP:", bold: true),
+                            style: .withTitle(LocalizedStrings.userProfileNip + ":", bold: true),
                             isEnabled: hasBusiness
                         )
 
                         NovoNordiskTextBox(
-                            placeholder: "Nazwa firmy",
+                            placeholder: LocalizedStrings.userProfileCompanyName,
                             text: .constant(""),
-                            style: .withTitle("Nazwa firmy:", bold: true),
+                            style: .withTitle(LocalizedStrings.userProfileCompanyName + ":", bold: true),
                             isEnabled: hasBusiness
                         )
 
                         NovoNordiskTextBox(
-                            placeholder: "Urząd skarbowy",
+                            placeholder: LocalizedStrings.userProfileTaxOffice,
                             text: .constant(""),
-                            style: .withTitle("Urząd skarbowy:", bold: true),
+                            style: .withTitle(LocalizedStrings.userProfileTaxOffice + ":", bold: true),
                             isEnabled: hasBusiness
                         )
 
                     VStack(alignment: .leading, spacing: 0) {
                         NovoNordiskCheckbox(
-                            title: "Akceptuję regulamin aplikacji",
+                            title: LocalizedStrings.userProfilePolicy,
                             isChecked: $hasBusiness,
                             //style: .regular
                         )
-                        NovoNordiskLinkButton(title: "Zobacz regulamin", style: .small) {
+                        NovoNordiskLinkButton(title: LocalizedStrings.userProfilePolicyLink, style: .small) {
                             print("Regulamin aplikacji tapped")
                         }
                         .padding(.leading, 30)
@@ -223,12 +214,12 @@ struct UserProfileView: View {
 
                     VStack(alignment: .leading, spacing: 0) {
                         NovoNordiskCheckbox(
-                            title: "Akceptuję postanowienia Polityki Prywatności i zapisy RODO",
+                            title: LocalizedStrings.userProfileRodo,
                             isChecked: $hasBusiness,
                             //style: .regular
                         )
 
-                        NovoNordiskLinkButton(title: "Zobacz Politykę Prywatności", style: .small) {
+                        NovoNordiskLinkButton(title: LocalizedStrings.userProfileRodoLink, style: .small) {
                             print("Regulamin aplikacji tapped")
                         }     
                         .padding(.leading, 30)
@@ -236,12 +227,12 @@ struct UserProfileView: View {
 
                     VStack(alignment: .leading, spacing: 0) {
                         NovoNordiskCheckbox(
-                            title: "Wyrażam zgodę na otrzymywanie informacji marketingowych i promocyjnych",
+                            title: LocalizedStrings.userProfileMarketing,
                             isChecked: $hasBusiness,
                             //style: .regular
                         )
 
-                        NovoNordiskLinkButton(title: "Zobacz treść zgody", style: .small) {
+                        NovoNordiskLinkButton(title: LocalizedStrings.userProfileMarketingLink, style: .small) {
                             print("Regulamin aplikacji tapped")
                         }
                         .padding(.leading, 30)
@@ -249,12 +240,12 @@ struct UserProfileView: View {
                 }
             }
 
-            NovoNordiskButton(title: "Zapisz", style: .primary) {
+            NovoNordiskButton(title: LocalizedStrings.buttonSave, style: .primary) {
                 print("Primary tapped")
             }
             .padding(.top, 16)
 
-            NovoNordiskButton(title: "Wyloguj", style: .outline) {
+            NovoNordiskButton(title: LocalizedStrings.buttonLogout, style: .outline) {
 
             }
         }
@@ -273,10 +264,7 @@ struct UserProfileView: View {
             
             if let user = user {
                 VStack(alignment: .leading, spacing: 12) {
-                    UserInfoRow(label: "ID użytkownika", value: user.id)
-                    UserInfoRow(label: "Email", value: user.email)
-                    UserInfoRow(label: "Unikalny identyfikator", value: "NN-\(user.id.prefix(8))")
-                    
+
                     HStack {
                         Text("Kod QR")
                             .font(.body)
@@ -378,23 +366,6 @@ struct UserProfileMainButton: View {
                     .foregroundColor(.novoNordiskBlue)
                     .fontWeight(isSelected ? .bold : .regular)
             }
-        }
-    }
-}
-
-struct UserInfoRow: View {
-    let label: String
-    let value: String
-    
-    var body: some View {
-        HStack {
-            Text(label)
-                .font(.body)
-                .foregroundColor(.secondary)
-            Spacer()
-            Text(value)
-                .font(.body)
-                .fontWeight(.medium)
         }
     }
 }

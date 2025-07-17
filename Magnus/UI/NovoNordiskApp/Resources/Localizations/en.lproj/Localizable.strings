@@ -73,3 +73,25 @@
 "USER_PROFILE_INFORMATION_BUTTON" = "Information";
 "USER_PROFILE_ID_BUTTON" = "Identifier";
 "USER_PROFILE_CHANGE_PASSWORD" = "Change password";
+"USER_PROFILE_FIRSTNAME"="Firstname";
+"USER_PROFILE_LASTNAME"="Lastname";
+"USER_PROFILE_DEPARTMENT"= "Department";
+"USER_PROFILE_EMAIL" = "Email";
+"USER_PROFILE_NPWZ" = "NPWZ";
+"USER_PROFILE_ADDRESS" = "Address";
+"USER_PROFILE_POSTALCODE" = "Postal Code";
+"USER_PROFILE_CITY" = "Locality";
+"USER_PROFILE_PESEL" = "PESEL";
+"USER_PROFILE_HAS_COMPANY" = "I operate a business";
+"USER_PROFILE_NIP" = "Tax ID";
+"USER_PROFILE_COMPANY_NAME" = "Company";
+"USER_PROFILE_TAX_OFFICE" = "Tax Office";
+"USER_PROFILE_POLICY" = "I accept the app’s Terms of Service";
+"USER_PROFILE_POLICY_LINK" = "View Terms of Service";
+"USER_PROFILE_RODO" = "I accept the provisions of the Privacy Policy and the GDPR terms";
+"USER_PROFILE_RODO_LINK" = "View Privacy Policy";
+"USER_PROFILE_MARKETING" = "I agree to receive marketing and promotional information";
+"USER_PROFILE_MARKETING_LINK" = "View consent text";
+
+"BUTTON_SAVE" = "Save";
+"BUTTON_LOGOUT" = "Logout";

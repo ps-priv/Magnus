@@ -81,4 +81,30 @@ struct LocalizedStrings {
     static let userProfileInformationButton = "USER_PROFILE_INFORMATION_BUTTON".localized
     static let userProfileIdButton = "USER_PROFILE_ID_BUTTON".localized
     static let userProfileChangePassword = "USER_PROFILE_CHANGE_PASSWORD".localized
+
+    // User profile
+    static let userProfileFirstname = "USER_PROFILE_FIRSTNAME".localized
+    static let userProfileLastname = "USER_PROFILE_LASTNAME".localized
+    static let userProfileDepartment = "USER_PROFILE_DEPARTMENT".localized
+    static let userProfileEmail = "USER_PROFILE_EMAIL".localized
+    static let userProfileNpwz = "USER_PROFILE_NPWZ".localized
+    static let userProfileAddress = "USER_PROFILE_ADDRESS".localized
+    static let userProfilePostalcode = "USER_PROFILE_POSTALCODE".localized
+    static let userProfileCity = "USER_PROFILE_CITY".localized
+    static let userProfilePesel = "USER_PROFILE_PESEL".localized
+    static let userProfileHasCompany = "USER_PROFILE_HAS_COMPANY".localized
+    static let userProfileNip = "USER_PROFILE_NIP".localized
+    static let userProfileCompanyName = "USER_PROFILE_COMPANY_NAME".localized
+    static let userProfileTaxOffice = "USER_PROFILE_TAX_OFFICE".localized
+    static let userProfilePolicy = "USER_PROFILE_POLICY".localized
+    static let userProfilePolicyLink = "USER_PROFILE_POLICY_LINK".localized
+    static let userProfileRodo = "USER_PROFILE_RODO".localized
+    static let userProfileRodoLink = "USER_PROFILE_RODO_LINK".localized
+    static let userProfileMarketing = "USER_PROFILE_MARKETING".localized
+    static let userProfileMarketingLink = "USER_PROFILE_MARKETING_LINK".localized
+
+    // Buttons
+    static let buttonSave = "BUTTON_SAVE".localized
+    static let buttonLogout = "BUTTON_LOGOUT".localized
+
 }
