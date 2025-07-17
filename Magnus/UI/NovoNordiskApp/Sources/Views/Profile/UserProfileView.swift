@@ -15,7 +15,7 @@ enum UserProfilePanel {
 struct UserProfileView: View {
     @EnvironmentObject var navigationManager: NavigationManager
     @State private var user: AuthUser? = nil
-    @State private var selectedPanel: UserProfilePanel? = nil
+    @State private var selectedPanel: UserProfilePanel? = .informacje
     @State private var newPassword: String = ""
     @State private var confirmPassword: String = ""
     @State private var showSuccessAlert = false
@@ -26,54 +26,29 @@ struct UserProfileView: View {
 
     var body: some View {
         ScrollView {
-            VStack(spacing: 24) {
-                // Profile Header
-                VStack(spacing: 16) {
-                    FAIcon(.userCircle, type: .solid, size: 80, color: .novoNordiskBlue)
-                    
-                    if let user = user {
-                        Text(user.fullName)
-                            .font(.title2)
-                            .fontWeight(.bold)
-                        
-                        Text(user.email)
-                            .font(.body)
-                            .foregroundColor(.secondary)
-                        
-                        Text(user.roleName)
-                            .font(.caption)
-                            .padding(.horizontal, 12)
-                            .padding(.vertical, 4)
-                            .background(Color.novoNordiskBlue.opacity(0.1))
-                            .cornerRadius(12)
-                    }
-                }
-                .padding()
-                .background(Color.white)
-                .cornerRadius(12)
-                
+            VStack(spacing: 24) {          
                 // Main Action Buttons
                 VStack(spacing: 12) {
                     HStack(spacing: 12) {
                         UserProfileMainButton(
-                            title: "Informacje ogólne",
-                            icon: .settings,
+                            title: LocalizedStrings.userProfileInformationButton,
+                            icon: .circle_information,
                             isSelected: selectedPanel == .informacje
                         ) {
                             selectedPanel = selectedPanel == .informacje ? nil : .informacje
                         }
                         
                         UserProfileMainButton(
-                            title: "QR Code",
-                            icon: .settings,
+                            title: LocalizedStrings.userProfileIdButton,
+                            icon: .qrcode,
                             isSelected: selectedPanel == .identyfikator
                         ) {
                             selectedPanel = selectedPanel == .identyfikator ? nil : .identyfikator
                         }
                         
                         UserProfileMainButton(
-                            title: "Zmień hasło",
-                            icon: .settings,
+                            title:  LocalizedStrings.userProfileChangePassword,
+                            icon: .lock,
                             isSelected: selectedPanel == .zmienHaslo
                         ) {
                             selectedPanel = selectedPanel == .zmienHaslo ? nil : .zmienHaslo
@@ -115,30 +90,89 @@ struct UserProfileView: View {
                 zmienHasloPanel()
             }
         }
-        .padding()
-        .background(Color.white)
-        .cornerRadius(12)
     }
     
     @ViewBuilder
     private func informacjePanel() -> some View {
         VStack(alignment: .leading, spacing: 16) {
             HStack {
-                FAIcon(.info, type: .solid, size: 20, color: .novoNordiskBlue)
+                FAIcon(.userCircle, type: .regular, size: 20, color: .novoNordiskBlue)
                 Text("Informacje o profilu")
                     .font(.headline)
-                    .foregroundColor(.novoNordiskBlue)
                 Spacer()
             }
             
             if let user = user {
-                VStack(alignment: .leading, spacing: 12) {
-                    UserInfoRow(label: "Imię i nazwisko", value: user.fullName)
-                    UserInfoRow(label: "Adres email", value: user.email)
-                    UserInfoRow(label: "Rola", value: user.roleName)
-                    UserInfoRow(label: "Status konta", value: "Aktywne")
-                    UserInfoRow(label: "Data rejestracji", value: "15.03.2024")
-                    UserInfoRow(label: "Ostatnie logowanie", value: "Dziś, 14:30")
+                // VStack(alignment: .leading, spacing: 12) {
+                //     UserInfoRow(label: "Imię i nazwisko", value: user.fullName)
+                //     UserInfoRow(label: "Adres email", value: user.email)
+                //     UserInfoRow(label: "Rola", value: user.roleName)
+                //     UserInfoRow(label: "Status konta", value: "Aktywne")
+                //     UserInfoRow(label: "Data rejestracji", value: "15.03.2024")
+                //     UserInfoRow(label: "Ostatnie logowanie", value: "Dziś, 14:30")
+                // }
+
+                VStack (alignment: .leading, spacing: 12) {
+                    NovoNordiskTextBox(
+                        placeholder: "Imię",
+                        text: .constant(user.firstName),
+                        style: .withTitle("Imię:", bold: true)
+                    )
+
+                    NovoNordiskTextBox(
+                        placeholder: "Nazwisko",
+                        text: .constant(""),
+                        style: .withTitle("Nazwisko:", bold: true)
+                    )
+
+                    NovoNordiskTextBox(
+                        placeholder: "Dział",
+                        text: .constant(""),
+                        style: .withTitle("Dział:", bold: true)
+                    )
+
+                    NovoNordiskTextBox(
+                        placeholder: "Email",
+                        text: .constant(""),
+                        style: .withTitle("Email:", bold: true)
+                    )
+
+                    NovoNordiskTextBox(
+                        placeholder: "NPWZ",
+                        text: .constant(""),
+                        style: .withTitle("NPWZ:", bold: true)
+                    )
+
+                    NovoNordiskTextBox(
+                        placeholder: "Adres",
+                        text: .constant(""),
+                        style: .withTitle("Adres:", bold: true)
+                    )
+
+                    GeometryReader { geometry in
+                        HStack(spacing: 12) {
+                            NovoNordiskTextBox(
+                                placeholder: "Kod pocztowy",
+                                text: .constant(""),
+                                style: .withTitle("Kod pocztowy:", bold: true)
+                            )
+                            .frame(width: (geometry.size.width - 12) / 3) // 1/3 szerokości minus spacing
+                            
+                            NovoNordiskTextBox(
+                                placeholder: "Miejscowość",
+                                text: .constant(""),
+                                style: .withTitle("Miejscowość:", bold: true)
+                            )
+                            .frame(width: (geometry.size.width - 12) * 2 / 3) // 2/3 szerokości minus spacing
+                        }
+                    }
+                    .frame(height: 80) 
+
+                    NovoNordiskTextBox(
+                        placeholder: "PESEL",
+                        text: .constant(""),
+                        style: .withTitle("PESEL:", bold: true)
+                    )
                 }
             }
         }
@@ -254,27 +288,15 @@ struct UserProfileMainButton: View {
     let action: () -> Void
     
     var body: some View {
-        Button(action: action) {
-            VStack(spacing: 8) {
-                FAIcon(icon, type: .solid, size: 24, color: isSelected ? .white : .novoNordiskBlue)
+        HStack {
+            Button(action: action) {
+                FAIcon(icon, size: 14, color: .novoNordiskBlue)
                 Text(title)
-                    .font(.caption)
-                    .fontWeight(.medium)
-                    .foregroundColor(isSelected ? .white : .novoNordiskBlue)
-                    .multilineTextAlignment(.center)
+                    .font(.system(size: 14))
+                    .foregroundColor(.novoNordiskBlue)
+                    .fontWeight(isSelected ? .bold : .regular)
             }
-            .frame(maxWidth: .infinity)
-            .padding(.vertical, 16)
-            .background(
-                isSelected ? Color.novoNordiskBlue : Color.white
-            )
-            .cornerRadius(12)
-            .overlay(
-                RoundedRectangle(cornerRadius: 12)
-                    .stroke(Color.novoNordiskBlue.opacity(0.2), lineWidth: 1)
-            )
         }
-        .buttonStyle(PlainButtonStyle())
     }
 }
 

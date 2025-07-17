@@ -78,7 +78,15 @@ struct FontAwesome {
         case fileAlt = "\u{f15c}"
         case graduationCap = "\u{f19d}"
         
-        
+        // QR Code
+        case qrcode = "\u{f029}"
+
+        case lock = "\u{f023}"
+
+
+
+        case circle_information = "\u{f05a}"
+
         //top bar buttons
         
         var unicode: String {

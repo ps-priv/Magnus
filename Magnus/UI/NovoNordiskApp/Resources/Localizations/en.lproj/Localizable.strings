@@ -68,3 +68,8 @@
 "USER_PROFILE_SCREEN_TITLE" = "My Account";
 "SETTINGS_SCREEN_TITLE" = "Settings";
 "ACADEMY_SCREEN_TITLE" = "Academy";
+
+/* User profile */
+"USER_PROFILE_INFORMATION_BUTTON" = "Information";
+"USER_PROFILE_ID_BUTTON" = "Identifier";
+"USER_PROFILE_CHANGE_PASSWORD" = "Change password";

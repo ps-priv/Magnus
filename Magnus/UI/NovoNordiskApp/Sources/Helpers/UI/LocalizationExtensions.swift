@@ -76,4 +76,9 @@ struct LocalizedStrings {
     static let userProfileScreenTitle = "USER_PROFILE_SCREEN_TITLE".localized
     static let settingsScreenTitle = "SETTINGS_SCREEN_TITLE".localized
     static let academyScreenTitle = "ACADEMY_SCREEN_TITLE".localized
+
+    // User profile
+    static let userProfileInformationButton = "USER_PROFILE_INFORMATION_BUTTON".localized
+    static let userProfileIdButton = "USER_PROFILE_ID_BUTTON".localized
+    static let userProfileChangePassword = "USER_PROFILE_CHANGE_PASSWORD".localized
 }
