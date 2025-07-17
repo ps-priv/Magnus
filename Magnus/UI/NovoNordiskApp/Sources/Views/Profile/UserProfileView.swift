@@ -19,6 +19,7 @@ struct UserProfileView: View {
     @State private var newPassword: String = ""
     @State private var confirmPassword: String = ""
     @State private var showSuccessAlert = false
+    @State private var hasBusiness = false
 
     #if DEBUG
     @ObserveInjection var inject
@@ -173,7 +174,88 @@ struct UserProfileView: View {
                         text: .constant(""),
                         style: .withTitle("PESEL:", bold: true)
                     )
+
+                    NovoNordiskCheckbox(
+                        title: "Prowadzę działalność gospodarczą",
+                        isChecked: $hasBusiness,
+                        //style: .regular
+                    ) { isChecked in
+                        // Clear fields when unchecked
+                        if !isChecked {
+                            // nip = ""
+                            // companyName = ""
+                            // taxOffice = ""
+                        }
+                    }
+
+                       NovoNordiskTextBox(
+                            placeholder: "NIP",
+                            text: .constant(""),
+                            style: .withTitle("NIP:", bold: true),
+                            isEnabled: hasBusiness
+                        )
+
+                        NovoNordiskTextBox(
+                            placeholder: "Nazwa firmy",
+                            text: .constant(""),
+                            style: .withTitle("Nazwa firmy:", bold: true),
+                            isEnabled: hasBusiness
+                        )
+
+                        NovoNordiskTextBox(
+                            placeholder: "Urząd skarbowy",
+                            text: .constant(""),
+                            style: .withTitle("Urząd skarbowy:", bold: true),
+                            isEnabled: hasBusiness
+                        )
+
+                    VStack(alignment: .leading, spacing: 0) {
+                        NovoNordiskCheckbox(
+                            title: "Akceptuję regulamin aplikacji",
+                            isChecked: $hasBusiness,
+                            //style: .regular
+                        )
+                        NovoNordiskLinkButton(title: "Zobacz regulamin", style: .small) {
+                            print("Regulamin aplikacji tapped")
+                        }
+                        .padding(.leading, 30)
+                    }
+
+                    VStack(alignment: .leading, spacing: 0) {
+                        NovoNordiskCheckbox(
+                            title: "Akceptuję postanowienia Polityki Prywatności i zapisy RODO",
+                            isChecked: $hasBusiness,
+                            //style: .regular
+                        )
+
+                        NovoNordiskLinkButton(title: "Zobacz Politykę Prywatności", style: .small) {
+                            print("Regulamin aplikacji tapped")
+                        }     
+                        .padding(.leading, 30)
+                    }
+
+                    VStack(alignment: .leading, spacing: 0) {
+                        NovoNordiskCheckbox(
+                            title: "Wyrażam zgodę na otrzymywanie informacji marketingowych i promocyjnych",
+                            isChecked: $hasBusiness,
+                            //style: .regular
+                        )
+
+                        NovoNordiskLinkButton(title: "Zobacz treść zgody", style: .small) {
+                            print("Regulamin aplikacji tapped")
+                        }
+                        .padding(.leading, 30)
+                    }
                 }
+            }
+
+            NovoNordiskButton(title: "Zapisz", style: .primary) {
+                print("Primary tapped")
+            }
+            .padding(.top, 16)
+
+            NovoNordiskButton(title: "Wyloguj", style: .outline) {
+
             }
         }
     }
