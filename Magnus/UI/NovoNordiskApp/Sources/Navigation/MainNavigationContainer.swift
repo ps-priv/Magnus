@@ -68,7 +68,8 @@ struct MainNavigationContainer: View {
         case .newsDetail(let newsId):
             NewsDetailView(newsId: newsId)
         case .profile:
-            ProfileView()
+            //ProfileView()
+            UserProfileView()
         case .settings:
             SettingsView()
         case .academy:

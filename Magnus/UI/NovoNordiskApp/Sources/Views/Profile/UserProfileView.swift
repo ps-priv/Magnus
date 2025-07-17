@@ -2,20 +2,20 @@ import SwiftUI
 import MagnusFeatures
 import MagnusDomain
 
-enum ProfilePanel {
+enum UserProfilePanel {
     case informacje
     case identyfikator
     case zmienHaslo
 }
 
-struct ProfileView: View {
+struct UserProfileView: View {
     @EnvironmentObject var navigationManager: NavigationManager
     @State private var user: AuthUser? = nil
-    @State private var selectedPanel: ProfilePanel? = nil
+    @State private var selectedPanel: UserProfilePanel? = nil
     @State private var newPassword: String = ""
     @State private var confirmPassword: String = ""
     @State private var showSuccessAlert = false
-    
+
     var body: some View {
         ScrollView {
             VStack(spacing: 24) {
@@ -47,23 +47,23 @@ struct ProfileView: View {
                 // Main Action Buttons
                 VStack(spacing: 12) {
                     HStack(spacing: 12) {
-                        ProfileMainButton(
+                        UserProfileMainButton(
                             title: "Informacje",
-                            icon: .info,
+                            icon: .settings,
                             isSelected: selectedPanel == .informacje
                         ) {
                             selectedPanel = selectedPanel == .informacje ? nil : .informacje
                         }
                         
-                        ProfileMainButton(
+                        UserProfileMainButton(
                             title: "Identyfikator",
-                            icon: .info,
+                            icon: .settings,
                             isSelected: selectedPanel == .identyfikator
                         ) {
                             selectedPanel = selectedPanel == .identyfikator ? nil : .identyfikator
                         }
                         
-                        ProfileMainButton(
+                        UserProfileMainButton(
                             title: "Zmień hasło",
                             icon: .settings,
                             isSelected: selectedPanel == .zmienHaslo
@@ -78,21 +78,6 @@ struct ProfileView: View {
                     panelContent(for: panel)
                         .transition(.opacity.combined(with: .scale))
                         .animation(.easeInOut(duration: 0.3), value: selectedPanel)
-                }
-                
-                // Profile Actions
-                VStack(spacing: 12) {
-                    ProfileActionRow(icon: .settings, title: "Ustawienia") {
-                        navigationManager.navigate(to: .settings)
-                    }
-                    
-                    ProfileActionRow(icon: .bell, title: "Powiadomienia") {
-                        // Handle notifications
-                    }
-                    
-                    ProfileActionRow(icon: .signOut, title: "Wyloguj się", isDestructive: true) {
-                        handleLogout()
-                    }
                 }
                 
                 Spacer()
@@ -111,7 +96,7 @@ struct ProfileView: View {
     }
     
     @ViewBuilder
-    private func panelContent(for panel: ProfilePanel) -> some View {
+    private func panelContent(for panel: UserProfilePanel) -> some View {
         VStack(spacing: 16) {
             switch panel {
             case .informacje:
@@ -131,7 +116,7 @@ struct ProfileView: View {
     private func informacjePanel() -> some View {
         VStack(alignment: .leading, spacing: 16) {
             HStack {
-                FAIcon(.settings, type: .solid, size: 20, color: .novoNordiskBlue)
+                FAIcon(.info, type: .solid, size: 20, color: .novoNordiskBlue)
                 Text("Informacje o profilu")
                     .font(.headline)
                     .foregroundColor(.novoNordiskBlue)
@@ -140,12 +125,12 @@ struct ProfileView: View {
             
             if let user = user {
                 VStack(alignment: .leading, spacing: 12) {
-                    InfoRow(label: "Imię i nazwisko", value: user.fullName)
-                    InfoRow(label: "Adres email", value: user.email)
-                    InfoRow(label: "Rola", value: user.roleName)
-                    InfoRow(label: "Status konta", value: "Aktywne")
-                    InfoRow(label: "Data rejestracji", value: "15.03.2024")
-                    InfoRow(label: "Ostatnie logowanie", value: "Dziś, 14:30")
+                    UserInfoRow(label: "Imię i nazwisko", value: user.fullName)
+                    UserInfoRow(label: "Adres email", value: user.email)
+                    UserInfoRow(label: "Rola", value: user.roleName)
+                    UserInfoRow(label: "Status konta", value: "Aktywne")
+                    UserInfoRow(label: "Data rejestracji", value: "15.03.2024")
+                    UserInfoRow(label: "Ostatnie logowanie", value: "Dziś, 14:30")
                 }
             }
         }
@@ -155,7 +140,7 @@ struct ProfileView: View {
     private func identyfikatorPanel() -> some View {
         VStack(alignment: .leading, spacing: 16) {
             HStack {
-                FAIcon(.info, type: .solid, size: 20, color: .novoNordiskBlue)
+                FAIcon(.settings, type: .solid, size: 20, color: .novoNordiskBlue)
                 Text("Identyfikator użytkownika")
                     .font(.headline)
                     .foregroundColor(.novoNordiskBlue)
@@ -164,9 +149,9 @@ struct ProfileView: View {
             
             if let user = user {
                 VStack(alignment: .leading, spacing: 12) {
-                    InfoRow(label: "ID użytkownika", value: user.id)
-                    InfoRow(label: "Email", value: user.email)
-                    InfoRow(label: "Unikalny identyfikator", value: "NN-\(user.id.prefix(8))")
+                    UserInfoRow(label: "ID użytkownika", value: user.id)
+                    UserInfoRow(label: "Email", value: user.email)
+                    UserInfoRow(label: "Unikalny identyfikator", value: "NN-\(user.id.prefix(8))")
                     
                     HStack {
                         Text("Kod QR")
@@ -177,7 +162,7 @@ struct ProfileView: View {
                             .fill(Color.gray.opacity(0.2))
                             .frame(width: 80, height: 80)
                             .overlay(
-                                FAIcon(.settings, type: .solid, size: 30, color: .gray)
+                                FAIcon(.info, type: .solid, size: 30, color: .gray)
                             )
                     }
                 }
@@ -189,7 +174,7 @@ struct ProfileView: View {
     private func zmienHasloPanel() -> some View {
         VStack(alignment: .leading, spacing: 16) {
             HStack {
-                FAIcon(.settings, type: .solid, size: 20, color: .novoNordiskBlue)
+                FAIcon(.search, type: .solid, size: 20, color: .novoNordiskBlue)
                 Text("Zmień hasło")
                     .font(.headline)
                     .foregroundColor(.novoNordiskBlue)
@@ -252,21 +237,9 @@ struct ProfileView: View {
             print("Failed to load user data: \(error)")
         }
     }
-    
-    private func handleLogout() {
-        Task {
-            do {
-                try DIContainer.shared.authStorageService.clearAllAuthData()
-                // Navigate back to login (this would need proper implementation in real app)
-                print("User logged out successfully")
-            } catch {
-                print("Failed to logout: \(error)")
-            }
-        }
-    }
 }
 
-struct ProfileMainButton: View {
+struct UserProfileMainButton: View {
     let title: String
     let icon: FontAwesome.Icon
     let isSelected: Bool
@@ -297,7 +270,7 @@ struct ProfileMainButton: View {
     }
 }
 
-struct InfoRow: View {
+struct UserInfoRow: View {
     let label: String
     let value: String
     
@@ -314,39 +287,7 @@ struct InfoRow: View {
     }
 }
 
-struct ProfileActionRow: View {
-    let icon: FontAwesome.Icon
-    let title: String
-    let isDestructive: Bool
-    let action: () -> Void
-    
-    init(icon: FontAwesome.Icon, title: String, isDestructive: Bool = false, action: @escaping () -> Void) {
-        self.icon = icon
-        self.title = title
-        self.isDestructive = isDestructive
-        self.action = action
-    }
-    
-    var body: some View {
-        Button(action: action) {
-            HStack {
-                FAIcon(icon, type: .light, size: 20, color: isDestructive ? .red : .novoNordiskBlue)
-                Text(title)
-                    .font(.body)
-                    .foregroundColor(isDestructive ? .red : .primary)
-                Spacer()
-                FAIcon(.circle_arrow_right, type: .light, size: 16, color: .gray)
-            }
-            .padding()
-            .background(Color.white)
-            .cornerRadius(8)
-        }
-        .buttonStyle(PlainButtonStyle())
-    }
-}
-
-// MARK: - SwiftUI Previews
 #Preview {
-    ProfileView()
+    UserProfileView()
         .environmentObject(NavigationManager())
 } 
