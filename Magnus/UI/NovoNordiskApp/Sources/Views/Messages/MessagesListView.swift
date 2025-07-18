@@ -15,21 +15,16 @@ struct MessagesListView: View {
     #endif
     
     var body: some View {
-        NavigationView {
-            ScrollView {
-                LazyVStack(spacing: 8) {
-                    ForEach(messages.indices, id: \.self) { index in
-                        MessageRowView(message: messages[index])
-                            .onTapGesture {
-                                navigationManager.navigateToMessageDetail(messageId: messages[index].id)
-                            }
-                    }
+        ScrollView {
+            LazyVStack(spacing: 8) {
+                ForEach(messages.indices, id: \.self) { index in
+                    MessageRowView(message: messages[index])
                 }
-                .padding(.horizontal, 16)
-                .padding(.top, 8)
             }
-            .background(Color(.systemGray6))
+            .padding(.horizontal, 16)
+            .padding(.top, 8)
         }
+        .background(Color(.systemGray6))
         #if DEBUG
         .enableInjection()
         #endif
@@ -38,28 +33,35 @@ struct MessagesListView: View {
 
 struct MessageRowView: View {
     let message: ConferenceMessage
+    @EnvironmentObject var navigationManager: NavigationManager
     
     var body: some View {
-        HStack(spacing: 12) {
-            VStack(alignment: .leading, spacing: 4) {
-                Text(message.title)
-                    .font(.body)
-                    .fontWeight(.medium)
-                    .foregroundColor(.primary)
-                    .multilineTextAlignment(.leading)
-                    .lineLimit(2)
+        Button(action: {
+            print("Tapped message: \(message.id)") // Debug print
+            navigationManager.navigateToMessageDetail(messageId: message.id)
+        }) {
+            HStack(spacing: 12) {
+                VStack(alignment: .leading, spacing: 4) {
+                    Text(message.title)
+                        .font(.body)
+                        .fontWeight(.medium)
+                        .foregroundColor(.primary)
+                        .multilineTextAlignment(.leading)
+                        .lineLimit(2)
+                    
+                    Text(formatDate(message.date))
+                        .font(.caption)
+                        .foregroundColor(.secondary)
+                }
                 
-                Text(formatDate(message.date))
-                    .font(.caption)
-                    .foregroundColor(.secondary)
+                Spacer()
+                
+                FAIcon(.circle_arrow_right, type: .regular, size: 24, color: Color.novoNordiskLightBlue)
             }
-            
-            Spacer()
-            
-            FAIcon(.circle_arrow_right, type: .regular, size: 24, color: Color.novoNordiskLightBlue)
+            .padding(.horizontal, 16)
+            .padding(.vertical, 12)
         }
-        .padding(.horizontal, 16)
-        .padding(.vertical, 12)
+        .buttonStyle(PlainButtonStyle())
         .background(Color.white)
         .cornerRadius(12)
         .shadow(color: .gray.opacity(0.1), radius: 2, x: 0, y: 1)
