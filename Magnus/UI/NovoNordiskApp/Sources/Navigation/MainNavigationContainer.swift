@@ -89,7 +89,7 @@ struct MainNavigationContainer: View {
         case .messagesList:
             MessagesListView()
         case .messageDetail(let messageId):
-            Text("Message Detail: \(messageId)")  // TODO: Create MessageDetailView
+            MessageDetailView(messageId: messageId)
         }
     }
     

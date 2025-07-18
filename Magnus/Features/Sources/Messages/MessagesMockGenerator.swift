@@ -69,6 +69,7 @@ public class MessagesMockGenerator {
     }
     
     public static func createSingle() -> ConferenceMessage {
+        let randomId = UUID().uuidString
         let randomTitle = novoNordiskTitles.randomElement() ?? "Komunikat konferencyjny"
         let randomDate = sampleDates.randomElement() ?? "2025-01-15"
         let randomImageId = Int.random(in: 300...399)
@@ -76,6 +77,7 @@ public class MessagesMockGenerator {
         let randomIsRead = Bool.random()
         
         return ConferenceMessage(
+            id: randomId,
             title: randomTitle,
             date: randomDate,
             content: generateLoremContent(length: randomContentLength),
@@ -88,6 +90,7 @@ public class MessagesMockGenerator {
         var messages: [ConferenceMessage] = []
         
         for i in 0..<count {
+            let id = "message_\(i + 1)"
             let title = novoNordiskTitles[i % novoNordiskTitles.count]
             let date = sampleDates[i % sampleDates.count]
             let imageId = 300 + (i % 100)
@@ -95,6 +98,7 @@ public class MessagesMockGenerator {
             let isRead = i % 3 != 0 // About 2/3 of messages are read
             
             let message = ConferenceMessage(
+                id: id,
                 title: title,
                 date: date,
                 content: generateLoremContent(length: contentLength),
@@ -111,6 +115,7 @@ public class MessagesMockGenerator {
     public static func createUnreadMessages(count: Int = 5) -> [ConferenceMessage] {
         return createMany(count: count).map { message in
             ConferenceMessage(
+                id: message.id,
                 title: message.title,
                 date: message.date,
                 content: message.content,
@@ -123,6 +128,7 @@ public class MessagesMockGenerator {
     public static func createReadMessages(count: Int = 5) -> [ConferenceMessage] {
         return createMany(count: count).map { message in
             ConferenceMessage(
+                id: message.id,
                 title: message.title,
                 date: message.date,
                 content: message.content,

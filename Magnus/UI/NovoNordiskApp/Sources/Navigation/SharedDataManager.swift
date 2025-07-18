@@ -69,6 +69,6 @@ extension NavigationManager {
 
     func navigateToMessageDetail(message: ConferenceMessage, sharedDataManager: SharedDataManager) {
         sharedDataManager.selectMessage(message)
-        navigate(to: .messageDetail(messageId: message.title))
+        navigate(to: .messageDetail(messageId: message.id))
     }
 } 

@@ -8,6 +8,7 @@ import Inject
 
 struct MessagesListView: View {
     @State private var messages: [ConferenceMessage] = MessagesMockGenerator.createMany(count: 14)
+    @EnvironmentObject var navigationManager: NavigationManager
     
     #if DEBUG
     @ObserveInjection var inject
@@ -20,7 +21,7 @@ struct MessagesListView: View {
                     ForEach(messages.indices, id: \.self) { index in
                         MessageRowView(message: messages[index])
                             .onTapGesture {
-                                // Navigate to message detail
+                                navigationManager.navigateToMessageDetail(messageId: messages[index].id)
                             }
                     }
                 }
@@ -87,4 +88,5 @@ struct MessageRowView: View {
 
 #Preview {
     MessagesListView()
+        .environmentObject(NavigationManager())
 }
