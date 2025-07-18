@@ -3,10 +3,19 @@ import MagnusFeatures
 import MagnusApplication
 import MagnusDomain
 
+#if DEBUG
+import Inject
+#endif
+
 struct DashboardNewsPanel: View {
     
+    #if DEBUG
+    @ObserveInjection var inject
+    #endif
+
     @Binding var items: [NewsItem]
     @State private var currentPage: Int = 0
+    @EnvironmentObject var navigationManager: NavigationManager
     
     var body: some View {
         VStack {
@@ -14,7 +23,6 @@ struct DashboardNewsPanel: View {
             newsCards
             Spacer()
         }
-        .padding(20)
     }
     
     @ViewBuilder
@@ -23,7 +31,7 @@ struct DashboardNewsPanel: View {
             FAIcon(
                 FontAwesome.Icon.newspaper,
                 type: .thin,
-                size: 24,
+                size: 21,
                 color: Color.novoNordiskBlue
             )
             Text(LocalizedStrings.dashboardNewsTitle)
@@ -33,8 +41,9 @@ struct DashboardNewsPanel: View {
                 .lineLimit(1)
             Spacer()
             NovoNordiskLinkButton(icon: FontAwesome.Icon.circle_arrow_right,
-                title: LocalizedStrings.dashboardEventsSectionLoadMore, style: .standard) {
-                print("Standard link tapped")
+                title: LocalizedStrings.dashboardEventsSectionLoadMore,
+                style: .small) {
+                navigationManager.navigate(to: .newsList)
             }
         }
         .padding(0)
@@ -52,9 +61,9 @@ struct DashboardNewsPanel: View {
                 }
                 .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
                 .frame(height: 220)
-                .onChange(of: currentPage) { newValue in
-                    // Handle page change if needed
-                }
+                // .onChange(of: currentPage) { newValue in
+                //     // Handle page change if needed
+                // }
                 
                 // Custom page indicator
                 HStack(spacing: 8) {
@@ -78,6 +87,7 @@ struct DashboardNewsPanel: View {
 }
 
 struct NewsItemCard2: View {
+    @EnvironmentObject var navigationManager: NavigationManager
     let item: NewsItem
     
     var body: some View {
@@ -98,24 +108,30 @@ struct NewsItemCard2: View {
             .clipped()
             
             // Content section
-            VStack(alignment: .leading, spacing: 8) {
+            VStack(alignment: .leading, spacing: 4) {
                 Text(item.title)
                     .font(.novoNordiskBody)
                     .fontWeight(.semibold)
                     .foregroundColor(.primary)
-                    .lineLimit(2)
+                    .lineLimit(1)
                     .multilineTextAlignment(.leading)
-                
-                Text(PublishedDateHelper.formatPublishDate(item.publish_date))
-                    .font(.novoNordiskCaption)
-                    .foregroundColor(.secondary)
+                HStack {
+                    Text(PublishedDateHelper.formatPublishDate(item.publish_date))
+                        .font(.system(size: 12))
+                        .foregroundColor(.secondary)
+                    Spacer()
+                         Button(action: {navigationManager.navigateToNewsDetail(newsId: item.id)}){
+                            FAIcon(.circle_arrow_right, type: .light, size: 21, color: .novoNordiskBlue)           
+                     }
+
+                }
             }
-            .padding(16)
+            .padding(10)
             .frame(maxWidth: .infinity, alignment: .leading)
         }
         .background(Color.white)
-        .cornerRadius(12)
-        //.shadow(color: Color.black.opacity(0.1), radius: 4, x: 0, y: 2)
+        .cornerRadius(20)
+        .shadow(color: Color.black.opacity(0.1), radius: 4, x: 0, y: 2)
         .padding(.horizontal, 4)
     }
     
@@ -130,6 +146,7 @@ struct NewsItemCard2: View {
         }
     }
     return PreviewWrapper()
+        .environmentObject(NavigationManager())
 }
 
 
