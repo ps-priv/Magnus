@@ -96,5 +96,9 @@
 "USER_PROFILE_QRCODE_ID" = "Twój identyfikator";
 "USER_PROFILE_QRCODE_DESCRIPTION" = "Zeskanuj ten identyfikator w odpowiednim punkcie. To twoja przepustka na wydarzenia Novo Nordisk.";
 
+"USER_PROFILE_NEW_PASSWORD" = "Nowe hasło";
+"USER_PROFILE_RETYPE_NEW_PASSWORD" = "Powtórz hasło";
+
 "BUTTON_SAVE" = "Zapisz";
 "BUTTON_LOGOUT" = "Wyloguj";
+"BUTTON_CHANGE_PASSWORD" = "Zmień hasło";

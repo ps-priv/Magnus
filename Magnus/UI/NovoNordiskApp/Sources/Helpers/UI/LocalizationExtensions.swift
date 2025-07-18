@@ -106,8 +106,12 @@ struct LocalizedStrings {
     static let userProfileQrcodeId = "USER_PROFILE_QRCODE_ID".localized
     static let userProfileQrcodeDescription = "USER_PROFILE_QRCODE_DESCRIPTION".localized
 
+    static let userProfileNewPassword = "USER_PROFILE_NEW_PASSWORD".localized
+    static let userProfileRetypeNewPassword = "USER_PROFILE_RETYPE_NEW_PASSWORD".localized
+
     // Buttons
     static let buttonSave = "BUTTON_SAVE".localized
     static let buttonLogout = "BUTTON_LOGOUT".localized
+    static let buttonChangePassword = "BUTTON_CHANGE_PASSWORD".localized
 
 }

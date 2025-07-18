@@ -118,14 +118,14 @@ struct NovoNordiskTextBoxStyle {
         NovoNordiskTextBox(
             placeholder: "Minimum 8 znaków",
             text: .constant(""),
-            style: .withHelper("Hasło musi zawierać co najmniej 8 znaków")
+            //style: .withHelper("Hasło musi zawierać co najmniej 8 znaków")
         )
         
         // Complete with title and helper (bold title)
         NovoNordiskTextBox(
             placeholder: "Potwierdź hasło",
             text: .constant(""),
-            style: .complete(title: "Powtórz hasło", helperText: "Hasła muszą być identyczne", boldTitle: true),
+            //style: .complete(title: "Powtórz hasło", helperText: "Hasła muszą być identyczne", boldTitle: true),
             isSecure: true
         )
         

@@ -255,9 +255,8 @@ struct UserProfileView: View {
     
     @ViewBuilder
     private func identyfikatorPanel() -> some View {
-        VStack(alignment: .center, spacing: 20) { 
+        VStack(alignment: .center, spacing: 16) { 
             if let user = user {
-                VStack(alignment: .center, spacing: 16) {
                     Text(LocalizedStrings.userProfileQrcodeId)
                         .font(.headline)
                         .foregroundColor(.primary)
@@ -287,7 +286,6 @@ struct UserProfileView: View {
                         .font(.body)
                         .foregroundColor(.secondary)
                         .multilineTextAlignment(.center)
-                }
             }
         }
         .padding()
@@ -326,32 +324,30 @@ struct UserProfileView: View {
     private func zmienHasloPanel() -> some View {
         VStack(alignment: .leading, spacing: 16) {
             HStack {
-                FAIcon(.search, type: .solid, size: 20, color: .novoNordiskBlue)
-                Text("Zmień hasło")
+                FAIcon(.lock, type: .solid, size: 20, color: .novoNordiskBlue)
+                Text(LocalizedStrings.userProfileChangePassword)
                     .font(.headline)
-                    .foregroundColor(.novoNordiskBlue)
                 Spacer()
             }
             
             VStack(spacing: 16) {
-                VStack(alignment: .leading, spacing: 8) {
-                    Text("Nowe hasło")
-                        .font(.caption)
-                        .foregroundColor(.secondary)
-                    SecureField("Wprowadź nowe hasło", text: $newPassword)
-                        .textFieldStyle(RoundedBorderTextFieldStyle())
-                }
+
+                NovoNordiskTextBox(
+                    placeholder: LocalizedStrings.userProfileNewPassword,
+                    text: .constant(""),
+                    style: .withTitle(LocalizedStrings.userProfileNewPassword, bold: true),                    
+                    isSecure: true
+                )
                 
-                VStack(alignment: .leading, spacing: 8) {
-                    Text("Potwierdź hasło")
-                        .font(.caption)
-                        .foregroundColor(.secondary)
-                    SecureField("Potwierdź nowe hasło", text: $confirmPassword)
-                        .textFieldStyle(RoundedBorderTextFieldStyle())
-                }
-                
+                NovoNordiskTextBox(
+                    placeholder: LocalizedStrings.userProfileRetypeNewPassword,
+                    text: .constant(""),
+                    style: .withTitle(LocalizedStrings.userProfileRetypeNewPassword, bold: true),                   
+                    isSecure: true
+                )
+       
                 Button(action: changePassword) {
-                    Text("Zmień hasło")
+                    Text(LocalizedStrings.buttonChangePassword)
                         .font(.body)
                         .fontWeight(.medium)
                         .foregroundColor(.white)

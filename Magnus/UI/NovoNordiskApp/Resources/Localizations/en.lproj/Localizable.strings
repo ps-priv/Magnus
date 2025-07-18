@@ -96,5 +96,9 @@
 "USER_PROFILE_QRCODE_ID" = "Your identifier";
 "USER_PROFILE_QRCODE_DESCRIPTION" = "can this identifier at the designated point. It is your pass for Novo Nordisk events.";
 
+“USER_PROFILE_NEW_PASSWORD” = “New password”;
+“USER_PROFILE_RETYPE_NEW_PASSWORD” = “Retype password”;
+
 "BUTTON_SAVE" = "Save";
 "BUTTON_LOGOUT" = "Logout";
+"BUTTON_CHANGE_PASSWORD" = "Change password";
