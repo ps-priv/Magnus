@@ -15,7 +15,7 @@ struct MainNavigationContainer: View {
                 // Top Bar
                 RoundedTopBar(
                     title: navigationManager.currentScreen.title,
-                    canGoBack: navigationManager.canGoBack,
+                    canGoBack: navigationManager.canGoBack && navigationManager.currentScreen.shouldShowBackButton,
                     showSearchButton: navigationManager.currentScreen.shouldShowSearchButton,
                     showNotificationButtons: navigationManager.currentScreen.shouldShowNotificationButtons,
                     showProfileButton: navigationManager.currentScreen.shouldShowProfileButton,

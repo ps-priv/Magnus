@@ -153,6 +153,16 @@ enum AppScreen: Equatable, Identifiable {
             return false
         }
     }
+    
+    // Helper to check if back button should be shown
+    var shouldShowBackButton: Bool {
+        switch self {
+        case .messagesList:
+            return false // Don't show back button on messages list
+        default:
+            return true
+        }
+    }
 }
 
 // MARK: - Navigation Manager with Parameter Support
