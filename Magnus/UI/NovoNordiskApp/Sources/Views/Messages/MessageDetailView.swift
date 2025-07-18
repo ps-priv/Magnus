@@ -15,44 +15,48 @@ struct MessageDetailView: View {
     @ObserveInjection var inject
     #endif
 
-        var body: some View {
+    var body: some View {
         ScrollView {
             if let message = message {
-                VStack(alignment: .leading, spacing: 0) {
-                    // Header image - full width without padding
-                    AsyncImage(url: URL(string: message.image)) { image in
-                        image
-                            .resizable()
-                            .aspectRatio(contentMode: .fill)
-                    } placeholder: {
-                        Rectangle()
-                            .fill(Color.gray.opacity(0.3))
+                VStack(alignment: .leading, spacing: 16) {
+
+                    VStack(alignment: .leading) {
+                        AsyncImage(url: URL(string: message.image)) { image in
+                            image
+                                .resizable()
+                                .aspectRatio(contentMode: .fill)
+                        } placeholder: {
+                            Rectangle()
+                                .fill(Color.gray.opacity(0.1))
+                                                  }
+                          .frame(height: 250)
+                          .clipped()
+                          .cornerRadius(25)
+
+                        VStack(alignment: .leading) {
+                            Text(message.title)
+                                .fontWeight(.bold)
+                                .font(.system(size: 19))
+                            
+                            Text(message.date)
+                                .font(.subheadline)
+                                .foregroundColor(Color.novoNordiskBlue)
+
+                            Text(message.content)
+                                .font(.body)
+                                .foregroundColor(.primary)
+                                .padding(.top, 10)
+                        }
+                        .padding(16)
                     }
-                    .frame(height: 250)
-                    .clipped()
-                    
-                    // Content area with padding
-                    VStack(alignment: .leading, spacing: 16) {
-                        // Title
-                        Text(message.title)
-                            .font(.title2)
-                            .fontWeight(.bold)
-                            .foregroundColor(.primary)
-                            .padding(.top, 20)
-                        
-                        // Date with time
-                        Text(formatDateWithTime(message.date))
-                            .font(.subheadline)
-                            .foregroundColor(.secondary)
-                        
-                        // Content
-                        Text(message.content)
-                            .font(.body)
-                            .foregroundColor(.primary)
-                            .lineSpacing(6)
-                            .padding(.top, 8)
-                        
-                        // Links section
+                    .background(Color.white)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .cornerRadius(25)
+                    // .overlay(
+                    //     RoundedRectangle(cornerRadius: 25)
+                    //         .stroke(Color.white, lineWidth: 3)
+                    // )
+
                         VStack(spacing: 8) {
                             MessageLinkView(
                                 icon: .fileAlt,
@@ -63,35 +67,20 @@ struct MessageDetailView: View {
                                 icon: .fileAlt,
                                 title: "Nazwa udostępnionego pliku.docx"
                             )
-                            
-                            MessageLinkView(
-                                icon: .forward,
-                                title: "Publikacja na Sharepoint"
-                            )
-                            
-                            MessageLinkView(
-                                icon: .forward,
-                                title: "https://www.novonordisk.com/blog/nazwa-wpisu"
-                            )
                         }
-                        .padding(.top, 20)
-                        
-                        Spacer(minLength: 20)
-                    }
-                    .padding(.horizontal, 20)
-                    .padding(.bottom, 20)
-                }
-            } else {
-                // Loading state
-                VStack(spacing: 16) {
-                    ProgressView()
-                    Text("Ładowanie komunikatu...")
-                        .font(.subheadline)
-                        .foregroundColor(.secondary)
-                }
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                        .padding(.top, 10)
+                        .padding(.bottom, 16)
+
+
+                } 
+                 .frame(maxWidth: .infinity, maxHeight: .infinity)
+                 .overlay(
+                     RoundedRectangle(cornerRadius: 25)
+                         .stroke(Color.white, lineWidth: 3)
+                 )
             }
         }
+        .padding()
         .background(Color(.systemGray6))
         .onAppear {
             loadMessage()
@@ -155,7 +144,7 @@ struct MessageLinkView: View {
     
     var body: some View {
         HStack(spacing: 12) {
-            FAIcon(icon, type: .regular, size: 16, color: .gray)
+            FAIcon(icon, type: .regular, size: 16, color: .novoNordiskBlue)
                 .frame(width: 20, height: 20)
             
             Text(title)

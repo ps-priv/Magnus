@@ -69,6 +69,7 @@
 "SETTINGS_SCREEN_TITLE" = "Settings";
 "ACADEMY_SCREEN_TITLE" = "Academy";
 "MESSAGES_SCREEN_TITLE" = "Messages";
+"MESSAGE_DETAILS_SCREEN_TITLE" = "Message";
 
 /* User profile */
 "USER_PROFILE_INFORMATION_BUTTON" = "Information";
