@@ -8,6 +8,7 @@ class SharedDataManager: ObservableObject {
     @Published var selectedEvent: Event?
     @Published var selectedMaterial: Material?
     @Published var selectedNewsItem: NewsItem?
+    @Published var selectedMessage: ConferenceMessage?
     
     // Methods to set selected items
     func selectEvent(_ event: Event) {
@@ -21,7 +22,11 @@ class SharedDataManager: ObservableObject {
     func selectNewsItem(_ newsItem: NewsItem) {
         selectedNewsItem = newsItem
     }
-    
+
+    func selectMessage(_ message: ConferenceMessage) {
+        selectedMessage = message
+    }
+
     // Clear methods
     func clearSelections() {
         selectedEvent = nil
