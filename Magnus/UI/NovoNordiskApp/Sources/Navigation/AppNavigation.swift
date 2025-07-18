@@ -105,7 +105,7 @@ enum AppScreen: Equatable, Identifiable {
         switch self {
         case .profile, .settings:
             return false
-        case .eventDetail, .materialDetail, .newsDetail, .messageDetail:
+        case .eventDetail, .materialDetail, .newsDetail:
             return false // Ukryj również na ekranach szczegółów
         default:
             return true
