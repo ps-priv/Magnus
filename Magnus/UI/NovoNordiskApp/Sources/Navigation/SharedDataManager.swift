@@ -32,6 +32,7 @@ class SharedDataManager: ObservableObject {
         selectedEvent = nil
         selectedMaterial = nil
         selectedNewsItem = nil
+        selectedMessage = nil
     }
 }
 
@@ -68,6 +69,6 @@ extension NavigationManager {
 
     func navigateToMessageDetail(message: ConferenceMessage, sharedDataManager: SharedDataManager) {
         sharedDataManager.selectMessage(message)
-        navigate(to: .messageDetail(messageId: message.id))
+        navigate(to: .messageDetail(messageId: message.title))
     }
 } 

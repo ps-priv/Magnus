@@ -13,6 +13,7 @@ enum AppScreen: Equatable, Identifiable {
     case settings
     case academy
     case messagesList
+    case messageDetail(messageId: String)
     
     var id: String {
         switch self {
@@ -38,6 +39,8 @@ enum AppScreen: Equatable, Identifiable {
             return "academy"
         case .messagesList:
             return "messages_list"
+        case .messageDetail(let messageId):
+            return "message_detail_\(messageId)"
         }
     }
     
@@ -65,6 +68,8 @@ enum AppScreen: Equatable, Identifiable {
             return LocalizedStrings.academyScreenTitle
         case .messagesList:
             return LocalizedStrings.messagesListScreenTitle
+        case .messageDetail:
+            return LocalizedStrings.messageDetailsScreenTitle
         }
     }
 
@@ -80,7 +85,7 @@ enum AppScreen: Equatable, Identifiable {
             return .news
         case .academy:
             return .academy
-        case .profile, .settings, .messagesList:
+        case .profile, .settings, .messagesList, .messageDetail:
             return nil
         }
     }
@@ -88,7 +93,7 @@ enum AppScreen: Equatable, Identifiable {
     // Helper to check if this is a detail screen
     var isDetailScreen: Bool {
         switch self {
-        case .eventDetail, .materialDetail, .newsDetail:
+        case .eventDetail, .materialDetail, .newsDetail, .messageDetail:
             return true
         default:
             return false
@@ -100,7 +105,7 @@ enum AppScreen: Equatable, Identifiable {
         switch self {
         case .profile, .settings:
             return false
-        case .eventDetail, .materialDetail, .newsDetail:
+        case .eventDetail, .materialDetail, .newsDetail, .messageDetail:
             return false // Ukryj również na ekranach szczegółów
         default:
             return true
@@ -120,7 +125,7 @@ enum AppScreen: Equatable, Identifiable {
     // Helper to check if top bar notification buttons should be shown
     var shouldShowNotificationButtons: Bool {
         switch self {
-        case .dashboard, .eventsList, .materialsList, .newsList:
+        case .dashboard, .eventsList, .materialsList, .newsList, .messagesList:
             return true
         default:
             return false
@@ -180,6 +185,10 @@ class NavigationManager: ObservableObject {
     
     func navigateToNewsDetail(newsId: String) {
         navigate(to: .newsDetail(newsId: newsId))
+    }
+    
+    func navigateToMessageDetail(messageId: String) {
+        navigate(to: .messageDetail(messageId: messageId))
     }
     
     // Back navigation

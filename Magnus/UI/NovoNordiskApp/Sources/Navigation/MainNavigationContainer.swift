@@ -20,6 +20,7 @@ struct MainNavigationContainer: View {
                     showNotificationButtons: navigationManager.currentScreen.shouldShowNotificationButtons,
                     showProfileButton: navigationManager.currentScreen.shouldShowProfileButton,
                     showSettingsButton: navigationManager.currentScreen.shouldShowSettingsButton,
+                    isMessagesActive: navigationManager.currentScreen == .messagesList,
                     onBackTap: {
                         navigationManager.goBack()
                     },
@@ -87,10 +88,12 @@ struct MainNavigationContainer: View {
             AcademyView()
         case .messagesList:
             MessagesListView()
+        case .messageDetail(let messageId):
+            Text("Message Detail: \(messageId)")  // TODO: Create MessageDetailView
         }
     }
     
-    private var topBarHeight: CGFloat { 54 + 44 } // Bar height + safe area top estimate
+    private var topBarHeight: CGFloat { 54 + 44 }
     
     private func bottomMenuHeight(geometry: GeometryProxy) -> CGFloat {
         let safeAreaBottom = geometry.safeAreaInsets.bottom

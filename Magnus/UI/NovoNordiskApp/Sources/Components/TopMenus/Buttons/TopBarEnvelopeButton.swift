@@ -2,6 +2,12 @@ import SwiftUI
 
 struct TopBarEnvelopeButton: View {
     let action: () -> Void
+    let isActive: Bool
+    
+    init(action: @escaping () -> Void, isActive: Bool = false) {
+        self.action = action
+        self.isActive = isActive
+    }
 
     var body: some View {
         Button(action: action) {
@@ -15,7 +21,12 @@ struct TopBarEnvelopeButton: View {
         }
         .background(Color.novoNordiskGreyButton)
         .clipShape(Circle())
-        //.frame(width: 40, height: 40)
+        .overlay(
+            isActive ? Circle()
+                .stroke(Color.novoNordiskLightBlue, lineWidth: 1)
+                : nil
+        )
+        .frame(width: 40, height: 40)
     }
 }
 
@@ -26,9 +37,9 @@ struct TopBarEnvelopeButton: View {
             .fontWeight(.bold)
         
     
-        TopBarEnvelopeButton{
-            
-        }
+        TopBarEnvelopeButton(action: {}, isActive: false)
+        
+        TopBarEnvelopeButton(action: {}, isActive: true)
         .background(Color.gray)
     }
 }

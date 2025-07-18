@@ -14,6 +14,7 @@ struct RoundedTopBar : View {
     let showNotificationButtons: Bool
     let showProfileButton: Bool
     let showSettingsButton: Bool
+    let isMessagesActive: Bool
     let onBackTap: () -> Void
     let onProfileTap: () -> Void
     let onSettingsTap: () -> Void
@@ -26,6 +27,7 @@ struct RoundedTopBar : View {
         showNotificationButtons: Bool = true,
         showProfileButton: Bool = true,
         showSettingsButton: Bool = false,
+        isMessagesActive: Bool = false,
         onBackTap: @escaping () -> Void = {},
         onProfileTap: @escaping () -> Void = {},
         onSettingsTap: @escaping () -> Void = {},
@@ -37,6 +39,7 @@ struct RoundedTopBar : View {
         self.showNotificationButtons = showNotificationButtons
         self.showProfileButton = showProfileButton
         self.showSettingsButton = showSettingsButton
+        self.isMessagesActive = isMessagesActive
         self.onBackTap = onBackTap
         self.onProfileTap = onProfileTap
         self.onSettingsTap = onSettingsTap
@@ -102,7 +105,7 @@ struct RoundedTopBar : View {
             }
             
             if showNotificationButtons {
-                TopBarEnvelopeButton(action: onMessagesTap)
+                TopBarEnvelopeButton(action: onMessagesTap, isActive: isMessagesActive)
                     .padding(.trailing, 4)
                 TopBarAlertButton(action: {})
                     .padding(.trailing, 4)
