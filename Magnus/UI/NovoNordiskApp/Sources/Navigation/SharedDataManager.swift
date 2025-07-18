@@ -65,4 +65,9 @@ extension NavigationManager {
         sharedDataManager.selectNewsItem(newsItem)
         navigate(to: .newsDetail(newsId: newsItem.id))
     }
+
+    func navigateToMessageDetail(message: ConferenceMessage, sharedDataManager: SharedDataManager) {
+        sharedDataManager.selectMessage(message)
+        navigate(to: .messageDetail(messageId: message.id))
+    }
 } 
