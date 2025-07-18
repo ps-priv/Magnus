@@ -17,6 +17,7 @@ struct RoundedTopBar : View {
     let onBackTap: () -> Void
     let onProfileTap: () -> Void
     let onSettingsTap: () -> Void
+    let onMessagesTap: () -> Void
     
     init(
         title: String,
@@ -27,7 +28,8 @@ struct RoundedTopBar : View {
         showSettingsButton: Bool = false,
         onBackTap: @escaping () -> Void = {},
         onProfileTap: @escaping () -> Void = {},
-        onSettingsTap: @escaping () -> Void = {}
+        onSettingsTap: @escaping () -> Void = {},
+        onMessagesTap: @escaping () -> Void = {}
     ) {
         self.title = title
         self.canGoBack = canGoBack
@@ -38,6 +40,7 @@ struct RoundedTopBar : View {
         self.onBackTap = onBackTap
         self.onProfileTap = onProfileTap
         self.onSettingsTap = onSettingsTap
+        self.onMessagesTap = onMessagesTap
     }
     
     var body: some View {
@@ -99,7 +102,7 @@ struct RoundedTopBar : View {
             }
             
             if showNotificationButtons {
-                TopBarEnvelopeButton(action: {})
+                TopBarEnvelopeButton(action: onMessagesTap)
                     .padding(.trailing, 4)
                 TopBarAlertButton(action: {})
                     .padding(.trailing, 4)

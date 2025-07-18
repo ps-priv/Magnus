@@ -8,4 +8,5 @@ extension Color {
     static let novoNordiskTextGrey = Color("NovoNordiskTextGrey")
     static let novoNordiskLightGrey = Color("NovoNordiskLightGrey")
     static let novoNordiskGrey = Color("NovoNordiskGrey")
+    static let novoNordiskLightBlue = Color("NovoNordiskLightBlue")
 }

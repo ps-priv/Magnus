@@ -28,6 +28,9 @@ struct MainNavigationContainer: View {
                     },
                     onSettingsTap: {
                         navigationManager.navigate(to: .settings)
+                    },
+                    onMessagesTap: {
+                        navigationManager.navigate(to: .messagesList)
                     }
                 )
                 
@@ -77,12 +80,13 @@ struct MainNavigationContainer: View {
         case .newsDetail(let newsId):
             NewsDetailView(newsId: newsId)
         case .profile:
-            //ProfileView()
             UserProfileView()
         case .settings:
             SettingsView()
         case .academy:
             AcademyView()
+        case .messagesList:
+            MessagesListView()
         }
     }
     

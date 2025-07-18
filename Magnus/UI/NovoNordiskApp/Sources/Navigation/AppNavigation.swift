@@ -12,6 +12,7 @@ enum AppScreen: Equatable, Identifiable {
     case profile
     case settings
     case academy
+    case messagesList
     
     var id: String {
         switch self {
@@ -35,6 +36,8 @@ enum AppScreen: Equatable, Identifiable {
             return "settings"
         case .academy:
             return "academy"
+        case .messagesList:
+            return "messages_list"
         }
     }
     
@@ -60,6 +63,8 @@ enum AppScreen: Equatable, Identifiable {
             return LocalizedStrings.settingsScreenTitle
         case .academy:
             return LocalizedStrings.academyScreenTitle
+        case .messagesList:
+            return LocalizedStrings.messagesListScreenTitle
         }
     }
 
@@ -75,7 +80,7 @@ enum AppScreen: Equatable, Identifiable {
             return .news
         case .academy:
             return .academy
-        case .profile, .settings:
+        case .profile, .settings, .messagesList:
             return nil
         }
     }

@@ -52,12 +52,12 @@ struct BottomMenuItemView: View {
                     tab.icon,
                     type: .thin,
                     size: 24,
-                    color: isSelected ? Color.novoNordiskSelectedLightBlue : Color.novoNordiskBlue
+                    color: isSelected ? Color.novoNordiskLightBlue : Color.novoNordiskBlue
                 )
                 
                 Text(tab.title)
                     .font(.system(size: 14, weight: isSelected ? .semibold : .regular))
-                    .foregroundColor(isSelected ? Color.novoNordiskSelectedLightBlue :
+                    .foregroundColor(isSelected ? Color.novoNordiskLightBlue :
                                      Color.novoNordiskBlue)
                     .lineLimit(1)
                     .minimumScaleFactor(0.8)

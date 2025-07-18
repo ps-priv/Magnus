@@ -28,7 +28,6 @@ struct FontAwesome {
         case forward = "\u{f061}"
         case menu = "\u{f0c9}"
         case close = "\u{f00d}"
-        case circle_arrow_right = "\u{f0a9}"
         case settings = "\u{f013}"
         case signOut = "\u{f08b}"
         
@@ -84,8 +83,9 @@ struct FontAwesome {
         case lock = "\u{f023}"
 
 
-
+       //Circle Icons
         case circle_information = "\u{f05a}"
+        case circle_arrow_right = "\u{f0a9}"
 
         //top bar buttons
         
