@@ -59,6 +59,7 @@
 
 "DASHBOARD_EVENTS_TITLE" = "Upcoming Events";
 "DASHBOARD_UPCOMING_EVENTS_TITLE" = "Upcoming Events";
+"DASHBOARD_MATERIALS_TITLE" = "Latest materials";
 
 /* Screen titles*/
 "DASHBOARD_SCREEN_TITLE" = "Start";

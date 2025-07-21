@@ -4,18 +4,18 @@ import Foundation
 
 // MARK: - Email Validation Helper
 
-public struct PublishedDateHelper {
-    public static  func formatPublishDate(_ dateString: String) -> String {
+public enum PublishedDateHelper {
+    public static func formatPublishDate(_ dateString: String) -> String {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd"
-        
+
         guard let date = formatter.date(from: dateString) else {
             return dateString
         }
-        
+
         let now = Date()
         let components = Calendar.current.dateComponents([.day, .hour], from: date, to: now)
-        
+
         if let days = components.day, days > 0 {
             return days == 1 ? "1 dzień temu" : "\(days) dni temu"
         } else if let hours = components.hour, hours > 0 {
@@ -25,15 +25,32 @@ public struct PublishedDateHelper {
         }
     }
 
+    public static func formatDateForEvent(_ dateString: String, _ months: [String]) -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
+        formatter.locale = Locale(identifier: "pl_PL")
+
+        guard let date = formatter.date(from: dateString) else {
+            return dateString
+        }
+
+        let calendar = Calendar.current
+        let day = calendar.component(.day, from: date)
+        let month = calendar.component(.month, from: date)
+        let year = calendar.component(.year, from: date)
+
+        return "\(day) \(months[month]) \(year)"
+    }
+
     public static func formatDateRangeForEvent(_ from: String, _ to: String, _ months: [String]) -> String {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd HH:mm"
         formatter.locale = Locale(identifier: "pl_PL")
-        
+
         guard let fromDate = formatter.date(from: from), let toDate = formatter.date(from: to) else {
             return "\(from) - \(to)"
         }
-        
+
         let calendar = Calendar.current
         let fromDay = calendar.component(.day, from: fromDate)
         let toDay = calendar.component(.day, from: toDate)
@@ -41,13 +58,6 @@ public struct PublishedDateHelper {
         let toMonth = calendar.component(.month, from: toDate)
         let fromYear = calendar.component(.year, from: fromDate)
         let toYear = calendar.component(.year, from: toDate)
-        
-        // let months = [
-        //     "", "stycznia", "lutego", "marca", "kwietnia", "maja", "czerwca",
-        //     "lipca", "sierpnia", "września", "października", "listopada", "grudnia"
-        // ]
-        
-        //let month = LocalizedStrings.months[fromMonth]
 
         if fromYear == toYear && fromMonth == toMonth && fromDay == toDay {
             // Przykład: 11 maja 2025
