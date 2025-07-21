@@ -7,5 +7,16 @@
     "swift.sourcekit-lsp.serverArguments": [
         "-Xswiftc", "-I/usr/lib/swift",
         "-Xswiftc", "-I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/lib/swift"
-    ]
+    ],
+    "sweetpad.build.env": {
+
+    },
+    "sweetpad.format.path": "swiftformat",
+    "sweetpad.format.args": [
+        "--quiet",
+        "${file}"
+    ],
+    "[swift]": {
+    "editor.formatOnSave": true
+    }
 } 
