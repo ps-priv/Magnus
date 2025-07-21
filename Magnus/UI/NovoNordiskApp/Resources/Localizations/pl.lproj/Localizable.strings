@@ -56,6 +56,9 @@
 "DASHBOARD_NEWS_TITLE" = "Aktualności";
 "DASHBOARD_EVENTS_LOAD_MORE" = "Więcej";
 
+"DASHBOARD_EVENTS_TITLE" = "Nadchodzące wydarzenia";
+"DASHBOARD_UPCOMING_EVENTS_TITLE" = "Nadchodzące wydarzenia";
+
 /* Screen titles*/
 "DASHBOARD_SCREEN_TITLE" = "Start";
 "NEWS_SCREEN_TITLE" = "Aktualności";

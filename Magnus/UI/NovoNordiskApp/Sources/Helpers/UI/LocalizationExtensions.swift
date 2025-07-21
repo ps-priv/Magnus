@@ -64,6 +64,8 @@ struct LocalizedStrings {
     //Dashboard
     static let dashboardNewsTitle = "DASHBOARD_NEWS_TITLE".localized
     static let dashboardEventsSectionLoadMore = "DASHBOARD_EVENTS_LOAD_MORE".localized
+    static let dashboardEventsTitle = "DASHBOARD_EVENTS_TITLE".localized
+    static let dashboardUpcomingEventsTitle = "DASHBOARD_UPCOMING_EVENTS_TITLE".localized
     
     //Pages titles
     static let dashboardScreenTitle = "DASHBOARD_SCREEN_TITLE".localized

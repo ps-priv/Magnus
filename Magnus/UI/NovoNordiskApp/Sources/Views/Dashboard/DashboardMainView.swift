@@ -7,6 +7,7 @@ import Inject
 
 struct DashboardMainView: View {
     @State private var newsItems: [NewsItem] = NewsItemMockGenerator.createMany(count: 3)
+    @State private var events: [ConferenceEvent] = EventMockGenerator.createUpcomingEvents(count: 3)
     @EnvironmentObject var navigationManager: NavigationManager
     #if DEBUG
     @ObserveInjection var inject
@@ -14,18 +15,15 @@ struct DashboardMainView: View {
     
     var body: some View {
        ScrollView {
-           VStack(alignment: .leading, spacing: 20) {
+           VStack(alignment: .leading, spacing: 10) {
                DashboardNewsPanel(items: $newsItems)
-               
-             
+               DashboardUpcomingEventsPanel(items: $events)
+               Spacer()
            }
            .padding()
        }
        .background(Color(.systemGray6))
     }
-    
-
-    
 }
 
 
