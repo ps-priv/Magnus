@@ -62,6 +62,7 @@
 "DASHBOARD_EVENTS_TITLE" = "Nadchodzące wydarzenia";
 "DASHBOARD_UPCOMING_EVENTS_TITLE" = "Nadchodzące wydarzenia";
 "DASHBOARD_MATERIALS_TITLE" = "Najnowsze materiały";
+"DASHBOARD_ACADEMY_TITLE" = "Nowości w Akademii NovoNordisk";
 
 /* Screen titles*/
 "DASHBOARD_SCREEN_TITLE" = "Start";

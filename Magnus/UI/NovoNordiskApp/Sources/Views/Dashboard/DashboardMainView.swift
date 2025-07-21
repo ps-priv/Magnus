@@ -10,6 +10,7 @@ struct DashboardMainView: View {
     @State private var newsItems: [NewsItem] = NewsItemMockGenerator.createMany(count: 3)
     @State private var events: [ConferenceEvent] = EventMockGenerator.createUpcomingEvents(count: 3)
     @State private var materials: [ConferenceMaterial] = ConferenceMaterialsMockGenerator.createRandomMany(count: 3)
+    @State private var academy: [ConferenceMaterial] = ConferenceMaterialsMockGenerator.createRandomMany(count: 1)
     @EnvironmentObject var navigationManager: NavigationManager
     #if DEBUG
         @ObserveInjection var inject
@@ -21,6 +22,7 @@ struct DashboardMainView: View {
                 DashboardNewsPanel(items: $newsItems)
                 DashboardUpcomingEventsPanel(items: $events)
                 DashboardMaterialsPanel(items: $materials)
+                DashboardAcademyPanel(items: $academy)
                 Spacer()
             }
             .padding()

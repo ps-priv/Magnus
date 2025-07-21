@@ -68,6 +68,7 @@ enum LocalizedStrings {
     static let dashboardEventsTitle = "DASHBOARD_EVENTS_TITLE".localized
     static let dashboardUpcomingEventsTitle = "DASHBOARD_UPCOMING_EVENTS_TITLE".localized
     static let dashboardMaterialsTitle = "DASHBOARD_MATERIALS_TITLE".localized
+    static let dashboardAcademyTitle = "DASHBOARD_ACADEMY_TITLE".localized
 
     // Pages titles
     static let dashboardScreenTitle = "DASHBOARD_SCREEN_TITLE".localized
