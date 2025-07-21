@@ -135,4 +135,9 @@ enum LocalizedStrings {
     static let MONTH_11 = "MONTH_11".localized
     static let MONTH_12 = "MONTH_12".localized
     static let months = ["", MONTH_1, MONTH_2, MONTH_3, MONTH_4, MONTH_5, MONTH_6, MONTH_7, MONTH_8, MONTH_9, MONTH_10, MONTH_11, MONTH_12]
+
+    // Events list
+    static let eventsListLinkToArchive = "EVENTS_LIST_LINK_TO_ARCHIVE".localized
+    static let eventsListEmptyStateTitle = "EVENTS_LIST_EMPTY_STATE_TITLE".localized
+    static let eventsListEmptyStateDescription = "EVENTS_LIST_EMPTY_STATE_DESCRIPTION".localized
 }

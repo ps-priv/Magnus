@@ -126,3 +126,8 @@
 "MONTH_10" = "października";
 "MONTH_11" = "listopada";
 "MONTH_12" = "grudnia";
+
+/* Events list */
+"EVENTS_LIST_LINK_TO_ARCHIVE" = "Archiwum wydarzeń";
+"EVENTS_LIST_EMPTY_STATE_TITLE" = "Brak wydarzeń";
+"EVENTS_LIST_EMPTY_STATE_DESCRIPTION" = "Nie znaleziono aktywnych wydarzeń";

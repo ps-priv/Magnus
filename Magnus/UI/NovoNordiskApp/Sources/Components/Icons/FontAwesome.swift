@@ -100,6 +100,7 @@ enum FontAwesome {
         case fileChartColumn = "\u{f659}"
 
         // top bar buttons
+        case box_archive = "\u{f187}"
 
         var unicode: String {
             return rawValue
