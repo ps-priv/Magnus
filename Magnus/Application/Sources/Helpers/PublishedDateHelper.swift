@@ -47,7 +47,10 @@ public struct PublishedDateHelper {
             "lipca", "sierpnia", "września", "października", "listopada", "grudnia"
         ]
         
-        if fromYear == toYear {
+        if fromYear == toYear && fromMonth == toMonth && fromDay == toDay {
+            // Przykład: 11 maja 2025
+            return "\(fromDay) \(months[fromMonth]) \(fromYear)"
+        } else if fromYear == toYear {
             if fromMonth == toMonth {
                 // Przykład: 11 - 14 maja 2025
                 return "\(fromDay) - \(toDay) \(months[toMonth]) \(toYear)"
