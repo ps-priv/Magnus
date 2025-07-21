@@ -25,7 +25,7 @@ public struct PublishedDateHelper {
         }
     }
 
-    public static func formatDateRangeForEvent(_ from: String, _ to: String) -> String {
+    public static func formatDateRangeForEvent(_ from: String, _ to: String, _ months: [String]) -> String {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd HH:mm"
         formatter.locale = Locale(identifier: "pl_PL")
@@ -42,11 +42,13 @@ public struct PublishedDateHelper {
         let fromYear = calendar.component(.year, from: fromDate)
         let toYear = calendar.component(.year, from: toDate)
         
-        let months = [
-            "", "stycznia", "lutego", "marca", "kwietnia", "maja", "czerwca",
-            "lipca", "sierpnia", "września", "października", "listopada", "grudnia"
-        ]
+        // let months = [
+        //     "", "stycznia", "lutego", "marca", "kwietnia", "maja", "czerwca",
+        //     "lipca", "sierpnia", "września", "października", "listopada", "grudnia"
+        // ]
         
+        //let month = LocalizedStrings.months[fromMonth]
+
         if fromYear == toYear && fromMonth == toMonth && fromDay == toDay {
             // Przykład: 11 maja 2025
             return "\(fromDay) \(months[fromMonth]) \(fromYear)"

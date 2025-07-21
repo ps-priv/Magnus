@@ -28,6 +28,9 @@
 "ERROR" = "Błąd";
 "OK" = "OK";
 "CANCEL" = "Anuluj";
+"LOAD_MORE" = "Więcej";
+
+
 
 /* Validation */
 "FIELD_REQUIRED" = "To pole jest wymagane";
@@ -107,3 +110,17 @@
 "BUTTON_SAVE" = "Zapisz";
 "BUTTON_LOGOUT" = "Wyloguj";
 "BUTTON_CHANGE_PASSWORD" = "Zmień hasło";
+
+/* Polish months */
+"MONTH_1" = "stycznia";
+"MONTH_2" = "lutego";
+"MONTH_3" = "marca";
+"MONTH_4" = "kwietnia";
+"MONTH_5" = "maja";
+"MONTH_6" = "czerwca";
+"MONTH_7" = "lipca";
+"MONTH_8" = "sierpnia";
+"MONTH_9" = "września";
+"MONTH_10" = "października";
+"MONTH_11" = "listopada";
+"MONTH_12" = "grudnia";

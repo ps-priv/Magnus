@@ -44,6 +44,7 @@ struct LocalizedStrings {
     static let error = "ERROR".localized
     static let ok = "OK".localized
     static let cancel = "CANCEL".localized
+    static let load_more = "LOAD_MORE".localized
     
     // Validation
     static let fieldRequired = "FIELD_REQUIRED".localized
@@ -117,5 +118,21 @@ struct LocalizedStrings {
     static let buttonSave = "BUTTON_SAVE".localized
     static let buttonLogout = "BUTTON_LOGOUT".localized
     static let buttonChangePassword = "BUTTON_CHANGE_PASSWORD".localized
+
+    // Months
+    static let MONTH_1 = "MONTH_1".localized
+    static let MONTH_2 = "MONTH_2".localized
+    static let MONTH_3 = "MONTH_3".localized
+    static let MONTH_4 = "MONTH_4".localized
+    static let MONTH_5 = "MONTH_5".localized
+    static let MONTH_6 = "MONTH_6".localized
+    static let MONTH_7 = "MONTH_7".localized
+    static let MONTH_8 = "MONTH_8".localized
+    static let MONTH_9 = "MONTH_9".localized
+    static let MONTH_10 = "MONTH_10".localized
+    static let MONTH_11 = "MONTH_11".localized
+    static let MONTH_12 = "MONTH_12".localized
+    static let months = ["", MONTH_1, MONTH_2, MONTH_3, MONTH_4, MONTH_5, MONTH_6, MONTH_7, MONTH_8, MONTH_9, MONTH_10, MONTH_11, MONTH_12]
+
 
 }

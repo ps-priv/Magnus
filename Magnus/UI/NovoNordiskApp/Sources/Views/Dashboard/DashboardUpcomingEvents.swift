@@ -39,7 +39,7 @@ struct DashboardUpcomingEventsCard: View {
                     .lineLimit(3)
                     .multilineTextAlignment(.leading)
                 HStack {
-                    Text(PublishedDateHelper.formatDateRangeForEvent(item.dateFrom, item.dateTo))
+                    Text(PublishedDateHelper.formatDateRangeForEvent(item.dateFrom, item.dateTo, LocalizedStrings.months))
                         .font(.system(size: 16))
                         .fontWeight(.bold)
                         .foregroundColor(.novoNordiskBlue)
@@ -53,7 +53,6 @@ struct DashboardUpcomingEventsCard: View {
         .background(Color.white)
         .cornerRadius(20)
         .shadow(color: Color.black.opacity(0.1), radius: 4, x: 0, y: 2)
-        .padding(10)
     }
     
     @ViewBuilder
@@ -87,8 +86,10 @@ struct DashboardUpcomingEventsCard: View {
                 }
              .padding(.bottom, 10)
              .padding(.top, 10)
-             .padding(.trailing, 10)
+             .padding(.trailing, 0)
+             .padding(.leading, 10)
         }
+        .padding(.trailing, 10)
         .background(Color(.systemGray6))
         
     }
