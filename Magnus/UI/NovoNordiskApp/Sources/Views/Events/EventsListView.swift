@@ -1,7 +1,9 @@
+import MagnusDomain
+import MagnusFeatures
 import SwiftUI
 
 struct EventsListView: View {
-    @State private var events: [Event] = EventMockData.sampleEvents
+    @State private var events: [ConferenceEvent] = EventMockGenerator.createRandomEvents(count: 4)
     @EnvironmentObject var navigationManager: NavigationManager
 
     var body: some View {
@@ -39,7 +41,7 @@ struct EventsListLink: View {
 }
 
 struct EventListPanel: View {
-    var items: [Event]
+    var items: [ConferenceEvent]
     @EnvironmentObject var navigationManager: NavigationManager
     @State private var currentIndex = 0
 
@@ -59,7 +61,7 @@ struct EventListPanel: View {
                 .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
 
                 HStack(spacing: 8) {
-                    ForEach(0 ..< min(items.count, 3), id: \.self) { index in
+                    ForEach(0 ..< min(items.count, 4), id: \.self) { index in
                         Circle()
                             .fill(index == currentIndex ? Color.novoNordiskBlue : Color.gray.opacity(0.4))
                             .frame(width: 8, height: 8)
@@ -76,45 +78,6 @@ struct EventListPanel: View {
             })
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(Color(.systemGray6))
-    }
-}
-
-struct EventListPanel2: View {
-    var items: [Event]
-    @EnvironmentObject var navigationManager: NavigationManager
-    @State private var currentIndex = 0
-
-    var body: some View {
-        GeometryReader { outerGeometry in
-            GeometryReader { geometry in
-                VStack {
-                    TabView(selection: $currentIndex) {
-                        ForEach(Array(items.enumerated()), id: \.element.id) { index, event in
-                            EventCardView(event: event) {
-                                navigationManager.navigateToEventDetail(eventId: event.id)
-                            }
-                            .frame(height: geometry.size.height - 200)
-                            .padding(.horizontal, 20)
-                            .tag(index)
-                        }
-                    }
-                    .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
-
-                    HStack(spacing: 8) {
-                        ForEach(0 ..< min(items.count, 3), id: \.self) { index in
-                            Circle()
-                                .fill(index == currentIndex ? Color.novoNordiskBlue : Color.gray.opacity(0.4))
-                                .frame(width: 8, height: 8)
-                        }
-                    }
-                    // .padding(.top, 8)
-                    // .padding(.bottom, 20)
-                }
-                .background(Color.red)
-            }
-            .frame(height: outerGeometry.size.height * 0.8)
-        }
         .background(Color(.systemGray6))
     }
 }
@@ -149,7 +112,7 @@ struct EventListEmptyStateView: View {
 // MARK: - Event Card View
 
 struct EventCardView: View {
-    let event: Event
+    let event: ConferenceEvent
     let onTap: () -> Void
 
     var body: some View {
@@ -157,21 +120,19 @@ struct EventCardView: View {
             GeometryReader { geometry in
                 VStack(alignment: .leading) {
                     // Image section - 60% of screen height
-                    if let imageUrl = event.imageUrl {
-                        AsyncImage(url: URL(string: imageUrl)) { image in
-                            image
-                                .resizable()
-                                .scaledToFill()
-                        } placeholder: {
-                            Rectangle()
-                                .fill(Color.gray.opacity(0.3))
-                                .overlay(
-                                    FAIcon(.calendar, type: .light, size: 40, color: .gray)
-                                )
-                        }
-                        .frame(height: geometry.size.height * 0.6)
-                        .clipped()
+                    AsyncImage(url: URL(string: event.image)) { image in
+                        image
+                            .resizable()
+                            .scaledToFill()
+                    } placeholder: {
+                        Rectangle()
+                            .fill(Color.gray.opacity(0.3))
+                            .overlay(
+                                FAIcon(.calendar, type: .light, size: 40, color: .gray)
+                            )
                     }
+                    .frame(height: geometry.size.height * 0.6)
+                    .clipped()
 
                     // Content section - remaining space
                     VStack(alignment: .leading) {
@@ -189,17 +150,37 @@ struct EventCardView: View {
 
                         HStack {
                             FAIcon(.clock, type: .light, size: 14, color: .novoNordiskBlue)
-                            Text(event.formattedDate)
+                            Text(event.dateFrom)
                                 .font(.caption)
                                 .foregroundColor(.novoNordiskBlue)
 
                             Spacer()
+
+                            FAIcon(.calendar, type: .light, size: 14, color: .novoNordiskBlue)
+                            Text(event.location)
+                                .font(.caption)
+                                .foregroundColor(.novoNordiskBlue)
+                                .lineLimit(1)
+                        }
+
+                        // Seats info
+                        HStack {
+                            FAIcon(.users, type: .light, size: 14, color: .orange)
+                            Text("\(event.occupiedSeats)/\(event.totalSeats) miejsc")
+                                .font(.caption)
+                                .foregroundColor(.orange)
+
+                            if event.isOnline {
+                                Spacer()
+                                FAIcon(.filePdf, type: .light, size: 14, color: .green)
+                                Text("Online")
+                                    .font(.caption)
+                                    .foregroundColor(.green)
+                            }
                         }
                     }
                     .padding(.horizontal, 20)
                     .padding(.top, 10)
-
-                    // .frame(maxWidth: .infinity, alignment: .leading)
                 }
             }
         }
@@ -258,7 +239,7 @@ enum EventMockData {
 
 #Preview("EventCardView") {
     VStack {
-        EventCardView(event: EventMockData.sampleEvents[0], onTap: {
+        EventCardView(event: EventMockGenerator.createSingle(), onTap: {
             // Action when tapped
         })
     }
@@ -266,6 +247,6 @@ enum EventMockData {
 }
 
 #Preview("EventListPanel") {
-    EventListPanel(items: EventMockData.sampleEvents)
+    EventListPanel(items: EventMockGenerator.createRandomEvents(count: 4))
         .environmentObject(NavigationManager())
 }
