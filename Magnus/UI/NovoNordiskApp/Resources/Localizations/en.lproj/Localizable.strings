@@ -29,6 +29,7 @@
 "OK" = "OK";
 "CANCEL" = "Cancel";
 "LOAD_MORE" = "More";
+"CLOSE"="Close";
 
 /* Validation */
 "FIELD_REQUIRED" = "This field is required";
@@ -133,3 +134,6 @@
 "EVENT_IN_PROGRESS"="IN PROGRESS";
 "EVENT_SEATS"="Seats:";
 "EVENT_SEATS_NOT_CONFIRMED"="Not confirmed:";
+
+/* Event qr code */
+"EVENT_QR_CODE_SCAN_TO_REGISTER"="Scan the code to submit your participation";

@@ -45,6 +45,7 @@ enum LocalizedStrings {
     static let ok = "OK".localized
     static let cancel = "CANCEL".localized
     static let load_more = "LOAD_MORE".localized
+    static let close = "CLOSE".localized
 
     // Validation
     static let fieldRequired = "FIELD_REQUIRED".localized
@@ -120,6 +121,7 @@ enum LocalizedStrings {
     static let buttonSave = "BUTTON_SAVE".localized
     static let buttonLogout = "BUTTON_LOGOUT".localized
     static let buttonChangePassword = "BUTTON_CHANGE_PASSWORD".localized
+    static let buttonClose = "CLOSE".localized
 
     // Months
     static let MONTH_1 = "MONTH_1".localized
@@ -144,4 +146,7 @@ enum LocalizedStrings {
     static let eventInProgress = "EVENT_IN_PROGRESS".localized
     static let eventSeats = "EVENT_SEATS".localized
     static let eventSeatsNotConfirmed = "EVENT_SEATS_NOT_CONFIRMED".localized
+
+    // Eventy qr code
+    static let eventQrCodeScanToRegister = "EVENT_QR_CODE_SCAN_TO_REGISTER".localized
 }
