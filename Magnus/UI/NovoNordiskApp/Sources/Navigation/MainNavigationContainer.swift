@@ -1,47 +1,49 @@
 import SwiftUI
 #if DEBUG
-import Inject
+    import Inject
 #endif
 
 struct MainNavigationContainer: View {
     @StateObject private var navigationManager = NavigationManager()
     #if DEBUG
-    @ObserveInjection var inject
+        @ObserveInjection var inject
     #endif
-    
+
     var body: some View {
         GeometryReader { geometry in
             VStack(spacing: 0) {
                 // Top Bar
-                RoundedTopBar(
-                    title: navigationManager.currentScreen.title,
-                    canGoBack: navigationManager.canGoBack && navigationManager.currentScreen.shouldShowBackButton,
-                    showSearchButton: navigationManager.currentScreen.shouldShowSearchButton,
-                    showNotificationButtons: navigationManager.currentScreen.shouldShowNotificationButtons,
-                    showProfileButton: navigationManager.currentScreen.shouldShowProfileButton,
-                    showSettingsButton: navigationManager.currentScreen.shouldShowSettingsButton,
-                    isMessagesActive: navigationManager.currentScreen == .messagesList,
-                    onBackTap: {
-                        navigationManager.goBack()
-                    },
-                    onProfileTap: {
-                        navigationManager.navigate(to: .profile)
-                    },
-                    onSettingsTap: {
-                        navigationManager.navigate(to: .settings)
-                    },
-                    onMessagesTap: {
-                        navigationManager.navigate(to: .messagesList)
-                    }
-                )
-                
+                if navigationManager.currentScreen.shouldShowTopBar {
+                    RoundedTopBar(
+                        title: navigationManager.currentScreen.title,
+                        canGoBack: navigationManager.canGoBack && navigationManager.currentScreen.shouldShowBackButton,
+                        showSearchButton: navigationManager.currentScreen.shouldShowSearchButton,
+                        showNotificationButtons: navigationManager.currentScreen.shouldShowNotificationButtons,
+                        showProfileButton: navigationManager.currentScreen.shouldShowProfileButton,
+                        showSettingsButton: navigationManager.currentScreen.shouldShowSettingsButton,
+                        isMessagesActive: navigationManager.currentScreen == .messagesList,
+                        onBackTap: {
+                            navigationManager.goBack()
+                        },
+                        onProfileTap: {
+                            navigationManager.navigate(to: .profile)
+                        },
+                        onSettingsTap: {
+                            navigationManager.navigate(to: .settings)
+                        },
+                        onMessagesTap: {
+                            navigationManager.navigate(to: .messagesList)
+                        }
+                    )
+                }
+
                 // Main Content Area
                 currentScreenView()
-                    // .frame(
-                    //     width: geometry.size.width,
-                    //     height: geometry.size.height - topBarHeight - (navigationManager.currentScreen.shouldShowBottomMenu ? bottomMenuHeight(geometry: geometry) : 0)
-                    // )
-                
+                // .frame(
+                //     width: geometry.size.width,
+                //     height: geometry.size.height - topBarHeight - (navigationManager.currentScreen.shouldShowBottomMenu ? bottomMenuHeight(geometry: geometry) : 0)
+                // )
+
                 // Bottom Menu - Show conditionally
                 if navigationManager.currentScreen.shouldShowBottomMenu {
                     BottomMenu(
@@ -59,10 +61,10 @@ struct MainNavigationContainer: View {
         .animation(.easeInOut(duration: 0.3), value: navigationManager.currentScreen)
         .animation(.easeInOut(duration: 0.3), value: navigationManager.currentScreen.shouldShowBottomMenu)
         #if DEBUG
-        .enableInjection()
+            .enableInjection()
         #endif
     }
-    
+
     @ViewBuilder
     private func currentScreenView() -> some View {
         switch navigationManager.currentScreen {
@@ -70,15 +72,17 @@ struct MainNavigationContainer: View {
             DashboardMainView()
         case .eventsList:
             EventsListView()
-        case .eventDetail(let eventId):
+        case let .eventDetail(eventId):
             EventDetailView(eventId: eventId)
+        case let .eventQrCode(eventId):
+            EventQrCodeView(eventId: eventId)
         case .materialsList:
             MaterialsListView()
-        case .materialDetail(let materialId):
+        case let .materialDetail(materialId):
             MaterialDetailView(materialId: materialId)
         case .newsList:
             NewsListView()
-        case .newsDetail(let newsId):
+        case let .newsDetail(newsId):
             NewsDetailView(newsId: newsId)
         case .profile:
             UserProfileView()
@@ -88,16 +92,16 @@ struct MainNavigationContainer: View {
             AcademyView()
         case .messagesList:
             MessagesListView()
-        case .messageDetail(let messageId):
+        case let .messageDetail(messageId):
             MessageDetailView(messageId: messageId)
         }
     }
-    
+
     private var topBarHeight: CGFloat { 54 + 44 }
-    
+
     private func bottomMenuHeight(geometry: GeometryProxy) -> CGFloat {
         let safeAreaBottom = geometry.safeAreaInsets.bottom
         let menuHeight: CGFloat = 30
         return menuHeight + safeAreaBottom
     }
-} 
+}

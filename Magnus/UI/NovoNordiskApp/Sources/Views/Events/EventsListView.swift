@@ -114,6 +114,7 @@ struct EventListEmptyStateView: View {
 // MARK: - Event Card View
 
 struct EventCardView: View {
+    @EnvironmentObject var navigationManager: NavigationManager
     let event: ConferenceEvent
     let onTap: () -> Void
 
@@ -137,9 +138,11 @@ struct EventCardView: View {
                         .frame(width: geometry.size.width, height: geometry.size.height * 0.6)
                         .clipped()
                         .overlay(
-                            QrCodeButtonView(action: {})
-                                .padding(.top, 12)
-                                .padding(.trailing, 12),
+                            QrCodeButtonView(action: {
+                                navigationManager.navigateToEventQrCode(event: event)
+                            })
+                            .padding(.top, 12)
+                            .padding(.trailing, 12),
                             alignment: .topTrailing
                         )
 

@@ -1,10 +1,13 @@
+import MagnusDomain
 import SwiftUI
 
 // MARK: - App Screen Enumeration with Parameters
+
 enum AppScreen: Equatable, Identifiable {
     case dashboard
     case eventsList
     case eventDetail(eventId: String)
+    case eventQrCode(eventId: String)
     case materialsList
     case materialDetail(materialId: String)
     case newsList
@@ -14,22 +17,24 @@ enum AppScreen: Equatable, Identifiable {
     case academy
     case messagesList
     case messageDetail(messageId: String)
-    
+
     var id: String {
         switch self {
         case .dashboard:
             return "dashboard"
         case .eventsList:
             return "events_list"
-        case .eventDetail(let eventId):
+        case let .eventDetail(eventId):
             return "event_detail_\(eventId)"
+        case let .eventQrCode(eventId):
+            return "event_qr_code_\(eventId)"
         case .materialsList:
             return "materials_list"
-        case .materialDetail(let materialId):
+        case let .materialDetail(materialId):
             return "material_detail_\(materialId)"
         case .newsList:
             return "news_list"
-        case .newsDetail(let newsId):
+        case let .newsDetail(newsId):
             return "news_detail_\(newsId)"
         case .profile:
             return "profile"
@@ -39,11 +44,11 @@ enum AppScreen: Equatable, Identifiable {
             return "academy"
         case .messagesList:
             return "messages_list"
-        case .messageDetail(let messageId):
+        case let .messageDetail(messageId):
             return "message_detail_\(messageId)"
         }
     }
-    
+
     var title: String {
         switch self {
         case .dashboard:
@@ -52,6 +57,8 @@ enum AppScreen: Equatable, Identifiable {
             return LocalizedStrings.eventsListScreenTitle
         case .eventDetail:
             return LocalizedStrings.eventDetailsScreenTitle
+        case .eventQrCode:
+            return ""
         case .materialsList:
             return LocalizedStrings.materialsListScreenTitle
         case .materialDetail:
@@ -85,11 +92,11 @@ enum AppScreen: Equatable, Identifiable {
             return .news
         case .academy:
             return .academy
-        case .profile, .settings, .messagesList, .messageDetail:
+        case .profile, .settings, .messagesList, .messageDetail, .eventQrCode:
             return nil
         }
     }
-    
+
     // Helper to check if this is a detail screen
     var isDetailScreen: Bool {
         switch self {
@@ -99,19 +106,28 @@ enum AppScreen: Equatable, Identifiable {
             return false
         }
     }
-    
+
     // Helper to check if bottom menu should be shown
     var shouldShowBottomMenu: Bool {
         switch self {
         case .profile, .settings:
             return false
-        case .eventDetail, .materialDetail, .newsDetail:
+        case .eventDetail, .eventQrCode, .materialDetail, .newsDetail:
             return false // Ukryj również na ekranach szczegółów
         default:
             return true
         }
     }
-    
+
+    var shouldShowTopBar: Bool {
+        switch self {
+        case .eventQrCode:
+            return false
+        default:
+            return true
+        }
+    }
+
     // Helper to check if top bar search button should be shown
     var shouldShowSearchButton: Bool {
         switch self {
@@ -121,7 +137,7 @@ enum AppScreen: Equatable, Identifiable {
             return false
         }
     }
-    
+
     // Helper to check if top bar notification buttons should be shown
     var shouldShowNotificationButtons: Bool {
         switch self {
@@ -131,7 +147,7 @@ enum AppScreen: Equatable, Identifiable {
             return false
         }
     }
-    
+
     // Helper to check if profile button should be shown
     var shouldShowProfileButton: Bool {
         switch self {
@@ -141,7 +157,7 @@ enum AppScreen: Equatable, Identifiable {
             return true
         }
     }
-    
+
     // Helper to check if settings button should be shown
     var shouldShowSettingsButton: Bool {
         switch self {
@@ -153,7 +169,7 @@ enum AppScreen: Equatable, Identifiable {
             return false
         }
     }
-    
+
     // Helper to check if back button should be shown
     var shouldShowBackButton: Bool {
         switch self {
@@ -166,53 +182,58 @@ enum AppScreen: Equatable, Identifiable {
 }
 
 // MARK: - Navigation Manager with Parameter Support
+
 class NavigationManager: ObservableObject {
     @Published var currentScreen: AppScreen = .dashboard
     @Published var navigationStack: [AppScreen] = []
     @Published var selectedBottomTab: BottomMenuTab = .start
-    
+
     // Navigation method with parameters
     func navigate(to screen: AppScreen) {
         if screen != currentScreen {
             navigationStack.append(currentScreen)
             currentScreen = screen
-            
+
             // Update bottom tab if needed
             if let tab = screen.bottomMenuTab {
                 selectedBottomTab = tab
             }
         }
     }
-    
+
     // Convenience methods for specific navigation with parameters
     func navigateToEventDetail(eventId: String) {
         navigate(to: .eventDetail(eventId: eventId))
     }
-    
+
+    func navigateToEventQrCode(event: ConferenceEvent) {
+        navigate(to: .eventQrCode(eventId: event.id))
+    }
+
     func navigateToMaterialDetail(materialId: String) {
         navigate(to: .materialDetail(materialId: materialId))
     }
-    
+
     func navigateToNewsDetail(newsId: String) {
         navigate(to: .newsDetail(newsId: newsId))
     }
-    
+
     func navigateToMessageDetail(messageId: String) {
         navigate(to: .messageDetail(messageId: messageId))
     }
-    
+
     // Back navigation
     func goBack() {
         if !navigationStack.isEmpty {
             currentScreen = navigationStack.removeLast()
-            
+
             // Update bottom tab
             if let tab = currentScreen.bottomMenuTab {
                 selectedBottomTab = tab
             }
         }
     }
-    
+
     // Navigate to root screen for a tab
     func navigateToTabRoot(_ tab: BottomMenuTab) {
         let screen: AppScreen
@@ -228,13 +249,13 @@ class NavigationManager: ObservableObject {
         case .academy:
             screen = .academy
         }
-        
+
         // Clear navigation stack and go to tab root
         navigationStack.removeAll()
         currentScreen = screen
         selectedBottomTab = tab
     }
-    
+
     // Check if can go back
     var canGoBack: Bool {
         !navigationStack.isEmpty
@@ -242,6 +263,7 @@ class NavigationManager: ObservableObject {
 }
 
 // MARK: - Navigation Environment Key
+
 struct NavigationManagerKey: EnvironmentKey {
     static let defaultValue = NavigationManager()
 }
@@ -251,4 +273,4 @@ extension EnvironmentValues {
         get { self[NavigationManagerKey.self] }
         set { self[NavigationManagerKey.self] = newValue }
     }
-} 
+}
