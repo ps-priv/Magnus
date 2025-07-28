@@ -28,5 +28,6 @@ public struct ConferenceMaterial: Codable {
 public enum ConferenceMaterialType: String, Codable, CaseIterable {
     case pdf
     case docx
+    case sharepoint
     case link
 }

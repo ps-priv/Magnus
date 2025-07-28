@@ -120,19 +120,39 @@ struct EventCardView: View {
             GeometryReader { geometry in
                 VStack(alignment: .leading) {
                     // Image section - 60% of screen height
-                    AsyncImage(url: URL(string: event.image)) { image in
-                        image
-                            .resizable()
-                            .scaledToFill()
-                    } placeholder: {
-                        Rectangle()
-                            .fill(Color.gray.opacity(0.3))
-                            .overlay(
-                                FAIcon(.calendar, type: .light, size: 40, color: .gray)
-                            )
+                    ZStack(alignment: .bottom) {
+                        AsyncImage(url: URL(string: event.image)) { image in
+                            image
+                                .resizable()
+                                .scaledToFill()
+                        } placeholder: {
+                            Rectangle()
+                                .fill(Color.gray.opacity(0.3))
+                                .overlay(
+                                    FAIcon(.calendar, type: .light, size: 40, color: .gray)
+                                )
+                        }
+                        .frame(height: geometry.size.height * 0.6)
+                        .clipped()
+
+
+                        HStack {
+                            Spacer()
+                            Button(action: {
+                            }) {
+                                Text("Transmisja")
+                                    .font(.system(size: 14, weight: .bold))
+                                    .foregroundColor(.white)
+                                    .padding(.horizontal, 16)
+                                    .padding(.vertical, 8)
+                                    .background(Color.red)
+                                    .cornerRadius(16)
+                                    .shadow(radius: 2)
+                            }
+                            Spacer()
+                        }
+                        .padding(.bottom, 12)
                     }
-                    .frame(height: geometry.size.height * 0.6)
-                    .clipped()
 
                     // Content section - remaining space
                     VStack(alignment: .leading) {

@@ -11,6 +11,8 @@ extension ConferenceMaterialType {
             return FontAwesome.Icon.filePdf.rawValue
         case .docx:
             return FontAwesome.Icon.fileWord.rawValue
+        case .sharepoint:
+            return FontAwesome.Icon.fileUrl.rawValue
         case .link:
             return FontAwesome.Icon.fileUrl.rawValue
         }
@@ -27,6 +29,8 @@ class ConferenceMaterialTypeConverter {
             case .docx:
                 return FontAwesome.Icon.fileWord
             case .link:
+                return FontAwesome.Icon.fileUrl
+            case .sharepoint:
                 return FontAwesome.Icon.fileUrl
             default:
                 return FontAwesome.Icon.file
