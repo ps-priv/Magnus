@@ -14,7 +14,7 @@ struct EventQrCodeView: View {
                 .font(.title)
                 .fontWeight(.bold)
                 .padding(.bottom, 24)
-
+ 
             Text(LocalizedStrings.eventQrCodeScanToRegister)
                 .multilineTextAlignment(.center)
             Spacer()

@@ -3,7 +3,7 @@ import ProjectDescription
 let packages: [Package] = [
     .package(url: "https://github.com/Alamofire/Alamofire.git", from: "5.8.0"),
     .package(url: "https://github.com/Swinject/Swinject.git", from: "2.9.1"),
-    .package(url: "https://github.com/krzysztofzablocki/Inject.git", from: "1.5.2")
+    .package(url: "https://github.com/krzysztofzablocki/Inject.git", from: "1.5.2"),
 ]
 
 let project = Project(
@@ -38,49 +38,52 @@ let project = Project(
             infoPlist: .extendingDefault(
                 with: [
                     "CFBundleLocalizations": ["en", "pl"],
-                    "CFBundleDevelopmentRegion": "en"
+                    "CFBundleDevelopmentRegion": "en",
                 ]
             ),
             sources: ["Magnus/Features/Sources/**"],
             resources: ["Magnus/Features/Resources/**"],
             dependencies: [
-                .target(name: "MagnusDomain"), 
+                .target(name: "MagnusDomain"),
                 .target(name: "MagnusApplication"),
-                .package(product: "Swinject")],
+                .package(product: "Swinject"),
+            ],
         ),
         .target(
             name: "NovoNordiskApp",
             destinations: .iOS,
             product: .app,
-            bundleId: "pl.mz.magnus.NovoNordiskApp",
+            bundleId: "pl.mz.NovoNordiskApp",
             infoPlist: .extendingDefault(
                 with: [
+                    "CFBundleShortVersionString": "1.0",
+                    "CFBundleVersion": "5",
                     "UILaunchScreen": [
                         "UIColorName": "",
                         "UIImageName": "",
                     ],
                     "UIAppFonts": [
                         "FontAwesome6Brands-Regular-400.otf",
-                        "FontAwesome6Pro-Light-300.otf", 
+                        "FontAwesome6Pro-Light-300.otf",
                         "FontAwesome6Pro-Regular-400.otf",
                         "FontAwesome6Pro-Solid-900.otf",
                         "FontAwesome6Pro-Thin-100.otf",
                         "OpenSans-Light.ttf",
                         "OpenSans-Regular.ttf",
-                        "OpenSans-Bold.ttf"
+                        "OpenSans-Bold.ttf",
                     ],
                     "CFBundleLocalizations": ["en", "pl"],
                     "CFBundleDevelopmentRegion": "en",
                     "NSAppTransportSecurity": [
-                        "NSAllowsArbitraryLoads": true
-                    ]
+                        "NSAllowsArbitraryLoads": true,
+                    ],
                 ]
             ),
             sources: ["Magnus/UI/NovoNordiskApp/Sources/**"],
             resources: ["Magnus/UI/NovoNordiskApp/Resources/**"],
             dependencies: [
-                .target(name: "MagnusApplication"), 
-                .target(name: "MagnusDomain"), 
+                .target(name: "MagnusApplication"),
+                .target(name: "MagnusDomain"),
                 .target(name: "MagnusFeatures"),
                 .package(product: "Inject"),
             ],
@@ -88,20 +91,20 @@ let project = Project(
                 base: [
                     "ASSETCATALOG_COMPILER_APPICON_NAME": "NovoNordiskAppIcon",
                     "CODE_SIGN_STYLE": "Automatic",
-                    "DEVELOPMENT_TEAM": "Apple Development: Pawel Salek (WP36EZATFS)",
-                    "CODE_SIGN_IDENTITY": "iPhone Developer"
+                    "DEVELOPMENT_TEAM": "MULTIZONE IT Sp. z o.o.",
+                    "CODE_SIGN_IDENTITY": "iPhone Developer",
                 ],
                 configurations: [
                     .debug(name: .debug, settings: [
                         "CODE_SIGN_IDENTITY": "iPhone Developer",
                         "PROVISIONING_PROFILE_SPECIFIER": "", // Automatyczne
                         "OTHER_LDFLAGS": ["-Xlinker", "-interposable"],
-                        "EMIT_FRONTEND_COMMAND_LINES": "YES"
+                        "EMIT_FRONTEND_COMMAND_LINES": "YES",
                     ]),
                     .release(name: .release, settings: [
                         "CODE_SIGN_IDENTITY": "iPhone Distribution",
-                        "PROVISIONING_PROFILE_SPECIFIER": "" // Automatyczne
-                    ])
+                        "PROVISIONING_PROFILE_SPECIFIER": "", // Automatyczne
+                    ]),
                 ]
             )
         ),
@@ -126,19 +129,19 @@ let project = Project(
                     "ASSETCATALOG_COMPILER_APPICON_NAME": "AppIconChMApp",
                     "CODE_SIGN_STYLE": "Automatic",
                     "DEVELOPMENT_TEAM": "Apple Development: Pawel Salek (WP36EZATFS)",
-                    "CODE_SIGN_IDENTITY": "iPhone Developer"
+                    "CODE_SIGN_IDENTITY": "iPhone Developer",
                 ],
                 configurations: [
                     .debug(name: .debug, settings: [
                         "CODE_SIGN_IDENTITY": "iPhone Developer",
-                        "PROVISIONING_PROFILE_SPECIFIER": ""
+                        "PROVISIONING_PROFILE_SPECIFIER": "",
                     ]),
                     .release(name: .release, settings: [
                         "CODE_SIGN_IDENTITY": "iPhone Distribution",
-                        "PROVISIONING_PROFILE_SPECIFIER": ""
-                    ])
+                        "PROVISIONING_PROFILE_SPECIFIER": "",
+                    ]),
                 ]
             )
-        )
+        ),
     ]
 )
