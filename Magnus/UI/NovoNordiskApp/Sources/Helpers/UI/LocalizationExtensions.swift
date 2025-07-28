@@ -140,4 +140,8 @@ enum LocalizedStrings {
     static let eventsListLinkToArchive = "EVENTS_LIST_LINK_TO_ARCHIVE".localized
     static let eventsListEmptyStateTitle = "EVENTS_LIST_EMPTY_STATE_TITLE".localized
     static let eventsListEmptyStateDescription = "EVENTS_LIST_EMPTY_STATE_DESCRIPTION".localized
+    static let eventAvailableTransmission = "EVENT_AVAILABLE_TRANSMISSION".localized
+    static let eventInProgress = "EVENT_IN_PROGRESS".localized
+    static let eventSeats = "EVENT_SEATS".localized
+    static let eventSeatsNotConfirmed = "EVENT_SEATS_NOT_CONFIRMED".localized
 }

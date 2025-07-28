@@ -87,6 +87,7 @@ enum FontAwesome {
         // Circle Icons
         case circle_information = "\u{f05a}"
         case circle_arrow_right = "\u{f0a9}"
+        case circle_play = "\u{f144}"
 
         // documents
         case file = "\u{f15b}"
@@ -101,6 +102,9 @@ enum FontAwesome {
 
         // top bar buttons
         case box_archive = "\u{f187}"
+
+        // user
+        case user_clock = "\u{f4fd}"
 
         var unicode: String {
             return rawValue

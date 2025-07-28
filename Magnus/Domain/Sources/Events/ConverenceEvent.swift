@@ -1,3 +1,5 @@
+import Foundation
+
 public struct ConferenceEvent {
     public let id: String
     public let title: String
@@ -25,5 +27,19 @@ public struct ConferenceEvent {
         self.unconfirmedSeats = unconfirmedSeats
         self.isOnline = isOnline
         self.streamUrl = streamUrl
+    }
+
+    public var IsOnline: Bool {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd HH:mm"
+
+        guard let startDate = formatter.date(from: dateFrom),
+              let endDate = formatter.date(from: dateTo)
+        else {
+            return false
+        }
+
+        let currentDate = Date()
+        return currentDate >= startDate && currentDate <= endDate
     }
 }

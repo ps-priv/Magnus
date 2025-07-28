@@ -1,3 +1,4 @@
+import MagnusApplication
 import MagnusDomain
 import MagnusFeatures
 import SwiftUI
@@ -55,6 +56,7 @@ struct EventListPanel: View {
                         }
                         // .frame(height: geometry.size.height - 200)
                         .padding(.horizontal, 20)
+                        .padding(.bottom, 20)
                         .tag(index)
                     }
                 }
@@ -129,25 +131,32 @@ struct EventCardView: View {
                             Rectangle()
                                 .fill(Color.gray.opacity(0.3))
                                 .overlay(
-                                    FAIcon(.calendar, type: .light, size: 40, color: .gray)
+                                    FAIcon(.calendar, type: .light, size: 18, color: .gray)
                                 )
                         }
-                        .frame(height: geometry.size.height * 0.6)
+                        .frame(width: geometry.size.width, height: geometry.size.height * 0.6)
                         .clipped()
-
+                        .overlay(
+                            QrCodeButtonView(action: {})
+                                .padding(.top, 12)
+                                .padding(.trailing, 12),
+                            alignment: .topTrailing
+                        )
 
                         HStack {
                             Spacer()
-                            Button(action: {
-                            }) {
-                                Text("Transmisja")
-                                    .font(.system(size: 14, weight: .bold))
-                                    .foregroundColor(.white)
-                                    .padding(.horizontal, 16)
-                                    .padding(.vertical, 8)
-                                    .background(Color.red)
-                                    .cornerRadius(16)
-                                    .shadow(radius: 2)
+                            Button(action: {}) {
+                                HStack {
+                                    FAIcon(.circle_play, type: .light, size: 15, color: .novoNordiskOrangeRed)
+                                    Text(LocalizedStrings.eventAvailableTransmission)
+                                        .font(.system(size: 14, weight: .bold))
+                                        .foregroundColor(.white)
+                                }
+                                .padding(.horizontal, 16)
+                                .padding(.vertical, 8)
+                                .background(Color.black.opacity(0.4))
+                                .cornerRadius(16)
+                                .shadow(radius: 2)
                             }
                             Spacer()
                         }
@@ -162,45 +171,36 @@ struct EventCardView: View {
                             .foregroundColor(.primary)
                             .lineLimit(2)
                             .multilineTextAlignment(.leading)
+                            .padding(.bottom, 3)
+
+                        HStack {
+                            Text(PublishedDateHelper.formatDateRangeForEvent(event.dateFrom, event.dateTo, LocalizedStrings.months))
+                                .font(.headline)
+                                .fontWeight(.bold)
+                                .foregroundColor(.novoNordiskBlue)
+                                .padding(.bottom, 3)
+
+                            if event.isOnline {
+                                EventInProgressView()
+                                Spacer()
+                            }
+                        }
 
                         Text(event.description)
                             .font(.body)
-                            .foregroundColor(.secondary)
-                            .lineLimit(3)
-
-                        HStack {
-                            FAIcon(.clock, type: .light, size: 14, color: .novoNordiskBlue)
-                            Text(event.dateFrom)
-                                .font(.caption)
-                                .foregroundColor(.novoNordiskBlue)
-
-                            Spacer()
-
-                            FAIcon(.calendar, type: .light, size: 14, color: .novoNordiskBlue)
-                            Text(event.location)
-                                .font(.caption)
-                                .foregroundColor(.novoNordiskBlue)
-                                .lineLimit(1)
-                        }
+                            .foregroundColor(.novoNordiskTextGrey)
 
                         // Seats info
                         HStack {
-                            FAIcon(.users, type: .light, size: 14, color: .orange)
-                            Text("\(event.occupiedSeats)/\(event.totalSeats) miejsc")
-                                .font(.caption)
-                                .foregroundColor(.orange)
-
-                            if event.isOnline {
-                                Spacer()
-                                FAIcon(.filePdf, type: .light, size: 14, color: .green)
-                                Text("Online")
-                                    .font(.caption)
-                                    .foregroundColor(.green)
-                            }
+                            EventSeatsInfoView(occupiedSeats: event.occupiedSeats, totalSeats: event.totalSeats)
+                                .padding(.trailing, 10)
+                            EventSeatsNotConfirmedView(notConfirmedSeats: event.unconfirmedSeats)
+                            Spacer()
                         }
+                        .padding(.top, 10)
                     }
                     .padding(.horizontal, 20)
-                    .padding(.top, 10)
+                    .padding(.top, 20)
                 }
             }
         }
@@ -262,8 +262,9 @@ enum EventMockData {
         EventCardView(event: EventMockGenerator.createSingle(), onTap: {
             // Action when tapped
         })
+        .padding()
+        .background(Color(.systemGray6))
     }
-    .background(Color(.systemGray6))
 }
 
 #Preview("EventListPanel") {
