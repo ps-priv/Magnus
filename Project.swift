@@ -4,6 +4,7 @@ let packages: [Package] = [
     .package(url: "https://github.com/Alamofire/Alamofire.git", from: "5.8.0"),
     .package(url: "https://github.com/Swinject/Swinject.git", from: "2.9.1"),
     .package(url: "https://github.com/krzysztofzablocki/Inject.git", from: "1.5.2"),
+    .package(url: "https://github.com/getsentry/sentry-cocoa", from: "8.53.2"),
 ]
 
 let project = Project(
@@ -86,6 +87,7 @@ let project = Project(
                 .target(name: "MagnusDomain"),
                 .target(name: "MagnusFeatures"),
                 .package(product: "Inject"),
+                .package(product: "Sentry"),
             ],
             settings: .settings(
                 base: [

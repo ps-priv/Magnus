@@ -1,29 +1,30 @@
-import SwiftUI
 import MagnusFeatures
+import Sentry
+import SwiftUI
 #if DEBUG
-import Inject
+    import Inject
 #endif
 
 struct LoginView: View {
     let onAuthenticationSuccess: () -> Void
-    
+
     @StateObject private var viewModel = LoginViewModel()
     @State private var showError = false
     @State private var showForgotPassword = false
     #if DEBUG
-    @ObserveInjection var inject
+        @ObserveInjection var inject
     #endif
-    
+
     init(onAuthenticationSuccess: @escaping () -> Void = {}) {
         self.onAuthenticationSuccess = onAuthenticationSuccess
     }
-    
+
     var body: some View {
         GeometryReader { geometry in
             ScrollView {
                 VStack(spacing: 0) {
                     Spacer(minLength: 40)
-                    
+
                     // Bottom logo
                     VStack(spacing: 16) {
                         Image("NovoNordiskLogo")
@@ -43,23 +44,21 @@ struct LoginView: View {
                     }
                     .padding(.bottom, 20)
                     .padding(.top, geometry.safeAreaInsets.top + 24)
-                    
+
                     // Login form
                     VStack(spacing: 24) {
-                        
                         if !viewModel.errorMessage.isEmpty {
-                             NovoNordiskErrorView.error(
-                                 viewModel.errorMessage,
-                                 title: LocalizedStrings.loginError,
-                                 style: .animated
-                             ) {
-                                 viewModel.clearError()
-                             }
-                             .padding(.top, 8)
+                            NovoNordiskErrorView.error(
+                                viewModel.errorMessage,
+                                title: LocalizedStrings.loginError,
+                                style: .animated
+                            ) {
+                                viewModel.clearError()
+                            }
+                            .padding(.top, 8)
                         }
- 
-                        VStack(alignment: .leading, spacing: 8) {
 
+                        VStack(alignment: .leading, spacing: 8) {
                             NovoNordiskTextBox(
                                 placeholder: LocalizedStrings.emailPlaceholder,
                                 text: $viewModel.email,
@@ -68,7 +67,6 @@ struct LoginView: View {
                             .keyboardType(.emailAddress)
                             .textInputAutocapitalization(.never)
                         }
-                        
 
                         VStack(alignment: .leading, spacing: 8) {
                             NovoNordiskTextBox(
@@ -78,7 +76,7 @@ struct LoginView: View {
                                 isSecure: true,
                             )
                         }
-                        
+
                         // Forgot password link
                         HStack {
                             NovoNordiskLinkButton(
@@ -87,15 +85,14 @@ struct LoginView: View {
                             ) {
                                 showForgotPassword = true
                             }
-                            
+
                             Spacer()
                         }
-                        //.padding(.top, 8)
+                        // .padding(.top, 8)
                         Spacer(minLength: 20)
 
-                        // Buttons 
+                        // Buttons
                         VStack(spacing: 16) {
-                            
                             // Login button
                             NovoNordiskButton(
                                 title: viewModel.isLoading ? LocalizedStrings.loading : LocalizedStrings.loginButton,
@@ -107,7 +104,7 @@ struct LoginView: View {
                                 }
                             }
                             .disabled(!viewModel.canLogin)
-                            
+
                             // Register button
                             NovoNordiskButton(
                                 title: LocalizedStrings.registerButton,
@@ -119,8 +116,6 @@ struct LoginView: View {
                         }
                     }
                     .padding(.horizontal, 24)
-                    
-
                 }
                 .frame(minHeight: geometry.size.height)
             }
@@ -141,15 +136,17 @@ struct LoginView: View {
         .enableInjection()
         #endif
     }
-    
+
     private func registerAction() {
         print("Register tapped")
+        // SentrySDK.capture(message: "Register tapped")
         // Here you would navigate to registration screen
     }
 }
 
 // MARK: - SwiftUI Previews
+
 #Preview {
     LoginView()
         .environmentObject(LoginViewModel())
-} 
+}
