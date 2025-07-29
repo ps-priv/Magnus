@@ -16,6 +16,7 @@ struct AcademyView: View {
                 .frame(maxWidth: 345, maxHeight: 165)
                 .background(Color.white)
                 .cornerRadius(12)
+                .shadow(color: Color.black.opacity(0.1), radius: 10, x: 0, y: 0)
             }
             .padding(.bottom, 10)
 
@@ -31,6 +32,7 @@ struct AcademyView: View {
                 .frame(maxWidth: 345, maxHeight: 165)
                 .background(Color.white)
                 .cornerRadius(12)
+                .shadow(color: Color.black.opacity(0.1), radius: 10, x: 0, y: 0)
             }
 
             Spacer()
