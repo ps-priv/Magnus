@@ -140,11 +140,8 @@ struct LoginView: View {
     private func registerAction() {
         print("Register tapped")
         // SentrySDK.capture(message: "Register tapped")
-        // Here you would navigate to registration screen
     }
 }
-
-// MARK: - SwiftUI Previews
 
 #Preview {
     LoginView()

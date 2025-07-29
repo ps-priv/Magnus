@@ -149,4 +149,9 @@ enum LocalizedStrings {
 
     // Eventy qr code
     static let eventQrCodeScanToRegister = "EVENT_QR_CODE_SCAN_TO_REGISTER".localized
+
+    // Archived Events
+    static let archivedEventEmptyListMessage = "ARCHIVED_EVENT_EMPTY_LIST_MESSAGE".localized
+    static let finishedEvent = "FINISHED_EVENT".localized
+    static let archivedEventTitle = "ARCHIVED_EVENT_TITLE".localized
 }

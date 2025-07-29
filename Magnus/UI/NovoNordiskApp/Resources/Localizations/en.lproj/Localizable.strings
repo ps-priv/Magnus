@@ -137,3 +137,8 @@
 
 /* Event qr code */
 "EVENT_QR_CODE_SCAN_TO_REGISTER"="Scan the code to submit your participation";
+
+/* Archived Events */
+"ARCHIVED_EVENT_EMPTY_LIST_MESSAGE"="The list of historical events is empty";
+"FINISHED_EVENT"="FINISHED";
+"ARCHIVED_EVENT_TITLE"="Archive events";

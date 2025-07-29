@@ -42,4 +42,18 @@ public struct ConferenceEvent {
         let currentDate = Date()
         return currentDate >= startDate && currentDate <= endDate
     }
+
+    public var isFinished: Bool {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd HH:mm"
+
+        guard let startDate = formatter.date(from: dateFrom),
+              let endDate = formatter.date(from: dateTo)
+        else {
+            return false
+        }
+
+        let currentDate = Date()
+        return currentDate > endDate
+    }
 }

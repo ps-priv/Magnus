@@ -139,3 +139,8 @@
 
 /* Event qr code */
 "EVENT_QR_CODE_SCAN_TO_REGISTER"="Zeskanuj kod aby zgłosić swój udział";
+
+/* Archived Events */
+"ARCHIVED_EVENT_EMPTY_LIST_MESSAGE"="Lista historycznych wydarzeń jest pusta";
+"FINISHED_EVENT"="ZAKOŃCZONE";
+"ARCHIVED_EVENT_TITLE"="Archiwum wydarzeń";

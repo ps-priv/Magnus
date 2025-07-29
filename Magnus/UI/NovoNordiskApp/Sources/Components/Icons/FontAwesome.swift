@@ -87,6 +87,7 @@ enum FontAwesome {
         // Circle Icons
         case circle_information = "\u{f05a}"
         case circle_arrow_right = "\u{f0a9}"
+        case circle_arrow_left = "\u{f0a8}"
         case circle_play = "\u{f144}"
 
         // documents
