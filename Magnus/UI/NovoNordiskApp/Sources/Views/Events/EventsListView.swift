@@ -274,3 +274,8 @@ enum EventMockData {
     EventListPanel(items: EventMockGenerator.createRandomEvents(count: 4))
         .environmentObject(NavigationManager())
 }
+
+#Preview("EventListEmptyStateView") {
+    EventListEmptyStateView()
+        .environmentObject(NavigationManager())
+}

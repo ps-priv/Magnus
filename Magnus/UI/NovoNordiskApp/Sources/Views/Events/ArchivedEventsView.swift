@@ -95,14 +95,22 @@ struct ArchivedEventRow: View {
 
 struct ArchivedEmptyEventsListPanel: View {
     var body: some View {
-        VStack {
+        VStack(spacing: 16) {
+            Spacer()
+            FAIcon(.calendar, type: .light, size: 60, color: .novoNordiskBlue)
+            Text(LocalizedStrings.eventsListEmptyStateTitle)
+                .font(.title2)
+                .fontWeight(.bold)
+                .foregroundColor(.novoNordiskBlue)
+
             Text(LocalizedStrings.archivedEventEmptyListMessage)
+                .font(.body)
+                .foregroundColor(.novoNordiskBlue)
                 .multilineTextAlignment(.center)
-                .font(.title)
-                .foregroundColor(.primary)
-                .padding(.horizontal, 30)
+                .padding(.horizontal, 32)
+
+            Spacer()
         }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
 }
 
