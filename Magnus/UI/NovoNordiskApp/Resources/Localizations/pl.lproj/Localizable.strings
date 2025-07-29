@@ -144,3 +144,7 @@
 "ARCHIVED_EVENT_EMPTY_LIST_MESSAGE"="Lista historycznych wydarzeń jest pusta";
 "FINISHED_EVENT"="ZAKOŃCZONE";
 "ARCHIVED_EVENT_TITLE"="Archiwum wydarzeń";
+
+/* Academy */
+"ACADEMY_DOCTOR" = "Lekarz";
+"ACADEMY_PATIENT" = "Pacjent";

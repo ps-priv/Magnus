@@ -38,6 +38,8 @@ enum FontAwesome {
         case userCircle = "\u{f2bd}"
         case users = "\u{f0c0}"
         case userPlus = "\u{f234}"
+        case user_clock = "\u{f4fd}"
+        case user_doctor = "\u{f0f0}"
 
         // Communication
         case email = "\u{f0e0}"
@@ -63,7 +65,6 @@ enum FontAwesome {
 
         // Medical/Health (dla NovoNordisk)
         case heart = "\u{f004}"
-        case medical = "\u{f0f0}"
         case pills = "\u{f484}"
         case syringe = "\u{f48e}"
         case stethoscope = "\u{f0f1}"
@@ -103,9 +104,6 @@ enum FontAwesome {
 
         // top bar buttons
         case box_archive = "\u{f187}"
-
-        // user
-        case user_clock = "\u{f4fd}"
 
         var unicode: String {
             return rawValue
@@ -235,7 +233,7 @@ struct FAIcon: View {
 
                 HStack(spacing: 15) {
                     FAIcon(.heart, size: 24, color: .red)
-                    FAIcon(.medical, size: 24)
+                    FAIcon(.user_doctor, size: 24)
                     FAIcon(.pills, size: 24)
                     FAIcon(.syringe, size: 24)
                     FAIcon(.stethoscope, size: 24)

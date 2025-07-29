@@ -154,4 +154,8 @@ enum LocalizedStrings {
     static let archivedEventEmptyListMessage = "ARCHIVED_EVENT_EMPTY_LIST_MESSAGE".localized
     static let finishedEvent = "FINISHED_EVENT".localized
     static let archivedEventTitle = "ARCHIVED_EVENT_TITLE".localized
+
+    // Academy
+    static let academyDoctor = "ACADEMY_DOCTOR".localized
+    static let academyPatient = "ACADEMY_PATIENT".localized
 }

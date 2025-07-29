@@ -142,3 +142,7 @@
 "ARCHIVED_EVENT_EMPTY_LIST_MESSAGE"="The list of historical events is empty";
 "FINISHED_EVENT"="FINISHED";
 "ARCHIVED_EVENT_TITLE"="Archive events";
+
+/* Academy */
+"ACADEMY_DOCTOR" = "Doctor";
+"ACADEMY_PATIENT" = "Patient";
