@@ -5,16 +5,31 @@ import SwiftUI
 
 struct EventsListView: View {
     @State private var events: [ConferenceEvent] = EventMockGenerator.createRandomEvents(count: 4)
+    @State var isArchivedEventsViewVisible = false
     @EnvironmentObject var navigationManager: NavigationManager
 
     var body: some View {
         VStack(alignment: .leading) {
-            if events.isEmpty {
-                EventListEmptyStateView()
+            if isArchivedEventsViewVisible {
+                ArchivedEventsView(events: events, action: toggleArchivedEventsView)
+                    .padding(.horizontal, 20)
+                    .padding(.vertical, 20)
+                // .animation(.easeInOut(duration: 0.5), value: isArchivedEventsViewVisible)
             } else {
-                EventListPanel(items: events)
+                if events.isEmpty {
+                    EventListEmptyStateView()
+                    // .animation(.easeInOut(duration: 0.5), value: isArchivedEventsViewVisible)
+                } else {
+                    EventListPanel(items: events, action: toggleArchivedEventsView)
+                    // .animation(.easeInOut(duration: 0.5), value: isArchivedEventsViewVisible)
+                }
             }
         }
+        .background(Color(.systemGray6))
+    }
+
+    func toggleArchivedEventsView() {
+        isArchivedEventsViewVisible.toggle()
     }
 }
 
@@ -43,6 +58,7 @@ struct EventsListLink: View {
 
 struct EventListPanel: View {
     var items: [ConferenceEvent]
+    var action: () -> Void
     @EnvironmentObject var navigationManager: NavigationManager
     @State private var currentIndex = 0
 
@@ -74,10 +90,7 @@ struct EventListPanel: View {
             }
             .padding(.top, 20)
             Spacer()
-            EventsListLink(action: {
-                navigationManager.navigate(to: .eventsList)
-                print("eventsListLink tapped")
-            })
+            EventsListLink(action: action)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Color(.systemGray6))
@@ -271,7 +284,7 @@ enum EventMockData {
 }
 
 #Preview("EventListPanel") {
-    EventListPanel(items: EventMockGenerator.createRandomEvents(count: 4))
+    EventListPanel(items: EventMockGenerator.createRandomEvents(count: 4), action: {})
         .environmentObject(NavigationManager())
 }
 

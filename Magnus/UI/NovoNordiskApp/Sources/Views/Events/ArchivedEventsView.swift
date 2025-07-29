@@ -5,6 +5,7 @@ import SwiftUI
 
 struct ArchivedEventsView: View {
     @State var events: [ConferenceEvent]
+    var action: () -> Void
 
     var body: some View {
         VStack(spacing: 0) {
@@ -28,9 +29,7 @@ struct ArchivedEventsView: View {
     @ViewBuilder
     var titleSection: some View {
         HStack {
-            Button(action: {
-                // TODO: Implement
-            }) {
+            Button(action: action) {
                 FAIcon(
                     FontAwesome.Icon.circle_arrow_left,
                     type: .regular,
@@ -127,7 +126,7 @@ struct ArchivedEmptyEventsListPanel: View {
 #Preview("ArchivedEventsView") {
     let events = EventMockGenerator.createPastEvents(count: 20)
     VStack {
-        ArchivedEventsView(events: events)
+        ArchivedEventsView(events: events, action: {})
     }
     .padding(.horizontal, 10)
     .padding(.vertical, 10)
