@@ -1,22 +1,21 @@
-import SwiftUI
-import MagnusFeatures
 import MagnusApplication
 import MagnusDomain
+import MagnusFeatures
+import SwiftUI
 
 #if DEBUG
-import Inject
+    import Inject
 #endif
 
 struct DashboardNewsPanel: View {
-    
     #if DEBUG
-    @ObserveInjection var inject
+        @ObserveInjection var inject
     #endif
 
     @Binding var items: [NewsItem]
     @State private var currentPage: Int = 0
     @EnvironmentObject var navigationManager: NavigationManager
-    
+
     var body: some View {
         VStack {
             titleSection
@@ -24,7 +23,7 @@ struct DashboardNewsPanel: View {
             Spacer()
         }
     }
-    
+
     @ViewBuilder
     var titleSection: some View {
         HStack {
@@ -41,14 +40,15 @@ struct DashboardNewsPanel: View {
                 .lineLimit(1)
             Spacer()
             NovoNordiskLinkButton(icon: FontAwesome.Icon.circle_arrow_right,
-                title: LocalizedStrings.dashboardEventsSectionLoadMore,
-                style: .small) {
+                                  title: LocalizedStrings.dashboardEventsSectionLoadMore,
+                                  style: .small)
+            {
                 navigationManager.navigate(to: .newsList)
             }
         }
         .padding(0)
     }
-    
+
     @ViewBuilder
     var newsCards: some View {
         VStack(spacing: 16) {
@@ -61,13 +61,10 @@ struct DashboardNewsPanel: View {
                 }
                 .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
                 .frame(height: 220)
-                // .onChange(of: currentPage) { newValue in
-                //     // Handle page change if needed
-                // }
-                
+
                 // Custom page indicator
                 HStack(spacing: 8) {
-                    ForEach(0..<items.count, id: \.self) { index in
+                    ForEach(0 ..< items.count, id: \.self) { index in
                         Circle()
                             .fill(index == currentPage ? Color.novoNordiskBlue : Color.gray.opacity(0.4))
                             .frame(width: 8, height: 8)
@@ -89,7 +86,7 @@ struct DashboardNewsPanel: View {
 struct NewsItemCard2: View {
     @EnvironmentObject var navigationManager: NavigationManager
     let item: NewsItem
-    
+
     var body: some View {
         VStack(spacing: 0) {
             // Image section
@@ -106,7 +103,7 @@ struct NewsItemCard2: View {
             }
             .frame(height: 140)
             .clipped()
-            
+
             // Content section
             VStack(alignment: .leading, spacing: 4) {
                 Text(item.title)
@@ -120,10 +117,9 @@ struct NewsItemCard2: View {
                         .font(.system(size: 12))
                         .foregroundColor(.secondary)
                     Spacer()
-                         Button(action: {navigationManager.navigateToNewsDetail(newsId: item.id)}){
-                            FAIcon(.circle_arrow_right, type: .light, size: 21, color: .novoNordiskBlue)           
-                     }
-
+                    Button(action: { navigationManager.navigateToNewsDetail(newsId: item.id) }) {
+                        FAIcon(.circle_arrow_right, type: .light, size: 21, color: .novoNordiskBlue)
+                    }
                 }
             }
             .padding(10)
@@ -134,8 +130,6 @@ struct NewsItemCard2: View {
         .shadow(color: Color.black.opacity(0.1), radius: 4, x: 0, y: 2)
         .padding(.horizontal, 4)
     }
-    
-
 }
 
 #Preview("DashboardNewsPanel") {
@@ -148,5 +142,3 @@ struct NewsItemCard2: View {
     return PreviewWrapper()
         .environmentObject(NavigationManager())
 }
-
-

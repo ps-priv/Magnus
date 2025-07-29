@@ -14,18 +14,28 @@ struct EventsListView: View {
                 ArchivedEventsView(events: events, action: toggleArchivedEventsView)
                     .padding(.horizontal, 20)
                     .padding(.vertical, 20)
-                // .animation(.easeInOut(duration: 0.5), value: isArchivedEventsViewVisible)
+                    .transition(.asymmetric(
+                        insertion: .move(edge: .trailing).combined(with: .opacity),
+                        removal: .move(edge: .leading).combined(with: .opacity)
+                    ))
             } else {
                 if events.isEmpty {
                     EventListEmptyStateView()
-                    // .animation(.easeInOut(duration: 0.5), value: isArchivedEventsViewVisible)
+                        .transition(.asymmetric(
+                            insertion: .move(edge: .leading).combined(with: .opacity),
+                            removal: .move(edge: .trailing).combined(with: .opacity)
+                        ))
                 } else {
                     EventListPanel(items: events, action: toggleArchivedEventsView)
-                    // .animation(.easeInOut(duration: 0.5), value: isArchivedEventsViewVisible)
+                        .transition(.asymmetric(
+                            insertion: .move(edge: .leading).combined(with: .opacity),
+                            removal: .move(edge: .trailing).combined(with: .opacity)
+                        ))
                 }
             }
         }
         .background(Color(.systemGray6))
+        .animation(.easeInOut(duration: 0.3), value: isArchivedEventsViewVisible)
     }
 
     func toggleArchivedEventsView() {
