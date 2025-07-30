@@ -1,6 +1,6 @@
 import Foundation
 
-public struct ConferenceEvent {
+public struct ConferenceEvent: Decodable {
     public let id: String
     public let title: String
     public let dateFrom: String
@@ -14,7 +14,11 @@ public struct ConferenceEvent {
     public let isOnline: Bool
     public let streamUrl: String?
 
-    public init(id: String, title: String, dateFrom: String, dateTo: String, location: String, description: String, image: String, totalSeats: Int, occupiedSeats: Int, unconfirmedSeats: Int, isOnline: Bool, streamUrl: String? = nil) {
+    public init(
+        id: String, title: String, dateFrom: String, dateTo: String, location: String,
+        description: String, image: String, totalSeats: Int, occupiedSeats: Int,
+        unconfirmedSeats: Int, isOnline: Bool, streamUrl: String? = nil
+    ) {
         self.id = id
         self.title = title
         self.dateFrom = dateFrom
@@ -34,7 +38,7 @@ public struct ConferenceEvent {
         formatter.dateFormat = "yyyy-MM-dd HH:mm"
 
         guard let startDate = formatter.date(from: dateFrom),
-              let endDate = formatter.date(from: dateTo)
+            let endDate = formatter.date(from: dateTo)
         else {
             return false
         }
@@ -48,7 +52,7 @@ public struct ConferenceEvent {
         formatter.dateFormat = "yyyy-MM-dd HH:mm"
 
         guard let startDate = formatter.date(from: dateFrom),
-              let endDate = formatter.date(from: dateTo)
+            let endDate = formatter.date(from: dateTo)
         else {
             return false
         }

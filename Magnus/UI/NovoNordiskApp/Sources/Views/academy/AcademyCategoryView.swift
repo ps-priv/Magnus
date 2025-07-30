@@ -1,3 +1,4 @@
+import Combine
 import Foundation
 import MagnusApplication
 import MagnusDomain
@@ -13,6 +14,13 @@ struct AcademyCategoryView: View {
     @State private var navigationHistory: [AcademyCategory] = []
     @State private var showBackButton: Bool = false
     @State private var showMaterials: Bool = false
+    @State private var cancellables = Set<AnyCancellable>()
+
+    private func loadCategories() {
+        // Use mock data for now - network services will be available after project rebuild
+        self.categories = AcademyCategoryMock.generateMockCategories()
+        self.currentCategories = self.categories
+    }
 
     var body: some View {
         VStack(alignment: .leading) {
@@ -64,8 +72,7 @@ struct AcademyCategoryView: View {
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .onAppear {
             if categories.isEmpty {
-                categories = AcademyCategoryMock.generateMockCategories()
-                currentCategories = categories
+                loadCategories()
             }
         }
         .padding(.top, 20)

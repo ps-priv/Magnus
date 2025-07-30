@@ -48,6 +48,7 @@ let project = Project(
                 .target(name: "MagnusDomain"),
                 .target(name: "MagnusApplication"),
                 .package(product: "Swinject"),
+                .package(product: "Alamofire"),
             ],
         ),
         .target(
@@ -76,7 +77,7 @@ let project = Project(
                     "CFBundleLocalizations": ["en", "pl"],
                     "CFBundleDevelopmentRegion": "en",
                     "NSAppTransportSecurity": [
-                        "NSAllowsArbitraryLoads": true,
+                        "NSAllowsArbitraryLoads": true
                     ],
                 ]
             ),
@@ -97,16 +98,20 @@ let project = Project(
                     "CODE_SIGN_IDENTITY": "iPhone Developer",
                 ],
                 configurations: [
-                    .debug(name: .debug, settings: [
-                        "CODE_SIGN_IDENTITY": "iPhone Developer",
-                        "PROVISIONING_PROFILE_SPECIFIER": "", // Automatyczne
-                        "OTHER_LDFLAGS": ["-Xlinker", "-interposable"],
-                        "EMIT_FRONTEND_COMMAND_LINES": "YES",
-                    ]),
-                    .release(name: .release, settings: [
-                        "CODE_SIGN_IDENTITY": "iPhone Distribution",
-                        "PROVISIONING_PROFILE_SPECIFIER": "", // Automatyczne
-                    ]),
+                    .debug(
+                        name: .debug,
+                        settings: [
+                            "CODE_SIGN_IDENTITY": "iPhone Developer",
+                            "PROVISIONING_PROFILE_SPECIFIER": "",  // Automatyczne
+                            "OTHER_LDFLAGS": ["-Xlinker", "-interposable"],
+                            "EMIT_FRONTEND_COMMAND_LINES": "YES",
+                        ]),
+                    .release(
+                        name: .release,
+                        settings: [
+                            "CODE_SIGN_IDENTITY": "iPhone Distribution",
+                            "PROVISIONING_PROFILE_SPECIFIER": "",  // Automatyczne
+                        ]),
                 ]
             )
         ),
@@ -120,12 +125,15 @@ let project = Project(
                     "UILaunchScreen": [
                         "UIColorName": "",
                         "UIImageName": "",
-                    ],
+                    ]
                 ]
             ),
             sources: ["Magnus/UI/ChMApp/Sources/**"],
             resources: ["Magnus/UI/ChMApp/Resources/**"],
-            dependencies: [.target(name: "MagnusApplication"), .target(name: "MagnusDomain"), .target(name: "MagnusFeatures")],
+            dependencies: [
+                .target(name: "MagnusApplication"), .target(name: "MagnusDomain"),
+                .target(name: "MagnusFeatures"),
+            ],
             settings: .settings(
                 base: [
                     "ASSETCATALOG_COMPILER_APPICON_NAME": "AppIconChMApp",
@@ -134,14 +142,18 @@ let project = Project(
                     "CODE_SIGN_IDENTITY": "iPhone Developer",
                 ],
                 configurations: [
-                    .debug(name: .debug, settings: [
-                        "CODE_SIGN_IDENTITY": "iPhone Developer",
-                        "PROVISIONING_PROFILE_SPECIFIER": "",
-                    ]),
-                    .release(name: .release, settings: [
-                        "CODE_SIGN_IDENTITY": "iPhone Distribution",
-                        "PROVISIONING_PROFILE_SPECIFIER": "",
-                    ]),
+                    .debug(
+                        name: .debug,
+                        settings: [
+                            "CODE_SIGN_IDENTITY": "iPhone Developer",
+                            "PROVISIONING_PROFILE_SPECIFIER": "",
+                        ]),
+                    .release(
+                        name: .release,
+                        settings: [
+                            "CODE_SIGN_IDENTITY": "iPhone Distribution",
+                            "PROVISIONING_PROFILE_SPECIFIER": "",
+                        ]),
                 ]
             )
         ),

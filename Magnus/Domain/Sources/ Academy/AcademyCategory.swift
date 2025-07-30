@@ -1,6 +1,6 @@
 import Foundation
 
-public struct AcademyCategory: Equatable {
+public struct AcademyCategory: Equatable, Decodable {
     public let name: String
     public let subcategories: [AcademyCategory]
 
