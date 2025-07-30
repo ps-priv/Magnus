@@ -1,6 +1,8 @@
 import MagnusFeatures
+import Pow
 import Sentry
 import SwiftUI
+
 #if DEBUG
     import Inject
 #endif
@@ -66,6 +68,7 @@ struct LoginView: View {
                             )
                             .keyboardType(.emailAddress)
                             .textInputAutocapitalization(.never)
+                            .changeEffect(.shake(rate: .fast), value: viewModel.LoginAttempts)
                         }
 
                         VStack(alignment: .leading, spacing: 8) {
@@ -75,6 +78,7 @@ struct LoginView: View {
                                 style: .withTitle(LocalizedStrings.passwordLabel, bold: true),
                                 isSecure: true,
                             )
+                            .changeEffect(.shake(rate: .fast), value: viewModel.LoginAttempts)
                         }
 
                         // Forgot password link
@@ -95,7 +99,8 @@ struct LoginView: View {
                         VStack(spacing: 16) {
                             // Login button
                             NovoNordiskButton(
-                                title: viewModel.isLoading ? LocalizedStrings.loading : LocalizedStrings.loginButton,
+                                title: viewModel.isLoading
+                                    ? LocalizedStrings.loading : LocalizedStrings.loginButton,
                                 style: .primary,
                                 isEnabled: viewModel.canLogin
                             ) {
@@ -133,7 +138,7 @@ struct LoginView: View {
             }
         }
         #if DEBUG
-        .enableInjection()
+            .enableInjection()
         #endif
     }
 
