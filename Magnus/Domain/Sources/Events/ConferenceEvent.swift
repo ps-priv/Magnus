@@ -51,8 +51,7 @@ public struct ConferenceEvent: Decodable {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd HH:mm"
 
-        guard let startDate = formatter.date(from: dateFrom),
-            let endDate = formatter.date(from: dateTo)
+        guard let endDate = formatter.date(from: dateTo)
         else {
             return false
         }
