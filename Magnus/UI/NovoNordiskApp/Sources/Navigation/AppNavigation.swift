@@ -15,6 +15,7 @@ enum AppScreen: Equatable, Identifiable {
     case profile
     case settings
     case academy
+    case academyCategory(categoryId: String)
     case messagesList
     case messageDetail(messageId: String)
 
@@ -42,6 +43,8 @@ enum AppScreen: Equatable, Identifiable {
             return "settings"
         case .academy:
             return "academy"
+        case let .academyCategory(categoryId):
+            return "academy_category_\(categoryId)"
         case .messagesList:
             return "messages_list"
         case let .messageDetail(messageId):
@@ -73,6 +76,8 @@ enum AppScreen: Equatable, Identifiable {
             return LocalizedStrings.settingsScreenTitle
         case .academy:
             return LocalizedStrings.academyScreenTitle
+        case .academyCategory:
+            return LocalizedStrings.academyScreenTitle
         case .messagesList:
             return LocalizedStrings.messagesListScreenTitle
         case .messageDetail:
@@ -92,7 +97,7 @@ enum AppScreen: Equatable, Identifiable {
             return .news
         case .academy:
             return .academy
-        case .profile, .settings, .messagesList, .messageDetail, .eventQrCode:
+        case .profile, .settings, .messagesList, .messageDetail, .eventQrCode, .academyCategory:
             return nil
         }
     }
@@ -220,6 +225,10 @@ class NavigationManager: ObservableObject {
 
     func navigateToMessageDetail(messageId: String) {
         navigate(to: .messageDetail(messageId: messageId))
+    }
+
+    func navigateToAcademyCategory(categoryId: String) {
+        navigate(to: .academyCategory(categoryId: categoryId))
     }
 
     // Back navigation

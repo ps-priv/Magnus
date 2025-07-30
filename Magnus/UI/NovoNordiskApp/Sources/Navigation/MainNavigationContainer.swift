@@ -90,6 +90,8 @@ struct MainNavigationContainer: View {
             SettingsView()
         case .academy:
             AcademyView()
+        case let .academyCategory(categoryId):
+            AcademyCategoryView(categoryId: categoryId)
         case .messagesList:
             MessagesListView()
         case let .messageDetail(messageId):

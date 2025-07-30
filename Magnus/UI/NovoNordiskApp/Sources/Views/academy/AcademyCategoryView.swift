@@ -5,6 +5,7 @@ import SwiftUI
 import Foundation
 
 struct AcademyCategoryView: View {
+    let categoryId: String
     @State private var categories: [AcademyCategory] = []
     @State private var parentCategory: AcademyCategory?
     @State private var selectedCategory: AcademyCategory?
@@ -42,13 +43,13 @@ struct AcademyCategoryView: View {
             }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(Color.novoNordiskBackgroundGrey)
         .onAppear {
             if categories.isEmpty {
                 categories = AcademyCategoryMock.generateMockCategories()
                 currentCategories = categories
             }
         }
+        .padding(.top, 20)
     }
 
     private func navigateToSubcategories(_ category: AcademyCategory) {
@@ -115,7 +116,7 @@ struct AcademyCategoryBackButton: View {
 }
 
 #Preview {
-    AcademyCategoryView()
+    AcademyCategoryView(categoryId: "doctor")
 }
 
 #Preview("AcademyCategoryBackButton") {

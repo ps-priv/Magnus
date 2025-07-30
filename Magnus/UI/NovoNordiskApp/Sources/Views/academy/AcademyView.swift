@@ -1,11 +1,13 @@
 import SwiftUI
 
 struct AcademyView: View {
+    @EnvironmentObject var navigationManager: NavigationManager
+
     var body: some View {
         VStack(alignment: .center) {
             Spacer()
             Button(action: {
-                // TODO: Implement
+                navigationManager.navigateToAcademyCategory(categoryId: "doctor")
             }) {
                 VStack(alignment: .center) {
                     FAIcon(.user_doctor, type: .light, size: 56, color: .novoNordiskBlue)
@@ -21,7 +23,7 @@ struct AcademyView: View {
             .padding(.bottom, 10)
 
             Button(action: {
-                // TODO: Implement
+                navigationManager.navigateToAcademyCategory(categoryId: "patient")
             }) {
                 VStack(alignment: .center) {
                     FAIcon(.user, type: .light, size: 56, color: .novoNordiskBlue)
