@@ -1,8 +1,8 @@
+import Foundation
 import MagnusApplication
 import MagnusDomain
 import MagnusFeatures
 import SwiftUI
-import Foundation
 
 struct AcademyCategoryView: View {
     let categoryId: String
@@ -10,35 +10,54 @@ struct AcademyCategoryView: View {
     @State private var parentCategory: AcademyCategory?
     @State private var selectedCategory: AcademyCategory?
     @State private var currentCategories: [AcademyCategory] = []
-    @State private var showBackButton: Bool = false
     @State private var navigationHistory: [AcademyCategory] = []
+    @State private var showBackButton: Bool = false
+    @State private var showMaterials: Bool = false
 
     var body: some View {
         VStack(alignment: .leading) {
             ScrollView {
-                if showBackButton {
-                    AcademyCategoryBackButton(action: navigateBack)
+                if !showMaterials {
+                    if showBackButton {
+                        AcademyCategoryBackButton(action: navigateBack)
+                            .padding(.horizontal, 20)
+                            .padding(.top, 5)
+                    }
+                    LazyVStack(alignment: .leading, spacing: 12) {
+                        ForEach(Array(currentCategories.enumerated()), id: \.offset) {
+                            itemIndex, category in
+                            Button(action: {
+                                if category.hasSubcategories {
+                                    navigateToSubcategories(category)
+                                } else {
+                                    selectedCategory = category
+                                    showMaterials = true
+                                }
+                            }) {
+                                AcademyCategoryItemView(title: category.name)
+                            }
+                            .buttonStyle(PressedButtonStyle())
+                            .padding(.horizontal, 20)
+                            .padding(.top, 5)
+                            .transition(
+                                .asymmetric(
+                                    insertion: .move(edge: .trailing).combined(with: .opacity),
+                                    removal: .move(edge: .leading).combined(with: .opacity)
+                                )
+                            )
+                            .animation(.easeInOut(duration: 0.5), value: currentCategories)
+                        }
+                    }
+                } else {
+                    AcademyCategoryMaterialsView(
+                        categoryId: selectedCategory?.name ?? "",
+                        action: {
+                            showMaterials = false
+                        }
+                    )
+                    .animation(.easeInOut(duration: 0.5), value: showMaterials)
                     .padding(.horizontal, 20)
                     .padding(.top, 5)
-                }
-                LazyVStack(alignment: .leading, spacing: 12) {
-                    ForEach(Array(currentCategories.enumerated()), id: \.offset) { itemIndex, category in
-                        Button(action: {
-                            if category.hasSubcategories {
-                                navigateToSubcategories(category)
-                            }
-                        }) {
-                            AcademyCategoryItemView(title: category.name)
-                        }
-                        .buttonStyle(PressedButtonStyle())
-                        .padding(.horizontal, 20)
-                        .padding(.top, 5)
-                        .transition(.asymmetric(
-                            insertion: .move(edge: .trailing).combined(with: .opacity),
-                            removal: .move(edge: .leading).combined(with: .opacity)
-                        ))
-                        .animation(.easeInOut(duration: 0.5), value: currentCategories)
-                    }
                 }
             }
         }
@@ -65,10 +84,10 @@ struct AcademyCategoryView: View {
             currentCategories = categories
             return
         }
-        
+
         // Remove the current category from history
         navigationHistory.removeLast()
-        
+
         if navigationHistory.isEmpty {
             // Back to root categories
             showBackButton = false
@@ -80,7 +99,9 @@ struct AcademyCategoryView: View {
         }
     }
 
-    private func findCategory(withPath path: [String], in categories: [AcademyCategory]) -> AcademyCategory? {
+    private func findCategory(withPath path: [String], in categories: [AcademyCategory])
+        -> AcademyCategory?
+    {
         guard !path.isEmpty else { return nil }
 
         let categoryName = path[0]
