@@ -14,35 +14,35 @@ public struct LoginRequest: Codable {
 }
 
 public struct LoginResponse: Codable {
-    public let accessToken: String
-    public let refreshToken: String
-    public let user: User
+    public let token: String
+    public let user: UserDto
 
-    public init(accessToken: String, refreshToken: String, user: User) {
-        self.accessToken = accessToken
-        self.refreshToken = refreshToken
+    public init(token: String, user: UserDto) {
+        self.token = token
         self.user = user
     }
 }
 
-public struct User: Codable {
+public struct UserDto: Codable {
     public let id: String
     public let email: String
-    public let name: String
-    public let role: String
+    public let firstName: String
+    public let lasName: String
+    public let role: Int
 
-    public init(id: String, email: String, name: String, role: String) {
+    public init(id: String, email: String, firstName: String, lasName: String, role: Int) {
         self.id = id
         self.email = email
-        self.name = name
+        self.firstName = firstName
+        self.lasName = lasName
         self.role = role
     }
 }
 
 public protocol AuthNetworkServiceProtocol {
     func login(request: LoginRequest) -> AnyPublisher<LoginResponse, Error>
-    func logout() -> AnyPublisher<Void, Error>
-    func refreshToken(refreshToken: String) -> AnyPublisher<LoginResponse, Error>
+    // func logout() -> AnyPublisher<Void, Error>
+    // func refreshToken(refreshToken: String) -> AnyPublisher<LoginResponse, Error>
 }
 
 public class AuthNetworkService: AuthNetworkServiceProtocol {
@@ -53,34 +53,41 @@ public class AuthNetworkService: AuthNetworkServiceProtocol {
     }
 
     public func login(request: LoginRequest) -> AnyPublisher<LoginResponse, Error> {
+
+        // Konwersja na Dictionary
+        let encoder = JSONEncoder()
+        guard let data = try? encoder.encode(request),
+            let json = try? JSONSerialization.jsonObject(with: data) as? [String: Any]
+        else {
+            return Fail(error: NSError(domain: "EncodingError", code: -1, userInfo: nil))
+                .eraseToAnyPublisher()
+        }
+
         return networkService.request(
             endpoint: "/api/auth/login",
             method: .post,
-            parameters: [
-                "email": request.email,
-                "password": request.password,
-            ],
+            parameters: json,
             encoding: JSONEncoding.default,
             responseType: LoginResponse.self
         )
     }
 
-    public func logout() -> AnyPublisher<Void, Error> {
-        return networkService.request(
-            endpoint: "/api/auth/logout",
-            method: .post,
-            parameters: nil,
-            encoding: URLEncoding.default
-        )
-    }
+    // public func logout() -> AnyPublisher<Void, Error> {
+    //     return networkService.request(
+    //         endpoint: "/api/auth/logout",
+    //         method: .post,
+    //         parameters: nil,
+    //         encoding: URLEncoding.default
+    //     )
+    // }
 
-    public func refreshToken(refreshToken: String) -> AnyPublisher<LoginResponse, Error> {
-        return networkService.request(
-            endpoint: "/api/auth/refresh",
-            method: .post,
-            parameters: ["refreshToken": refreshToken],
-            encoding: JSONEncoding.default,
-            responseType: LoginResponse.self
-        )
-    }
+    // public func refreshToken(refreshToken: String) -> AnyPublisher<LoginResponse, Error> {
+    //     return networkService.request(
+    //         endpoint: "/api/auth/refresh",
+    //         method: .post,
+    //         parameters: ["refreshToken": refreshToken],
+    //         encoding: JSONEncoding.default,
+    //         responseType: LoginResponse.self
+    //     )
+    // }
 }

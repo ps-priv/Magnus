@@ -9,7 +9,7 @@ extension Notification.Name {
 
 @MainActor
 public class UserProfileViewModel: ObservableObject {
-    @Published public var user: User?
+    @Published public var user: UserDto?
     @Published public var errorMessage: String = ""
     @Published public var isLoading: Bool = false
     @Published public var isAuthenticated: Bool = false

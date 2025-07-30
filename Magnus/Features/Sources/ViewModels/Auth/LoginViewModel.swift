@@ -9,13 +9,12 @@ public class LoginViewModel: ObservableObject {
 
     // MARK: - Published Properties
 
-    @Published public var email: String = ""
-    @Published public var password: String = ""
+    @Published public var email: String = "j.skarzynska@serwik.pl"
+    @Published public var password: String = "Aska123"
     @Published public var isLoading: Bool = false
     @Published public var errorMessage: String = ""
     @Published public var isAuthenticated: Bool = false
     @Published public var LoginAttempts: Int = 0
-
     // MARK: - Validation Properties
 
     @Published public var isEmailValid: Bool = false
@@ -101,6 +100,8 @@ public class LoginViewModel: ObservableObject {
             )
 
             let authResponse = try await authService.login(credentials: credentials)
+
+            print("authResponse: \(authResponse)")
 
             // Save authentication data
             try await saveAuthenticationData(authResponse)
@@ -241,8 +242,8 @@ extension LoginViewModel {
                 return
             }
 
-            let authResponse = try await authService.refreshToken(refreshToken)
-            try await saveAuthenticationData(authResponse)
+            // let authResponse = try await authService.refreshToken(refreshToken)
+            // try await saveAuthenticationData(authResponse)
 
         } catch {
             await logout()

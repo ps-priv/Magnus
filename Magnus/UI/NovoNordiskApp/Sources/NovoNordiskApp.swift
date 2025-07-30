@@ -22,7 +22,7 @@ struct NovoNordiskApp: App {
         // Initialize DI Container with NovoNordisk configuration
         DIContainer.shared.configure(
             with: .novonordisk,
-            apiBaseURL: "https://api.magnus.com"  // Configure your API base URL here
+            apiBaseURL: "https://nncv2-dev.serwik.pl"  // Configure your API base URL here
         )
 
         #if DEBUG

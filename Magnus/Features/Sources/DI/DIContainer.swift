@@ -53,8 +53,9 @@ public class DIContainer {
         switch applicationType {
         case .novonordisk:
             // Register mock AuthService for NovoNordisk app
-            container.register(AuthService.self) { _ in
-                AuthServiceMock()
+            container.register(AuthService.self) { resolver in
+                let networkService = resolver.resolve(AuthNetworkServiceProtocol.self)!
+                return ApiAuthService(authNetworkService: networkService)
             }.inObjectScope(.container)
 
             // Register real AuthStorageService for iOS

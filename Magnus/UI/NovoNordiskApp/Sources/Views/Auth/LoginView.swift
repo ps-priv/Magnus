@@ -106,6 +106,15 @@ struct LoginView: View {
                             ) {
                                 Task {
                                     await viewModel.login()
+                                    // do {
+                                    //     try await viewModel.login()
+                                    // } catch {
+                                    //     print("Error: \(error)")
+                                    //     viewModel.errorMessage = error.localizedDescription
+                                    //     viewModel.isLoading = false
+                                    //     viewModel.LoginAttempts += 1
+                                    //     showError = true
+                                    // }
                                 }
                             }
                             .disabled(!viewModel.canLogin)
