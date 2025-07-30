@@ -309,7 +309,7 @@ struct UserProfileView: View {
         dateFormatter.dateFormat = "dd.MM.yyyy HH:mm:ss"
         let currentDateTime = dateFormatter.string(from: Date())
 
-        return "\(user.firstName) \(user.lastName ?? "")\n\(currentDateTime)"
+        return "\(user.firstName) \(user.lastName)\n\(currentDateTime)"
     }
 
     private func generateQRCode(from string: String) -> UIImage? {
