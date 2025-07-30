@@ -4,6 +4,10 @@ import MagnusFeatures
 import Inject
 #endif
 
+extension Notification.Name {
+    static let userDidLogout = Notification.Name("userDidLogout")
+}
+
 enum AppState {
     case splash
     case authenticated
@@ -39,6 +43,11 @@ struct RootView: View {
             }
         }
         .animation(.easeInOut(duration: 0.5), value: appState)
+        .onReceive(NotificationCenter.default.publisher(for: .userDidLogout)) { _ in
+            withAnimation(.easeInOut(duration: 0.5)) {
+                appState = .unauthenticated
+            }
+        }
         #if DEBUG
         .enableInjection()
         #endif

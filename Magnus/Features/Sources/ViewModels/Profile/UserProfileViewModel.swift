@@ -3,6 +3,10 @@ import Foundation
 import MagnusDomain
 import SwiftUI
 
+extension Notification.Name {
+    static let userDidLogout = Notification.Name("userDidLogout")
+}
+
 @MainActor
 public class UserProfileViewModel: ObservableObject {
     @Published public var user: User?
@@ -31,6 +35,7 @@ public class UserProfileViewModel: ObservableObject {
             try authStorageService.clearAllAuthData()
             isAuthenticated = false
             shouldLogout = true
+            NotificationCenter.default.post(name: .userDidLogout, object: nil)
         } catch {
             errorMessage = "Failed to clear authentication data: \(error.localizedDescription)"
         }

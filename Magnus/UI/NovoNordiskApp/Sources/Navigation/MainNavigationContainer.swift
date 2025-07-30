@@ -1,10 +1,12 @@
 import SwiftUI
+import MagnusFeatures
 #if DEBUG
     import Inject
 #endif
 
 struct MainNavigationContainer: View {
     @StateObject private var navigationManager = NavigationManager()
+    @StateObject private var userProfileViewModel = UserProfileViewModel()
     #if DEBUG
         @ObserveInjection var inject
     #endif
@@ -58,6 +60,7 @@ struct MainNavigationContainer: View {
             }
         }
         .environmentObject(navigationManager)
+        .environmentObject(userProfileViewModel)
         .animation(.easeInOut(duration: 0.3), value: navigationManager.currentScreen)
         .animation(.easeInOut(duration: 0.3), value: navigationManager.currentScreen.shouldShowBottomMenu)
         #if DEBUG

@@ -1,11 +1,11 @@
-import SwiftUI
-import MagnusFeatures
-import MagnusDomain
 import CoreImage
 import CoreImage.CIFilterBuiltins
+import MagnusDomain
+import MagnusFeatures
+import SwiftUI
 
 #if DEBUG
-import Inject
+    import Inject
 #endif
 
 enum UserProfilePanel {
@@ -14,8 +14,10 @@ enum UserProfilePanel {
     case zmienHaslo
 }
 
+@MainActor
 struct UserProfileView: View {
     @EnvironmentObject var navigationManager: NavigationManager
+    @EnvironmentObject var userProfileViewModel: UserProfileViewModel
     @State private var user: AuthUser? = nil
     @State private var selectedPanel: UserProfilePanel? = .informacje
     @State private var newPassword: String = ""
@@ -24,12 +26,12 @@ struct UserProfileView: View {
     @State private var hasBusiness = false
 
     #if DEBUG
-    @ObserveInjection var inject
+        @ObserveInjection var inject
     #endif
 
     var body: some View {
         ScrollView {
-            VStack(spacing: 24) {          
+            VStack(spacing: 24) {
                 // Main Action Buttons
                 VStack(spacing: 12) {
                     HStack(spacing: 12) {
@@ -40,7 +42,7 @@ struct UserProfileView: View {
                         ) {
                             selectedPanel = selectedPanel == .informacje ? nil : .informacje
                         }
-                        
+
                         UserProfileMainButton(
                             title: LocalizedStrings.userProfileIdButton,
                             icon: .qrcode,
@@ -48,9 +50,9 @@ struct UserProfileView: View {
                         ) {
                             selectedPanel = selectedPanel == .identyfikator ? nil : .identyfikator
                         }
-                        
+
                         UserProfileMainButton(
-                            title:  LocalizedStrings.userProfileChangePassword,
+                            title: LocalizedStrings.userProfileChangePassword,
                             icon: .lock,
                             isSelected: selectedPanel == .zmienHaslo
                         ) {
@@ -58,14 +60,14 @@ struct UserProfileView: View {
                         }
                     }
                 }
-                
+
                 // Panel Content
                 if let panel = selectedPanel {
                     panelContent(for: panel)
                         .transition(.opacity.combined(with: .scale))
                         .animation(.easeInOut(duration: 0.3), value: selectedPanel)
                 }
-                
+
                 Spacer()
             }
             .padding()
@@ -75,12 +77,12 @@ struct UserProfileView: View {
             loadUserData()
         }
         .alert("Sukces", isPresented: $showSuccessAlert) {
-            Button("OK") { }
+            Button("OK") {}
         } message: {
             Text("Hasło zostało pomyślnie zmienione")
         }
     }
-    
+
     @ViewBuilder
     private func panelContent(for panel: UserProfilePanel) -> some View {
         VStack(spacing: 16) {
@@ -94,7 +96,7 @@ struct UserProfileView: View {
             }
         }
     }
-    
+
     @ViewBuilder
     private func informacjePanel() -> some View {
         VStack(alignment: .leading, spacing: 16) {
@@ -104,9 +106,9 @@ struct UserProfileView: View {
                     .font(.headline)
                 Spacer()
             }
-            
+
             if let user = user {
-                VStack (alignment: .leading, spacing: 12) {
+                VStack(alignment: .leading, spacing: 12) {
                     NovoNordiskTextBox(
                         placeholder: LocalizedStrings.userProfileFirstname,
                         text: .constant(user.firstName),
@@ -148,19 +150,21 @@ struct UserProfileView: View {
                             NovoNordiskTextBox(
                                 placeholder: LocalizedStrings.userProfilePostalcode,
                                 text: .constant(""),
-                                style: .withTitle(LocalizedStrings.userProfilePostalcode + ":", bold: true)
+                                style: .withTitle(
+                                    LocalizedStrings.userProfilePostalcode + ":", bold: true)
                             )
-                            .frame(width: (geometry.size.width - 12) / 3) // 1/3 szerokości minus spacing
-                            
+                            .frame(width: (geometry.size.width - 12) / 3)  // 1/3 szerokości minus spacing
+
                             NovoNordiskTextBox(
                                 placeholder: LocalizedStrings.userProfileCity,
                                 text: .constant(""),
-                                style: .withTitle(LocalizedStrings.userProfileCity + ":", bold: true)
+                                style: .withTitle(
+                                    LocalizedStrings.userProfileCity + ":", bold: true)
                             )
-                            .frame(width: (geometry.size.width - 12) * 2 / 3) // 2/3 szerokości minus spacing
+                            .frame(width: (geometry.size.width - 12) * 2 / 3)  // 2/3 szerokości minus spacing
                         }
                     }
-                    .frame(height: 80) 
+                    .frame(height: 80)
 
                     NovoNordiskTextBox(
                         placeholder: LocalizedStrings.userProfilePesel,
@@ -181,26 +185,27 @@ struct UserProfileView: View {
                         }
                     }
 
-                       NovoNordiskTextBox(
-                            placeholder: LocalizedStrings.userProfileNip,
-                            text: .constant(""),
-                            style: .withTitle(LocalizedStrings.userProfileNip + ":", bold: true),
-                            isEnabled: hasBusiness
-                        )
+                    NovoNordiskTextBox(
+                        placeholder: LocalizedStrings.userProfileNip,
+                        text: .constant(""),
+                        style: .withTitle(LocalizedStrings.userProfileNip + ":", bold: true),
+                        isEnabled: hasBusiness
+                    )
 
-                        NovoNordiskTextBox(
-                            placeholder: LocalizedStrings.userProfileCompanyName,
-                            text: .constant(""),
-                            style: .withTitle(LocalizedStrings.userProfileCompanyName + ":", bold: true),
-                            isEnabled: hasBusiness
-                        )
+                    NovoNordiskTextBox(
+                        placeholder: LocalizedStrings.userProfileCompanyName,
+                        text: .constant(""),
+                        style: .withTitle(
+                            LocalizedStrings.userProfileCompanyName + ":", bold: true),
+                        isEnabled: hasBusiness
+                    )
 
-                        NovoNordiskTextBox(
-                            placeholder: LocalizedStrings.userProfileTaxOffice,
-                            text: .constant(""),
-                            style: .withTitle(LocalizedStrings.userProfileTaxOffice + ":", bold: true),
-                            isEnabled: hasBusiness
-                        )
+                    NovoNordiskTextBox(
+                        placeholder: LocalizedStrings.userProfileTaxOffice,
+                        text: .constant(""),
+                        style: .withTitle(LocalizedStrings.userProfileTaxOffice + ":", bold: true),
+                        isEnabled: hasBusiness
+                    )
 
                     VStack(alignment: .leading, spacing: 0) {
                         NovoNordiskCheckbox(
@@ -208,7 +213,9 @@ struct UserProfileView: View {
                             isChecked: $hasBusiness,
                             //style: .regular
                         )
-                        NovoNordiskLinkButton(title: LocalizedStrings.userProfilePolicyLink, style: .small) {
+                        NovoNordiskLinkButton(
+                            title: LocalizedStrings.userProfilePolicyLink, style: .small
+                        ) {
                             print("Regulamin aplikacji tapped")
                         }
                         .padding(.leading, 30)
@@ -221,9 +228,11 @@ struct UserProfileView: View {
                             //style: .regular
                         )
 
-                        NovoNordiskLinkButton(title: LocalizedStrings.userProfileRodoLink, style: .small) {
+                        NovoNordiskLinkButton(
+                            title: LocalizedStrings.userProfileRodoLink, style: .small
+                        ) {
                             print("Regulamin aplikacji tapped")
-                        }     
+                        }
                         .padding(.leading, 30)
                     }
 
@@ -234,7 +243,9 @@ struct UserProfileView: View {
                             //style: .regular
                         )
 
-                        NovoNordiskLinkButton(title: LocalizedStrings.userProfileMarketingLink, style: .small) {
+                        NovoNordiskLinkButton(
+                            title: LocalizedStrings.userProfileMarketingLink, style: .small
+                        ) {
                             print("Regulamin aplikacji tapped")
                         }
                         .padding(.leading, 30)
@@ -248,78 +259,80 @@ struct UserProfileView: View {
             .padding(.top, 16)
 
             NovoNordiskButton(title: LocalizedStrings.buttonLogout, style: .outline) {
-
+                print("Logout tapped")
+                userProfileViewModel.logout()
             }
         }
     }
-    
+
     @ViewBuilder
     private func identyfikatorPanel() -> some View {
-        VStack(alignment: .center, spacing: 16) { 
+        VStack(alignment: .center, spacing: 16) {
             if let user = user {
-                    Text(LocalizedStrings.userProfileQrcodeId)
-                        .font(.headline)
-                        .foregroundColor(.primary)
-                        .fontWeight(.bold)
+                Text(LocalizedStrings.userProfileQrcodeId)
+                    .font(.headline)
+                    .foregroundColor(.primary)
+                    .fontWeight(.bold)
 
-                    // QR Code
-                    if let qrImage = generateQRCode(from: generateQRCodeText(user: user)) {
-                        Image(uiImage: qrImage)
-                            .interpolation(.none)
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 270, height: 270)
-                            .background(Color.white)
-                            .cornerRadius(12)
-                            .shadow(color: .gray.opacity(0.3), radius: 4, x: 0, y: 2)
-                    } else {
-                        RoundedRectangle(cornerRadius: 12)
-                            .fill(Color.gray.opacity(0.2))
-                            .frame(width: 270, height: 270)
-                            .overlay(
-                                Text("Błąd generowania QR")
-                                    .foregroundColor(.gray)
-                            )
-                    }
-                
-                    Text(LocalizedStrings.userProfileQrcodeDescription)
-                        .font(.body)
-                        .foregroundColor(.secondary)
-                        .multilineTextAlignment(.center)
+                // QR Code
+                if let qrImage = generateQRCode(from: generateQRCodeText(user: user)) {
+                    Image(uiImage: qrImage)
+                        .interpolation(.none)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 270, height: 270)
+                        .background(Color.white)
+                        .cornerRadius(12)
+                        .shadow(color: .gray.opacity(0.3), radius: 4, x: 0, y: 2)
+                } else {
+                    RoundedRectangle(cornerRadius: 12)
+                        .fill(Color.gray.opacity(0.2))
+                        .frame(width: 270, height: 270)
+                        .overlay(
+                            Text("Błąd generowania QR")
+                                .foregroundColor(.gray)
+                        )
+                }
+
+                Text(LocalizedStrings.userProfileQrcodeDescription)
+                    .font(.body)
+                    .foregroundColor(.secondary)
+                    .multilineTextAlignment(.center)
             }
         }
         .padding()
     }
-    
+
     // MARK: - QR Code Generation
     private func generateQRCodeText(user: AuthUser) -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd.MM.yyyy HH:mm:ss"
         let currentDateTime = dateFormatter.string(from: Date())
-        
+
         return "\(user.firstName) \(user.lastName ?? "")\n\(currentDateTime)"
     }
-    
+
     private func generateQRCode(from string: String) -> UIImage? {
         let context = CIContext()
         let filter = CIFilter.qrCodeGenerator()
-        
+
         filter.message = Data(string.utf8)
-        
+
         if let outputImage = filter.outputImage {
             // Scale up the QR code for better quality
             let scaleX = 270 / outputImage.extent.size.width
             let scaleY = 270 / outputImage.extent.size.height
-            let transformedImage = outputImage.transformed(by: CGAffineTransform(scaleX: scaleX, y: scaleY))
-            
+            let transformedImage = outputImage.transformed(
+                by: CGAffineTransform(scaleX: scaleX, y: scaleY))
+
             if let cgimg = context.createCGImage(transformedImage, from: transformedImage.extent) {
                 return UIImage(cgImage: cgimg)
             }
         }
-        
+
         return nil
     }
-    
+
     @ViewBuilder
     private func zmienHasloPanel() -> some View {
         VStack(alignment: .leading, spacing: 16) {
@@ -329,23 +342,23 @@ struct UserProfileView: View {
                     .font(.headline)
                 Spacer()
             }
-            
+
             VStack(spacing: 16) {
 
                 NovoNordiskTextBox(
                     placeholder: LocalizedStrings.userProfileNewPassword,
                     text: .constant(""),
-                    style: .withTitle(LocalizedStrings.userProfileNewPassword, bold: true),                    
+                    style: .withTitle(LocalizedStrings.userProfileNewPassword, bold: true),
                     isSecure: true
                 )
-                
+
                 NovoNordiskTextBox(
                     placeholder: LocalizedStrings.userProfileRetypeNewPassword,
                     text: .constant(""),
-                    style: .withTitle(LocalizedStrings.userProfileRetypeNewPassword, bold: true),                   
+                    style: .withTitle(LocalizedStrings.userProfileRetypeNewPassword, bold: true),
                     isSecure: true
                 )
-       
+
                 Button(action: changePassword) {
                     Text(LocalizedStrings.buttonChangePassword)
                         .font(.body)
@@ -362,14 +375,12 @@ struct UserProfileView: View {
             }
         }
     }
-    
+
     private var canChangePassword: Bool {
-        !newPassword.isEmpty && 
-        !confirmPassword.isEmpty && 
-        newPassword == confirmPassword && 
-        newPassword.count >= 6
+        !newPassword.isEmpty && !confirmPassword.isEmpty && newPassword == confirmPassword
+            && newPassword.count >= 6
     }
-    
+
     private func changePassword() {
         // Symulacja zmiany hasła
         newPassword = ""
@@ -377,7 +388,7 @@ struct UserProfileView: View {
         selectedPanel = nil
         showSuccessAlert = true
     }
-    
+
     private func loadUserData() {
         do {
             user = try DIContainer.shared.authStorageService.getUserData()
@@ -401,7 +412,7 @@ struct UserProfileMainButton: View {
     let icon: FontAwesome.Icon
     let isSelected: Bool
     let action: () -> Void
-    
+
     var body: some View {
         HStack {
             Button(action: action) {
@@ -418,4 +429,4 @@ struct UserProfileMainButton: View {
 #Preview {
     UserProfileView()
         .environmentObject(NavigationManager())
-} 
+}
