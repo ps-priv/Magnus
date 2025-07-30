@@ -15,17 +15,12 @@ public class LoginViewModel: ObservableObject {
     @Published public var errorMessage: String = ""
     @Published public var isAuthenticated: Bool = false
     @Published public var LoginAttempts: Int = 0
-    // MARK: - Validation Properties
 
     @Published public var isEmailValid: Bool = false
     @Published public var isPasswordValid: Bool = false
 
-    // MARK: - Dependencies
-
     private let authService: AuthService
     private let authStorageService: AuthStorageService
-
-    // MARK: - Computed Properties
 
     public var isFormValid: Bool {
         return isEmailValid && isPasswordValid && !email.isEmpty && !password.isEmpty
@@ -35,11 +30,7 @@ public class LoginViewModel: ObservableObject {
         return isFormValid && !isLoading
     }
 
-    // MARK: - Cancellables
-
     private var cancellables = Set<AnyCancellable>()
-
-    // MARK: - Initialization
 
     public init(
         authService: AuthService = DIContainer.shared.authService,
@@ -51,8 +42,6 @@ public class LoginViewModel: ObservableObject {
         setupValidation()
         checkExistingAuthentication()
     }
-
-    // MARK: - Setup
 
     private func setupValidation() {
         // Email validation
