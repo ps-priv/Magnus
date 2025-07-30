@@ -30,6 +30,7 @@
 "CANCEL" = "Cancel";
 "LOAD_MORE" = "More";
 "CLOSE"="Close";
+"BACK"="Back";
 
 /* Validation */
 "FIELD_REQUIRED" = "This field is required";

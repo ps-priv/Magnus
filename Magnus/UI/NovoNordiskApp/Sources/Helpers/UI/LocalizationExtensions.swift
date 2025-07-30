@@ -46,6 +46,7 @@ enum LocalizedStrings {
     static let cancel = "CANCEL".localized
     static let load_more = "LOAD_MORE".localized
     static let close = "CLOSE".localized
+    static let back = "BACK".localized
 
     // Validation
     static let fieldRequired = "FIELD_REQUIRED".localized

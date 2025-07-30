@@ -11,7 +11,7 @@ struct AcademyCategoryItemView: View {
             Spacer()
             FAIcon(.circle_arrow_right, size: 24, color: Color.novoNordiskLightBlue)
         }
-        .frame(maxWidth: .infinity, maxHeight: 75)
+        .frame(maxWidth: .infinity, minHeight: 75, maxHeight: 75)
         .padding(.horizontal, 20)
         .background(Color.white)
         .cornerRadius(12)
