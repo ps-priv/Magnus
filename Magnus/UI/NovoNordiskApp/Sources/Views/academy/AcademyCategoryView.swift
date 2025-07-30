@@ -2,6 +2,7 @@ import MagnusApplication
 import MagnusDomain
 import MagnusFeatures
 import SwiftUI
+import Foundation
 
 struct AcademyCategoryView: View {
     @State private var categories: [AcademyCategory] = []
@@ -20,18 +21,23 @@ struct AcademyCategoryView: View {
                     .padding(.top, 5)
                 }
                 LazyVStack(alignment: .leading, spacing: 12) {
-                    ForEach(Array(currentCategories.enumerated()), id: \.offset) { _, category in
-                    Button(action: {
-                             if category.hasSubcategories {
-                                 navigateToSubcategories(category)
-                             }
-                         }) {
-                             AcademyCategoryItemView(title: category.name)
-                         }
+                    ForEach(Array(currentCategories.enumerated()), id: \.offset) { itemIndex, category in
+                        Button(action: {
+                            if category.hasSubcategories {
+                                navigateToSubcategories(category)
+                            }
+                        }) {
+                            AcademyCategoryItemView(title: category.name)
+                        }
+                        .buttonStyle(PressedButtonStyle())
+                        .padding(.horizontal, 20)
+                        .padding(.top, 5)
+                        .transition(.asymmetric(
+                            insertion: .move(edge: .trailing).combined(with: .opacity),
+                            removal: .move(edge: .leading).combined(with: .opacity)
+                        ))
+                        .animation(.easeInOut(duration: 0.5), value: currentCategories)
                     }
-                    .buttonStyle(PressedButtonStyle())
-                    .padding(.horizontal, 20)
-                    .padding(.top, 5)
                 }
             }
         }
