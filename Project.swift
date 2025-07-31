@@ -6,6 +6,7 @@ let packages: [Package] = [
     .package(url: "https://github.com/krzysztofzablocki/Inject.git", from: "1.5.2"),
     .package(url: "https://github.com/getsentry/sentry-cocoa", from: "8.53.2"),
     .package(url: "https://github.com/EmergeTools/Pow", from: "1.0.0"),
+    .package(url: "https://github.com/onevcat/Kingfisher.git", from: "7.0.0"),
 ]
 
 let project = Project(
@@ -92,6 +93,7 @@ let project = Project(
                 .package(product: "Inject"),
                 .package(product: "Sentry"),
                 .package(product: "Pow"),
+                .package(product: "Kingfisher"),
             ],
             settings: .settings(
                 base: [
