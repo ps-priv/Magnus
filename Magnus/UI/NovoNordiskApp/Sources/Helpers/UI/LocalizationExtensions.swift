@@ -159,4 +159,9 @@ enum LocalizedStrings {
     // Academy
     static let academyDoctor = "ACADEMY_DOCTOR".localized
     static let academyPatient = "ACADEMY_PATIENT".localized
+    
+    // Network Connection
+    static let noInternetConnectionTitle = "NO_INTERNET_CONNECTION_TITLE".localized
+    static let noInternetConnectionMessage = "NO_INTERNET_CONNECTION_MESSAGE".localized
+    static let noInternetConnectionRetryButton = "NO_INTERNET_CONNECTION_RETRY_BUTTON".localized
 }
