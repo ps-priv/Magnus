@@ -164,8 +164,6 @@ public class LoginViewModel: ObservableObject {
     private func handleAuthError(_ error: AuthError) async {
         let message: String
 
-        print("Error: \(error)")
-
         switch error {
         case .invalidCredentials:
             message = FeaturesLocalizedStrings.invalidCredentials
