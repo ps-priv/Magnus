@@ -2,6 +2,8 @@ import Combine
 import Foundation
 import MagnusApplication
 import MagnusDomain
+import Network
+import SwiftUI
 import Swinject
 
 public class DIContainer {
@@ -25,6 +27,19 @@ public class DIContainer {
         container.register(NetworkServiceProtocol.self) { resolver in
             let config = resolver.resolve(NetworkConfiguration.self)!
             return NetworkService(configuration: config)
+        }.inObjectScope(.container)
+
+        // Register Network Monitor
+        container.register(NetworkMonitorProtocol.self) { _ in
+            let monitor = NetworkMonitor()
+            monitor.startMonitoring()
+            return monitor
+        }.inObjectScope(.container)
+
+        // Register Network Status ViewModel
+        container.register(NetworkStatusViewModel.self) { resolver in
+            let networkMonitor = resolver.resolve(NetworkMonitorProtocol.self)!
+            return NetworkStatusViewModel(networkMonitor: networkMonitor)
         }.inObjectScope(.container)
 
         // Register Network Services

@@ -148,3 +148,8 @@
 /* Academy */
 "ACADEMY_DOCTOR" = "Lekarz";
 "ACADEMY_PATIENT" = "Pacjent";
+
+/* Network Connection */
+"NO_INTERNET_CONNECTION_TITLE" = "Brak połączenia z internetem";
+"NO_INTERNET_CONNECTION_MESSAGE" = "Sprawdź połączenie z internetem i spróbuj ponownie.";
+"NO_INTERNET_CONNECTION_RETRY_BUTTON" = "Spróbuj ponownie";

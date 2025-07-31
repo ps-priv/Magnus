@@ -1,6 +1,8 @@
 import Alamofire
 import Combine
 import Foundation
+import Network
+import SwiftUI
 
 public protocol NetworkServiceProtocol {
     func request<T: Decodable>(
@@ -90,5 +92,78 @@ public class NetworkService: NetworkServiceProtocol {
             }
         }
         .eraseToAnyPublisher()
+    }
+}
+
+// MARK: - Network Monitoring
+
+public protocol NetworkMonitorProtocol {
+    var isConnected: Bool { get }
+    var connectionStatus: AnyPublisher<Bool, Never> { get }
+    func startMonitoring()
+    func stopMonitoring()
+}
+
+public class NetworkMonitor: NetworkMonitorProtocol {
+    private let monitor = NWPathMonitor()
+    private let queue = DispatchQueue(label: "NetworkMonitor")
+    private let connectionStatusSubject = CurrentValueSubject<Bool, Never>(true)
+
+    public var isConnected: Bool {
+        return monitor.currentPath.status == .satisfied
+    }
+
+    public var connectionStatus: AnyPublisher<Bool, Never> {
+        return connectionStatusSubject.eraseToAnyPublisher()
+    }
+
+    public init() {}
+
+    public func startMonitoring() {
+        monitor.pathUpdateHandler = { [weak self] path in
+            DispatchQueue.main.async {
+                let isConnected = path.status == .satisfied
+                self?.connectionStatusSubject.send(isConnected)
+            }
+        }
+        monitor.start(queue: queue)
+    }
+
+    public func stopMonitoring() {
+        monitor.cancel()
+    }
+
+    deinit {
+        stopMonitoring()
+    }
+}
+
+// MARK: - Network Status ViewModel
+
+public class NetworkStatusViewModel: ObservableObject {
+    @Published public var isConnected: Bool = true
+    @Published public var showNoInternetView: Bool = false
+
+    private let networkMonitor: NetworkMonitorProtocol
+    private var cancellables = Set<AnyCancellable>()
+
+    public init(networkMonitor: NetworkMonitorProtocol) {
+        self.networkMonitor = networkMonitor
+        setupBindings()
+    }
+
+    private func setupBindings() {
+        networkMonitor.connectionStatus
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] isConnected in
+                self?.isConnected = isConnected
+                self?.showNoInternetView = !isConnected
+            }
+            .store(in: &cancellables)
+    }
+
+    public func retryConnection() {
+        // Sprawdź ponownie połączenie
+        showNoInternetView = !networkMonitor.isConnected
     }
 }
