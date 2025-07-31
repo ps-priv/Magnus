@@ -17,10 +17,8 @@ public class ApiAuthService: AuthService {
 
     public func login(credentials: LoginCredentials) async throws -> AuthResponse {
         // Simulate network delay
-        //let credentials2 = LoginCredentials(email: "j.skarzynska@serwik.pl", password: "Aska123")
-
+        //try await Task.sleep(nanoseconds: 2_000_000_000)  // 1 second
         // Validate email format
-
         guard isValidPassword(credentials.password) else {
             throw AuthError.passwordTooShort
         }

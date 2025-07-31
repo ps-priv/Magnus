@@ -95,6 +95,11 @@ struct LoginView: View {
                         // .padding(.top, 8)
                         Spacer(minLength: 20)
 
+                        // Loading indicator
+                        if viewModel.isLoading {
+                            LoadingIndicator()
+                        }
+
                         // Buttons
                         VStack(spacing: 16) {
                             // Login button

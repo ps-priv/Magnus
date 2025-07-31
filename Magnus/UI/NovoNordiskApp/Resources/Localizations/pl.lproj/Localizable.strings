@@ -24,7 +24,7 @@
 "GO_TO_LOGIN" = "Zaloguj";
 
 /* Common */
-"LOADING" = "Ładowanie...";
+"LOADING" = "Pobieranie danych...";
 "ERROR" = "Błąd";
 "OK" = "OK";
 "CANCEL" = "Anuluj";
