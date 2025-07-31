@@ -32,6 +32,7 @@ enum FontAwesome {
         case close = "\u{f00d}"
         case settings = "\u{f013}"
         case signOut = "\u{f08b}"
+        case wifi = "\u{f1eb}"
 
         // User
         case user = "\u{f007}"
