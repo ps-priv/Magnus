@@ -132,7 +132,7 @@ struct LoginView: View {
         }
         .background(Color.white)
         .ignoresSafeArea(.keyboard, edges: .bottom)
-        .onChange(of: viewModel.isAuthenticated) { isAuthenticated in
+        .onChange(of: viewModel.isAuthenticated) { _, isAuthenticated in
             if isAuthenticated {
                 onAuthenticationSuccess()
             }
