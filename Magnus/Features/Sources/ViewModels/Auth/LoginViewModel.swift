@@ -2,6 +2,7 @@ import Combine
 import Foundation
 import MagnusApplication
 import MagnusDomain
+import Sentry
 import SwiftUI
 
 @MainActor
@@ -103,9 +104,11 @@ public class LoginViewModel: ObservableObject {
             }
 
         } catch let error as AuthError {
+            SentryHelper.capture(error: error, action: "Login failed")
             LoginAttempts += 1
             await handleAuthError(error)
         } catch {
+            SentryHelper.capture(error: error, action: "Login failed")
             LoginAttempts += 1
             await handleGenericError(error)
         }

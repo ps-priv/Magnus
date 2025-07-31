@@ -50,6 +50,7 @@ let project = Project(
                 .target(name: "MagnusApplication"),
                 .package(product: "Swinject"),
                 .package(product: "Alamofire"),
+                .package(product: "Sentry"),
             ],
         ),
         .target(
