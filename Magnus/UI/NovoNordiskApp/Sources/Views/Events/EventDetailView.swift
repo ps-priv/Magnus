@@ -1,4 +1,5 @@
 import SwiftUI
+import Kingfisher
 
 struct EventDetailView: View {
     let eventId: String
@@ -58,17 +59,16 @@ struct EventDetailView: View {
     @ViewBuilder
     private func heroImageSection(event: Event) -> some View {
         if let imageUrl = event.imageUrl {
-            AsyncImage(url: URL(string: imageUrl)) { image in
-                image
-                    .resizable()
-                    .aspectRatio(contentMode: .fill)
-            } placeholder: {
-                Rectangle()
-                    .fill(Color.gray.opacity(0.3))
-                    .overlay(
-                        FAIcon(.calendar, type: .light, size: 80, color: .gray)
-                    )
-            }
+            KFImage(URL(string: imageUrl))
+                .placeholder {
+                    Rectangle()
+                        .fill(Color.gray.opacity(0.3))
+                        .overlay(
+                            FAIcon(.calendar, type: .light, size: 80, color: .gray)
+                        )
+                }
+                .resizable()
+                .aspectRatio(contentMode: .fill)
             .frame(height: 250)
             .clipped()
         }

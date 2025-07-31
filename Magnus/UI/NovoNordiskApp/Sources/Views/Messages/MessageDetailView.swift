@@ -1,6 +1,7 @@
 import SwiftUI
 import MagnusFeatures
 import MagnusDomain
+import Kingfisher
 
 #if DEBUG
 import Inject
@@ -21,14 +22,13 @@ struct MessageDetailView: View {
                 VStack(alignment: .leading, spacing: 16) {
 
                     VStack(alignment: .leading) {
-                        AsyncImage(url: URL(string: message.image)) { image in
-                            image
-                                .resizable()
-                                .aspectRatio(contentMode: .fill)
-                        } placeholder: {
-                            Rectangle()
-                                .fill(Color.gray.opacity(0.1))
-                                                  }
+                        KFImage(URL(string: message.image))
+                            .placeholder {
+                                Rectangle()
+                                    .fill(Color.gray.opacity(0.1))
+                            }
+                            .resizable()
+                            .aspectRatio(contentMode: .fill)
                           .frame(height: 250)
                           .clipped()
                           .cornerRadius(25)

@@ -1,4 +1,5 @@
 import SwiftUI
+import Kingfisher
 
 struct MaterialDetailView: View {
     let materialId: String
@@ -70,13 +71,12 @@ struct MaterialDetailView: View {
             VStack(spacing: 16) {
                 // Thumbnail or icon
                 if let thumbnailUrl = material.thumbnailUrl {
-                    AsyncImage(url: URL(string: thumbnailUrl)) { image in
-                        image
-                            .resizable()
-                            .aspectRatio(contentMode: .fill)
-                    } placeholder: {
-                        materialIcon(material: material)
-                    }
+                    KFImage(URL(string: thumbnailUrl))
+                        .placeholder {
+                            materialIcon(material: material)
+                        }
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
                     .frame(width: 120, height: 120)
                     .cornerRadius(12)
                 } else {

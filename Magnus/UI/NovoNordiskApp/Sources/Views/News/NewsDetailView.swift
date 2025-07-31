@@ -1,6 +1,7 @@
 import SwiftUI
 import MagnusFeatures
 import MagnusDomain
+import Kingfisher
 
 struct NewsDetailView: View {
     let newsId: String
@@ -10,11 +11,12 @@ struct NewsDetailView: View {
         ScrollView {
             if let newsItem = newsItem {
                 VStack(alignment: .leading, spacing: 16) {
-                    AsyncImage(url: URL(string: newsItem.image)) { image in
-                        image.resizable().aspectRatio(contentMode: .fill)
-                    } placeholder: {
-                        Rectangle().fill(Color.gray.opacity(0.3))
-                    }
+                    KFImage(URL(string: newsItem.image))
+                        .placeholder {
+                            Rectangle().fill(Color.gray.opacity(0.3))
+                        }
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
                     .frame(height: 250)
                     .clipped()
                     

@@ -1,6 +1,7 @@
 import SwiftUI
 import MagnusFeatures
 import MagnusDomain
+import Kingfisher
 
 struct NewsListView: View {
     @State private var newsItems: [NewsItem] = NewsItemMockGenerator.createMany(count: 5)
@@ -90,12 +91,13 @@ struct NewsListCardView: View {
     var body: some View {
         Button(action: onTap) {
             VStack(alignment: .leading, spacing: 12) {
-                AsyncImage(url: URL(string: newsItem.image)) { image in
-                    image.resizable().aspectRatio(contentMode: .fill)
-                } placeholder: {
-                    Rectangle().fill(Color.gray.opacity(0.3))
-                        .overlay(FAIcon(.newspaper, type: .light, size: 40, color: .gray))
-                }
+                KFImage(URL(string: newsItem.image))
+                    .placeholder {
+                        Rectangle().fill(Color.gray.opacity(0.3))
+                            .overlay(FAIcon(.newspaper, type: .light, size: 40, color: .gray))
+                    }
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
                 .frame(height: 160)
                 .clipped()
                 

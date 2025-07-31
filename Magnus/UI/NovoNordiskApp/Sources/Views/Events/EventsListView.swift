@@ -2,6 +2,7 @@ import MagnusApplication
 import MagnusDomain
 import MagnusFeatures
 import SwiftUI
+import Kingfisher
 
 struct EventsListView: View {
     @State private var events: [ConferenceEvent] = EventMockGenerator.createRandomEvents(count: 4)
@@ -147,17 +148,16 @@ struct EventCardView: View {
                 VStack(alignment: .leading) {
                     // Image section - 60% of screen height
                     ZStack(alignment: .bottom) {
-                        AsyncImage(url: URL(string: event.image)) { image in
-                            image
-                                .resizable()
-                                .scaledToFill()
-                        } placeholder: {
-                            Rectangle()
-                                .fill(Color.gray.opacity(0.3))
-                                .overlay(
-                                    FAIcon(.calendar, type: .light, size: 18, color: .gray)
-                                )
-                        }
+                        KFImage(URL(string: event.image))
+                            .placeholder {
+                                Rectangle()
+                                    .fill(Color.gray.opacity(0.3))
+                                    .overlay(
+                                        FAIcon(.calendar, type: .light, size: 18, color: .gray)
+                                    )
+                            }
+                            .resizable()
+                            .scaledToFill()
                         .frame(width: geometry.size.width, height: geometry.size.height * 0.6)
                         .clipped()
                         .overlay(

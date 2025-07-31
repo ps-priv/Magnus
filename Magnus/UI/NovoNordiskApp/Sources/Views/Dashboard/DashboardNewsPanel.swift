@@ -2,6 +2,7 @@ import MagnusApplication
 import MagnusDomain
 import MagnusFeatures
 import SwiftUI
+import Kingfisher
 
 #if DEBUG
     import Inject
@@ -90,17 +91,16 @@ struct NewsItemCard2: View {
     var body: some View {
         VStack(spacing: 0) {
             // Image section
-            AsyncImage(url: URL(string: item.image)) { image in
-                image
-                    .resizable()
-                    .aspectRatio(contentMode: .fill)
-            } placeholder: {
-                Rectangle()
-                    .fill(Color.gray.opacity(0.3))
-                    .overlay(
-                        FAIcon(.newspaper, type: .light, size: 40, color: .gray)
-                    )
-            }
+            KFImage(URL(string: item.image))
+                .placeholder {
+                    Rectangle()
+                        .fill(Color.gray.opacity(0.3))
+                        .overlay(
+                            FAIcon(.newspaper, type: .light, size: 40, color: .gray)
+                        )
+                }
+                .resizable()
+                .aspectRatio(contentMode: .fill)
             .frame(height: 140)
             .clipped()
 
