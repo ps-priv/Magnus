@@ -26,6 +26,11 @@ struct MessageDetailView: View {
                             .placeholder {
                                 Rectangle()
                                     .fill(Color.gray.opacity(0.1))
+                                    .overlay(
+                                        ProgressView()
+                                            .scaleEffect(1.5)
+                                            .tint(.novoNordiskBlue)
+                                    )
                             }
                             .resizable()
                             .aspectRatio(contentMode: .fill)

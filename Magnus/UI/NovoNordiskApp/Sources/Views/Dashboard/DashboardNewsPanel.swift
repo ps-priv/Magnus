@@ -96,7 +96,13 @@ struct NewsItemCard2: View {
                     Rectangle()
                         .fill(Color.gray.opacity(0.3))
                         .overlay(
-                            FAIcon(.newspaper, type: .light, size: 40, color: .gray)
+                            VStack {
+                                ProgressView()
+                                    .scaleEffect(1.2)
+                                    .tint(.novoNordiskBlue)
+                                FAIcon(.newspaper, type: .light, size: 40, color: .gray)
+                                    .padding(.top, 8)
+                            }
                         )
                 }
                 .resizable()

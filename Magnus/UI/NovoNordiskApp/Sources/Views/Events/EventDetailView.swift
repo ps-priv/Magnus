@@ -64,7 +64,13 @@ struct EventDetailView: View {
                     Rectangle()
                         .fill(Color.gray.opacity(0.3))
                         .overlay(
-                            FAIcon(.calendar, type: .light, size: 80, color: .gray)
+                            VStack {
+                                ProgressView()
+                                    .scaleEffect(1.5)
+                                    .tint(.novoNordiskBlue)
+                                FAIcon(.calendar, type: .light, size: 80, color: .gray)
+                                    .padding(.top, 16)
+                            }
                         )
                 }
                 .resizable()

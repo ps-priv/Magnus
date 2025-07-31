@@ -94,7 +94,15 @@ struct NewsListCardView: View {
                 KFImage(URL(string: newsItem.image))
                     .placeholder {
                         Rectangle().fill(Color.gray.opacity(0.3))
-                            .overlay(FAIcon(.newspaper, type: .light, size: 40, color: .gray))
+                            .overlay(
+                                VStack {
+                                    ProgressView()
+                                        .scaleEffect(1.2)
+                                        .tint(.novoNordiskBlue)
+                                    FAIcon(.newspaper, type: .light, size: 40, color: .gray)
+                                        .padding(.top, 8)
+                                }
+                            )
                     }
                     .resizable()
                     .aspectRatio(contentMode: .fill)

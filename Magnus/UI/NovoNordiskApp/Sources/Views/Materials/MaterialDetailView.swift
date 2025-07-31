@@ -73,7 +73,12 @@ struct MaterialDetailView: View {
                 if let thumbnailUrl = material.thumbnailUrl {
                     KFImage(URL(string: thumbnailUrl))
                         .placeholder {
-                            materialIcon(material: material)
+                            ZStack {
+                                materialIcon(material: material)
+                                ProgressView()
+                                    .scaleEffect(1.5)
+                                    .tint(.novoNordiskBlue)
+                            }
                         }
                         .resizable()
                         .aspectRatio(contentMode: .fill)

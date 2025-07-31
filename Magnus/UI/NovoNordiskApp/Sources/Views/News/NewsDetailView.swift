@@ -14,6 +14,11 @@ struct NewsDetailView: View {
                     KFImage(URL(string: newsItem.image))
                         .placeholder {
                             Rectangle().fill(Color.gray.opacity(0.3))
+                                .overlay(
+                                    ProgressView()
+                                        .scaleEffect(1.5)
+                                        .tint(.novoNordiskBlue)
+                                )
                         }
                         .resizable()
                         .aspectRatio(contentMode: .fill)

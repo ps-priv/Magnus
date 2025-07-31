@@ -153,7 +153,13 @@ struct EventCardView: View {
                                 Rectangle()
                                     .fill(Color.gray.opacity(0.3))
                                     .overlay(
-                                        FAIcon(.calendar, type: .light, size: 18, color: .gray)
+                                        VStack {
+                                            ProgressView()
+                                                .scaleEffect(1.2)
+                                                .tint(.novoNordiskBlue)
+                                            FAIcon(.calendar, type: .light, size: 18, color: .gray)
+                                                .padding(.top, 8)
+                                        }
                                     )
                             }
                             .resizable()
