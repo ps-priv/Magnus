@@ -223,20 +223,20 @@ extension LoginViewModel {
     }
 
     /// Refreshes token if refresh token is available
-    public func refreshTokenIfNeeded() async {
-        guard isSessionExpired else { return }
+    // public func refreshTokenIfNeeded() async {
+    //     guard isSessionExpired else { return }
 
-        do {
-            guard let refreshToken = try authStorageService.getRefreshToken() else {
-                await logout()
-                return
-            }
+    //     do {
+    //         guard let refreshToken = try authStorageService.getRefreshToken() else {
+    //             await logout()
+    //             return
+    //         }
 
-            // let authResponse = try await authService.refreshToken(refreshToken)
-            // try await saveAuthenticationData(authResponse)
+    //         // let authResponse = try await authService.refreshToken(refreshToken)
+    //         // try await saveAuthenticationData(authResponse)
 
-        } catch {
-            await logout()
-        }
-    }
+    //     } catch {
+    //         await logout()
+    //     }
+    // }
 }
