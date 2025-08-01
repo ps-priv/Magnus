@@ -91,7 +91,6 @@ public class LoginViewModel: ObservableObject {
 
             let authResponse = try await authService.login(credentials: credentials)
 
-            print("authResponse: \(authResponse)")
 
             // Save authentication data
             try await saveAuthenticationData(authResponse)

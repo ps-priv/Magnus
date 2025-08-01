@@ -8,6 +8,7 @@ public protocol NetworkServiceProtocol {
     func request<T: Decodable>(
         endpoint: String,
         method: HTTPMethod,
+        headers: HTTPHeaders?,
         parameters: Parameters?,
         encoding: ParameterEncoding,
         responseType: T.Type
@@ -16,6 +17,7 @@ public protocol NetworkServiceProtocol {
     func request(
         endpoint: String,
         method: HTTPMethod,
+        headers: HTTPHeaders?,
         parameters: Parameters?,
         encoding: ParameterEncoding
     ) -> AnyPublisher<Void, Error>
@@ -38,6 +40,7 @@ public class NetworkService: NetworkServiceProtocol {
     public func request<T: Decodable>(
         endpoint: String,
         method: HTTPMethod = .get,
+        headers: HTTPHeaders? = nil,
         parameters: Parameters? = nil,
         encoding: ParameterEncoding = URLEncoding.default,
         responseType: T.Type
@@ -68,6 +71,7 @@ public class NetworkService: NetworkServiceProtocol {
     public func request(
         endpoint: String,
         method: HTTPMethod = .get,
+        headers: HTTPHeaders? = nil,
         parameters: Parameters? = nil,
         encoding: ParameterEncoding = URLEncoding.default
     ) -> AnyPublisher<Void, Error> {

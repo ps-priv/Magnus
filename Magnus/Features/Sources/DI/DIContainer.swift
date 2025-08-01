@@ -42,27 +42,32 @@ public class DIContainer {
             return NetworkStatusViewModel(networkMonitor: networkMonitor)
         }.inObjectScope(.container)
 
-        // Register Network Services
-        container.register(AcademyNetworkServiceProtocol.self) { resolver in
-            let networkService = resolver.resolve(NetworkServiceProtocol.self)!
-            return AcademyNetworkService(networkService: networkService)
-        }.inObjectScope(.container)
+        // // Register Network Services
+        // container.register(AcademyNetworkServiceProtocol.self) { resolver in
+        //     let networkService = resolver.resolve(NetworkServiceProtocol.self)!
+        //     return AcademyNetworkService(networkService: networkService)
+        // }.inObjectScope(.container)
 
-        container.register(EventsNetworkServiceProtocol.self) { resolver in
-            let networkService = resolver.resolve(NetworkServiceProtocol.self)!
-            return EventsNetworkService(networkService: networkService)
-        }.inObjectScope(.container)
+        // container.register(EventsNetworkServiceProtocol.self) { resolver in
+        //     let networkService = resolver.resolve(NetworkServiceProtocol.self)!
+        //     return EventsNetworkService(networkService: networkService)
+        // }.inObjectScope(.container)
 
         container.register(AuthNetworkServiceProtocol.self) { resolver in
             let networkService = resolver.resolve(NetworkServiceProtocol.self)!
             return AuthNetworkService(networkService: networkService)
         }.inObjectScope(.container)
 
-        // Register Academy Service
-        container.register(AcademyServiceProtocol.self) { resolver in
-            let networkService = resolver.resolve(AcademyNetworkServiceProtocol.self)!
-            return AcademyService(networkService: networkService)
+        container.register(DashboardNetworkServiceProtocol.self) { resolver in
+            let networkService = resolver.resolve(NetworkServiceProtocol.self)!
+            return DashboardNetworkService(networkService: networkService)
         }.inObjectScope(.container)
+
+        // // Register Academy Service
+        // container.register(AcademyServiceProtocol.self) { resolver in
+        //     let networkService = resolver.resolve(AcademyNetworkServiceProtocol.self)!
+        //     return AcademyService(networkService: networkService)
+        // }.inObjectScope(.container)
 
         // Register AuthService based on application type
         switch applicationType {
@@ -78,9 +83,13 @@ public class DIContainer {
                 IosAuthStorageService()
             }.inObjectScope(.container)
 
-            // Register mock DashboardService
-            container.register(DashboardService.self) { _ in
-                DashboardServiceMock()
+            container.register(DashboardService.self) { resolver in
+                let authStorageService = resolver.resolve(AuthStorageService.self)!
+                let dashboardNetworkService = resolver.resolve(
+                    DashboardNetworkServiceProtocol.self)!
+                return ApiDashboardService(
+                    authStorageService: authStorageService,
+                    dashboardNetworkService: dashboardNetworkService)
             }.inObjectScope(.container)
 
         case .chm:

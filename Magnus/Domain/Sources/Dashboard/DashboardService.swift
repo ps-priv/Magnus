@@ -1,4 +1,4 @@
-public struct DashboardResponse {
+public struct DashboardResponse: Decodable {
     public let news: [NewsItem]
     public let events: [EventItem]
     public let materials: [MaterialItem]
@@ -14,7 +14,7 @@ public struct DashboardResponse {
     }
 }
 
-public struct NewsItem: Identifiable, Hashable {
+public struct NewsItem: Identifiable, Hashable, Decodable {
     public let id: String
     public let title: String
     public let publish_date: String
@@ -28,7 +28,7 @@ public struct NewsItem: Identifiable, Hashable {
     }
 }
 
-public struct EventItem {
+public struct EventItem: Identifiable, Hashable, Decodable {
     public let id: String
     public let name: String
     public let date_from: String
@@ -44,7 +44,7 @@ public struct EventItem {
     }
 }
 
-public struct MaterialItem {
+public struct MaterialItem: Identifiable, Hashable, Decodable {
     public let id: String
     public let name: String
     public let event_title: String?
@@ -65,7 +65,7 @@ public struct MaterialItem {
     }
 }
 
-public struct AcademyItem {
+public struct AcademyItem: Identifiable, Hashable, Decodable {
     public let id: String
     public let name: String
     public let event_title: String?

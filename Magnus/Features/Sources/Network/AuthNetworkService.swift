@@ -66,6 +66,7 @@ public class AuthNetworkService: AuthNetworkServiceProtocol {
         return networkService.request(
             endpoint: "/api/auth/login",
             method: .post,
+            headers: nil,
             parameters: json,
             encoding: JSONEncoding.default,
             responseType: LoginResponse.self

@@ -2,15 +2,21 @@ import MagnusApplication
 import MagnusDomain
 import MagnusFeatures
 import SwiftUI
+
 #if DEBUG
     import Inject
 #endif
 
 struct DashboardMainView: View {
+
+    @StateObject private var viewModel = DashboardViewModel()
+
     @State private var newsItems: [NewsItem] = NewsItemMockGenerator.createMany(count: 3)
     @State private var events: [ConferenceEvent] = EventMockGenerator.createUpcomingEvents(count: 3)
-    @State private var materials: [ConferenceMaterial] = ConferenceMaterialsMockGenerator.createRandomMany(count: 3)
-    @State private var academy: [ConferenceMaterial] = ConferenceMaterialsMockGenerator.createRandomMany(count: 1)
+    @State private var materials: [ConferenceMaterial] =
+        ConferenceMaterialsMockGenerator.createRandomMany(count: 3)
+    @State private var academy: [ConferenceMaterial] =
+        ConferenceMaterialsMockGenerator.createRandomMany(count: 1)
     @EnvironmentObject var navigationManager: NavigationManager
     #if DEBUG
         @ObserveInjection var inject
@@ -27,7 +33,7 @@ struct DashboardMainView: View {
             }
             .padding()
         }
-        .background(Color(.systemGray6))
+        .background(Color.novoNordiskBackgroundGrey)
     }
 }
 

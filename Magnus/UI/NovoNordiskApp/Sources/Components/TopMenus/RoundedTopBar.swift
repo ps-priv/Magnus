@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct RoundedTopBar : View {
+struct RoundedTopBar: View {
     let title: String
     let canGoBack: Bool
     let showSearchButton: Bool
@@ -19,7 +19,7 @@ struct RoundedTopBar : View {
     let onProfileTap: () -> Void
     let onSettingsTap: () -> Void
     let onMessagesTap: () -> Void
-    
+
     init(
         title: String,
         canGoBack: Bool = false,
@@ -45,7 +45,7 @@ struct RoundedTopBar : View {
         self.onSettingsTap = onSettingsTap
         self.onMessagesTap = onMessagesTap
     }
-    
+
     var body: some View {
         HStack {
             if canGoBack {
@@ -73,7 +73,7 @@ struct RoundedTopBar : View {
                 .shadow(color: .black.opacity(0.2), radius: 20, y: 5)
         }
     }
-    
+
     @ViewBuilder
     var backButton: some View {
         Button(action: onBackTap) {
@@ -85,7 +85,7 @@ struct RoundedTopBar : View {
         }
         .buttonStyle(PlainButtonStyle())
     }
-    
+
     @ViewBuilder
     var titleSection: some View {
         VStack {
@@ -95,7 +95,7 @@ struct RoundedTopBar : View {
         }
         .padding(0)
     }
-    
+
     @ViewBuilder
     var buttonSection: some View {
         HStack(spacing: 1) {
@@ -103,18 +103,18 @@ struct RoundedTopBar : View {
                 TopBarSearchButton(action: {})
                     .padding(.trailing, 4)
             }
-            
+
             if showNotificationButtons {
                 TopBarEnvelopeButton(action: onMessagesTap, isActive: isMessagesActive)
                     .padding(.trailing, 4)
                 TopBarAlertButton(action: {})
                     .padding(.trailing, 4)
             }
-            
+
             if showProfileButton {
                 TopBarUserButton(action: onProfileTap)
             }
-            
+
             if showSettingsButton {
                 Button(action: onSettingsTap) {
                     FAIcon(.settings, type: .light, size: 20, color: Color.novoNordiskBlue)
@@ -132,15 +132,11 @@ struct RoundedTopBar : View {
 #Preview("RoundedTopBar") {
 
     ZStack {
-       // Rectangle().fill(.black.gradient).opacity(0.2).ignoresSafeArea()
+        // Rectangle().fill(.black.gradient).opacity(0.2).ignoresSafeArea()
         VStack {
             RoundedTopBar(title: "Sample Title")
             Spacer()
         }
-        
-    }
-}
 
-#Preview("Dashboard") {
-    Dashboard()
+    }
 }
