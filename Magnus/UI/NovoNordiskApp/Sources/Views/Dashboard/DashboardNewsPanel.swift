@@ -13,7 +13,7 @@ struct DashboardNewsPanel: View {
         @ObserveInjection var inject
     #endif
 
-    var items: [NewsItem]
+    @Binding var items: [NewsItem]
     @State private var currentPage: Int = 0
     @EnvironmentObject var navigationManager: NavigationManager
 
@@ -138,13 +138,13 @@ struct NewsItemCard2: View {
     }
 }
 
-#Preview("DashboardNewsPanel") {
-    struct PreviewWrapper: View {
-        @State var items = NewsItemMockGenerator.createMany(count: 3)
-        var body: some View {
-            DashboardNewsPanel(items: items)
-        }
-    }
-    return PreviewWrapper()
-        .environmentObject(NavigationManager())
-}
+// #Preview("DashboardNewsPanel") {
+//     struct PreviewWrapper: View {
+//         @State var items = NewsItemMockGenerator.createMany(count: 3)
+//         var body: some View {
+//             DashboardNewsPanel(items: $items)
+//         }
+//     }
+//     return PreviewWrapper()
+//         .environmentObject(NavigationManager())
+// }

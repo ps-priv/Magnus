@@ -19,7 +19,7 @@ struct DashboardMainView: View {
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 10) {
-                DashboardNewsPanel(items: viewModel.news)
+                DashboardNewsPanel(items: $viewModel.news)
                 DashboardUpcomingEventsPanel(items: viewModel.events)
                 DashboardMaterialsPanel(items: $viewModel.materials)
                 // DashboardAcademyPanel(items: viewModel.academy)
