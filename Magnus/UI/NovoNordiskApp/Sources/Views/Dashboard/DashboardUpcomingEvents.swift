@@ -12,7 +12,7 @@ struct DashboardUpcomingEventsPanel: View {
     @ObserveInjection var inject
     #endif
 
-    var items: [EventItem]
+    @Binding var items: [EventItem]
     @State private var currentPage: Int = 0
     @EnvironmentObject var navigationManager: NavigationManager
 

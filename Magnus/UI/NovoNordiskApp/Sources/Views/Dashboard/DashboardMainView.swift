@@ -20,7 +20,7 @@ struct DashboardMainView: View {
         ScrollView {
             VStack(alignment: .leading, spacing: 10) {
                 DashboardNewsPanel(items: $viewModel.news)
-                DashboardUpcomingEventsPanel(items: viewModel.events)
+                DashboardUpcomingEventsPanel(items: $viewModel.events)
                 DashboardMaterialsPanel(items: $viewModel.materials)
                 // DashboardAcademyPanel(items: viewModel.academy)
                 Spacer()
