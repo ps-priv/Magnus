@@ -11,28 +11,31 @@ struct DashboardAcademyPanel: View {
         @ObserveInjection var inject
     #endif
 
-    @Binding var items: [ConferenceMaterial]
+    @Binding var items: [AcademyItem]
     @EnvironmentObject var navigationManager: NavigationManager
 
     var body: some View {
         VStack {
-            DashboardAcademyCard(items: items, action: { navigationManager.navigate(to: .academy) })
-            Spacer()
+            if !items.isEmpty {
+                DashboardAcademyCard(items: $items, action: { navigationManager.navigate(to: .academy) })
+                Spacer()
+            }
         }
     }
 }
 
 struct DashboardAcademyCard: View {
-    let items: [ConferenceMaterial]
+    @Binding var items: [AcademyItem]
     let action: () -> Void
 
     var body: some View {
         VStack(spacing: 0) {
             titleSection
-            ForEach(items, id: \.id) { item in
+            //ForEach(items, id: \.id) { item in
+            ForEach(Array(items.enumerated()), id: \.offset) { index, item in
                 HStack(alignment: .top) {
                     FAIcon(
-                        ConferenceMaterialTypeConverter.getIcon(from: item.type),
+                        FileTypeConverter.getIcon(from: item.file_type),
                         type: .thin,
                         size: 21,
                         color: Color.primary
@@ -41,13 +44,13 @@ struct DashboardAcademyCard: View {
                     .frame(width: 30)
 
                     VStack(alignment: .leading, spacing: 4) {
-                        Text(item.title)
+                        Text(item.name)
                             .font(.novoNordiskBody)
                             .foregroundColor(.primary)
                             .lineLimit(3)
                             .multilineTextAlignment(.leading)
                         VStack {
-                            Text(PublishedDateHelper.formatDateForEvent(item.publicationDate, LocalizedStrings.months))
+                            Text(PublishedDateHelper.formatDateForEvent(item.publication_date, LocalizedStrings.months))
                                 .font(.system(size: 14))
                                 .foregroundColor(.novoNordiskBlue)
                         }

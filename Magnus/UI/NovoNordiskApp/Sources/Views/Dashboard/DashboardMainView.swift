@@ -22,7 +22,7 @@ struct DashboardMainView: View {
                 DashboardNewsPanel(items: $viewModel.news)
                 DashboardUpcomingEventsPanel(items: $viewModel.events)
                 DashboardMaterialsPanel(items: $viewModel.materials)
-                // DashboardAcademyPanel(items: viewModel.academy)
+                DashboardAcademyPanel(items: $viewModel.academy)
                 Spacer()
             }
             .padding()

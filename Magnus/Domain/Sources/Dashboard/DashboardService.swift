@@ -78,12 +78,12 @@ public struct AcademyItem: Identifiable, Hashable, Decodable {
     public let id: String
     public let name: String
     public let event_title: String?
-    public let file_type: MaterialTypeEnum
+    public let file_type: FileTypeEnum
     public let link: String?
     public let publication_date: String
 
     public init(
-        id: String, name: String, event_title: String?, file_type: MaterialTypeEnum, link: String?,
+        id: String, name: String, event_title: String?, file_type: FileTypeEnum, link: String?,
         publication_date: String
     ) {
         self.id = id
