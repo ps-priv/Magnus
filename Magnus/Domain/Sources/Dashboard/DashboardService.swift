@@ -44,21 +44,30 @@ public struct EventItem: Identifiable, Hashable, Decodable {
     }
 }
 
+public enum FileTypeEnum: Int, CaseIterable, Codable {
+    case pdf = 1
+    case docx = 2
+    case sharepoint = 3
+    case link = 4
+}
+
 public struct MaterialItem: Identifiable, Hashable, Decodable {
     public let id: String
     public let name: String
     public let event_title: String?
-    public let file_type: MaterialTypeEnum
+    public let type: MaterialTypeEnum
+    public let file_type: FileTypeEnum
     public let link: String?
     public let publication_date: String
 
     public init(
-        id: String, name: String, event_title: String?, file_type: MaterialTypeEnum, link: String?,
+        id: String, name: String, event_title: String?, type: MaterialTypeEnum, file_type: FileTypeEnum, link: String?,
         publication_date: String
     ) {
         self.id = id
         self.name = name
         self.event_title = event_title
+        self.type = type
         self.file_type = file_type
         self.link = link
         self.publication_date = publication_date

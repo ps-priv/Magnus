@@ -27,7 +27,7 @@ public enum PublishedDateHelper {
 
     public static func formatDateForEvent(_ dateString: String, _ months: [String]) -> String {
         let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd"
+        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
         formatter.locale = Locale(identifier: "pl_PL")
 
         guard let date = formatter.date(from: dateString) else {

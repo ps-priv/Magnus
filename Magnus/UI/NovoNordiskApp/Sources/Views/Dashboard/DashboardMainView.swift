@@ -10,7 +10,7 @@ import SwiftUI
 struct DashboardMainView: View {
 
     @StateObject private var viewModel = DashboardViewModel()
-    
+
     @EnvironmentObject var navigationManager: NavigationManager
     #if DEBUG
         @ObserveInjection var inject
@@ -21,7 +21,7 @@ struct DashboardMainView: View {
             VStack(alignment: .leading, spacing: 10) {
                 DashboardNewsPanel(items: viewModel.news)
                 DashboardUpcomingEventsPanel(items: viewModel.events)
-                // DashboardMaterialsPanel(items: viewModel.materials)
+                DashboardMaterialsPanel(items: $viewModel.materials)
                 // DashboardAcademyPanel(items: viewModel.academy)
                 Spacer()
             }

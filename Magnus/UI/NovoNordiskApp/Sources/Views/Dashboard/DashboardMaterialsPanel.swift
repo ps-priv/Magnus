@@ -11,28 +11,30 @@ struct DashboardMaterialsPanel: View {
         @ObserveInjection var inject
     #endif
 
-    @Binding var items: [ConferenceMaterial]
+    @Binding var items: [MaterialItem]
     @EnvironmentObject var navigationManager: NavigationManager
 
     var body: some View {
         VStack {
-            DashboardMaterialsCard(items: items, action: { navigationManager.navigate(to: .materialsList) })
-            Spacer()
+            if !items.isEmpty {
+                DashboardMaterialsCard(items: $items, action: { navigationManager.navigate(to: .materialsList) })
+                Spacer()
+            }
         }
     }
 }
 
 struct DashboardMaterialsCard: View {
-    let items: [ConferenceMaterial]
+    @Binding var items: [MaterialItem]
     let action: () -> Void
 
     var body: some View {
         VStack(spacing: 0) {
             titleSection
-            ForEach(items, id: \.id) { item in
+            ForEach(Array(items.enumerated()), id: \.offset) { index, item in
                 HStack(alignment: .top) {
                     FAIcon(
-                        ConferenceMaterialTypeConverter.getIcon(from: item.type),
+                        FileTypeConverter.getIcon(from: item.file_type),
                         type: .thin,
                         size: 21,
                         color: Color.primary
@@ -41,13 +43,13 @@ struct DashboardMaterialsCard: View {
                     .frame(width: 30)
                     
                     VStack(alignment: .leading, spacing: 4) {
-                        Text(item.title)
+                        Text(item.name)
                             .font(.novoNordiskBody)
                             .foregroundColor(.primary)
                             .lineLimit(3)
                             .multilineTextAlignment(.leading)
                         VStack {
-                            Text(PublishedDateHelper.formatDateForEvent(item.publicationDate, LocalizedStrings.months))
+                            Text(PublishedDateHelper.formatDateForEvent(item.publication_date, LocalizedStrings.months))
                                 .font(.system(size: 14))
                                 .foregroundColor(.novoNordiskBlue)
                         }
@@ -105,10 +107,10 @@ struct DashboardMaterialsCard: View {
     }
 }
 
-#Preview("DashboardUpcomingEventsCard") {
-    let items = ConferenceMaterialsMockGenerator.createMany(count: 3)
-    VStack {
-        DashboardMaterialsCard(items: items, action: {})
-        Spacer()
-    }.padding(10)
-}
+// #Preview("DashboardUpcomingEventsCard") {
+//     let items = ConferenceMaterialsMockGenerator.createMany(count: 3)
+//     VStack {
+//         DashboardMaterialsCard(items: items, action: {})
+//         Spacer()
+//     }.padding(10)
+// }
