@@ -11,7 +11,8 @@ public protocol NetworkServiceProtocol {
         headers: HTTPHeaders?,
         parameters: Parameters?,
         encoding: ParameterEncoding,
-        responseType: T.Type
+        responseType: T.Type,
+        bearerToken: String?
     ) -> AnyPublisher<T, Error>
 
     func request(
@@ -19,7 +20,8 @@ public protocol NetworkServiceProtocol {
         method: HTTPMethod,
         headers: HTTPHeaders?,
         parameters: Parameters?,
-        encoding: ParameterEncoding
+        encoding: ParameterEncoding,
+        bearerToken: String?
     ) -> AnyPublisher<Void, Error>
 }
 
@@ -43,9 +45,22 @@ public class NetworkService: NetworkServiceProtocol {
         headers: HTTPHeaders? = nil,
         parameters: Parameters? = nil,
         encoding: ParameterEncoding = URLEncoding.default,
-        responseType: T.Type
+        responseType: T.Type,
+        bearerToken: String? = nil
     ) -> AnyPublisher<T, Error> {
         let url = configuration.baseURL + endpoint
+        
+        // Combine default headers with bearer token if provided
+        var finalHeaders = self.configuration.headers
+        if let customHeaders = headers {
+            customHeaders.forEach { header in
+                finalHeaders.add(header)
+            }
+        }
+        
+        if let token = bearerToken, !token.isEmpty {
+            finalHeaders.add(.authorization(bearerToken: token))
+        }
 
         return Future<T, Error> { promise in
             self.session.request(
@@ -53,7 +68,7 @@ public class NetworkService: NetworkServiceProtocol {
                 method: method,
                 parameters: parameters,
                 encoding: encoding,
-                headers: self.configuration.headers
+                headers: finalHeaders
             )
             .validate()
             .responseDecodable(of: T.self) { response in
@@ -73,9 +88,22 @@ public class NetworkService: NetworkServiceProtocol {
         method: HTTPMethod = .get,
         headers: HTTPHeaders? = nil,
         parameters: Parameters? = nil,
-        encoding: ParameterEncoding = URLEncoding.default
+        encoding: ParameterEncoding = URLEncoding.default,
+        bearerToken: String? = nil
     ) -> AnyPublisher<Void, Error> {
         let url = configuration.baseURL + endpoint
+        
+        // Combine default headers with bearer token if provided
+        var finalHeaders = self.configuration.headers
+        if let customHeaders = headers {
+            customHeaders.forEach { header in
+                finalHeaders.add(header)
+            }
+        }
+        
+        if let token = bearerToken, !token.isEmpty {
+            finalHeaders.add(.authorization(bearerToken: token))
+        }
 
         return Future<Void, Error> { promise in
             self.session.request(
@@ -83,7 +111,7 @@ public class NetworkService: NetworkServiceProtocol {
                 method: method,
                 parameters: parameters,
                 encoding: encoding,
-                headers: self.configuration.headers
+                headers: finalHeaders
             )
             .validate()
             .response { response in
@@ -96,6 +124,50 @@ public class NetworkService: NetworkServiceProtocol {
             }
         }
         .eraseToAnyPublisher()
+    }
+}
+
+// MARK: - Convenience Extensions
+
+public extension NetworkServiceProtocol {
+    /// Convenience method for requests with bearer token
+    func requestWithBearerToken<T: Decodable>(
+        endpoint: String,
+        method: HTTPMethod = .get,
+        headers: HTTPHeaders? = nil,
+        parameters: Parameters? = nil,
+        encoding: ParameterEncoding = URLEncoding.default,
+        responseType: T.Type,
+        bearerToken: String
+    ) -> AnyPublisher<T, Error> {
+        return request(
+            endpoint: endpoint,
+            method: method,
+            headers: headers,
+            parameters: parameters,
+            encoding: encoding,
+            responseType: responseType,
+            bearerToken: bearerToken
+        )
+    }
+    
+    /// Convenience method for requests with bearer token (no response type)
+    func requestWithBearerToken(
+        endpoint: String,
+        method: HTTPMethod = .get,
+        headers: HTTPHeaders? = nil,
+        parameters: Parameters? = nil,
+        encoding: ParameterEncoding = URLEncoding.default,
+        bearerToken: String
+    ) -> AnyPublisher<Void, Error> {
+        return request(
+            endpoint: endpoint,
+            method: method,
+            headers: headers,
+            parameters: parameters,
+            encoding: encoding,
+            bearerToken: bearerToken
+        )
     }
 }
 

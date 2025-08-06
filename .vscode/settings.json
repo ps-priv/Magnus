@@ -1,22 +1,7 @@
 {
-    "swift.buildPath": "./Derived",
-    "swift.targetBuildPath": "./Derived",
-    "swift.debuggerPath": "/usr/bin/lldb",
-    "swift.sourcekit-lsp.serverPath": "/usr/bin/sourcekit-lsp",
-    "swift.sourcekit-lsp.trace.server": "messages",
-    "swift.sourcekit-lsp.serverArguments": [
-        "-Xswiftc", "-I/usr/lib/swift",
-        "-Xswiftc", "-I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/lib/swift"
-    ],
-    "sweetpad.build.env": {
-
-    },
-    "sweetpad.format.path": "swiftformat",
-    "sweetpad.format.args": [
-        "--quiet",
-        "${file}"
-    ],
-    "[swift]": {
-    "editor.formatOnSave": true
-    }
+    "testing.automaticallyOpenPeekView": "never",
+    "testing.followRunningTest": true,
+    "testing.gutterEnabled": true,
+    "testing.openTesting": "openOnTestStart",
+    "testing.automaticallyOpenTestResults": "openOnTestStart"
 } 

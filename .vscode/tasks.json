@@ -1,0 +1,77 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Run All Tests",
+            "type": "shell",
+            "command": "xcodebuild",
+            "args": [
+                "test",
+                "-workspace",
+                "Magnus.xcworkspace",
+                "-scheme",
+                "MagnusTests",
+                "-destination",
+                "platform=iOS Simulator,name=iPhone 16",
+                "-only-testing:MagnusTests"
+            ],
+            "group": {
+                "kind": "test",
+                "isDefault": true
+            },
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared"
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "Run DashboardNetworkServiceTests",
+            "type": "shell",
+            "command": "xcodebuild",
+            "args": [
+                "test",
+                "-workspace",
+                "Magnus.xcworkspace",
+                "-scheme",
+                "MagnusTests",
+                "-destination",
+                "platform=iOS Simulator,name=iPhone 16",
+                "-only-testing:MagnusTests/DashboardNetworkServiceTests"
+            ],
+            "group": "test",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared"
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "Run Specific Test Method",
+            "type": "shell",
+            "command": "xcodebuild",
+            "args": [
+                "test",
+                "-workspace",
+                "Magnus.xcworkspace",
+                "-scheme",
+                "MagnusTests",
+                "-destination",
+                "platform=iOS Simulator,name=iPhone 16",
+                "-only-testing:MagnusTests/DashboardNetworkServiceTests/test_getDashboardData_withValidToken_shouldMakeHTTPRequest"
+            ],
+            "group": "test",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared"
+            },
+            "problemMatcher": []
+        }
+    ]
+} 

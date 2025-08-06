@@ -15,17 +15,11 @@ public class DashboardNetworkService: DashboardNetworkServiceProtocol {
     }
 
     public func getDashboardData(token: String) -> AnyPublisher<DashboardResponse, Error> {
-
-        let headers = JwtHeaderHelper.getJwtHeader(token: token)
-
-        return networkService.request(
+        return networkService.requestWithBearerToken(
             endpoint: "/api/dashboard",
             method: .get,
-            headers: headers,
-            parameters: nil,
-            encoding: URLEncoding.default,
-            responseType: DashboardResponse.self
+            responseType: DashboardResponse.self,
+            bearerToken: token
         )
     }
-
 }

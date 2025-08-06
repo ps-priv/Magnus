@@ -6,17 +6,18 @@ import SwiftUI
 
 @MainActor
 public class DashboardViewModel: ObservableObject {
+    @Published public var news: [NewsItem] = []
+    @Published public var events: [EventItem] = []
+    @Published public var materials: [MaterialItem] = []
+    @Published public var academy: [AcademyItem] = []
 
-    // MARK: - Published Properties
-    @Published public var dashboardData: DashboardResponse?
     @Published public var isLoading: Bool = false
     @Published public var errorMessage: String = ""
     @Published public var hasError: Bool = false
 
-    /// Check if dashboard has any data
+
     public var hasData: Bool {
-        guard let data = dashboardData else { return false }
-        return !data.news.isEmpty || !data.events.isEmpty || !data.materials.isEmpty
+        return !news.isEmpty || !events.isEmpty || !materials.isEmpty || !academy.isEmpty
     }
 
     private let dashboardService: DashboardService
@@ -43,11 +44,14 @@ public class DashboardViewModel: ObservableObject {
         do {
             let data = try await dashboardService.getDashboard()
 
-            print("data: \(data)")
-
             await MainActor.run {
-                dashboardData = data
+                news = data.news
+                events = data.events
+                materials = data.materials
+                academy = data.academy
+
                 isLoading = false
+   
             }
 
         } catch let error {
@@ -58,18 +62,23 @@ public class DashboardViewModel: ObservableObject {
 
     /// Get news item by ID
     public func getNewsItem(by id: String) -> NewsItem? {
-        return dashboardData?.news.first { $0.id == id }
+        return news.first { $0.id == id }
     }
 
-    /// Get event item by ID
-    public func getEventItem(by id: String) -> EventItem? {
-        return dashboardData?.events.first { $0.id == id }
-    }
+    // /// Get event item by ID
+    // public func getEventItem(by id: String) -> EventItem? {
+    //     return events.first { $0.id == id }
+    // }
 
-    /// Get material item by ID
-    public func getMaterialItem(by id: String) -> MaterialItem? {
-        return dashboardData?.materials.first { $0.id == id }
-    }
+    // /// Get material item by ID
+    // public func getMaterialItem(by id: String) -> ConferenceMaterial? {
+    //     return materials.first { $0.id == id }
+    // }
+
+    //     /// Get material item by ID
+    // public func getAcademyItem(by id: String) -> AcademyItem? {
+    //     return academy.first { $0.id == id }
+    // }
 
     // MARK: - Private Methods
 

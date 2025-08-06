@@ -13,7 +13,7 @@ struct DashboardNewsPanel: View {
         @ObserveInjection var inject
     #endif
 
-    @Binding var items: [NewsItem]
+    var items: [NewsItem]
     @State private var currentPage: Int = 0
     @EnvironmentObject var navigationManager: NavigationManager
 
@@ -142,7 +142,7 @@ struct NewsItemCard2: View {
     struct PreviewWrapper: View {
         @State var items = NewsItemMockGenerator.createMany(count: 3)
         var body: some View {
-            DashboardNewsPanel(items: $items)
+            DashboardNewsPanel(items: items)
         }
     }
     return PreviewWrapper()

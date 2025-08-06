@@ -1,0 +1,17 @@
+[
+    {
+        "key": "cmd+shift+t",
+        "command": "workbench.action.tasks.runTask",
+        "args": "Run All Tests"
+    },
+    {
+        "key": "cmd+shift+d",
+        "command": "workbench.action.tasks.runTask",
+        "args": "Run DashboardNetworkServiceTests"
+    },
+    {
+        "key": "cmd+shift+m",
+        "command": "workbench.action.tasks.runTask",
+        "args": "Run Specific Test Method"
+    }
+] 

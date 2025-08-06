@@ -69,7 +69,8 @@ public class AuthNetworkService: AuthNetworkServiceProtocol {
             headers: nil,
             parameters: json,
             encoding: JSONEncoding.default,
-            responseType: LoginResponse.self
+            responseType: LoginResponse.self,
+            bearerToken: nil
         )
     }
 

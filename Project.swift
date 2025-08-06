@@ -162,5 +162,20 @@ let project = Project(
                 ]
             )
         ),
+        .target(
+            name: "MagnusTests",
+            destinations: .iOS,
+            product: .unitTests,
+            bundleId: "pl.mz.magnus.MagnusTests",
+            infoPlist: .default,
+            sources: ["Magnus/Tests/**"],
+            dependencies: [
+                .target(name: "MagnusDomain"),
+                .target(name: "MagnusApplication"),
+                .target(name: "MagnusFeatures"),
+                .package(product: "Alamofire"),
+                .package(product: "Sentry"),
+            ]
+        ),
     ]
 )
