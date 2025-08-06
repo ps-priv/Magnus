@@ -42,17 +42,6 @@ public class DIContainer {
             return NetworkStatusViewModel(networkMonitor: networkMonitor)
         }.inObjectScope(.container)
 
-        // // Register Network Services
-        // container.register(AcademyNetworkServiceProtocol.self) { resolver in
-        //     let networkService = resolver.resolve(NetworkServiceProtocol.self)!
-        //     return AcademyNetworkService(networkService: networkService)
-        // }.inObjectScope(.container)
-
-        // container.register(EventsNetworkServiceProtocol.self) { resolver in
-        //     let networkService = resolver.resolve(NetworkServiceProtocol.self)!
-        //     return EventsNetworkService(networkService: networkService)
-        // }.inObjectScope(.container)
-
         container.register(AuthNetworkServiceProtocol.self) { resolver in
             let networkService = resolver.resolve(NetworkServiceProtocol.self)!
             return AuthNetworkService(networkService: networkService)
@@ -62,12 +51,11 @@ public class DIContainer {
             let networkService = resolver.resolve(NetworkServiceProtocol.self)!
             return DashboardNetworkService(networkService: networkService)
         }.inObjectScope(.container)
-
-        // // Register Academy Service
-        // container.register(AcademyServiceProtocol.self) { resolver in
-        //     let networkService = resolver.resolve(AcademyNetworkServiceProtocol.self)!
-        //     return AcademyService(networkService: networkService)
-        // }.inObjectScope(.container)
+ 
+        container.register(NewsNetworkServiceProtocol.self) { resolver in
+            let networkService = resolver.resolve(NetworkServiceProtocol.self)!
+            return NewsNetworkService(networkService: networkService)
+        }.inObjectScope(.container)
 
         // Register AuthService based on application type
         switch applicationType {
@@ -90,6 +78,14 @@ public class DIContainer {
                 return ApiDashboardService(
                     authStorageService: authStorageService,
                     dashboardNetworkService: dashboardNetworkService)
+            }.inObjectScope(.container)
+
+            container.register(NewsServiceProtocol.self) { resolver in
+                let authStorageService = resolver.resolve(AuthStorageService.self)!
+                let newsNetworkService = resolver.resolve(NewsNetworkServiceProtocol.self)!
+                return ApiNewsService(
+                    authStorageService: authStorageService,
+                    newsNetworkService: newsNetworkService)
             }.inObjectScope(.container)
 
         case .chm:
