@@ -147,6 +147,7 @@ enum LocalizedStrings {
     static let eventInProgress = "EVENT_IN_PROGRESS".localized
     static let eventSeats = "EVENT_SEATS".localized
     static let eventSeatsNotConfirmed = "EVENT_SEATS_NOT_CONFIRMED".localized
+    static let dashboardUpcomingEventsEmpty  = "DASHBOARD_UPCOMING_EVENTS_EMPTY".localized
 
     // Eventy qr code
     static let eventQrCodeScanToRegister = "EVENT_QR_CODE_SCAN_TO_REGISTER".localized

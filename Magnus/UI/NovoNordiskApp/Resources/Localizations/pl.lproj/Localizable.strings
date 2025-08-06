@@ -136,6 +136,7 @@
 "EVENT_IN_PROGRESS"="TRWA";
 "EVENT_SEATS"="Miejsc:";
 "EVENT_SEATS_NOT_CONFIRMED"="Niepotwierdzone:";
+"DASHBOARD_UPCOMING_EVENTS_EMPTY"="Brak wydarzeń";
 
 /* Event qr code */
 "EVENT_QR_CODE_SCAN_TO_REGISTER"="Zeskanuj kod aby zgłosić swój udział";

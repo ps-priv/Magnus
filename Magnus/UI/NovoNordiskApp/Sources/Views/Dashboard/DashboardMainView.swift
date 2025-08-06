@@ -10,11 +10,7 @@ import SwiftUI
 struct DashboardMainView: View {
 
     @StateObject private var viewModel = DashboardViewModel()
-
-    // @State private var newsItems: [NewsItem] = NewsItemMockGenerator.createMany(count: 3)
-    // @State private var events: [ConferenceEvent] = EventMockGenerator.createUpcomingEvents(count: 3)
-    // @State private var materials: [ConferenceMaterial] = ConferenceMaterialsMockGenerator.createRandomMany(count: 3)
-    // @State private var academy: [ConferenceMaterial] = ConferenceMaterialsMockGenerator.createRandomMany(count: 1)
+    
     @EnvironmentObject var navigationManager: NavigationManager
     #if DEBUG
         @ObserveInjection var inject
@@ -24,7 +20,7 @@ struct DashboardMainView: View {
         ScrollView {
             VStack(alignment: .leading, spacing: 10) {
                 DashboardNewsPanel(items: viewModel.news)
-                // DashboardUpcomingEventsPanel(items: viewModel.events)
+                DashboardUpcomingEventsPanel(items: viewModel.events)
                 // DashboardMaterialsPanel(items: viewModel.materials)
                 // DashboardAcademyPanel(items: viewModel.academy)
                 Spacer()

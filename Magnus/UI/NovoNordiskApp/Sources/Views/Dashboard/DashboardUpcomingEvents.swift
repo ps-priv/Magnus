@@ -12,34 +12,36 @@ struct DashboardUpcomingEventsPanel: View {
     @ObserveInjection var inject
     #endif
 
-    @Binding var items: [ConferenceEvent]
+    var items: [EventItem]
     @State private var currentPage: Int = 0
     @EnvironmentObject var navigationManager: NavigationManager
 
     var body: some View {
         VStack {
-            DashboardUpcomingEventsCard(item: items[0], action: {navigationManager.navigate(to: .eventsList)})
+            if !items.isEmpty {
+                DashboardUpcomingEventsCard(item: items[0], action: {navigationManager.navigate(to: .eventsList)})
+            }
             Spacer()
         }
     }
 }
 
 struct DashboardUpcomingEventsCard: View {
-    let item: ConferenceEvent
+    let item: EventItem
     let action: () -> Void
     
     var body: some View {
         VStack(spacing: 0) {
             titleSection
             VStack(alignment: .leading, spacing: 4) {
-                Text(item.title)
+                Text(item.name)
                     .font(.novoNordiskBody)
                     .fontWeight(.semibold)
                     .foregroundColor(.primary)
                     .lineLimit(3)
                     .multilineTextAlignment(.leading)
                 HStack {
-                    Text(PublishedDateHelper.formatDateRangeForEvent(item.dateFrom, item.dateTo, LocalizedStrings.months))
+                    Text(PublishedDateHelper.formatDateRangeForEvent(item.date_from, item.date_to, LocalizedStrings.months))
                         .font(.system(size: 16))
                         .fontWeight(.bold)
                         .foregroundColor(.novoNordiskBlue)
@@ -95,7 +97,7 @@ struct DashboardUpcomingEventsCard: View {
     }
 }
 
-#Preview("DashboardUpcomingEventsCard") {
-    DashboardUpcomingEventsCard(item: EventMockGenerator.createUpcomingEvents(count: 1)[0], action: {})
-    Spacer()
-}
+// #Preview("DashboardUpcomingEventsCard") {
+//     DashboardUpcomingEventsCard(item: EventMockGenerator.createUpcomingEvents(count: 1)[0], action: {})
+//     Spacer()
+// }
