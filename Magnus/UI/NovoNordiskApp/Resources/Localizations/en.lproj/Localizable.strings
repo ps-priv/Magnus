@@ -153,3 +153,7 @@
 "NO_INTERNET_CONNECTION_TITLE" = "No Internet Connection";
 "NO_INTERNET_CONNECTION_MESSAGE" = "Please check your internet connection and try again.";
 "NO_INTERNET_CONNECTION_RETRY_BUTTON" = "Retry";
+
+/* News list */
+"NEWS_LIST_EDIT_NEWS"="Edit news";
+"NEWS_LIST_DELETE_NEWS"="Delete news";

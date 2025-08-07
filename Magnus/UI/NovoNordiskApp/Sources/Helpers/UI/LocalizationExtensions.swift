@@ -165,4 +165,8 @@ enum LocalizedStrings {
     static let noInternetConnectionTitle = "NO_INTERNET_CONNECTION_TITLE".localized
     static let noInternetConnectionMessage = "NO_INTERNET_CONNECTION_MESSAGE".localized
     static let noInternetConnectionRetryButton = "NO_INTERNET_CONNECTION_RETRY_BUTTON".localized
+
+    // News list
+    static let newsListEditNews = "NEWS_LIST_EDIT_NEWS".localized
+    static let newsListDeleteNews = "NEWS_LIST_DELETE_NEWS".localized
 }

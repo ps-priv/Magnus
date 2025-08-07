@@ -154,3 +154,7 @@
 "NO_INTERNET_CONNECTION_TITLE" = "Brak połączenia z internetem";
 "NO_INTERNET_CONNECTION_MESSAGE" = "Sprawdź połączenie z internetem i spróbuj ponownie.";
 "NO_INTERNET_CONNECTION_RETRY_BUTTON" = "Spróbuj ponownie";
+
+/* News list */
+"NEWS_LIST_EDIT_NEWS"="Edytuj wpis";
+"NEWS_LIST_DELETE_NEWS"="Usuń wpis";

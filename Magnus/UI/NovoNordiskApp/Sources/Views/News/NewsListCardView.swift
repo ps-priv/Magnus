@@ -110,12 +110,31 @@ struct NewsListCardView: View {
 
     @ViewBuilder
     var editSection: some View {
-        FAIcon(
-            FontAwesome.Icon.ellipsisVertical,
-            type: .light,
-            size: 16,
-            color: Color.novoNordiskTextGrey
-        )
+        Menu {
+            Button {
+                // Edit news action
+                print("Edit news tapped")
+            } label: {
+                Label(LocalizedStrings.newsListEditNews, systemImage: "pencil")
+            }
+            
+            Button(role: .destructive) {
+                // Delete news action
+                print("Delete news tapped")
+            } label: {
+                Label(LocalizedStrings.newsListDeleteNews, systemImage: "trash")
+            }
+        } label: {
+            FAIcon(
+                FontAwesome.Icon.ellipsisVertical,
+                type: .light,
+                size: 16,
+                color: Color.novoNordiskTextGrey
+            )
+        }
+        .menuStyle(BorderlessButtonMenuStyle())
+        .background(Color.white)
+        //.shadow(color: .black.opacity(0.9), radius: 12, x: 0, y: 0)
     }
 
     @ViewBuilder
