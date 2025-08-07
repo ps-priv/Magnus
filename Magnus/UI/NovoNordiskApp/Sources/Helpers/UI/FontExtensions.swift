@@ -64,6 +64,18 @@ extension Font {
     static var novoNordiskSectionTitle: Font {
         return openSansRegular(size: 19)
     }
+
+    static var novoNordiskAuthorName: Font {
+        return openSansLight(size: 13)
+    }
+
+    static var novoNordiskAuthorGroups: Font {
+        return openSansLight(size: 11)
+    }
+
+    static var novoNordiskSmallText: Font {
+        return openSansLight(size: 12)
+    }
 }
 
 // MARK: - NovoNordisk Typography Environment

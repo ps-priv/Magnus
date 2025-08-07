@@ -1,6 +1,7 @@
 import Foundation
 import Combine
 import MagnusDomain
+import MagnusFeatures
 
 @MainActor
 public class NewsListViewModel: ObservableObject {
@@ -10,10 +11,9 @@ public class NewsListViewModel: ObservableObject {
     @Published public var errorMessage: String = ""
     @Published public var hasError: Bool = false
 
-    private let newsService: NewsServiceProtocol
-    private var cancellables = Set<AnyCancellable>()
+    private let newsService: ApiNewsService
 
-    public init(newsService: NewsServiceProtocol = DIContainer.shared.newsService) {
+    public init(newsService: ApiNewsService = DIContainer.shared.newsService) {
         self.newsService = newsService
 
         Task {
@@ -31,12 +31,14 @@ public class NewsListViewModel: ObservableObject {
         }
 
         do {
-            let data = try await newsService.getNews()
+            let data: GetNewsResponse = try await newsService.getNews()
+            print("data: \(data)")
 
             await MainActor.run {
+                print("data: \(data)")
                 news = data.news
                 isLoading = false
-   
+                print("news: \(news)")  
             }
         } catch let error {
             isLoading = false

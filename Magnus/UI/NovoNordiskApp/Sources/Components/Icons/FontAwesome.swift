@@ -106,6 +106,17 @@ enum FontAwesome {
         // top bar buttons
         case box_archive = "\u{f187}"
 
+        //news stats icons
+        case eye = "\u{f06e}"
+        case comment = "\u{f075}"
+        case smile = "\u{f118}"
+
+        //bookmark
+        case bookmark = "\u{f02e}"
+
+        //edit
+        case ellipsisVertical = "\u{f142}"
+
         var unicode: String {
             return rawValue
         }

@@ -30,9 +30,9 @@ public extension DIContainer {
     }
     
     /// Returns registered NewsService instance
-    var newsService: NewsServiceProtocol {
-        guard let service = resolve(NewsServiceProtocol.self) else {
-            fatalError("NewsServiceProtocol not registered in DI container")
+    var newsService: ApiNewsService {
+        guard let service = resolve(ApiNewsService.self) else {
+            fatalError("ApiNewsService not registered in DI container")
         }
         return service
     }

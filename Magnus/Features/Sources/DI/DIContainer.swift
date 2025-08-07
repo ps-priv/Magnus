@@ -80,7 +80,7 @@ public class DIContainer {
                     dashboardNetworkService: dashboardNetworkService)
             }.inObjectScope(.container)
 
-            container.register(NewsServiceProtocol.self) { resolver in
+            container.register(ApiNewsService.self) { resolver in
                 let authStorageService = resolver.resolve(AuthStorageService.self)!
                 let newsNetworkService = resolver.resolve(NewsNetworkServiceProtocol.self)!
                 return ApiNewsService(
