@@ -70,7 +70,10 @@ struct NewsListCardView: View {
 
     @ViewBuilder
     var bookmarkedSection: some View {
-        if !news.is_bookmarked {
+        let isBookmarked: Bool = Bool.random()
+
+        //if !news.is_bookmarked {
+        if isBookmarked {
             FAIcon(
                 FontAwesome.Icon.bookmark,
                 type: .light,
@@ -99,17 +102,21 @@ struct NewsListCardView: View {
 
     @ViewBuilder
     var descriptionSection: some View {
-        Text(news.description)
+        // Text(news.description)
+        //     .font(.novoNordiskBody)
+        //     .lineLimit(4)
+
+        Text(DescriptionMock.getLongDescription())
             .font(.novoNordiskBody)
             .lineLimit(4)
     }
 
-    @ViewBuilder
-    var tagsSection: some View {
-        Text(news.tags)
-            .font(.novoNordiskSmallText)
-            .lineLimit(1)
-    }
+    // @ViewBuilder
+    // var tagsSection: some View {
+    //     Text(news.tags)
+    //         .font(.novoNordiskSmallText)
+    //         .lineLimit(1)
+    // }
 
     @ViewBuilder
     var footerSection: some View {

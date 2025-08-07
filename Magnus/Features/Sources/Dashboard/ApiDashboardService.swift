@@ -9,7 +9,6 @@ public class ApiDashboardService: DashboardService {
     private let dashboardNetworkService: DashboardNetworkServiceProtocol
 
     private var cancellables = Set<AnyCancellable>()
-
     public init(
         authStorageService: AuthStorageService,
         dashboardNetworkService: DashboardNetworkServiceProtocol
@@ -22,10 +21,9 @@ public class ApiDashboardService: DashboardService {
 
         let token = try authStorageService.getAccessToken() ?? ""
 
-        print("token: \(token)")
         SentryHelper.capture(message: "token: \(token)")
 
-        let dashboardResponse = try await withCheckedThrowingContinuation { continuation in
+        let dashboardResponse: DashboardResponse = try await withCheckedThrowingContinuation { continuation in
             dashboardNetworkService.getDashboardData(token: token)
                 .sink(
                     receiveCompletion: { completion in
@@ -41,11 +39,7 @@ public class ApiDashboardService: DashboardService {
                     }
                 )
                 .store(in: &cancellables)
-        }
-
-        print("dashboardResponse: \(dashboardResponse)")
-        SentryHelper.capture(message: "dashboardResponse: \(dashboardResponse)")
-
+        } 
         return dashboardResponse
     }
 }
