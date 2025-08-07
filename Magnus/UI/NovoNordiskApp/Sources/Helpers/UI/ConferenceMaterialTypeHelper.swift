@@ -32,8 +32,8 @@ class ConferenceMaterialTypeConverter {
                 return FontAwesome.Icon.fileUrl
             case .sharepoint:
                 return FontAwesome.Icon.fileUrl
-            default:
-                return FontAwesome.Icon.file
+            // default:
+            //     return FontAwesome.Icon.file
         }
     }
 }

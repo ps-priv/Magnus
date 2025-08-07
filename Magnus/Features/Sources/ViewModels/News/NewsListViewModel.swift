@@ -1,7 +1,6 @@
 import Foundation
 import Combine
 import MagnusDomain
-import MagnusFeatures
 
 @MainActor
 public class NewsListViewModel: ObservableObject {

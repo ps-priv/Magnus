@@ -3,6 +3,7 @@ import MagnusApplication
 import MagnusDomain
 import MagnusFeatures
 import SwiftUI
+import Pow
 
 struct NewsListCardView: View {
     let news: News
@@ -94,6 +95,17 @@ struct NewsListCardView: View {
                 )
             }            
         }
+        .changeEffect(
+            .spray(origin: UnitPoint(x: 0.25, y: 0.5)) {
+                if !isBookmarked {
+                    FAIcon(
+                        FontAwesome.Icon.bookmark,
+                        type: .solid,
+                        size: 25,
+                        color: Color.novoNordiskLightBlue
+                    )
+                }
+            }, value: isBookmarked)
     }
 
     @ViewBuilder
