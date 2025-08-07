@@ -4,57 +4,37 @@ import MagnusDomain
 import Kingfisher
 
 struct NewsListView: View {
-    @State private var newsItems: [NewsItem] = NewsItemMockGenerator.createMany(count: 5)
-    @State private var searchText = ""
+
+    @StateObject private var viewModel: NewsListViewModel = NewsListViewModel()
     @EnvironmentObject var navigationManager: NavigationManager
     
-    var filteredNews: [NewsItem] {
-        if searchText.isEmpty {
-            return newsItems
-        } else {
-            return newsItems.filter { item in
-                item.title.localizedCaseInsensitiveContains(searchText)
-//                || item.summary.localizedCaseInsensitiveContains(searchText)
-            }
-        }
-    }
+//     var filteredNews: [NewsItem] {
+//         if searchText.isEmpty {
+//             return newsItems
+//         } else {
+//             return newsItems.filter { item in
+//                 item.title.localizedCaseInsensitiveContains(searchText)
+// //                || item.summary.localizedCaseInsensitiveContains(searchText)
+//             }
+//         }
+//     }
     
     var body: some View {
         VStack(spacing: 0) {
-            // Search Bar
-            searchBar
-                .padding(.horizontal)
-                .padding(.top, 8)
-            
-            // News List
-            if filteredNews.isEmpty {
-                emptyStateView
+            if viewModel.isLoading {
+                ProgressView()
             } else {
                 newsList
             }
         }
         .background(Color(.systemGray6))
     }
-    
-    @ViewBuilder
-    private var searchBar: some View {
-        HStack {
-            FAIcon(.search, type: .light, size: 16, color: .gray)
-            TextField("Szukaj aktualności...", text: $searchText)
-                .textFieldStyle(PlainTextFieldStyle())
-        }
-        .padding(.horizontal, 12)
-        .padding(.vertical, 8)
-        .background(Color.white)
-        .cornerRadius(8)
-        .shadow(color: .black.opacity(0.1), radius: 2, x: 0, y: 1)
-    }
-    
+     
     @ViewBuilder
     private var newsList: some View {
         ScrollView {
             LazyVStack(spacing: 12) {
-                ForEach(filteredNews) { newsItem in
+                ForEach(viewModel.news) { newsItem in
                     NewsListCardView(newsItem: newsItem) {
                         navigationManager.navigateToNewsDetail(newsId: newsItem.id)
                     }
@@ -85,7 +65,7 @@ struct NewsListView: View {
 }
 
 struct NewsListCardView: View {
-    let newsItem: NewsItem
+    let newsItem: News
     let onTap: () -> Void
     
     var body: some View {
@@ -123,9 +103,9 @@ struct NewsListCardView: View {
                     
                     HStack {
                         FAIcon(.clock, type: .light, size: 14, color: .novoNordiskBlue)
-                        Text(newsItem.formattedPublishDate)
-                            .font(.caption)
-                            .foregroundColor(.novoNordiskBlue)
+                        // Text(newsItem.formattedPublishDate)
+                        //     .font(.caption)
+                        //     .foregroundColor(.novoNordiskBlue)
                         Spacer()
                     }
                 }

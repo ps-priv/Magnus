@@ -29,6 +29,14 @@ public extension DIContainer {
         return service
     }
     
+    /// Returns registered NewsService instance
+    var newsService: NewsServiceProtocol {
+        guard let service = resolve(NewsServiceProtocol.self) else {
+            fatalError("NewsServiceProtocol not registered in DI container")
+        }
+        return service
+    }
+    
     // MARK: - Convenience Methods
     
     /// Returns AuthService as specific type for testing
