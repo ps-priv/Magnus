@@ -63,4 +63,25 @@ public class ApiNewsService: NewsServiceProtocol {
         }
         return news
     }
+
+    public func changeNewsBookmarkStatus(id: String) async throws -> Void {
+        let token = try authStorageService.getAccessToken() ?? ""
+        try await withCheckedThrowingContinuation { continuation in
+            newsNetworkService.changeNewsBookmarkStatus(token: token, id: id)
+                .sink(
+                    receiveCompletion: { completion in
+                        switch completion {
+                        case .finished:
+                            continuation.resume(returning: ())
+                        case .failure(let error):
+                            continuation.resume(throwing: error)
+                        }
+                    },
+                    receiveValue: { _ in
+                        // Void response, nothing to do
+                    }
+                )
+                .store(in: &cancellables)
+        }
+    }
 }

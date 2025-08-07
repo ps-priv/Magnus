@@ -28,9 +28,15 @@ struct NewsListView: View {
             ScrollView {
                 LazyVStack(spacing: 12) {
                     ForEach(viewModel.news) { newsItem in
-                        NewsListCardView(news: newsItem) {
+                        NewsListCardView(news: newsItem, 
+                        onTap: {
                             navigationManager.navigateToNewsDetail(newsId: newsItem.id)
-                        }
+                        },
+                        onBookmarkTap: {
+                            Task {
+                                await viewModel.changeNewsBookmarkStatus(id: newsItem.id)
+                            }
+                        })
                     }
                 }
                 .padding(.horizontal)

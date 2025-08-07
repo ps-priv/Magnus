@@ -7,6 +7,9 @@ import SwiftUI
 struct NewsListCardView: View {
     let news: News
     let onTap: () -> Void
+    let onBookmarkTap: () -> Void
+
+    @State var isBookmarked: Bool = Bool.random()
 
     var body: some View {
         Button(action: onTap) {
@@ -70,23 +73,26 @@ struct NewsListCardView: View {
 
     @ViewBuilder
     var bookmarkedSection: some View {
-        let isBookmarked: Bool = Bool.random()
-
-        //if !news.is_bookmarked {
-        if isBookmarked {
-            FAIcon(
-                FontAwesome.Icon.bookmark,
-                type: .light,
-                size: 16,
-                color: Color.novoNordiskTextGrey
-            )
-        } else {
-            FAIcon(
-                FontAwesome.Icon.bookmark,
-                type: .solid,
-                size: 16,
-                color: Color.novoNordiskLightBlue
-            )
+        Button(action: {
+            onBookmarkTap()
+            isBookmarked.toggle()
+        }) {
+            //if !news.is_bookmarked {
+            if isBookmarked {
+                FAIcon(
+                    FontAwesome.Icon.bookmark,
+                    type: .light,
+                    size: 16,
+                    color: Color.novoNordiskTextGrey
+                )
+            } else {
+                FAIcon(
+                    FontAwesome.Icon.bookmark,
+                    type: .solid,
+                    size: 16,
+                    color: Color.novoNordiskLightBlue
+                )
+            }            
         }
     }
 
@@ -192,9 +198,13 @@ struct NewsListCardView: View {
     var news: News = ApiNewsMock.getSingleNews()
 
     VStack {
-        NewsListCardView(news: news) {
+        NewsListCardView(news: news, 
+        onTap: {
             print("Tapped")
-        }
+        },
+        onBookmarkTap: {
+            print("Tapped")
+        })
     }
     .padding(20)
     .background(Color(.systemGray6))
