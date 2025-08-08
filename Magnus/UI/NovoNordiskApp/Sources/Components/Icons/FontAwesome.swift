@@ -117,6 +117,16 @@ enum FontAwesome {
         //edit
         case ellipsisVertical = "\u{f142}"
 
+
+        //reactions
+        case thumbsUp = "\u{f164}"
+        case thumbsDown = "\u{f165}"
+        case clappingHands = "\u{f45f}"
+        case lightBulb = "\u{f0eb}"
+        case handHoldingHeart = "\u{f4be}"
+        //case heart = "\u{f004}"
+
+
         var unicode: String {
             return rawValue
         }
