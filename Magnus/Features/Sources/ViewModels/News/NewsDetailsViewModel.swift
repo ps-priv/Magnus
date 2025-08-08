@@ -3,8 +3,10 @@ import Combine
 import MagnusDomain
 
 @MainActor
-public class NewsListViewModel: ObservableObject {
-    @Published public var news: [News] = []
+public class NewsDetailsViewModel: ObservableObject {
+
+    let id: String
+    @Published public var news: NewsDetails?
 
     @Published public var isLoading: Bool = false
     @Published public var errorMessage: String = ""
@@ -14,15 +16,12 @@ public class NewsListViewModel: ObservableObject {
 
     public init(newsService: ApiNewsService = DIContainer.shared.newsService) {
         self.newsService = newsService
-
         Task {
-            await loadData()
+            await loadData(id: id)
         }
     }
 
-    // MARK: - Setup
-    /// Load dashboard data
-    public func loadData() async {
+    public func loadData(id: String) async {
         await MainActor.run {
             isLoading = true
             hasError = false
@@ -30,26 +29,17 @@ public class NewsListViewModel: ObservableObject {
         }
 
         do {
-            let data: GetNewsResponse = try await newsService.getNews()
+            let data: NewsDetails = try await newsService.getNewsById(id: id)
 
             await MainActor.run {
-                news = data.news
+                news = data
                 isLoading = false
             }
         } catch let error {
             isLoading = false
             errorMessage = error.localizedDescription
             hasError = true
-            SentryHelper.capture(error: error, action: "NewsListViewModel.loadData")
+            SentryHelper.capture(error: error, action: "NewsDetailsViewModel.loadData")
         }
     }
-
-    public func changeNewsBookmarkStatus(id: String) async {
-        do {
-            try await newsService.changeNewsBookmarkStatus(id: id)
-        } catch let error {
-            SentryHelper.capture(error: error, action: "NewsListViewModel.changeNewsBookmarkStatus")
-        }
-    }
-    
-} 
+}
