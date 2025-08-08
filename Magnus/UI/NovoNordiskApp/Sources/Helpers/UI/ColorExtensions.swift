@@ -11,4 +11,5 @@ extension Color {
     static let novoNordiskLightBlue = Color("NovoNordiskLightBlue")
     static let novoNordiskOrangeRed = Color("NovoNordiskOrangeRed")
     static let novoNordiskBackgroundGrey = Color("NovoNordiskBackgroundGrey")
+    static let novoNordiskLightBlueBackground = Color("NovoNordiskLightBlueBackground")
 }
