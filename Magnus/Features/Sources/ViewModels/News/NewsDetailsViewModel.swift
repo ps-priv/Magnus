@@ -14,8 +14,10 @@ public class NewsDetailsViewModel: ObservableObject {
 
     private let newsService: ApiNewsService
 
-    public init(newsService: ApiNewsService = DIContainer.shared.newsService) {
+    public init(id: String, newsService: ApiNewsService = DIContainer.shared.newsService) {
+        self.id = id
         self.newsService = newsService
+
         Task {
             await loadData(id: id)
         }
