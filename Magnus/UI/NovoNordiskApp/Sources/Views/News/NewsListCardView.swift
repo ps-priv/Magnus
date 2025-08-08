@@ -43,6 +43,7 @@ struct NewsListCardView: View {
                     .aspectRatio(contentMode: .fill)
                     .frame(height: 190)
                     .clipped()
+                    .cornerRadius(12)
 
                 VStack(alignment: .leading) {
                     titleSection
