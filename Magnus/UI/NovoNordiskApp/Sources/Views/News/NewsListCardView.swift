@@ -9,8 +9,19 @@ struct NewsListCardView: View {
     let news: News
     let onTap: () -> Void
     let onBookmarkTap: () -> Void
+    let onEditTap: () -> Void
+    let onDeleteTap: () -> Void
 
-    @State var isBookmarked: Bool = Bool.random()
+    @State var isBookmarked: Bool
+
+    init(news: News, onTap: @escaping () -> Void, onBookmarkTap: @escaping () -> Void, onEditTap: @escaping () -> Void, onDeleteTap: @escaping () -> Void) {
+        self.news = news
+        self.onTap = onTap
+        self.onBookmarkTap = onBookmarkTap
+        self.onEditTap = onEditTap
+        self.onDeleteTap = onDeleteTap
+        _isBookmarked = State(initialValue: news.isBookmarked)
+    }
 
     var body: some View {
         Button(action: onTap) {
@@ -112,15 +123,13 @@ struct NewsListCardView: View {
     var editSection: some View {
         Menu {
             Button {
-                // Edit news action
-                print("Edit news tapped")
+                onEditTap()
             } label: {
                 Label(LocalizedStrings.newsListEditNews, systemImage: "pencil")
             }
             
             Button(role: .destructive) {
-                // Delete news action
-                print("Delete news tapped")
+                onDeleteTap()
             } label: {
                 Label(LocalizedStrings.newsListDeleteNews, systemImage: "trash")
             }
@@ -139,21 +148,10 @@ struct NewsListCardView: View {
 
     @ViewBuilder
     var descriptionSection: some View {
-        // Text(news.description)
-        //     .font(.novoNordiskBody)
-        //     .lineLimit(4)
-
-        Text(DescriptionMock.getLongDescription())
+        Text(news.description)
             .font(.novoNordiskBody)
             .lineLimit(4)
     }
-
-    // @ViewBuilder
-    // var tagsSection: some View {
-    //     Text(news.tags)
-    //         .font(.novoNordiskSmallText)
-    //         .lineLimit(1)
-    // }
 
     @ViewBuilder
     var footerSection: some View {
@@ -234,6 +232,12 @@ struct NewsListCardView: View {
             print("Tapped")
         },
         onBookmarkTap: {
+            print("Tapped")
+        },
+        onEditTap: {
+            print("Tapped")
+        },
+        onDeleteTap: {
             print("Tapped")
         })
     }

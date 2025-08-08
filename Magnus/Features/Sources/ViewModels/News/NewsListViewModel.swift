@@ -51,5 +51,12 @@ public class NewsListViewModel: ObservableObject {
             SentryHelper.capture(error: error, action: "NewsListViewModel.changeNewsBookmarkStatus")
         }
     }
-    
+
+    public func deleteNews(id: String) async {
+        // do {
+        //     try await newsService.deleteNews(id: id)
+        // } catch let error {
+        //     SentryHelper.capture(error: error, action: "NewsListViewModel.deleteNews")
+        // }
+    }  
 } 

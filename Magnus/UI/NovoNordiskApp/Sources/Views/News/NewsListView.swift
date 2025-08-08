@@ -29,14 +29,22 @@ struct NewsListView: View {
                 LazyVStack(spacing: 12) {
                     ForEach(viewModel.news) { newsItem in
                         NewsListCardView(news: newsItem, 
-                        onTap: {
-                            navigationManager.navigateToNewsDetail(newsId: newsItem.id)
-                        },
-                        onBookmarkTap: {
-                            Task {
-                                await viewModel.changeNewsBookmarkStatus(id: newsItem.id)
-                            }
-                        })
+                            onTap: {
+                                navigationManager.navigateToNewsDetail(newsId: newsItem.id)
+                            },
+                            onBookmarkTap: {
+                                Task {
+                                    await viewModel.changeNewsBookmarkStatus(id: newsItem.id)
+                                }
+                            },
+                            onEditTap: {
+                                //navigationManager.navigateToNewsEdit(newsId: newsItem.id)
+                            },
+                            onDeleteTap: {
+                                Task {
+                                    await viewModel.deleteNews(id: newsItem.id)
+                                }
+                            })
                     }
                 }
                 .padding(.horizontal)
