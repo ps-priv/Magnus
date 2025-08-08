@@ -9,46 +9,47 @@ struct NewsDetailView: View {
     
     var body: some View {
         ScrollView {
-            if let newsItem = newsItem {
-                VStack(alignment: .leading, spacing: 16) {
-                    KFImage(URL(string: newsItem.image))
-                        .placeholder {
-                            Rectangle().fill(Color.gray.opacity(0.3))
-                                .overlay(
-                                    ProgressView()
-                                        .scaleEffect(1.5)
-                                        .tint(.novoNordiskBlue)
-                                )
-                        }
-                        .resizable()
-                        .aspectRatio(contentMode: .fill)
-                    .frame(height: 250)
-                    .clipped()
+            Text("News detail: \(newsId)")
+//             if let newsItem = newsItem {
+//                 VStack(alignment: .leading, spacing: 16) {
+//                     KFImage(URL(string: newsItem.image))
+//                         .placeholder {
+//                             Rectangle().fill(Color.gray.opacity(0.3))
+//                                 .overlay(
+//                                     ProgressView()
+//                                         .scaleEffect(1.5)
+//                                         .tint(.novoNordiskBlue)
+//                                 )
+//                         }
+//                         .resizable()
+//                         .aspectRatio(contentMode: .fill)
+//                     .frame(height: 250)
+//                     .clipped()
                     
-                    VStack(alignment: .leading, spacing: 16) {
-                        Text(newsItem.title)
-                            .font(.title)
-                            .fontWeight(.bold)
+//                     VStack(alignment: .leading, spacing: 16) {
+//                         Text(newsItem.title)
+//                             .font(.title)
+//                             .fontWeight(.bold)
                         
-                        Text(newsItem.formattedPublishDate)
-                            .font(.caption)
-                            .foregroundColor(.secondary)
+//                         Text(newsItem.formattedPublishDate)
+//                             .font(.caption)
+//                             .foregroundColor(.secondary)
                         
-//                        Text(newsItem.)
-//                            .font(.body)
+// //                        Text(newsItem.)
+// //                            .font(.body)
                         
-                        Text("Pełna treść artykułu zostanie wyświetlona tutaj...")
-                            .font(.body)
-                            .foregroundColor(.secondary)
-                            .italic()
-                    }
-                    .padding()
+//                         Text("Pełna treść artykułu zostanie wyświetlona tutaj...")
+//                             .font(.body)
+//                             .foregroundColor(.secondary)
+//                             .italic()
+//                     }
+//                     .padding()
                     
-                    Spacer()
-                }
-            }
+//                     Spacer()
+//                 }
+//             }
         }
-        .background(Color(.systemGray6))
+        .background(Color.novoNordiskBackgroundGrey)
     }
 }
 
