@@ -50,7 +50,6 @@ struct NewsListCardView: View {
                     .padding(.bottom, 4)
                     descriptionSection
                     .padding(.bottom, 6)
-                    //tagsSection
                     footerSection
                 }
                 .padding(.horizontal, 16)

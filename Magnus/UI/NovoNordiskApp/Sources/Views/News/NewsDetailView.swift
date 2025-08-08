@@ -1,7 +1,7 @@
-import SwiftUI
-import MagnusFeatures
-import MagnusDomain
 import Kingfisher
+import MagnusDomain
+import MagnusFeatures
+import SwiftUI
 
 struct NewsDetailView: View {
     let newsId: String
@@ -11,16 +11,19 @@ struct NewsDetailView: View {
         self.newsId = newsId
         _viewModel = StateObject(wrappedValue: NewsDetailsViewModel(id: newsId))
     }
-    
+
     var body: some View {
         ScrollView {
-   
-
-        }
-        .background(Color.novoNordiskBackgroundGrey)
+            if viewModel.isLoading {
+                ProgressView()
+            } else {
+                Text(viewModel.news?.title ?? "No title")
+               // NewsDetailCardView(news: NewsDetailCardViewDto.fromNewsDetails(newsDetails: viewModel.news ?? NewsDetails()), onTap: {}, onBookmarkTap: {}, onEditTap: {}, onDeleteTap: {}, onReactionTap: {})
+            }
+        }.background(Color.novoNordiskBackgroundGrey)
     }
 }
 
-#Preview {
-    NewsDetailView(newsId: "1")
-} 
+// #Preview {
+//     NewsDetailView(newsId: "1")
+// }

@@ -44,4 +44,14 @@ public class NewsDetailsViewModel: ObservableObject {
             SentryHelper.capture(error: error, action: "NewsDetailsViewModel.loadData")
         }
     }
+
+    public func sendNewsReaction(reaction: ReactionEnum) async {
+        do {
+            try await newsService.sendNewsReaction(id: id, reaction: reaction)
+        } catch let error {
+            errorMessage = error.localizedDescription
+            hasError = true
+            SentryHelper.capture(error: error, action: "NewsDetailsViewModel.sendNewsReaction")
+        }
+    }
 }

@@ -1,3 +1,6 @@
+import Foundation
+import MagnusDomain
+
 public struct NewsDetails : Identifiable, Hashable, Decodable {
     public let id: String
     public let publish_date: String 
@@ -43,4 +46,9 @@ public struct NewsDetails : Identifiable, Hashable, Decodable {
         self.read = read
         self.attachments = attachments
     }
+
+    // public static func getEmptyNewsDetails() -> NewsDetails {
+    //     return NewsDetails(id: "", publish_date: "", title: "", description: "", image: "", highlight_entry: 0, block_comments: 0, block_reactions: 0, 
+    //     author: Author(id: "", name: "", image: ""), tags: [], groups: [], isBookmarked: false, read_count: 0, reactions_count: 0, comments_count: 0, comments: [], reactions: [], read: [], attachments: [])
+    // }
 }

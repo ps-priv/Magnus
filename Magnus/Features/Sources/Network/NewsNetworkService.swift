@@ -7,6 +7,7 @@ public protocol NewsNetworkServiceProtocol {
     func getNews(token: String) -> AnyPublisher<GetNewsResponse, Error>
     func getNewsById(token: String, id: String) -> AnyPublisher<NewsDetails, Error>
     func changeNewsBookmarkStatus(token: String, id: String) -> AnyPublisher<Void, Error>
+    func sendReaction(token: String, id: String, reaction: ReactionEnum) -> AnyPublisher<Void, Error>
 }
 
 public class NewsNetworkService: NewsNetworkServiceProtocol {
@@ -38,6 +39,23 @@ public class NewsNetworkService: NewsNetworkServiceProtocol {
         return networkService.requestWithBearerToken(
             endpoint: "/api/news/\(id)/bookmark",
             method: .post,
+            bearerToken: token
+        )
+    }
+
+    public func sendReaction(token: String, id: String, reaction: ReactionEnum) -> AnyPublisher<Void, Error> {
+        let request = SendReactionRequest(reaction_type: reaction)
+        
+        // Convert request to dictionary for JSON encoding
+        let parameters: [String: Any] = [
+            "reaction_type": reaction.rawValue
+        ]
+
+        return networkService.requestWithBearerToken(
+            endpoint: "/api/news/\(id)/reaction",
+            method: .post,
+            parameters: parameters,
+            encoding: JSONEncoding.default,
             bearerToken: token
         )
     }
