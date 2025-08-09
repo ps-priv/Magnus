@@ -1,5 +1,4 @@
 import Foundation
-import MagnusDomain
 
 public struct NewsDetails : Identifiable, Hashable, Decodable {
     public let id: String
@@ -19,13 +18,14 @@ public struct NewsDetails : Identifiable, Hashable, Decodable {
     public let comments_count: Int
     public let comments: [Comment]
     public let reactions: [Reaction]
-    public let read: [Author]
-    public let attachments: [MaterialItem]
+    public let read: [ReadBy]
+    public let attachments: [NewsMaterial]
 
     public init(id: String, publish_date: String, title: String, description: String, image: String, highlight_entry: Int, block_comments: Int, 
                 block_reactions: Int, author: Author, tags: [String], groups: [Group], isBookmarked: Bool, 
                 read_count: Int, reactions_count: Int, comments_count: Int, 
-                comments: [Comment], reactions: [Reaction], read: [Author], attachments: [MaterialItem]) {
+                comments: [Comment], reactions: [Reaction], read: [ReadBy], attachments: [NewsMaterial]
+    ) {
         self.id = id
         self.publish_date = publish_date
         self.title = title
@@ -46,9 +46,4 @@ public struct NewsDetails : Identifiable, Hashable, Decodable {
         self.read = read
         self.attachments = attachments
     }
-
-    // public static func getEmptyNewsDetails() -> NewsDetails {
-    //     return NewsDetails(id: "", publish_date: "", title: "", description: "", image: "", highlight_entry: 0, block_comments: 0, block_reactions: 0, 
-    //     author: Author(id: "", name: "", image: ""), tags: [], groups: [], isBookmarked: false, read_count: 0, reactions_count: 0, comments_count: 0, comments: [], reactions: [], read: [], attachments: [])
-    // }
 }
