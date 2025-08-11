@@ -174,4 +174,6 @@ enum LocalizedStrings {
     static let newsDetailsReadsTab = "NEWS_DETAILS_READS_TAB".localized
 
     static let createCommentForNewsPlaceholder = "CREATE_COMMENT_FOR_NEWS".localized
+    static let newsDetailsNotFoundTitle = "NEWS_DETAILS_NOT_FOUND_TITLE".localized
+    static let newsDetailsNotFoundMessage = "NEWS_DETAILS_NOT_FOUND_MESSAGE".localized
 }

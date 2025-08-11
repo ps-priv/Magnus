@@ -165,5 +165,8 @@
 "NEWS_DETAILS_READS_TAB"="Wyświetlenia";
 
 "CREATE_COMMENT_FOR_NEWS"="Napisz coś od siebie";
+"NEWS_DETAILS_NOT_FOUND_TITLE"="Nie znaleziono artykułu";
+"NEWS_DETAILS_NOT_FOUND_MESSAGE"="Sprobuj ponownie później lub poproś administratora o pomoc.";
+
 
 

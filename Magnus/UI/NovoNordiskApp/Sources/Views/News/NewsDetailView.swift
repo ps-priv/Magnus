@@ -13,14 +13,40 @@ struct NewsDetailView: View {
     }
 
     var body: some View {
-        ScrollView {
+
+        VStack {
             if viewModel.isLoading {
                 ProgressView()
             } else {
-                Text(viewModel.news?.title ?? "No title")
-               // NewsDetailCardView(news: NewsDetailCardViewDto.fromNewsDetails(newsDetails: viewModel.news ?? NewsDetails()), onTap: {}, onBookmarkTap: {}, onEditTap: {}, onDeleteTap: {}, onReactionTap: {})
+                if viewModel.news != nil {
+                    NewsDetailCardView(
+                        news: NewsDetailCardViewDto.fromNewsDetails(newsDetails: viewModel.news!),
+                                isCommentsEnabled: viewModel.isCommentsEnabled,
+                                onTap: {
+                                    print("Tapped")
+                                },
+                                onBookmarkTap: {
+                                    print("Tapped")
+                                },
+                                onEditTap: {
+                                    print("Tapped")
+                                },
+                                onDeleteTap: {
+                                    print("Tapped")
+                                },
+                                onReactionTap: { reaction in
+                                    print("Reaction tapped: \(reaction)")
+                                })
+                                .padding(.top, 16)
+                                .padding(.horizontal, 16)
+                                .padding(.bottom, 16)
+                    }
+                    else {
+                        NewsDetailsNotFound()
+                    }
+                }
             }
-        }.background(Color.novoNordiskBackgroundGrey)
+            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
+            .background(Color.novoNordiskBackgroundGrey)
     }
 }
-
