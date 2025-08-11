@@ -90,6 +90,8 @@ enum FontAwesome {
         case circle_information = "\u{f05a}"
         case circle_arrow_right = "\u{f0a9}"
         case circle_arrow_left = "\u{f0a8}"
+        case circle_arrow_up = "\u{f0aa}"
+        case circle_arrow_down = "\u{f0ab}"
         case circle_play = "\u{f144}"
 
         // documents

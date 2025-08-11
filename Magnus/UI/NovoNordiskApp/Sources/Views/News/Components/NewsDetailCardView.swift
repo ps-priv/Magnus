@@ -7,6 +7,7 @@ import SwiftUI
 
 struct NewsDetailCardView: View {
     let news: NewsDetailCardViewDto
+    let isCommentsEnabled: Bool = true
     let onTap: () -> Void
     let onBookmarkTap: () -> Void
     let onEditTap: () -> Void
@@ -396,7 +397,12 @@ struct NewsDetailCardView: View {
             Group {
                 switch selectedStatsTab {
                 case .comments:
-                    CommentsListForNews(comments: news.comments)
+                    VStack {
+                        CommentsListForNews(comments: news.comments)
+                        if isCommentsEnabled {
+                            CreateCommentForNewsView(onSendTap: {}, onCancelTap: {})
+                        }
+                    }
 
                 case .reactions:
                     ReactionListForNews(reactions: news.reactions)

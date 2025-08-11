@@ -172,4 +172,6 @@ enum LocalizedStrings {
     static let newsDetailsCommentsTab = "NEWS_DETAILS_COMMENTS_TAB".localized
     static let newsDetailsReactionsTab = "NEWS_DETAILS_REACTIONS_TAB".localized
     static let newsDetailsReadsTab = "NEWS_DETAILS_READS_TAB".localized
+
+    static let createCommentForNewsPlaceholder = "CREATE_COMMENT_FOR_NEWS".localized
 }

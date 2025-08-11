@@ -9,6 +9,7 @@ public class NewsDetailsViewModel: ObservableObject {
     @Published public var news: NewsDetails?
 
     @Published public var isLoading: Bool = false
+    @Published public var isCommentsEnabled: Bool = true
     @Published public var errorMessage: String = ""
     @Published public var hasError: Bool = false
 
@@ -53,5 +54,9 @@ public class NewsDetailsViewModel: ObservableObject {
             hasError = true
             SentryHelper.capture(error: error, action: "NewsDetailsViewModel.sendNewsReaction")
         }
+    }
+
+    public func checkIfUserCanComment() {
+        //isCommentsEnabled = news?.isCommentEnabled ?? true
     }
 }
