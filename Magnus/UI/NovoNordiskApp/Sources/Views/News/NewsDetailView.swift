@@ -35,7 +35,9 @@ struct NewsDetailView: View {
                                     print("Tapped")
                                 },
                                 onReactionTap: { reaction in
-                                    print("Reaction tapped: \(reaction)")
+                                    Task {
+                                        await viewModel.sendNewsReaction(reaction: reaction)
+                                    }
                                 })
                                 .padding(.top, 16)
                                 .padding(.horizontal, 16)
