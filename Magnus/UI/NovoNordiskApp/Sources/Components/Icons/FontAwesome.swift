@@ -58,7 +58,7 @@ enum FontAwesome {
 
         // Status
         case check = "\u{f00c}"
-        case circle_check = "\u{f058}"
+
         case exclamation = "\u{f12a}"
         case exclamationTriangle = "\u{f071}"
         case question = "\u{f128}"
@@ -93,6 +93,8 @@ enum FontAwesome {
         case circle_arrow_up = "\u{f0aa}"
         case circle_arrow_down = "\u{f0ab}"
         case circle_play = "\u{f144}"
+        case circle_check = "\u{f058}"
+        case circle_error = "\u{f06a}"
 
         // documents
         case file = "\u{f15b}"

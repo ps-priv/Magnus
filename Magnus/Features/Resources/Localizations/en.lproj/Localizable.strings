@@ -8,3 +8,6 @@
 "AUTH_ERROR_UNKNOWN" = "An unknown error occurred";
 "AUTH_ERROR_LOGOUT_FAILED" = "Logout failed";
 "AUTH_ERROR_LOGIN_FAILED" = "Login error"; 
+
+/* News */
+"NEWS_REACTION_SENT_SUCCESSFULLY" = "Reaction sent successfully";

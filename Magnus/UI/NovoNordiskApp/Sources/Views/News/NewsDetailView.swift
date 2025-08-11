@@ -2,6 +2,7 @@ import Kingfisher
 import MagnusDomain
 import MagnusFeatures
 import SwiftUI
+import PopupView
 
 struct NewsDetailView: View {
     let newsId: String
@@ -39,6 +40,7 @@ struct NewsDetailView: View {
                                         await viewModel.sendNewsReaction(reaction: reaction)
                                     }
                                 })
+                                .toast(isPresented: $viewModel.showPopup, message: viewModel.popupMessage)
                                 .padding(.top, 16)
                                 .padding(.horizontal, 16)
                                 .padding(.bottom, 16)

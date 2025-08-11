@@ -13,6 +13,9 @@ public class NewsDetailsViewModel: ObservableObject {
     @Published public var errorMessage: String = ""
     @Published public var hasError: Bool = false
 
+    @Published public var showPopup: Bool = false
+    @Published public var popupMessage: String = ""
+
     private let newsService: ApiNewsService
     private let authStorageService: AuthStorageService
 
@@ -56,6 +59,8 @@ public class NewsDetailsViewModel: ObservableObject {
     public func sendNewsReaction(reaction: ReactionEnum) async {
         do {
             try await newsService.sendNewsReaction(id: id, reaction: reaction)
+            showPopup = true
+            popupMessage = FeaturesLocalizedStrings.newsReactionSentSuccessfully
         } catch let error {
             errorMessage = error.localizedDescription
             hasError = true

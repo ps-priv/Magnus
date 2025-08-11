@@ -82,4 +82,6 @@ class FeaturesLocalizedStrings {
     static var loginFailed: String {
         return localizedString(for: "AUTH_ERROR_LOGIN_FAILED")
     }
+
+    static let newsReactionSentSuccessfully = "NEWS_REACTION_SENT_SUCCESSFULLY".localized
 } 
