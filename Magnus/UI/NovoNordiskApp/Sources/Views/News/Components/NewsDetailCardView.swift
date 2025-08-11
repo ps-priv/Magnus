@@ -7,7 +7,7 @@ import SwiftUI
 
 struct NewsDetailCardView: View {
     let news: NewsDetailCardViewDto
-    let isCommentsEnabled: Bool = true
+    let isCommentsEnabled: Bool
     let onTap: () -> Void
     let onBookmarkTap: () -> Void
     let onEditTap: () -> Void
@@ -33,11 +33,17 @@ struct NewsDetailCardView: View {
     
     @State private var selectedStatsTab: StatsTab = .comments
 
-    init(news: NewsDetailCardViewDto, onTap: @escaping () -> Void,
-        onBookmarkTap: @escaping () -> Void, onEditTap: @escaping () -> Void,
-        onDeleteTap: @escaping () -> Void, onReactionTap: @escaping (ReactionEnum) -> Void
+    init(
+        news: NewsDetailCardViewDto,
+        isCommentsEnabled: Bool = true,
+        onTap: @escaping () -> Void,
+        onBookmarkTap: @escaping () -> Void,
+        onEditTap: @escaping () -> Void,
+        onDeleteTap: @escaping () -> Void,
+        onReactionTap: @escaping (ReactionEnum) -> Void
     ) {
         self.news = news
+        self.isCommentsEnabled = isCommentsEnabled
         self.onTap = onTap
         self.onBookmarkTap = onBookmarkTap
         self.onEditTap = onEditTap
@@ -424,6 +430,7 @@ struct NewsDetailCardView: View {
     VStack(alignment: .leading){
         NewsDetailCardView(
             news: news,
+            isCommentsEnabled: true,    
             onTap: {
                 print("Tapped")
             },

@@ -14,10 +14,15 @@ public class NewsDetailsViewModel: ObservableObject {
     @Published public var hasError: Bool = false
 
     private let newsService: ApiNewsService
+    private let authStorageService: AuthStorageService
 
-    public init(id: String, newsService: ApiNewsService = DIContainer.shared.newsService) {
+    public init(id: String, 
+        newsService: ApiNewsService = DIContainer.shared.newsService,
+        authStorageService: AuthStorageService = DIContainer.shared.authStorageService) {
+
         self.id = id
         self.newsService = newsService
+        self.authStorageService = authStorageService
 
         Task {
             await loadData(id: id)
@@ -33,6 +38,8 @@ public class NewsDetailsViewModel: ObservableObject {
 
         do {
             let data: NewsDetails = try await newsService.getNewsById(id: id)
+
+            checkIfUserCanComment()
 
             await MainActor.run {
                 news = data
@@ -57,6 +64,15 @@ public class NewsDetailsViewModel: ObservableObject {
     }
 
     public func checkIfUserCanComment() {
-        //isCommentsEnabled = news?.isCommentEnabled ?? true
+
+        do {
+            let userData = try authStorageService.getUserData()
+
+            if let newsComments = news?.comments {
+                isCommentsEnabled = !newsComments.contains(where: { $0.author.id == userData?.id })
+            }
+        } catch {
+            isCommentsEnabled = false
+        }
     }
 }

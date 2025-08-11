@@ -158,6 +158,8 @@ public class LoginViewModel: ObservableObject {
             user: authResponse.user,
             expirationDate: expirationDate
         )
+
+        try authStorageService.saveUserData(authResponse.user)
     }
 
     private func handleAuthError(_ error: AuthError) async {
