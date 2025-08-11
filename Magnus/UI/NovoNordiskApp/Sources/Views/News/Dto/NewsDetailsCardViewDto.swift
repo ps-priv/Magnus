@@ -15,9 +15,10 @@ public struct NewsDetailCardViewDto: Identifiable, Hashable, Decodable {
     public let tags: String
     public let comments: [Comment]
     public let reactions: [Reaction]
+    public let read: [ReadBy]
 
     public init(id: String, publish_date: String, title: String, description: String, isBookmarked: Bool, author: Author, 
-                read_count: Int, reactions_count: Int, comments_count: Int, image: String, tags: String, comments: [Comment], reactions: [Reaction]) {
+                read_count: Int, reactions_count: Int, comments_count: Int, image: String, tags: String, comments: [Comment], reactions: [Reaction], read: [ReadBy]) {
         self.id = id
         self.publish_date = publish_date
         self.title = title
@@ -31,6 +32,7 @@ public struct NewsDetailCardViewDto: Identifiable, Hashable, Decodable {
         self.tags = tags
         self.comments = comments
         self.reactions = reactions
+        self.read = read
     }
 
     public static func fromNewsDetails(newsDetails: NewsDetails) -> NewsDetailCardViewDto {
@@ -50,7 +52,8 @@ public struct NewsDetailCardViewDto: Identifiable, Hashable, Decodable {
             image: newsDetails.image,
             tags: tags,
             comments: newsDetails.comments,
-            reactions: newsDetails.reactions
+            reactions: newsDetails.reactions,
+            read: newsDetails.read
         )
     }
 }

@@ -402,18 +402,7 @@ struct NewsDetailCardView: View {
                     ReactionListForNews(reactions: news.reactions)
 
                 case .reads:
-                    HStack(spacing: 6) {
-                        FAIcon(
-                            FontAwesome.Icon.eye,
-                            type: .light,
-                            size: 16,
-                            color: Color.novoNordiskTextGrey
-                        )
-                        Text(String(news.read_count))
-                            .font(.novoNordiskSmallText)
-                            .foregroundColor(Color.novoNordiskTextGrey)
-                        Spacer()
-                    }
+                    ReadListForNews(read: news.read)
                 }
             }
             .padding(.horizontal, 0)
