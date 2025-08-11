@@ -76,6 +76,10 @@ extension Font {
     static var novoNordiskSmallText: Font {
         return openSansLight(size: 12)
     }
+
+    static var novoNordiskRegularText: Font {
+        return openSansLight(size: 16)
+    }
 }
 
 // MARK: - NovoNordisk Typography Environment

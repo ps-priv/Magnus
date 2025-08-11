@@ -158,3 +158,9 @@
 /* News list */
 "NEWS_LIST_EDIT_NEWS"="Edytuj wpis";
 "NEWS_LIST_DELETE_NEWS"="Usuń wpis";
+
+/* News details */
+"NEWS_DETAILS_COMMENTS_TAB"="Komentarze";
+"NEWS_DETAILS_REACTIONS_TAB"="Reakcje";
+"NEWS_DETAILS_READS_TAB"="Wyświetlenia";
+

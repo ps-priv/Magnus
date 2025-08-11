@@ -44,9 +44,6 @@ public class NewsNetworkService: NewsNetworkServiceProtocol {
     }
 
     public func sendReaction(token: String, id: String, reaction: ReactionEnum) -> AnyPublisher<Void, Error> {
-        let request = SendReactionRequest(reaction_type: reaction)
-        
-        // Convert request to dictionary for JSON encoding
         let parameters: [String: Any] = [
             "reaction_type": reaction.rawValue
         ]

@@ -24,6 +24,3 @@ struct NewsDetailView: View {
     }
 }
 
-// #Preview {
-//     NewsDetailView(newsId: "1")
-// }
