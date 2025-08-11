@@ -16,8 +16,8 @@ public class NewsDetailCardViewDtoMock {
             comments_count: 5,
             image: "https://nncv2-dev.serwik.pl/images/th-4109958356.jpeg",
             tags: "Test, News, Informacyjny",
-            comments: []
-            // reactions: [],
+            comments: [],
+            reactions: []
             // read: [],
             // attachments: []
         )

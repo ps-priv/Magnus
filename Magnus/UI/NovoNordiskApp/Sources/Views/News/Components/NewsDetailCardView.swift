@@ -397,20 +397,10 @@ struct NewsDetailCardView: View {
                 switch selectedStatsTab {
                 case .comments:
                     CommentsListForNews(comments: news.comments)
-                        .frame(height: 300)
+
                 case .reactions:
-                    HStack(spacing: 6) {
-                        FAIcon(
-                            FontAwesome.Icon.smile,
-                            type: .light,
-                            size: 16,
-                            color: Color.novoNordiskTextGrey
-                        )
-                        Text(String(news.reactions_count))
-                            .font(.novoNordiskSmallText)
-                            .foregroundColor(Color.novoNordiskTextGrey)
-                        Spacer()
-                    }
+                    ReactionListForNews(reactions: news.reactions)
+
                 case .reads:
                     HStack(spacing: 6) {
                         FAIcon(
