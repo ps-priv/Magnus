@@ -90,8 +90,9 @@ struct RoundedTopBar: View {
     var titleSection: some View {
         VStack {
             Text(title)
-                .font(.title2)
+                .font(.title2 )
                 .fontWeight(.bold)
+                .foregroundColor(Color.novoNordiskTextGrey)
         }
         .padding(0)
     }
@@ -137,6 +138,7 @@ struct RoundedTopBar: View {
             RoundedTopBar(title: "Sample Title")
             Spacer()
         }
+        .background(Color.novoNordiskBackgroundGrey)
 
     }
 }
