@@ -197,7 +197,7 @@ struct EventCardView: View {
 
                     // Content section - remaining space
                     VStack(alignment: .leading) {
-                        Text(event.title)
+                        Text(event.name)
                             .font(.headline)
                             .fontWeight(.bold)
                             .foregroundColor(Color.novoNordiskTextGrey)
@@ -206,30 +206,30 @@ struct EventCardView: View {
                             .padding(.bottom, 3)
 
                         HStack {
-                            Text(PublishedDateHelper.formatDateRangeForEvent(event.dateFrom, event.dateTo, LocalizedStrings.months))
+                            Text(PublishedDateHelper.formatDateRangeForEvent(event.date_from, event.date_to, LocalizedStrings.months))
                                 .font(.headline)
                                 .fontWeight(.bold)
                                 .foregroundColor(.novoNordiskBlue)
                                 .padding(.bottom, 3)
 
-                            if event.isOnline {
+                            if event.IsOnline {
                                 EventInProgressView()
                                 Spacer()
                             }
                         }
 
-                        Text(event.description)
-                            .font(.body)
-                            .foregroundColor(.novoNordiskTextGrey)
+                        // Text(event.description)
+                        //     .font(.body)
+                        //     .foregroundColor(.novoNordiskTextGrey)
 
                         // Seats info
-                        HStack {
-                            EventSeatsInfoView(occupiedSeats: event.occupiedSeats, totalSeats: event.totalSeats)
-                                .padding(.trailing, 10)
-                            EventSeatsNotConfirmedView(notConfirmedSeats: event.unconfirmedSeats)
-                            Spacer()
-                        }
-                        .padding(.top, 10)
+                        // HStack {
+                        //     EventSeatsInfoView(occupiedSeats: event.occupiedSeats, totalSeats: event.totalSeats)
+                        //         .padding(.trailing, 10)
+                        //     EventSeatsNotConfirmedView(notConfirmedSeats: event.unconfirmedSeats)
+                        //     Spacer()
+                        // }
+                        // .padding(.top, 10)
                     }
                     .padding(.horizontal, 20)
                     .padding(.top, 20)

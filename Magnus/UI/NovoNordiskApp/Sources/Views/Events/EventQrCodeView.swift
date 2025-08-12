@@ -9,7 +9,7 @@ struct EventQrCodeView: View {
 
     var body: some View {
         VStack(alignment: .center) {
-            Text(event?.title ?? "")
+            Text(event?.name ?? "")
                 .multilineTextAlignment(.center)
                 .font(.title)
                 .fontWeight(.bold)
@@ -56,7 +56,7 @@ struct EventQrCodeView: View {
         dateFormatter.dateFormat = "dd.MM.yyyy HH:mm:ss"
         let currentDateTime: String = dateFormatter.string(from: Date())
 
-        return "\(event.title)\n\(currentDateTime)"
+        return "\(event.name)\n\(currentDateTime)"
     }
 
     private func generateQRCode(from string: String) -> UIImage? {

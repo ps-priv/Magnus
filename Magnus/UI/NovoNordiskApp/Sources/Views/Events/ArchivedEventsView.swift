@@ -71,12 +71,12 @@ struct ArchivedEventRow: View {
 
     var body: some View {
         VStack(alignment: .leading) {
-            Text(item.title)
+            Text(item.name)
                 .fontWeight(.bold)
                 .foregroundColor(Color.novoNordiskTextGrey)
 
             HStack {
-                Text(PublishedDateHelper.formatDateRangeForEvent(item.dateFrom, item.dateTo, LocalizedStrings.months))
+                Text(PublishedDateHelper.formatDateRangeForEvent(item.date_from, item.date_to, LocalizedStrings.months))
                     .fontWeight(.bold)
                     .foregroundColor(.novoNordiskBlue)
 

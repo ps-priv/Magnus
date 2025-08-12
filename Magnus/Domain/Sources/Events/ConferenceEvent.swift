@@ -2,43 +2,30 @@ import Foundation
 
 public struct ConferenceEvent: Decodable {
     public let id: String
-    public let title: String
-    public let dateFrom: String
-    public let dateTo: String
-    public let location: String
-    public let description: String
+    public let name: String
+    public let date_from: String
+    public let date_to: String
     public let image: String
-    public let totalSeats: Int
-    public let occupiedSeats: Int
-    public let unconfirmedSeats: Int
-    public let isOnline: Bool
-    public let streamUrl: String?
+    public let seats: Seats
 
     public init(
-        id: String, title: String, dateFrom: String, dateTo: String, location: String,
-        description: String, image: String, totalSeats: Int, occupiedSeats: Int,
-        unconfirmedSeats: Int, isOnline: Bool, streamUrl: String? = nil
+        id: String, name: String, date_from: String, date_to: String, image: String, seats: Seats
     ) {
         self.id = id
-        self.title = title
-        self.dateFrom = dateFrom
-        self.dateTo = dateTo
-        self.location = location
-        self.description = description
+        self.name = name
+        self.date_from = date_from
+        self.date_to = date_to
         self.image = image
-        self.totalSeats = totalSeats
-        self.occupiedSeats = occupiedSeats
-        self.unconfirmedSeats = unconfirmedSeats
-        self.isOnline = isOnline
-        self.streamUrl = streamUrl
+        self.seats = seats
     }
+
 
     public var IsOnline: Bool {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd HH:mm"
 
-        guard let startDate = formatter.date(from: dateFrom),
-            let endDate = formatter.date(from: dateTo)
+        guard let startDate = formatter.date(from: date_from),
+            let endDate = formatter.date(from: date_to)
         else {
             return false
         }
@@ -51,7 +38,7 @@ public struct ConferenceEvent: Decodable {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd HH:mm"
 
-        guard let endDate = formatter.date(from: dateTo)
+        guard let endDate = formatter.date(from: date_to)
         else {
             return false
         }

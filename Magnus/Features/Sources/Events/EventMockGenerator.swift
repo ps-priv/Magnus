@@ -102,10 +102,9 @@ public class EventMockGenerator {
         return formatter.string(from: endDate)
     }
 
-    public static func createSingle() -> ConferenceEvent {
+    public static func createSingle() -> ConferenceEvent {          
         let randomId = UUID().uuidString
         let randomTitle = novoNordiskEventTitles.randomElement() ?? "Wydarzenie konferencyjne"
-        let randomDescription = eventDescriptions.randomElement() ?? "Opis wydarzenia."
         let randomLocation = eventLocations.randomElement() ?? "Warszawa"
         let randomImage = eventImages.randomElement() ?? "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=800"
 
@@ -121,17 +120,11 @@ public class EventMockGenerator {
 
         return ConferenceEvent(
             id: randomId,
-            title: randomTitle,
-            dateFrom: startDate,
-            dateTo: endDate,
-            location: randomLocation,
-            description: randomDescription,
+            name: randomTitle,
+            date_from: startDate,
+            date_to: endDate,
             image: randomImage,
-            totalSeats: totalSeats,
-            occupiedSeats: occupiedSeats,
-            unconfirmedSeats: unconfirmedSeats,
-            isOnline: isOnline,
-            streamUrl: streamUrl
+            seats: Seats(total: totalSeats, taken: occupiedSeats, unconfirmed: unconfirmedSeats),
         )
     }
 
@@ -141,7 +134,6 @@ public class EventMockGenerator {
         for i in 0 ..< count {
             let id = "event_\(i + 1)"
             let title = novoNordiskEventTitles[i % novoNordiskEventTitles.count]
-            let description = eventDescriptions[i % eventDescriptions.count]
             let location = eventLocations[i % eventLocations.count]
             let image = eventImages[i % eventImages.count]
 
@@ -161,23 +153,17 @@ public class EventMockGenerator {
 
             let event = ConferenceEvent(
                 id: id,
-                title: title,
-                dateFrom: startDate,
-                dateTo: endDate,
-                location: location,
-                description: description,
+                name: title,
+                date_from: startDate,
+                date_to: endDate,
                 image: image,
-                totalSeats: totalSeats,
-                occupiedSeats: occupiedSeats,
-                unconfirmedSeats: unconfirmedSeats,
-                isOnline: isOnline,
-                streamUrl: streamUrl
+                seats: Seats(total: totalSeats, taken: occupiedSeats, unconfirmed: unconfirmedSeats)
             )
 
             events.append(event)
         }
 
-        return events.sorted { $0.dateFrom < $1.dateFrom } // Sort by start date
+        return events.sorted { $0.date_from < $1.date_from } // Sort by start date
     }
 
     public static func createUpcomingEvents(count: Int = 5) -> [ConferenceEvent] {
@@ -187,7 +173,7 @@ public class EventMockGenerator {
         let currentDateString = formatter.string(from: currentDate)
 
         return createMany(count: count * 2).filter { event in
-            event.dateFrom > currentDateString // Only future events
+            event.date_from > currentDateString // Only future events
         }.prefix(count).map { $0 }
     }
 
@@ -198,7 +184,7 @@ public class EventMockGenerator {
         let currentDateString = formatter.string(from: currentDate)
 
         return createMany(count: count * 2).filter { event in
-            event.dateTo < currentDateString // Only past events
+            event.date_to < currentDateString // Only past events
         }.prefix(count).map { $0 }
     }
 
@@ -210,17 +196,11 @@ public class EventMockGenerator {
 
             return ConferenceEvent(
                 id: event.id,
-                title: "Webinar: " + event.title.replacingOccurrences(of: "Konferencja: ", with: "").replacingOccurrences(of: "Warsztat: ", with: ""),
-                dateFrom: event.dateFrom,
-                dateTo: event.dateTo,
-                location: "Online",
-                description: event.description + " Wydarzenie odbędzie się w formie online z możliwością zadawania pytań na czacie.",
+                name: "Webinar: " + event.name.replacingOccurrences(of: "Konferencja: ", with: "").replacingOccurrences(of: "Warsztat: ", with: ""),
+                date_from: event.date_from,
+                date_to: event.date_to,
                 image: event.image,
-                totalSeats: totalSeats,
-                occupiedSeats: occupiedSeats,
-                unconfirmedSeats: unconfirmedSeats,
-                isOnline: true,
-                streamUrl: "https://stream.novo-nordisk.com/event/\(event.id)"
+                seats: Seats(total: totalSeats, taken: occupiedSeats, unconfirmed: unconfirmedSeats)
             )
         }
 
@@ -253,23 +233,17 @@ public class EventMockGenerator {
 
             let event = ConferenceEvent(
                 id: id,
-                title: title,
-                dateFrom: startDate,
-                dateTo: endDate,
-                location: location,
-                description: description,
+                name: title,
+                date_from: startDate,
+                date_to: endDate,
                 image: image,
-                totalSeats: totalSeats,
-                occupiedSeats: occupiedSeats,
-                unconfirmedSeats: unconfirmedSeats,
-                isOnline: isOnline,
-                streamUrl: streamUrl
+                seats: Seats(total: totalSeats, taken: occupiedSeats, unconfirmed: unconfirmedSeats)
             )
 
             events.append(event)
         }
 
-        return events.sorted { $0.dateFrom < $1.dateFrom }
+        return events.sorted { $0.date_from < $1.date_from }
     }
 
     public static func createRandomEvents(count: Int) -> [ConferenceEvent] {
@@ -317,22 +291,16 @@ public class EventMockGenerator {
 
             let event = ConferenceEvent(
                 id: id,
-                title: title,
-                dateFrom: startDate,
-                dateTo: endDate,
-                location: location,
-                description: description,
+                name: title,
+                date_from: startDate,
+                date_to: endDate,
                 image: image,
-                totalSeats: totalSeats,
-                occupiedSeats: occupiedSeats,
-                unconfirmedSeats: unconfirmedSeats,
-                isOnline: isOnline,
-                streamUrl: streamUrl
+                seats: Seats(total: totalSeats, taken: occupiedSeats, unconfirmed: unconfirmedSeats)
             )
 
             events.append(event)
         }
 
-        return events.sorted { $0.dateFrom < $1.dateFrom }
+        return events.sorted { $0.date_from < $1.date_from }
     }
 }
