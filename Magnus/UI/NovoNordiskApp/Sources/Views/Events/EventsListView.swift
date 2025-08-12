@@ -35,7 +35,7 @@ struct EventsListView: View {
                 }
             }
         }
-        .background(Color(.systemGray6))
+        .background(Color.novoNordiskBackgroundGrey)
         .animation(.easeInOut(duration: 0.3), value: isArchivedEventsViewVisible)
     }
 
@@ -104,7 +104,7 @@ struct EventListPanel: View {
             EventsListLink(action: action)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(Color(.systemGray6))
+        .background(Color.novoNordiskBackgroundGrey)
     }
 }
 
@@ -200,7 +200,7 @@ struct EventCardView: View {
                         Text(event.title)
                             .font(.headline)
                             .fontWeight(.bold)
-                            .foregroundColor(.primary)
+                            .foregroundColor(Color.novoNordiskTextGrey)
                             .lineLimit(2)
                             .multilineTextAlignment(.leading)
                             .padding(.bottom, 3)

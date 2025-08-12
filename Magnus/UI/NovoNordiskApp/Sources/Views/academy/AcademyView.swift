@@ -41,7 +41,7 @@ struct AcademyView: View {
         }
         .padding(.horizontal, 50)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(Color(.systemGray6))
+        .background(Color.novoNordiskBackgroundGrey)
     }
 }
 

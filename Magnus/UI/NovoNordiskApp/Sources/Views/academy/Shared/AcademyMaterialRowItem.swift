@@ -12,7 +12,7 @@ struct AcademyMaterialRowItem: View {
                 ConferenceMaterialTypeConverter.getIcon(from: material.type),
                 type: .thin,
                 size: 21,
-                color: Color.primary
+                color: Color.novoNordiskTextGrey
             )
             .padding(.top, 5)
             .frame(width: 30)
@@ -20,7 +20,7 @@ struct AcademyMaterialRowItem: View {
             VStack(alignment: .leading, spacing: 4) {
                 Text(material.title)
                     .font(.novoNordiskBody)
-                    .foregroundColor(.primary)
+                    .foregroundColor(Color.novoNordiskTextGrey)
                     .lineLimit(3)
                     .multilineTextAlignment(.leading)
                 Text(

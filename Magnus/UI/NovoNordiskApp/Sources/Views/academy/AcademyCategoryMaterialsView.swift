@@ -50,7 +50,7 @@ public struct AcademyCategoryMaterialsView: View {
         .padding(.horizontal, 15)
         .padding(.vertical, 15)
         .frame(maxWidth: .infinity, alignment: .leading)
-        .background(Color(.systemGray6))
+        .background(Color.novoNordiskLighGreyForPanelBackground)
     }
 }
 

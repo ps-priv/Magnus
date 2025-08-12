@@ -46,7 +46,7 @@ struct ArchivedEventsView: View {
         .padding(.horizontal, 15)
         .padding(.vertical, 15)
         .frame(maxWidth: .infinity, alignment: .leading)
-        .background(Color(.systemGray6))
+        .background(Color.novoNordiskBackgroundGrey)
     }
 }
 
@@ -73,6 +73,7 @@ struct ArchivedEventRow: View {
         VStack(alignment: .leading) {
             Text(item.title)
                 .fontWeight(.bold)
+                .foregroundColor(Color.novoNordiskTextGrey)
 
             HStack {
                 Text(PublishedDateHelper.formatDateRangeForEvent(item.dateFrom, item.dateTo, LocalizedStrings.months))
@@ -110,6 +111,7 @@ struct ArchivedEmptyEventsListPanel: View {
 
             Spacer()
         }
+        .background(Color.novoNordiskBackgroundGrey)
     }
 }
 
@@ -130,5 +132,5 @@ struct ArchivedEmptyEventsListPanel: View {
     }
     .padding(.horizontal, 10)
     .padding(.vertical, 10)
-    .background(Color(.systemGray6))
+    .background(Color.novoNordiskBackgroundGrey)
 }

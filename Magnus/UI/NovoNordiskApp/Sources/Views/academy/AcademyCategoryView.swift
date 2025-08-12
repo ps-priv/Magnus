@@ -69,6 +69,7 @@ struct AcademyCategoryView: View {
                 }
             }
         }
+        .background(Color.white)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .onAppear {
             if categories.isEmpty {
