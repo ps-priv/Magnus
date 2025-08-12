@@ -105,4 +105,25 @@ public class ApiNewsService: NewsServiceProtocol {
                 .store(in: &cancellables)
         }
     }
+
+    public func markNewsAsRead(id: String) async throws -> Void {
+        let token = try authStorageService.getAccessToken() ?? ""
+        try await withCheckedThrowingContinuation { continuation in
+            newsNetworkService.markNewsAsRead(token: token, id: id)
+                .sink(
+                    receiveCompletion: { completion in
+                        switch completion {
+                        case .finished:
+                            continuation.resume(returning: ())
+                        case .failure(let error):
+                            continuation.resume(throwing: error)
+                        }
+                    },
+                    receiveValue: { _ in
+                        // Void response, nothing to do
+                    }
+                )
+                .store(in: &cancellables)
+        }
+    }
 }
