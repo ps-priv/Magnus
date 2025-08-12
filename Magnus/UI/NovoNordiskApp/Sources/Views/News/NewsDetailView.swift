@@ -39,6 +39,11 @@ struct NewsDetailView: View {
                                     Task {
                                         await viewModel.sendNewsReaction(reaction: reaction)
                                     }
+                                },
+                                onCommentTap: { text in
+                                    Task {
+                                        await viewModel.addCommentToNews(comment: text)
+                                    }
                                 })
                                 .toast(isPresented: $viewModel.showPopup, message: viewModel.popupMessage)
                                 .padding(.top, 16)

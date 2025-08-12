@@ -9,6 +9,7 @@ public protocol NewsNetworkServiceProtocol {
     func changeNewsBookmarkStatus(token: String, id: String) -> AnyPublisher<Void, Error>
     func sendReaction(token: String, id: String, reaction: ReactionEnum) -> AnyPublisher<Void, Error>
     func markNewsAsRead(token: String, id: String) -> AnyPublisher<Void, Error>
+    func addCommentToNews(token: String, id: String, comment: String) -> AnyPublisher<Void, Error>
 }
 
 public class NewsNetworkService: NewsNetworkServiceProtocol {
@@ -62,6 +63,20 @@ public class NewsNetworkService: NewsNetworkServiceProtocol {
         return networkService.requestWithBearerToken(
             endpoint: "/api/news/\(id)/read",
             method: .post,
+            bearerToken: token
+        )
+    }
+
+    public func addCommentToNews(token: String, id: String, comment: String) -> AnyPublisher<Void, Error> {
+        let parameters: [String: Any] = [
+            "message": comment
+        ]
+
+        return networkService.requestWithBearerToken(
+            endpoint: "/api/news/\(id)/comment",
+            method: .post,
+            parameters: parameters,
+            encoding: JSONEncoding.default,
             bearerToken: token
         )
     }

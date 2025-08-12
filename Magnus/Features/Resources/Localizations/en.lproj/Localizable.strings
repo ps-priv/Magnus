@@ -11,3 +11,4 @@
 
 /* News */
 "NEWS_REACTION_SENT_SUCCESSFULLY" = "Reaction sent successfully";
+"NEWS_COMMENT_SENT_SUCCESSFULLY" = "Comment sent successfully";

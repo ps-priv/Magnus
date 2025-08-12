@@ -82,4 +82,16 @@ public class NewsDetailsViewModel: ObservableObject {
             isCommentsEnabled = false
         }
     }
+
+    public func addCommentToNews(comment: String) async {
+        do {
+            try await newsService.addCommentToNews(id: id, comment: comment)
+            showPopup = true
+            popupMessage = FeaturesLocalizedStrings.newsCommentSentSuccessfully
+        } catch let error {
+            errorMessage = error.localizedDescription
+            hasError = true
+            SentryHelper.capture(error: error, action: "NewsDetailsViewModel.addCommentToNews")
+        }
+    }
 }

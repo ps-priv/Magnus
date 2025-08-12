@@ -4,4 +4,5 @@ public protocol NewsServiceProtocol {
     func changeNewsBookmarkStatus(id: String) async throws -> Void
     func sendNewsReaction(id: String, reaction: ReactionEnum) async throws -> Void
     func markNewsAsRead(id: String) async throws -> Void
+    func addCommentToNews(id: String, comment: String) async throws -> Void
 }

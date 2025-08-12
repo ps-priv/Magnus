@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct CreateCommentForNewsView: View {
-    let onSendTap: () -> Void
+    let onSendTap: (String) -> Void
     let onCancelTap: () -> Void
     @State private var commentText: String = ""
 
@@ -32,7 +32,7 @@ struct CreateCommentForNewsView: View {
 
                 Button(action: {
                     guard !commentText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else { return }
-                    onSendTap()
+                    onSendTap(commentText)
                     commentText = ""
                 }) {
                     FontAwesome.icon(.circle_arrow_up, type: .regular, size: 24)
@@ -47,8 +47,9 @@ struct CreateCommentForNewsView: View {
 
 #Preview {
     VStack {
-        CreateCommentForNewsView(onSendTap: {}, onCancelTap: {})
+        CreateCommentForNewsView(onSendTap: { _ in }, onCancelTap: {})
     }
     .padding(10)
 }
+
 

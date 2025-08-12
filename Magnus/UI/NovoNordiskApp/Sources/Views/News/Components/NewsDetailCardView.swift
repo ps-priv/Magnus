@@ -13,6 +13,7 @@ struct NewsDetailCardView: View {
     let onEditTap: () -> Void
     let onDeleteTap: () -> Void
     let onReactionTap: (ReactionEnum) -> Void
+    let onCommentTap: (String) -> Void
 
     @State var isBookmarked: Bool
     @State var showReactionsMenu: Bool = false
@@ -40,7 +41,8 @@ struct NewsDetailCardView: View {
         onBookmarkTap: @escaping () -> Void,
         onEditTap: @escaping () -> Void,
         onDeleteTap: @escaping () -> Void,
-        onReactionTap: @escaping (ReactionEnum) -> Void
+        onReactionTap: @escaping (ReactionEnum) -> Void,
+        onCommentTap: @escaping (String) -> Void
     ) {
         self.news = news
         self.isCommentsEnabled = isCommentsEnabled
@@ -50,6 +52,7 @@ struct NewsDetailCardView: View {
         self.onDeleteTap = onDeleteTap
         self.onReactionTap = onReactionTap
         _isBookmarked = State(initialValue: news.isBookmarked)
+        self.onCommentTap = onCommentTap
     }
 
     var body: some View {
@@ -406,7 +409,7 @@ struct NewsDetailCardView: View {
                     VStack {
                         CommentsListForNews(comments: news.comments)
                         if isCommentsEnabled {
-                            CreateCommentForNewsView(onSendTap: {}, onCancelTap: {})
+                            CreateCommentForNewsView(onSendTap: onCommentTap, onCancelTap: {})
                         }
                     }
 
@@ -445,6 +448,9 @@ struct NewsDetailCardView: View {
             },
             onReactionTap: { reaction in
                 print("Reaction tapped: \(reaction)")
+            },
+            onCommentTap: { text in
+                print("Comment tapped: \(text)")
             })
         Spacer()
     }

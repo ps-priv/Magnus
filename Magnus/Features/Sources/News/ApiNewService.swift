@@ -126,4 +126,25 @@ public class ApiNewsService: NewsServiceProtocol {
                 .store(in: &cancellables)
         }
     }
+
+    public func addCommentToNews(id: String, comment: String) async throws -> Void {
+        let token = try authStorageService.getAccessToken() ?? ""
+        try await withCheckedThrowingContinuation { continuation in
+            newsNetworkService.addCommentToNews(token: token, id: id, comment: comment)
+                .sink(
+                    receiveCompletion: { completion in
+                        switch completion {
+                        case .finished:
+                            continuation.resume(returning: ())
+                        case .failure(let error):
+                            continuation.resume(throwing: error)
+                        }
+                    },
+                    receiveValue: { _ in
+                        // Void response, nothing to do
+                    }
+                )
+                .store(in: &cancellables)
+        }
+    }  
 }
