@@ -41,6 +41,7 @@ struct MessageDetailView: View {
                         VStack(alignment: .leading) {
                             Text(message.title)
                                 .fontWeight(.bold)
+                                .foregroundColor(Color.novoNordiskTextGrey)
                                 .font(.system(size: 19))
                             
                             Text(message.date)
@@ -49,7 +50,7 @@ struct MessageDetailView: View {
 
                             Text(message.content)
                                 .font(.body)
-                                .foregroundColor(.primary)
+                                .foregroundColor(Color.novoNordiskTextGrey)
                                 .padding(.top, 10)
                         }
                         .padding(16)
@@ -73,6 +74,7 @@ struct MessageDetailView: View {
                                 title: "Nazwa udostępnionego pliku.docx"
                             )
                         }
+                        .background(Color.novoNordiskBackgroundGrey)
                         .padding(.top, 10)
                         .padding(.bottom, 16)
 
@@ -86,7 +88,7 @@ struct MessageDetailView: View {
             }
         }
         .padding()
-        .background(Color(.systemGray6))
+        .background(Color.novoNordiskBackgroundGrey)
         .onAppear {
             loadMessage()
         }
@@ -154,13 +156,13 @@ struct MessageLinkView: View {
             
             Text(title)
                 .font(.body)
-                .foregroundColor(.primary)
+                .foregroundColor(Color.novoNordiskTextGrey)
             
             Spacer()
         }
         .padding(.horizontal, 12)
         .padding(.vertical, 8)
-        .background(Color(.systemGray6))
+        .background(Color.novoNordiskBackgroundGrey)
         .cornerRadius(6)
     }
 }

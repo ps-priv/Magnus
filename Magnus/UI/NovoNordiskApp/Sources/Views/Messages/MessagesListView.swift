@@ -24,7 +24,7 @@ struct MessagesListView: View {
             .padding(.horizontal, 16)
             .padding(.top, 8)
         }
-        .background(Color(.systemGray6))
+        .background(Color.novoNordiskBackgroundGrey)
         #if DEBUG
         .enableInjection()
         #endif
@@ -45,13 +45,13 @@ struct MessageRowView: View {
                     Text(message.title)
                         .font(.body)
                         .fontWeight(.medium)
-                        .foregroundColor(.primary)
+                        .foregroundColor(Color.novoNordiskTextGrey)
                         .multilineTextAlignment(.leading)
                         .lineLimit(2)
                     
                     Text(formatDate(message.date))
                         .font(.caption)
-                        .foregroundColor(.secondary)
+                        .foregroundColor(Color.novoNordiskTextGrey)
                 }
                 
                 Spacer()

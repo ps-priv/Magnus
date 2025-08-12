@@ -79,7 +79,7 @@ struct RoundedTopBar: View {
         Button(action: onBackTap) {
             FAIcon(.back, type: .light, size: 20, color: Color.novoNordiskBlue)
                 .frame(width: 40, height: 40)
-                .background(Color(.systemGray6))
+                .background(Color.novoNordiskBackgroundGrey)
                 .clipShape(Circle())
                 .shadow(color: .black.opacity(0.1), radius: 2, x: 0, y: 1)
         }
