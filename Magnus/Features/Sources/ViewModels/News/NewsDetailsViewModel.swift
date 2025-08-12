@@ -61,6 +61,9 @@ public class NewsDetailsViewModel: ObservableObject {
     public func sendNewsReaction(reaction: ReactionEnum) async {
         do {
             try await newsService.sendNewsReaction(id: id, reaction: reaction)
+
+            await loadData(id: id)
+
             showPopup = true
             popupMessage = FeaturesLocalizedStrings.newsReactionSentSuccessfully
         } catch let error {
@@ -86,6 +89,9 @@ public class NewsDetailsViewModel: ObservableObject {
     public func addCommentToNews(comment: String) async {
         do {
             try await newsService.addCommentToNews(id: id, comment: comment)
+
+            await loadData(id: id)
+
             showPopup = true
             popupMessage = FeaturesLocalizedStrings.newsCommentSentSuccessfully
         } catch let error {
