@@ -57,6 +57,11 @@ public class DIContainer {
             return NewsNetworkService(networkService: networkService)
         }.inObjectScope(.container)
 
+        container.register(EventsNetworkServiceProtocol.self) { resolver in
+            let networkService = resolver.resolve(NetworkServiceProtocol.self)!
+            return EventsNetworkService(networkService: networkService)
+        }.inObjectScope(.container)
+
         // Register AuthService based on application type
         switch applicationType {
         case .novonordisk:
