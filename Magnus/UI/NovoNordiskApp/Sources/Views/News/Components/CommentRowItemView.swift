@@ -23,6 +23,7 @@ struct CommentRowItemView: View {
                     VStack(alignment: .leading) {
                         Text(comment.author.name)
                             .font(.novoNordiskAuthorName)
+                            .foregroundColor(Color.novoNordiskTextGrey)
                         Text(comment.author.groups)
                             .font(.novoNordiskAuthorGroups)
                             .foregroundColor(Color.novoNordiskBlue)
@@ -37,6 +38,7 @@ struct CommentRowItemView: View {
             HStack {
                 Text(comment.message)
                     .font(.novoNordiskRegularText)
+                    .foregroundColor(Color.novoNordiskTextGrey)
                     .multilineTextAlignment(.leading)
                     .frame(maxWidth: .infinity, alignment: .leading)
                 

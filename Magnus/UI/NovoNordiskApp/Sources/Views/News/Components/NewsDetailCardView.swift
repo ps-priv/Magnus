@@ -204,7 +204,7 @@ struct NewsDetailCardView: View {
                 Text(news.title)
                     .font(.headline)
                     .fontWeight(.bold)
-                    .foregroundColor(.primary)
+                    .foregroundColor(Color.novoNordiskTextGrey)
                     .lineLimit(2)
                 Text(PublishedDateHelper.formatPublishDate(news.publish_date))
                     .font(.system(size: 12))
@@ -285,6 +285,7 @@ struct NewsDetailCardView: View {
     var descriptionSection: some View {
         Text(news.description)
             .font(.novoNordiskBody)
+            .foregroundColor(Color.novoNordiskTextGrey)
     }
 
     @ViewBuilder
@@ -308,6 +309,7 @@ struct NewsDetailCardView: View {
             VStack(alignment: .leading) {
                 Text(news.author.name)
                     .font(.novoNordiskAuthorName)
+                    .foregroundColor(Color.novoNordiskTextGrey)
                 Text(news.author.groups)
                     .font(.novoNordiskAuthorGroups)
                     .foregroundColor(Color.novoNordiskBlue)

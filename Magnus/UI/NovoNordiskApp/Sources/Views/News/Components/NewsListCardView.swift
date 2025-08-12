@@ -34,7 +34,7 @@ struct NewsListCardView: View {
                                     ProgressView()
                                         .scaleEffect(1.2)
                                         .tint(.novoNordiskBlue)
-                                    FAIcon(.newspaper, type: .light, size: 40, color: .gray)
+                                    FAIcon(.newspaper, type: .light, size: 40, color: Color.novoNordiskGrey)
                                         .padding(.top, 8)
                                 }
                             )
@@ -69,7 +69,7 @@ struct NewsListCardView: View {
                 Text(news.title)
                     .font(.headline)
                     .fontWeight(.bold)
-                    .foregroundColor(.primary)
+                    .foregroundColor(Color.novoNordiskTextGrey)
                     .lineLimit(2)
                 Text(PublishedDateHelper.formatPublishDate(news.publish_date))
                     .font(.system(size: 12))
@@ -150,6 +150,7 @@ struct NewsListCardView: View {
     var descriptionSection: some View {
         Text(news.description)
             .font(.novoNordiskBody)
+            .foregroundColor(Color.novoNordiskTextGrey)
             .lineLimit(4)
     }
 
@@ -174,6 +175,7 @@ struct NewsListCardView: View {
             VStack(alignment: .leading) {
                 Text(news.author.name)
                     .font(.novoNordiskAuthorName)
+                    .foregroundColor(Color.novoNordiskTextGrey)
                 Text(news.author.groups)
                     .font(.novoNordiskAuthorGroups)
                     .foregroundColor(Color.novoNordiskBlue)

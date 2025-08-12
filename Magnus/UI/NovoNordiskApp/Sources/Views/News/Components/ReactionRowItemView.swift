@@ -22,6 +22,7 @@ struct ReactionRowItemView: View {
                     VStack(alignment: .leading) {
                         Text(reaction.author.name)
                             .font(.novoNordiskAuthorName)
+                            .foregroundColor(Color.novoNordiskTextGrey)
                         Text(reaction.author.groups)
                             .font(.novoNordiskAuthorGroups)
                             .foregroundColor(Color.novoNordiskBlue)

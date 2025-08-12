@@ -23,6 +23,7 @@ struct ReadRowItemView: View {
                     VStack(alignment: .leading) {
                         Text(read.author.name)
                             .font(.novoNordiskAuthorName)
+                            .foregroundColor(Color.novoNordiskTextGrey)
                         Text(read.author.groups)
                             .font(.novoNordiskAuthorGroups)
                             .foregroundColor(Color.novoNordiskBlue)

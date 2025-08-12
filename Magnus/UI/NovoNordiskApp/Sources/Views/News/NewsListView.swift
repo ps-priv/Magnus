@@ -17,7 +17,7 @@ struct NewsListView: View {
                 newsList
             }
         }
-        .background(Color(.systemGray6))
+        .background(Color.novoNordiskBackgroundGrey)
     }
      
     @ViewBuilder
