@@ -60,6 +60,7 @@ struct RootView: View {
                 .zIndex(1000)  // Zawsze na wierzchu
             }
         }
+        .background(Color.white)
         .animation(.easeInOut(duration: 0.5), value: appState)
         .animation(.easeInOut(duration: 0.3), value: networkStatusViewModel.showNoInternetView)
         .onReceive(NotificationCenter.default.publisher(for: .userDidLogout)) { _ in
