@@ -51,7 +51,8 @@ public struct NewsDetailCardViewDto: Identifiable, Hashable, Decodable {
             comments_count: newsDetails.comments_count,
             image: newsDetails.image,
             tags: tags,
-            comments: newsDetails.comments,
+            //comments: [],
+            comments: newsDetails.comments,            
             reactions: newsDetails.reactions,
             read: newsDetails.read
         )

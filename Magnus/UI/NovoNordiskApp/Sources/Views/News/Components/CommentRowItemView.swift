@@ -13,7 +13,6 @@ struct CommentRowItemView: View {
     var body: some View {
         VStack {
             HStack {
-                HStack {
                     FAIcon(
                         FontAwesome.Icon.userCircle,    
                         type: .thin,
@@ -21,14 +20,17 @@ struct CommentRowItemView: View {
                         color: Color.novoNordiskBlue
                     )
                     VStack(alignment: .leading) {
-                        Text(comment.author.name)
-                            .font(.novoNordiskAuthorName)
-                            .foregroundColor(Color.novoNordiskTextGrey)
-                        Text(comment.author.groups)
-                            .font(.novoNordiskAuthorGroups)
-                            .foregroundColor(Color.novoNordiskBlue)
+                        if comment.author.name != "" {
+                            Text(comment.author.name)
+                                .font(.novoNordiskAuthorName)
+                                .foregroundColor(Color.novoNordiskTextGrey)
+                        }
+                        if comment.author.groups != "" {
+                            Text(comment.author.groups)
+                                .font(.novoNordiskAuthorGroups)
+                                .foregroundColor(Color.novoNordiskBlue)
+                        }
                     }
-                }
                 Spacer()
                 Text(PublishedDateHelper.formatPublishDate(comment.created_at))
                     .font(.system(size: 10))
@@ -36,11 +38,13 @@ struct CommentRowItemView: View {
             }
 
             HStack {
-                Text(comment.message)
-                    .font(.novoNordiskRegularText)
-                    .foregroundColor(Color.novoNordiskTextGrey)
-                    .multilineTextAlignment(.leading)
-                    .frame(maxWidth: .infinity, alignment: .leading)
+                if comment.message != "" {
+                    Text(comment.message)
+                        .font(.novoNordiskRegularText)
+                        .foregroundColor(Color.novoNordiskTextGrey)
+                        .multilineTextAlignment(.leading)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                }
                 
             }
         }
@@ -48,7 +52,7 @@ struct CommentRowItemView: View {
 }
 
 #Preview {
-    let comment: Comment = Comment(id: "1", 
+    let comment: Comment = Comment(
     message: "aaa Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.", 
     created_at: "2025-08-07 20:22:37", 
     author: Author(id: "1", name: "Joanna Skarżyńska-Kotyńska", groups: "Kardiologia, Badania i rozwój"))

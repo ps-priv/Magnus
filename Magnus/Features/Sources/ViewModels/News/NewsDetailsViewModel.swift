@@ -42,9 +42,9 @@ public class NewsDetailsViewModel: ObservableObject {
         do {
             let data: NewsDetails = try await newsService.getNewsById(id: id)
 
-            try await newsService.markNewsAsRead(id: id)
+            //try await newsService.markNewsAsRead(id: id)
 
-            checkIfUserCanComment()
+            //checkIfUserCanComment()
 
             await MainActor.run {
                 news = data
@@ -52,7 +52,7 @@ public class NewsDetailsViewModel: ObservableObject {
             }
         } catch let error {
             isLoading = false
-            errorMessage = error.localizedDescription
+            errorMessage = error.localizedDescription 
             hasError = true
             SentryHelper.capture(error: error, action: "NewsDetailsViewModel.loadData")
         }
