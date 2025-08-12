@@ -37,6 +37,9 @@ struct CommentRowItemView: View {
             HStack {
                 Text(comment.message)
                     .font(.novoNordiskRegularText)
+                    .multilineTextAlignment(.leading)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                
             }
         }
     }

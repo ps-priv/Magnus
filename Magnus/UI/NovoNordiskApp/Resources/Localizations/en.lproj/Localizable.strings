@@ -168,5 +168,5 @@
 "NEWS_DETAILS_NOT_FOUND_MESSAGE"="Try again later or ask the administrator for help.";
 
 "NEWS_REACTION_SENT_SUCCESSFULLY"="Reaction sent successfully";
-
+"NEWS_COMMENT_SENT_SUCCESSFULLY" = "Comment sent successfully";
 
