@@ -36,6 +36,14 @@ public extension DIContainer {
         }
         return service
     }
+
+    /// Returns registered EventsService instance
+    var eventsService: ApiEventsService {
+        guard let service = resolve(ApiEventsService.self) else {
+            fatalError("ApiEventsService not registered in DI container")
+        }
+        return service
+    }
     
     // MARK: - Convenience Methods
     
