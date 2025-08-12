@@ -72,7 +72,7 @@ struct UserProfileView: View {
             }
             .padding()
         }
-        .background(Color(.systemGray6))
+        .background(Color.novoNordiskBackgroundGrey)
         .onAppear {
             loadUserData()
         }
@@ -104,6 +104,7 @@ struct UserProfileView: View {
                 FAIcon(.userCircle, type: .regular, size: 20, color: .novoNordiskBlue)
                 Text(LocalizedStrings.userProfileInformationButton)
                     .font(.headline)
+                    .foregroundColor(Color.novoNordiskTextGrey)
                 Spacer()
             }
 
@@ -271,7 +272,7 @@ struct UserProfileView: View {
             if let user = user {
                 Text(LocalizedStrings.userProfileQrcodeId)
                     .font(.headline)
-                    .foregroundColor(.primary)
+                    .foregroundColor(Color.novoNordiskTextGrey)
                     .fontWeight(.bold)
 
                 // QR Code
@@ -290,13 +291,13 @@ struct UserProfileView: View {
                         .frame(width: 270, height: 270)
                         .overlay(
                             Text("Błąd generowania QR")
-                                .foregroundColor(.gray)
+                                .foregroundColor(Color.novoNordiskTextGrey)
                         )
                 }
 
                 Text(LocalizedStrings.userProfileQrcodeDescription)
                     .font(.body)
-                    .foregroundColor(.secondary)
+                    .foregroundColor(Color.novoNordiskTextGrey)
                     .multilineTextAlignment(.center)
             }
         }
@@ -340,6 +341,7 @@ struct UserProfileView: View {
                 FAIcon(.lock, type: .solid, size: 20, color: .novoNordiskBlue)
                 Text(LocalizedStrings.userProfileChangePassword)
                     .font(.headline)
+                    .foregroundColor(Color.novoNordiskTextGrey)
                 Spacer()
             }
 

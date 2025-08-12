@@ -57,7 +57,7 @@ struct NovoNordiskCheckbox: View {
                 // Title
                 Text(title)
                     .font(style.titleFont)
-                    .foregroundColor(isEnabled ? style.titleColor : style.disabledTitleColor)
+                    .foregroundColor(isEnabled ? Color.novoNordiskTextGrey : Color.novoNordiskGrey)
                     .multilineTextAlignment(.leading)
                 
                 Spacer()
@@ -248,4 +248,5 @@ enum NovoNordiskCheckboxStyle {
         Spacer()
     }
     .padding()
-} 
+    .background(Color.novoNordiskBackgroundGrey)
+}
