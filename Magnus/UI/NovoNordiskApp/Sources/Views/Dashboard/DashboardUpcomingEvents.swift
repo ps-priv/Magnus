@@ -37,7 +37,7 @@ struct DashboardUpcomingEventsCard: View {
                 Text(item.name)
                     .font(.novoNordiskBody)
                     .fontWeight(.semibold)
-                    .foregroundColor(.primary)
+                    .foregroundColor(Color.novoNordiskTextGrey)
                     .lineLimit(3)
                     .multilineTextAlignment(.leading)
                 HStack {
@@ -92,7 +92,7 @@ struct DashboardUpcomingEventsCard: View {
              .padding(.leading, 10)
         }
         .padding(.trailing, 10)
-        .background(Color(.systemGray6))
+        .background(Color.novoNordiskLighGreyForPanelBackground)
         
     }
 }

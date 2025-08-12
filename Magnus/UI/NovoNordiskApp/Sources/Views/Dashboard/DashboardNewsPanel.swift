@@ -115,13 +115,13 @@ struct NewsItemCard2: View {
                 Text(item.title)
                     .font(.novoNordiskBody)
                     .fontWeight(.semibold)
-                    .foregroundColor(.primary)
+                    .foregroundColor(Color.novoNordiskTextGrey)
                     .lineLimit(1)
                     .multilineTextAlignment(.leading)
                 HStack {
                     Text(PublishedDateHelper.formatPublishDate(item.publish_date))
                         .font(.system(size: 12))
-                        .foregroundColor(.secondary)
+                        .foregroundColor(Color.novoNordiskBlue)
                     Spacer()
                     Button(action: { navigationManager.navigateToNewsDetail(newsId: item.id) }) {
                         FAIcon(.circle_arrow_right, type: .light, size: 21, color: .novoNordiskBlue)

@@ -38,7 +38,7 @@ struct DashboardAcademyCard: View {
                         FileTypeConverter.getIcon(from: item.file_type),
                         type: .thin,
                         size: 21,
-                        color: Color.primary
+                        color: Color.novoNordiskTextGrey
                     )
                     .padding(.top, 5)
                     .frame(width: 30)
@@ -46,7 +46,7 @@ struct DashboardAcademyCard: View {
                     VStack(alignment: .leading, spacing: 4) {
                         Text(item.name)
                             .font(.novoNordiskBody)
-                            .foregroundColor(.primary)
+                            .foregroundColor(Color.novoNordiskTextGrey)
                             .lineLimit(3)
                             .multilineTextAlignment(.leading)
                         VStack {
@@ -104,6 +104,6 @@ struct DashboardAcademyCard: View {
             .padding(.leading, 10)
         }
         .padding(.trailing, 10)
-        .background(Color(.systemGray6))
+        .background(Color.novoNordiskLighGreyForPanelBackground)
     }
 }
