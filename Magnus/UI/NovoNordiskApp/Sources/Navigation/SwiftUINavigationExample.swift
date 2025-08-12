@@ -11,12 +11,12 @@ struct SwiftUINavigationExample: View {
         NavigationStack(path: $navigationPath) {
             TabView(selection: $selectedTab) {
                 // Events Tab
-                EventsNavigationView()
-                    .tabItem {
-                        FAIcon(.calendar, type: .light)
-                        Text("Wydarzenia")
-                    }
-                    .tag(BottomMenuTab.events)
+                // EventsNavigationView()
+                //     .tabItem {
+                //         FAIcon(.calendar, type: .light)
+                //         Text("Wydarzenia")
+                //     }
+                //     .tag(BottomMenuTab.events)
                 
                 // Materials Tab  
                 MaterialsNavigationView()
@@ -38,22 +38,6 @@ struct SwiftUINavigationExample: View {
     }
 }
 
-// MARK: - Events Navigation with NavigationStack
-struct EventsNavigationView: View {
-    @State private var events: [Event] = EventMockData.sampleEvents
-    
-    var body: some View {
-        List(events) { event in
-            NavigationLink(value: event) { // ✨ Przekazujemy cały obiekt Event
-                EventRowView(event: event)
-            }
-        }
-        .navigationTitle("Wydarzenia")
-        .navigationDestination(for: Event.self) { event in // ✨ Odbieramy Event
-            EventDetailSwiftUIView(event: event) // ✨ Przekazujemy do detail view
-        }
-    }
-}
 
 // MARK: - Materials Navigation with NavigationStack
 struct MaterialsNavigationView: View {

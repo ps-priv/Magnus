@@ -3,9 +3,9 @@ import Combine
 import MagnusDomain
 
 @MainActor
-public class EventListViewModel: ObservableObject {
+public class EventsListViewModel: ObservableObject {
     @Published public var events: [ConferenceEvent] = []
-
+    @Published public var isArchivedEventsViewVisible = false
     @Published public var isLoading: Bool = false
     @Published public var errorMessage: String = ""
     @Published public var hasError: Bool = false
