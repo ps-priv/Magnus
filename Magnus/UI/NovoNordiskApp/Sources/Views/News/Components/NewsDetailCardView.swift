@@ -188,7 +188,7 @@ struct NewsDetailCardView: View {
                     .cornerRadius(20)
                     .shadow(color: .black.opacity(0.1), radius: 4, x: 0, y: 2)
                     .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottomTrailing)
-                    .offset(x: -10, y: -180) 
+                    .offset(x: -10, y: -20) 
                     .zIndex(1000)
                     .transition(.opacity.combined(with: .scale))
                 }
