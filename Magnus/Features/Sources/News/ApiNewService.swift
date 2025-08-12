@@ -19,12 +19,10 @@ public class ApiNewsService: NewsServiceProtocol {
 
     public func getNews() async throws -> GetNewsResponse {
         let token = try authStorageService.getAccessToken() ?? ""
-        print("token: \(token)")
         let news = try await withCheckedThrowingContinuation { continuation in
             newsNetworkService.getNews(token: token)
                 .sink(
                     receiveCompletion: { completion in
-                        print("completion: \(completion)")
                         switch completion {
                         case .finished:
                             break
@@ -38,7 +36,6 @@ public class ApiNewsService: NewsServiceProtocol {
                 )
                 .store(in: &cancellables)
         }
-        print("news: \(news)")
         return news
     }
 

@@ -93,6 +93,14 @@ public class DIContainer {
                     newsNetworkService: newsNetworkService)
             }.inObjectScope(.container)
 
+            container.register(ApiEventsService.self) { resolver in
+                let eventsNetworkService = resolver.resolve(EventsNetworkServiceProtocol.self)!
+                let authStorageService = resolver.resolve(AuthStorageService.self)!
+                return ApiEventsService(
+                    eventsNetworkService: eventsNetworkService,
+                    authStorageService: authStorageService)
+            }.inObjectScope(.container)
+
         case .chm:
             // Register mock AuthService for ChM app
             container.register(AuthService.self) { _ in
