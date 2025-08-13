@@ -112,7 +112,7 @@ enum AppScreen: Equatable, Identifiable {
         case .eventsList:
             return .events
         case .eventDetail:
-            return .eventsAgenda
+            return .eventDetails
         case .materialsList, .materialDetail:
             return .materials
         case .newsList, .newsDetail:
@@ -277,7 +277,7 @@ class NavigationManager: ObservableObject {
     }
 
     // Navigate to root screen for a tab
-    func navigateToTabRoot(_ tab: BottomMenuTab) {
+    func navigateToTabRoot(_ tab: BottomMenuTab, eventId: String? = nil) {
         let screen: AppScreen
         switch tab {
             case .start:
@@ -290,16 +290,17 @@ class NavigationManager: ObservableObject {
                 screen = .materialsList
             case .academy:
                 screen = .academy
+            
             case .eventDetails:
-                screen = .eventDetail(eventId: "")
+                screen = .eventDetail(eventId: eventId ?? "")
             case .eventsAgenda:
-                screen = .eventAgenda(eventId: "")
+                screen = .eventAgenda(eventId: eventId ?? "")
             case .eventsLocation:
-                screen = .eventLocation(eventId: "")
+                screen = .eventLocation(eventId: eventId ?? "")
             case .eventsDinner:
-                screen = .eventDinner(eventId: "")
+                screen = .eventDinner(eventId: eventId ?? "")
             case .eventsSurvey:
-                screen = .eventSurvey(eventId: "")
+                screen = .eventSurvey(eventId: eventId ?? "")
         }
 
         // Clear navigation stack and go to tab root

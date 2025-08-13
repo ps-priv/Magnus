@@ -54,6 +54,8 @@ struct MainNavigationContainer: View {
                         onTabSelected: { tab in
                             if let eventId = currentEventId() {
                                 switch tab {
+                                case .eventDetails:
+                                    navigationManager.navigate(to: .eventDetail(eventId: eventId))
                                 case .eventsAgenda:
                                     navigationManager.navigate(to: .eventAgenda(eventId: eventId))
                                 case .eventsLocation:
