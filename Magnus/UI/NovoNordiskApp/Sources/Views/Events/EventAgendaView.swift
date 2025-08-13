@@ -9,6 +9,7 @@ struct EventAgendaView: View {
     }
 
     var body: some View {
-        Text("Event Agenda")
+        Text("Event Agenda \(eventId)")
+
     }
 }

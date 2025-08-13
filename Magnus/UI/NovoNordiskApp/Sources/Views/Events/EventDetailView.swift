@@ -10,51 +10,52 @@ struct EventDetailView: View {
     @EnvironmentObject var navigationManager: NavigationManager
     
     var body: some View {
-        ScrollView {
-            VStack(spacing: 0) {
-                if let event = event {
-                    // Hero Image
-                    heroImageSection(event: event)
+        Text("Event detail \(eventId)")
+        // ScrollView {
+        //     VStack(spacing: 0) {
+        //         if let event = event {
+        //             // Hero Image
+        //             heroImageSection(event: event)
                     
-                    // Content
-                    VStack(alignment: .leading, spacing: 24) {
-                        // Title and basic info
-                        titleSection(event: event)
+        //             // Content
+        //             VStack(alignment: .leading, spacing: 24) {
+        //                 // Title and basic info
+        //                 titleSection(event: event)
                         
-                        // Date and location
-                        dateLocationSection(event: event)
+        //                 // Date and location
+        //                 dateLocationSection(event: event)
                         
-                        // Description
-                        descriptionSection(event: event)
+        //                 // Description
+        //                 descriptionSection(event: event)
                         
-                        // Participants info
-                        participantsSection(event: event)
+        //                 // Participants info
+        //                 participantsSection(event: event)
                         
-                        // Action buttons
-                        actionButtonsSection(event: event)
+        //                 // Action buttons
+        //                 actionButtonsSection(event: event)
                         
-                        Spacer(minLength: 32)
-                    }
-                    .padding(.horizontal)
-                    .padding(.top, 24)
-                } else {
-                    // Loading state
-                    loadingView
-                }
-            }
-        }
-        .background(Color(.systemGray6))
-        .onAppear {
-            loadEvent()
-        }
-        .alert("Rejestracja", isPresented: $showingRegistrationAlert) {
-            Button("Anuluj", role: .cancel) { }
-            Button(isRegistered ? "Wyrejestruj" : "Zarejestruj") {
-                //toggleRegistration()
-            }
-        } message: {
-            Text(isRegistered ? "Czy na pewno chcesz się wyrejestrować z tego wydarzenia?" : "Czy chcesz się zarejestrować na to wydarzenie?")
-        }
+        //                 Spacer(minLength: 32)
+        //             }
+        //             .padding(.horizontal)
+        //             .padding(.top, 24)
+        //         } else {
+        //             // Loading state
+        //             loadingView
+        //         }
+        //     }
+        // }
+        // .background(Color(.systemGray6))
+        // .onAppear {
+        //     loadEvent()
+        // }
+        // .alert("Rejestracja", isPresented: $showingRegistrationAlert) {
+        //     Button("Anuluj", role: .cancel) { }
+        //     Button(isRegistered ? "Wyrejestruj" : "Zarejestruj") {
+        //         //toggleRegistration()
+        //     }
+        // } message: {
+        //     Text(isRegistered ? "Czy na pewno chcesz się wyrejestrować z tego wydarzenia?" : "Czy chcesz się zarejestrować na to wydarzenie?")
+        // }
     }
     
     @ViewBuilder

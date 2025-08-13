@@ -8,6 +8,6 @@ struct EventDinnerView: View {
     }
 
     var body: some View {
-        Text("Event Dinner")
+        Text("Event Dinner \(eventId)")
     }
 }

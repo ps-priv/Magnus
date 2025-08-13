@@ -9,6 +9,6 @@ struct EventSurveyView: View {
     }
 
     var body: some View {
-        Text("Event Survey")
+        Text("Event Survey \(eventId)")
     }
 }
