@@ -5,6 +5,7 @@ import MagnusDomain
 
 public protocol EventsNetworkServiceProtocol {
     func getEvents(token: String) -> AnyPublisher<GetEventsListResponse, Error>
+    func getEventDetails(token: String, id: String) -> AnyPublisher<ConferenceEventDetails, Error>
 }
 
 public class EventsNetworkService: EventsNetworkServiceProtocol {
@@ -19,6 +20,15 @@ public class EventsNetworkService: EventsNetworkServiceProtocol {
             endpoint: "/api/events",
             method: .get,
             responseType: GetEventsListResponse.self,
+            bearerToken: token
+        )
+    }
+
+    public func getEventDetails(token: String, id: String) -> AnyPublisher<ConferenceEventDetails, Error> {
+        return networkService.requestWithBearerToken(
+            endpoint: "/api/events/\(id)",
+            method: .get,
+            responseType: ConferenceEventDetails.self,
             bearerToken: token
         )
     }

@@ -34,4 +34,26 @@ public class ApiEventsService: EventsServiceProtocol {
         }
         return events
     }
+
+    public func getEventDetails(id: String) async throws -> ConferenceEventDetails {
+        let token = try authStorageService.getAccessToken() ?? ""
+        let eventDetails = try await withCheckedThrowingContinuation { continuation in
+            eventsNetworkService.getEventDetails(token: token, id: id)
+                .sink(
+                    receiveCompletion: { completion in
+                        switch completion {
+                        case .finished:
+                            break
+                        case .failure(let error):
+                            continuation.resume(throwing: error)
+                        }
+                    },
+                    receiveValue: { value in
+                        continuation.resume(returning: value)
+                    }
+                )
+                .store(in: &cancellables)
+        }
+        return eventDetails
+    }
 }
