@@ -84,9 +84,9 @@ struct EventCardView: View {
                             }
                         }
 
-                        // Text(event.description)
-                        //     .font(.body)
-                        //     .foregroundColor(.novoNordiskTextGrey)
+                        Text(event.description)
+                            .font(.body)
+                            .foregroundColor(.novoNordiskTextGrey)
 
                         // Seats info
                         // HStack {

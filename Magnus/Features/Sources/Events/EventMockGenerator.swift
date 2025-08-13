@@ -105,6 +105,7 @@ public class EventMockGenerator {
     public static func createSingle() -> ConferenceEvent {          
         let randomId = UUID().uuidString
         let randomTitle = novoNordiskEventTitles.randomElement() ?? "Wydarzenie konferencyjne"
+        let randomDescription = eventDescriptions.randomElement() ?? "Opis wydarzenia"
         let randomLocation = eventLocations.randomElement() ?? "Warszawa"
         let randomImage = eventImages.randomElement() ?? "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=800"
 
@@ -121,6 +122,7 @@ public class EventMockGenerator {
         return ConferenceEvent(
             id: randomId,
             name: randomTitle,
+            description: randomDescription,
             date_from: startDate,
             date_to: endDate,
             image: randomImage,
@@ -134,6 +136,7 @@ public class EventMockGenerator {
         for i in 0 ..< count {
             let id = "event_\(i + 1)"
             let title = novoNordiskEventTitles[i % novoNordiskEventTitles.count]
+            let description = eventDescriptions[i % eventDescriptions.count]
             let location = eventLocations[i % eventLocations.count]
             let image = eventImages[i % eventImages.count]
 
@@ -154,6 +157,7 @@ public class EventMockGenerator {
             let event = ConferenceEvent(
                 id: id,
                 name: title,
+                description: description,
                 date_from: startDate,
                 date_to: endDate,
                 image: image,
@@ -197,6 +201,7 @@ public class EventMockGenerator {
             return ConferenceEvent(
                 id: event.id,
                 name: "Webinar: " + event.name.replacingOccurrences(of: "Konferencja: ", with: "").replacingOccurrences(of: "Warsztat: ", with: ""),
+                description: event.description,
                 date_from: event.date_from,
                 date_to: event.date_to,
                 image: event.image,
@@ -234,6 +239,7 @@ public class EventMockGenerator {
             let event = ConferenceEvent(
                 id: id,
                 name: title,
+                description: description,
                 date_from: startDate,
                 date_to: endDate,
                 image: image,
@@ -292,6 +298,7 @@ public class EventMockGenerator {
             let event = ConferenceEvent(
                 id: id,
                 name: title,
+                description: description,
                 date_from: startDate,
                 date_to: endDate,
                 image: image,

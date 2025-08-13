@@ -3,16 +3,17 @@ import Foundation
 public struct ConferenceEvent: Decodable {
     public let id: String
     public let name: String
+    public let description: String
     public let date_from: String
     public let date_to: String
     public let image: String
     public let seats: Seats
 
     public init(
-        id: String, name: String, date_from: String, date_to: String, image: String, seats: Seats
-    ) {
+        id: String, name: String, description: String, date_from: String, date_to: String, image: String, seats: Seats) {
         self.id = id
         self.name = name
+        self.description = description
         self.date_from = date_from
         self.date_to = date_to
         self.image = image
