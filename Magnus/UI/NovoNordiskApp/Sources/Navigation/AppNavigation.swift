@@ -18,6 +18,10 @@ enum AppScreen: Equatable, Identifiable {
     case academyCategory(categoryId: String)
     case messagesList
     case messageDetail(messageId: String)
+    case eventAgenda(eventId: String)
+    case eventLocation(eventId: String)
+    case eventDinner(eventId: String)
+    case eventSurvey(eventId: String)
 
     var id: String {
         switch self {
@@ -49,6 +53,14 @@ enum AppScreen: Equatable, Identifiable {
             return "messages_list"
         case let .messageDetail(messageId):
             return "message_detail_\(messageId)"
+        case let .eventAgenda(eventId):
+            return "event_agenda_\(eventId)"
+        case let .eventLocation(eventId):
+            return "event_location_\(eventId)"
+        case let .eventDinner(eventId):
+            return "event_dinner_\(eventId)"
+        case let .eventSurvey(eventId):
+            return "event_survey_\(eventId)"
         }
     }
 
@@ -82,6 +94,14 @@ enum AppScreen: Equatable, Identifiable {
             return LocalizedStrings.messagesListScreenTitle
         case .messageDetail:
             return LocalizedStrings.messageDetailsScreenTitle
+        case .eventAgenda:
+            return LocalizedStrings.eventAgendaScreenTitle
+        case .eventLocation:
+            return LocalizedStrings.eventLocationScreenTitle
+        case .eventDinner:
+            return LocalizedStrings.eventDinnerScreenTitle
+        case .eventSurvey:
+            return LocalizedStrings.eventSurveyScreenTitle
         }
     }
 
@@ -99,6 +119,15 @@ enum AppScreen: Equatable, Identifiable {
             return .academy
         case .profile, .settings, .messagesList, .messageDetail, .eventQrCode, .academyCategory:
             return nil
+
+        case .eventAgenda:
+            return .eventsAgenda
+        case .eventLocation:
+            return .eventsLocation
+        case .eventDinner:
+            return .eventsDinner
+        case .eventSurvey:
+            return .eventsSurvey
         }
     }
 
@@ -247,16 +276,25 @@ class NavigationManager: ObservableObject {
     func navigateToTabRoot(_ tab: BottomMenuTab) {
         let screen: AppScreen
         switch tab {
-        case .start:
-            screen = .dashboard
-        case .news:
-            screen = .newsList
-        case .events:
-            screen = .eventsList
-        case .materials:
-            screen = .materialsList
-        case .academy:
-            screen = .academy
+            case .start:
+                screen = .dashboard
+            case .news:
+                screen = .newsList
+            case .events:
+                screen = .eventsList
+            case .materials:
+                screen = .materialsList
+            case .academy:
+                screen = .academy
+            
+            case .eventsAgenda:
+                screen = .eventAgenda(eventId: "")
+            case .eventsLocation:
+                screen = .eventLocation(eventId: "")
+            case .eventsDinner:
+                screen = .eventDinner(eventId: "")
+            case .eventsSurvey:
+                screen = .eventSurvey(eventId: "")
         }
 
         // Clear navigation stack and go to tab root

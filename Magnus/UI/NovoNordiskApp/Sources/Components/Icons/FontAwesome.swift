@@ -82,6 +82,9 @@ enum FontAwesome {
         case fileAlt = "\u{f15c}"
         case graduationCap = "\u{f19d}"
 
+        case survey = "\u{f737}"
+        case dinner = "\u{f2e7}"
+
         // QR Code
         case qrcode = "\u{f029}"
 

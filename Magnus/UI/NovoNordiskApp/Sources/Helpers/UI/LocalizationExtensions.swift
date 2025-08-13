@@ -189,4 +189,9 @@ enum LocalizedStrings {
     static let eventGifts: String = "EVENT_DETAILS_GIFTS".localized
     static let eventEventManager: String = "EVENT_DETAILS_EVENT_MANAGER".localized
     static let eventLocationContact: String = "EVENT_DETAILS_LOCATION_CONTACT".localized
+
+    static let eventAgendaScreenTitle = "EVENT_AGENDA_SCREEN_TITLE".localized
+    static let eventLocationScreenTitle = "EVENT_LOCATION_SCREEN_TITLE".localized
+    static let eventDinnerScreenTitle = "EVENT_DINNER_SCREEN_TITLE".localized
+    static let eventSurveyScreenTitle = "EVENT_SURVEY_SCREEN_TITLE".localized
 }

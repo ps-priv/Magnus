@@ -7,6 +7,11 @@ enum BottomMenuTab: Int, CaseIterable {
     case events = 2
     case materials = 3
     case academy = 4
+
+    case eventsAgenda = 5
+    case eventsLocation = 6
+    case eventsDinner = 7
+    case eventsSurvey = 8
     
     var icon: FontAwesome.Icon {
         switch self {
@@ -20,9 +25,18 @@ enum BottomMenuTab: Int, CaseIterable {
             return .fileAlt
         case .academy:
             return .graduationCap
+
+        case .eventsAgenda:
+            return .clock
+        case .eventsLocation:
+            return .location
+        case .eventsDinner:
+            return .dinner
+        case .eventsSurvey:
+            return .survey
         }
     }
-    
+
     var title: String {
         switch self {
         case .start:
@@ -35,6 +49,14 @@ enum BottomMenuTab: Int, CaseIterable {
             return NSLocalizedString("BOTTOM_MENU_MATERIALS", comment: "")
         case .academy:
             return NSLocalizedString("BOTTOM_MENU_ACADEMY", comment: "")
+        case .eventsAgenda:
+            return NSLocalizedString("EVENT_AGENDA_SCREEN_TITLE", comment: "")
+        case .eventsLocation:
+            return NSLocalizedString("EVENT_LOCATION_SCREEN_TITLE", comment: "")
+        case .eventsDinner:
+            return NSLocalizedString("EVENT_DINNER_SCREEN_TITLE", comment: "")
+        case .eventsSurvey:
+            return NSLocalizedString("EVENT_SURVEY_SCREEN_TITLE", comment: "")
         }
     }
 }

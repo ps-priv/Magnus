@@ -99,6 +99,14 @@ struct MainNavigationContainer: View {
             MessagesListView()
         case let .messageDetail(messageId):
             MessageDetailView(messageId: messageId)
+        case let .eventAgenda(eventId):
+            EventAgendaView(eventId: eventId)
+        case let .eventLocation(eventId):
+            EventLocationView(eventId: eventId)
+        case let .eventDinner(eventId):
+            EventDinnerView(eventId: eventId)
+        case let .eventSurvey(eventId):
+            EventSurveyView(eventId: eventId)
         }
     }
 
