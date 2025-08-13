@@ -21,8 +21,7 @@ struct EventStatusView: View {
                 EmptyView()
                 //EventFinishedView()
             case .between:
-            EmptyView()
-                //EventInProgressView()
+                EventInProgressView()
             case .unknown:
                 EmptyView()
         }

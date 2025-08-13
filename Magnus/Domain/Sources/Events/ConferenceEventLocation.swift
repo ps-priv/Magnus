@@ -1,3 +1,5 @@
+import Foundation
+
 public struct ConferenceEventLocation : Hashable, Decodable {
     public let name: String
     public let city: String
@@ -28,5 +30,23 @@ public struct ConferenceEventLocation : Hashable, Decodable {
         self.www = www
         self.header_description = header_description
         self.description = description
+    }
+
+    public func getLocationAddress() -> String {
+        return "\(city) | \(street)"
+    }
+
+    public func getFullAddress() -> String {
+        return "\(street) \(city)"
+    }
+
+    public func getDomainAddressFromWww() -> String {
+        let urlString = www.hasPrefix("http") ? www : "https://\(www)"
+        guard let url = URL(string: urlString),
+              let host = url.host else {
+            return www
+        }
+        return host
+        //return host.hasPrefix("www.") ? String(host.dropFirst(4)) : host
     }
 }

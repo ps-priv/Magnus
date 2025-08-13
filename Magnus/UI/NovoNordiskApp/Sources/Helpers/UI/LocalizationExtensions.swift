@@ -187,5 +187,6 @@ enum LocalizedStrings {
     static let eventTabPhotobooth = "EVENT_DETAILS_PHOTOBOOTH".localized
 
     static let eventGifts: String = "EVENT_DETAILS_GIFTS".localized
-
+    static let eventEventManager: String = "EVENT_DETAILS_EVENT_MANAGER".localized
+    static let eventLocationContact: String = "EVENT_DETAILS_LOCATION_CONTACT".localized
 }

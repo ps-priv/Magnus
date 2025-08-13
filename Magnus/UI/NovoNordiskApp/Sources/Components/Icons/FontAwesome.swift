@@ -74,6 +74,7 @@ enum FontAwesome {
         case chartLine = "\u{f201}"
         case chartBar = "\u{f080}"
         case calendar = "\u{f073}"
+        case calendar_days = "\u{f133}"
         case clock = "\u{f017}"
 
         // Bottom Menu Icons
@@ -130,6 +131,7 @@ enum FontAwesome {
         case handHoldingHeart = "\u{f4be}"
 
         case burgerSoda = "\u{f858}"
+        case location = "\u{f3c5}"
 
         //photobooth
         case camera = "\u{f030}"
