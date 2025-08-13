@@ -88,14 +88,13 @@ struct EventCardView: View {
                             .font(.body)
                             .foregroundColor(.novoNordiskTextGrey)
 
-                        // Seats info
-                        // HStack {
-                        //     EventSeatsInfoView(occupiedSeats: event.occupiedSeats, totalSeats: event.totalSeats)
-                        //         .padding(.trailing, 10)
-                        //     EventSeatsNotConfirmedView(notConfirmedSeats: event.unconfirmedSeats)
-                        //     Spacer()
-                        // }
-                        // .padding(.top, 10)
+
+                        HStack {
+                            EventSeatsInfoView(seats: event.seats)
+                                .padding(.trailing, 10)
+                            Spacer()
+                        }
+                        .padding(.top, 10)
                     }
                     .padding(.horizontal, 20)
                     .padding(.top, 20)
