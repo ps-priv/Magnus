@@ -61,7 +61,6 @@ struct EventCardView: View {
                         .padding(.bottom, 12)
                     }
 
-                    // Content section - remaining space
                     VStack(alignment: .leading) {
                         Text(event.name)
                             .font(.headline)
@@ -72,16 +71,19 @@ struct EventCardView: View {
                             .padding(.bottom, 3)
 
                         HStack {
-                            Text(PublishedDateHelper.formatDateRangeForEvent(event.date_from, event.date_to, LocalizedStrings.months))
+                            Text(PublishedDateHelper.formatDateRangeForEvent(event.date_from, event.date_to, LocalizedStrings.months, dateFormat: "yyyy-MM-dd"))
                                 .font(.headline)
                                 .fontWeight(.bold)
                                 .foregroundColor(.novoNordiskBlue)
                                 .padding(.bottom, 3)
 
-                            if event.IsOnline {
-                                EventInProgressView()
-                                Spacer()
-                            }
+                            EventStatusView(date_from: event.date_from, date_to: event.date_to)
+                            Spacer()
+
+                            // if event.IsOnline {
+                            //     EventInProgressView()
+                            //     Spacer()
+                            // }
                         }
 
                         Text(event.description)

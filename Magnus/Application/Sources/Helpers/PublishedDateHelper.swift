@@ -5,9 +5,9 @@ import Foundation
 // MARK: - Email Validation Helper
 
 public enum PublishedDateHelper {
-    public static func formatPublishDate(_ dateString: String) -> String {
+    public static func formatPublishDate(_ dateString: String, dateFormat: String = "yyyy-MM-dd HH:mm:ss") -> String {
         let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        formatter.dateFormat = dateFormat
 
         guard let date = formatter.date(from: dateString) else {
             return dateString
@@ -25,9 +25,9 @@ public enum PublishedDateHelper {
         }
     }
 
-    public static func formatDateForEvent(_ dateString: String, _ months: [String]) -> String {
+    public static func formatDateForEvent(_ dateString: String, _ months: [String], dateFormat: String = "yyyy-MM-dd HH:mm:ss") -> String {
         let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        formatter.dateFormat = dateFormat
         formatter.locale = Locale(identifier: "pl_PL")
 
         guard let date = formatter.date(from: dateString) else {
@@ -42,9 +42,9 @@ public enum PublishedDateHelper {
         return "\(day) \(months[month]) \(year)"
     }
 
-    public static func formatDateRangeForEvent(_ from: String, _ to: String, _ months: [String]) -> String {
+    public static func formatDateRangeForEvent(_ from: String, _ to: String, _ months: [String], dateFormat: String = "yyyy-MM-dd HH:mm:ss") -> String {
         let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd HH:mm"
+        formatter.dateFormat = dateFormat
         formatter.locale = Locale(identifier: "pl_PL")
 
         guard let fromDate = formatter.date(from: from), let toDate = formatter.date(from: to) else {

@@ -145,6 +145,8 @@ enum LocalizedStrings {
     static let eventsListEmptyStateDescription = "EVENTS_LIST_EMPTY_STATE_DESCRIPTION".localized
     static let eventAvailableTransmission = "EVENT_AVAILABLE_TRANSMISSION".localized
     static let eventInProgress = "EVENT_IN_PROGRESS".localized
+    static let eventSoon = "EVENT_SOON".localized
+    static let eventFinished = "EVENT_FINISHED".localized
     static let eventSeats = "EVENT_SEATS".localized
     static let eventSeatsNotConfirmed = "EVENT_SEATS_NOT_CONFIRMED".localized
     static let dashboardUpcomingEventsEmpty  = "DASHBOARD_UPCOMING_EVENTS_EMPTY".localized

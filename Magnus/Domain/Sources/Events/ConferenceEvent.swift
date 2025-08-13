@@ -22,17 +22,19 @@ public struct ConferenceEvent: Decodable {
 
 
     public var IsOnline: Bool {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd HH:mm"
+        // let formatter = DateFormatter()
+        // formatter.dateFormat = "yyyy-MM-dd HH:mm"
 
-        guard let startDate = formatter.date(from: date_from),
-            let endDate = formatter.date(from: date_to)
-        else {
-            return false
-        }
+        // guard let startDate = formatter.date(from: date_from),
+        //     let endDate = formatter.date(from: date_to)
+        // else {
+        //     return false
+        // }
 
-        let currentDate = Date()
-        return currentDate >= startDate && currentDate <= endDate
+        // let currentDate = Date()
+        // return currentDate >= startDate && currentDate <= endDate
+
+        return false
     }
 
     public var isFinished: Bool {
