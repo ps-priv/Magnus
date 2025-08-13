@@ -2,15 +2,21 @@ import Foundation
 import MagnusDomain
 
 public class EventDetailsJsonMockGenerator {
-    public static func generateObject() throws -> ConferenceEventDetails {
+    public static func generateObject() -> ConferenceEventDetails? {
         let json = generate()
-        let data = Data(json.utf8)
-        let decoder = JSONDecoder()
-        return try decoder.decode(ConferenceEventDetails.self, from: data)
+
+        do {
+            let data = Data(json.utf8)
+            let decoder = JSONDecoder()
+            return try decoder.decode(ConferenceEventDetails.self, from: data)
+        } catch {
+            // Fallback to existing mock on decode failure
+            return nil
+        }
     }
 
     public static func generate() -> String {
-        return "
+        let json = """
             {
             "title": "Pierwsze wydarzenie",
             "date_from": "2025-10-01",
@@ -247,6 +253,8 @@ public class EventDetailsJsonMockGenerator {
                 }
             ]
         }
-        "
+        """
+
+        return json
     }
 }
