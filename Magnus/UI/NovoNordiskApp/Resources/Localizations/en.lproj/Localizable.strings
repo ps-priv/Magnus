@@ -172,3 +172,8 @@
 "NEWS_REACTION_SENT_SUCCESSFULLY"="Reaction sent successfully";
 "NEWS_COMMENT_SENT_SUCCESSFULLY" = "Comment sent successfully";
 
+/* Event details */
+"EVENT_DETAILS_EVENT"="Event";
+"EVENT_DETAILS_MATERIALS"="Materials";
+"EVENT_DETAILS_PHOTOBOOTH"="Photobooth";
+"EVENT_DETAILS_GIFTS"="Gifts";

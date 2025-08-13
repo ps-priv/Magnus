@@ -77,6 +77,10 @@ extension Font {
         return openSansLight(size: 12)
     }
 
+    static var novoNordiskMiddleText: Font {
+        return openSansLight(size: 14)
+    }
+
     static var novoNordiskRegularText: Font {
         return openSansLight(size: 16)
     }

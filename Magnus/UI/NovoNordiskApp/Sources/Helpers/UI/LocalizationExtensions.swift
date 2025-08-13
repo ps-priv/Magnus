@@ -180,4 +180,12 @@ enum LocalizedStrings {
     static let newsDetailsNotFoundMessage = "NEWS_DETAILS_NOT_FOUND_MESSAGE".localized
 
     static let newsReactionSentSuccessfully = "NEWS_REACTION_SENT_SUCCESSFULLY".localized
+
+    //Event details
+    static let eventTabEvent = "EVENT_DETAILS_EVENT".localized
+    static let eventTabMaterials = "EVENT_DETAILS_MATERIALS".localized
+    static let eventTabPhotobooth = "EVENT_DETAILS_PHOTOBOOTH".localized
+
+    static let eventGifts: String = "EVENT_DETAILS_GIFTS".localized
+
 }

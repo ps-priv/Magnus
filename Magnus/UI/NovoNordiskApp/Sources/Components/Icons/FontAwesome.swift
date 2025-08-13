@@ -129,6 +129,12 @@ enum FontAwesome {
         case lightBulb = "\u{f0eb}"
         case handHoldingHeart = "\u{f4be}"
 
+        case burgerSoda = "\u{f858}"
+
+        //photobooth
+        case camera = "\u{f030}"
+        case image = "\u{f03e}"
+
         var unicode: String {
             return rawValue
         }

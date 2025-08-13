@@ -173,5 +173,12 @@
 "NEWS_REACTION_SENT_SUCCESSFULLY"="Reakcja została wysłana";
 "NEWS_COMMENT_SENT_SUCCESSFULLY" = "Komentarz został wysłany";
 
+/* Event details */
+"EVENT_DETAILS_EVENT"="Wydarzenie";
+"EVENT_DETAILS_MATERIALS"="Materiały";
+"EVENT_DETAILS_PHOTOBOOTH"="Fotobudka";
+"EVENT_DETAILS_GIFTS"="Gratisty";
+
+
 
 
