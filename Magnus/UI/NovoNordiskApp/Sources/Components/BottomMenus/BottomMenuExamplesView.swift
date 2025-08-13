@@ -33,14 +33,24 @@ struct TabContentView: View {
                         MaterialsTabContent()
                     case .academy:
                         AcademyTabContent()
+                    case .eventDetails:
+                        EventDetailView(eventId: "1")
+                    case .eventsAgenda:
+                        EventAgendaView(eventId: "1")
+                    case .eventsLocation:
+                        EventLocationView(eventId: "1")
+                    case .eventsDinner:
+                        EventDinnerView(eventId: "1")
+                    case .eventsSurvey:
+                        EventSurveyView(eventId: "1")
                     }
                 }
                 .padding()
             }
         }
-        .background(Color.gray.opacity(0.05))
     }
 }
+
 
 // MARK: - Header View
 struct HeaderView: View {

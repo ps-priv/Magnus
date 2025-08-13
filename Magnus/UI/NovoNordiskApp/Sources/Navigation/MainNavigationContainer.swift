@@ -50,8 +50,24 @@ struct MainNavigationContainer: View {
                 if navigationManager.currentScreen.shouldShowBottomMenu {
                     BottomMenu(
                         selectedTab: $navigationManager.selectedBottomTab,
+                        visibleTabs: visibleBottomTabs,
                         onTabSelected: { tab in
-                            navigationManager.navigateToTabRoot(tab)
+                            if let eventId = currentEventId() {
+                                switch tab {
+                                case .eventsAgenda:
+                                    navigationManager.navigate(to: .eventAgenda(eventId: eventId))
+                                case .eventsLocation:
+                                    navigationManager.navigate(to: .eventLocation(eventId: eventId))
+                                case .eventsDinner:
+                                    navigationManager.navigate(to: .eventDinner(eventId: eventId))
+                                case .eventsSurvey:
+                                    navigationManager.navigate(to: .eventSurvey(eventId: eventId))
+                                default:
+                                    navigationManager.navigateToTabRoot(tab)
+                                }
+                            } else {
+                                navigationManager.navigateToTabRoot(tab)
+                            }
                         }
                     )
                     .frame(height: bottomMenuHeight(geometry: geometry))
@@ -116,5 +132,32 @@ struct MainNavigationContainer: View {
         let safeAreaBottom = geometry.safeAreaInsets.bottom
         let menuHeight: CGFloat = 30
         return menuHeight + safeAreaBottom
+    }
+
+    // MARK: - Bottom Menu Helpers
+
+    private func currentEventId() -> String? {
+        switch navigationManager.currentScreen {
+        case let .eventDetail(eventId):
+            return eventId
+        case let .eventAgenda(eventId):
+            return eventId
+        case let .eventLocation(eventId):
+            return eventId
+        case let .eventDinner(eventId):
+            return eventId
+        case let .eventSurvey(eventId):
+            return eventId
+        default:
+            return nil
+        }
+    }
+
+    private var visibleBottomTabs: [BottomMenuTab] {
+        if currentEventId() != nil {
+            return [.eventDetails, .eventsAgenda, .eventsLocation, .eventsDinner, .eventsSurvey]
+        } else {
+            return [.start, .news, .events, .materials, .academy]
+        }
     }
 }

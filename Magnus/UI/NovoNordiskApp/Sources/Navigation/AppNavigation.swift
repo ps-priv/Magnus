@@ -109,8 +109,10 @@ enum AppScreen: Equatable, Identifiable {
         switch self {
         case .dashboard:
             return .start
-        case .eventsList, .eventDetail:
+        case .eventsList:
             return .events
+        case .eventDetail:
+            return .eventsAgenda
         case .materialsList, .materialDetail:
             return .materials
         case .newsList, .newsDetail:
@@ -146,8 +148,10 @@ enum AppScreen: Equatable, Identifiable {
         switch self {
         case .profile, .settings:
             return false
-        case .eventDetail, .eventQrCode, .materialDetail, .newsDetail:
+        case .eventQrCode, .materialDetail, .newsDetail:
             return false // Ukryj również na ekranach szczegółów
+        case .eventDetail:
+            return true // Show bottom menu on event details to access agenda/location/dinner/survey
         default:
             return true
         }
@@ -286,7 +290,8 @@ class NavigationManager: ObservableObject {
                 screen = .materialsList
             case .academy:
                 screen = .academy
-            
+            case .eventDetails:
+                screen = .eventDetail(eventId: "")
             case .eventsAgenda:
                 screen = .eventAgenda(eventId: "")
             case .eventsLocation:

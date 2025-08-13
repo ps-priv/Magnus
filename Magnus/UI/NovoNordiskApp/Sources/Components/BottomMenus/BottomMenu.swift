@@ -8,10 +8,12 @@ enum BottomMenuTab: Int, CaseIterable {
     case materials = 3
     case academy = 4
 
-    case eventsAgenda = 5
-    case eventsLocation = 6
-    case eventsDinner = 7
-    case eventsSurvey = 8
+    case eventDetails = 5
+    case eventsAgenda = 6
+    case eventsLocation = 7
+    case eventsDinner = 8
+    case eventsSurvey = 9
+
     
     var icon: FontAwesome.Icon {
         switch self {
@@ -26,6 +28,8 @@ enum BottomMenuTab: Int, CaseIterable {
         case .academy:
             return .graduationCap
 
+        case .eventDetails:
+            return .calendar
         case .eventsAgenda:
             return .clock
         case .eventsLocation:
@@ -49,6 +53,8 @@ enum BottomMenuTab: Int, CaseIterable {
             return NSLocalizedString("BOTTOM_MENU_MATERIALS", comment: "")
         case .academy:
             return NSLocalizedString("BOTTOM_MENU_ACADEMY", comment: "")
+        case .eventDetails:
+            return NSLocalizedString("EVENT_DETAILS_SCREEN_TITLE", comment: "")
         case .eventsAgenda:
             return NSLocalizedString("EVENT_AGENDA_SCREEN_TITLE", comment: "")
         case .eventsLocation:
@@ -96,10 +102,12 @@ struct BottomMenuItemView: View {
 struct BottomMenu: View {
     @Binding var selectedTab: BottomMenuTab
     let onTabSelected: ((BottomMenuTab) -> Void)?
+    let visibleTabs: [BottomMenuTab]
     
-    init(selectedTab: Binding<BottomMenuTab>, onTabSelected: ((BottomMenuTab) -> Void)? = nil) {
+    init(selectedTab: Binding<BottomMenuTab>, visibleTabs: [BottomMenuTab] = BottomMenuTab.allCases, onTabSelected: ((BottomMenuTab) -> Void)? = nil) {
         self._selectedTab = selectedTab
         self.onTabSelected = onTabSelected
+        self.visibleTabs = visibleTabs
     }
     
     var body: some View {
@@ -111,7 +119,7 @@ struct BottomMenu: View {
             
             // Menu items
             HStack(spacing: 0) {
-                ForEach(BottomMenuTab.allCases, id: \.rawValue) { tab in
+                ForEach(visibleTabs, id: \.rawValue) { tab in
                     BottomMenuItemView(
                         tab: tab,
                         isSelected: selectedTab == tab
