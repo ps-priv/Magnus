@@ -57,13 +57,17 @@ struct EventDetailCardView: View {
                 EventDescriptionSection
                     .padding(.bottom, 3)
 
-                EventManagerSection
-                    .padding(.top, 8)
-                    .padding(.bottom, 3)
+                if event.guardians.count > 0 {
+                    EventManagerSection
+                        .padding(.top, 8)
+                        .padding(.bottom, 3)
+                }
 
-                EventLocationContactSection
-                    .padding(.top, 8)
-                    .padding(.bottom, 3)
+                if event.location.name != "" {
+                    EventLocationContactSection
+                        .padding(.top, 8)
+                        .padding(.bottom, 3)
+                }
 
             }
             .padding(.horizontal, 16)
