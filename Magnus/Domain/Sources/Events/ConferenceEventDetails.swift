@@ -6,6 +6,7 @@ public struct ConferenceEventDetails : Hashable, Decodable {
     public let name: String
     public let description: String
     public let location: ConferenceEventLocation
+    public let guardians: [ConferenceEventGuardians]
     public let agenda: [ConferenceEventAgenda]
     public let dinner: ConferenceEventDinner
     public let materials: [ConferenceEventMaterial]
@@ -19,6 +20,7 @@ public struct ConferenceEventDetails : Hashable, Decodable {
         name: String,
         description: String,
         location: ConferenceEventLocation,
+        guardians: [ConferenceEventGuardians],
         agenda: [ConferenceEventAgenda],
         dinner: ConferenceEventDinner,
         materials: [ConferenceEventMaterial],
@@ -31,6 +33,7 @@ public struct ConferenceEventDetails : Hashable, Decodable {
         self.name = name
         self.description = description
         self.location = location
+        self.guardians = guardians
         self.agenda = agenda
         self.dinner = dinner
         self.materials = materials

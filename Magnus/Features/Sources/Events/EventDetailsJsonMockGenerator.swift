@@ -37,6 +37,18 @@ public class EventDetailsJsonMockGenerator {
             "header_description": "Sala bursztynowa",
             "description": "Hotel, który sprawia, że liczy się każda chwila\n\nZarezerwuj pokój w czterogwiazdkowym Novotel Warszawa Centrum ze wspaniałymi widokami na tętniącą życiem Warszawę. Hotel położony jest tylko 5 minut spacerem od Dworca Centralnego, a bliskość zabytków, sklepów i instytucji kultury zachęcają do zwiedzania. Wyśmienite jedzenie gwarantują hotelowy bar i restauracja. Śniadania są serwowane w dwóch restauracjach, na poziomie 0 oraz -1. W Novotelu dbamy również o udane spotkania biznesowe, a naszym gościom oferujemy doskonale wyposażone centrum konferencyjne.\n\nHotel Novotel Warszawa Centrum (hotel średniej klasy dla biznesu i rodziny) mieści się w samym centrum Warszawy niedaleko słynnego Pałacu Kultury i Nauki. Znajdujący się przy hotelu węzeł komunikacyjny (metro, autobusy i tramwaje) zapewnia dobrą komunikację z głównymi atrakcjami stolicy. Do hotelu można dojechać tramwajem z oddalonego o 500 m dworca, a z Lotniska Chopina kursuje bezpośredni autobus oraz Szybka Kolej Miejska. Podróż trwa ok. 25 min. Główne drogi dojazdowe to E30 i E77.\n\nZarezerwuj pokój w czterogwiazdkowym Novotel Warszawa Centrum ze wspaniałymi widokami na tętniącą życiem Warszawę. Wyśmienite jedzenie gwarantują hotelowy bar i restauracja. W Novotelu dbamy również o udane spotkania biznesowe i konferencje."
         },
+        "guardians": [
+            {
+                "name": "Ewa Opiekun 1",
+                "email": "user4@test.pl",
+                "phone": "+48689456123"
+            },
+            {
+                "name": "Jacek Opiekun 2",
+                "email": "user5@test.pl",
+                "phone": "+48689456124"
+            }
+        ],
         "agenda": [
             {
                 "id": "eyJpZCI6MSwidG9rZW4iOiIxNnxSNWJvN2l5NFJ0RnE1aE9YbmYzY3Q5c2NmWG5MNFJwV0pUQk1PYXJzN2UwNjhlYTUifQ==",
