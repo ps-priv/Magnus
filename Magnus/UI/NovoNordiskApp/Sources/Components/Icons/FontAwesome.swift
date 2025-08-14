@@ -45,6 +45,7 @@ enum FontAwesome {
         // Communication
         case email = "\u{f0e0}"
         case phone = "\u{f095}"
+        case smartphone = "\u{f10b}"
         case message = "\u{f27a}"
         case bell = "\u{f0f3}"
 

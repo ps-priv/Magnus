@@ -131,6 +131,30 @@ struct EventDetailCardView: View {
                 .font(.novoNordiskRegularText)
                 .fontWeight(.bold)
                 .foregroundColor(Color.novoNordiskBlue)
+
+            ForEach(event.guardians, id: \.email) { guardian in
+                VStack(alignment: .leading, spacing: 4) {
+                    Text(guardian.name)
+                        .font(.novoNordiskMiddleText)
+                        .fontWeight(.bold)
+                        .foregroundColor(Color.novoNordiskTextGrey)
+
+                    HStack {
+                        FAIcon(FontAwesome.Icon.email, type: .light, size: 16, color: .novoNordiskBlue)
+                        Text(guardian.email)
+                            .font(.novoNordiskMiddleText)
+                            .foregroundColor(Color.novoNordiskTextGrey)
+                    }
+
+                    HStack {
+                        FAIcon(FontAwesome.Icon.phone, type: .light, size: 16, color: .novoNordiskBlue)
+                        Text(guardian.phone)
+                            .font(.novoNordiskMiddleText)
+                            .foregroundColor(Color.novoNordiskTextGrey)
+                    }
+                }
+                .padding(.bottom, 8)
+            }
         }
     }   
 
@@ -148,21 +172,21 @@ struct EventDetailCardView: View {
                 .foregroundColor(Color.novoNordiskTextGrey)
 
             HStack {
-                FAIcon(FontAwesome.Icon.location, type: .light, size: 18, color: .novoNordiskBlue)
+                FAIcon(FontAwesome.Icon.location, type: .light, size: 16, color: .novoNordiskBlue)
                 Text(event.location.getFullAddress())
                     .font(.novoNordiskMiddleText)
                     .foregroundColor(Color.novoNordiskTextGrey)
             }
 
             HStack {
-                FAIcon(FontAwesome.Icon.email, type: .light, size: 18, color: .novoNordiskBlue)
+                FAIcon(FontAwesome.Icon.email, type: .light, size: 16, color: .novoNordiskBlue)
                 Text(event.location.email)
                     .font(.novoNordiskMiddleText)
                     .foregroundColor(Color.novoNordiskTextGrey)
             }
 
             HStack {
-                FAIcon(FontAwesome.Icon.phone, type: .light, size: 18, color: .novoNordiskBlue)
+                FAIcon(FontAwesome.Icon.phone, type: .light, size: 16, color: .novoNordiskBlue)
                 Text(event.location.phone)
                     .font(.novoNordiskMiddleText)
                     .foregroundColor(Color.novoNordiskTextGrey)
