@@ -1,3 +1,6 @@
+import MagnusApplication
+import MagnusDomain
+import MagnusFeatures
 import SwiftUI
 
 struct EventAgendaView: View {
