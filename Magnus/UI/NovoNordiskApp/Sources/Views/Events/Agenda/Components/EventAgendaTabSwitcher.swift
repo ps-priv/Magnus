@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct EventAgendaTabItem2: Hashable {
+struct EventAgendaTabItem: Hashable {
     let id: Int
     let title: String
     let subtitle: String
@@ -15,9 +15,9 @@ struct EventAgendaTabItem2: Hashable {
 struct EventAgendaTabSwitcher: View {
     
     @Binding var selectedIndex: Int
-    let items: [EventAgendaTabItem2]
+    let items: [EventAgendaTabItem]
 
-    init(selectedIndex: Binding<Int>, items: [EventAgendaTabItem2]) {
+    init(selectedIndex: Binding<Int>, items: [EventAgendaTabItem]) {
         self._selectedIndex = selectedIndex
         self.items = items
     }
@@ -65,7 +65,9 @@ struct EventAgendaPillControlGroupStyle: ControlGroupStyle {
     func makeBody(configuration: Configuration) -> some View {
         GeometryReader { geo in
             let count = max(itemCount, 1)
-            let itemWidth = (geo.size.width - horizontalPadding * 2) / CGFloat(count)
+            let itemWidth = geo.size.width / CGFloat(count)
+            let rawOffset = itemWidth * CGFloat(selectedIndex)
+            let clampedOffset = min(max(0, rawOffset), max(0, geo.size.width - itemWidth))
 
             ZStack(alignment: .leading) {
                 RoundedCorner(radius: 12, corners: .allCorners)
@@ -81,7 +83,8 @@ struct EventAgendaPillControlGroupStyle: ControlGroupStyle {
                 RoundedCorner(radius: 12, corners: corners)
                     .fill(Color.novoNordiskBlue)
                     .frame(width: itemWidth, height: geo.size.height)
-                    .animation(.easeInOut(duration: 0.22), value: selectedIndex)
+                    .offset(x: clampedOffset)
+                    .animation(.easeInOut(duration: 0.30), value: selectedIndex)
                     .zIndex(0)
 
                 HStack(spacing: 0) {
@@ -101,16 +104,13 @@ struct EventAgendaPillControlGroupStyle: ControlGroupStyle {
 }
 
 #Preview("EventAgendaTabSwitcher") {
-    @State var selected = 0
-
+    @Previewable @State var selected = 0
     let items = [
-        EventAgendaTabItem2(id: 0, title: "Dzień 1", subtitle: "17 maja 2025"),
-        EventAgendaTabItem2(id: 1, title: "Dzień 2", subtitle: "18 maja 2025"),
-        EventAgendaTabItem2(id: 2, title: "Dzień 3", subtitle: "19 maja 2025"),
+        EventAgendaTabItem(id: 0, title: "Dzień 1", subtitle: "17 maja 2025"),
+        EventAgendaTabItem(id: 1, title: "Dzień 2", subtitle: "18 maja 2025"),
+        EventAgendaTabItem(id: 2, title: "Dzień 3", subtitle: "19 maja 2025"),
     ]
 
-    VStack {
-        EventAgendaTabSwitcher(selectedIndex: $selected, items: items)
-    }
+    EventAgendaTabSwitcher(selectedIndex: $selected, items: items)
     .padding(.horizontal, 30)
 }
