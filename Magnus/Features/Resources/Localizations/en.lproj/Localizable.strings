@@ -12,3 +12,5 @@
 /* News */
 "NEWS_REACTION_SENT_SUCCESSFULLY" = "Reaction sent successfully";
 "NEWS_COMMENT_SENT_SUCCESSFULLY" = "Comment sent successfully";
+"EVENT_AGENDA_QUIZ" = "Quiz";
+

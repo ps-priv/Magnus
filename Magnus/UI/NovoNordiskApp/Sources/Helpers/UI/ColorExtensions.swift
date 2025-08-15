@@ -13,4 +13,5 @@ extension Color {
     static let novoNordiskBackgroundGrey = Color("NovoNordiskBackgroundGrey")
     static let novoNordiskLightBlueBackground = Color("NovoNordiskLightBlueBackground")
     static let novoNordiskLighGreyForPanelBackground = Color("NovoNordiskLighGreyForPanelBackground")
+    static let novoNordiskOrange = Color("NovoNordiskOrange")
 }
