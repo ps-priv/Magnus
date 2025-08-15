@@ -199,4 +199,5 @@ enum LocalizedStrings {
     static let eventAgendaPresenter = "EVENT_AGENDA_PRESENTER".localized
     static let eventAgendaJoinOnline = "EVENT_AGENDA_JOIN_ONLINE".localized
     static let eventAgendaQuiz = "EVENT_AGENDA_QUIZ".localized
+    static let eventAgendaDay = "EVENT_AGENDA_DAY".localized
 }

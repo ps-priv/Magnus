@@ -85,4 +85,5 @@ class FeaturesLocalizedStrings {
 
     static let newsReactionSentSuccessfully = "NEWS_REACTION_SENT_SUCCESSFULLY".localized
     static let newsCommentSentSuccessfully = "NEWS_COMMENT_SENT_SUCCESSFULLY".localized
+    static let eventAgendaDay = "EVENT_AGENDA_DAY".localized
 } 

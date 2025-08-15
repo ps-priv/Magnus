@@ -1,4 +1,5 @@
 import SwiftUI
+import MagnusFeatures
 
 struct EventAgendaTabItem: Hashable {
     let id: Int
@@ -27,20 +28,18 @@ struct EventAgendaTabSwitcher: View {
             ForEach(items, id: \.id) { item in
                 Button(action: {
                     withAnimation(.easeInOut(duration: 0.22)) {
-                        print("Selected item: \(item)")
                         selectedIndex = item.id
-                        print("Selected index: \(selectedIndex)")
                     }
                 }) {
                     VStack(spacing: 2) {
                         Text(item.title)
-                            .font(.novoNordiskRegularText)
+                            .font(.novoNordiskMiddleText)
                             .fontWeight(.bold)
                             .foregroundStyle(selectedIndex == item.id ? Color.white : Color.novoNordiskBlue)
                             .frame(maxWidth: .infinity)
 
                         Text(item.subtitle)
-                            .font(.novoNordiskMiddleText)
+                            .font(.novoNordiskSmallText)
                             .foregroundStyle(selectedIndex == item.id ? Color.white : Color.novoNordiskBlue)
                             .frame(maxWidth: .infinity)
                     }
