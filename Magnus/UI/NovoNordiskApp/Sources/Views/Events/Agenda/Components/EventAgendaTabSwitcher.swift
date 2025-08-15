@@ -114,3 +114,37 @@ struct EventAgendaPillControlGroupStyle: ControlGroupStyle {
     EventAgendaTabSwitcher(selectedIndex: $selected, items: items)
     .padding(.horizontal, 30)
 }
+
+#Preview("One day") {
+    @Previewable @State var selected = 0
+    let items = [
+        EventAgendaTabItem(id: 0, title: "Dzień 1", subtitle: "17 maja 2025"),
+    ]
+
+    EventAgendaTabSwitcher(selectedIndex: $selected, items: items)
+    .padding(.horizontal, 30)
+}
+
+#Preview("Two days") {
+    @Previewable @State var selected = 0
+    let items = [
+        EventAgendaTabItem(id: 0, title: "Dzień 1", subtitle: "17 maja 2025"),
+        EventAgendaTabItem(id: 1, title: "Dzień 2", subtitle: "18 maja 2025"),
+    ]
+
+    EventAgendaTabSwitcher(selectedIndex: $selected, items: items)
+    .padding(.horizontal, 30)
+}
+
+#Preview("Four days") {
+    @Previewable @State var selected = 0
+    let items = [
+        EventAgendaTabItem(id: 0, title: "Dzień 1", subtitle: "17 maja 2025"),
+        EventAgendaTabItem(id: 1, title: "Dzień 2", subtitle: "18 maja 2025"),
+        EventAgendaTabItem(id: 2, title: "Dzień 3", subtitle: "19 maja 2025"),
+        EventAgendaTabItem(id: 3, title: "Dzień 4", subtitle: "20 maja 2025"),
+    ]
+
+    EventAgendaTabSwitcher(selectedIndex: $selected, items: items)
+    .padding(.horizontal, 30)
+}
