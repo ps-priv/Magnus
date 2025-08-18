@@ -1,6 +1,6 @@
 import Foundation
 
-public struct ConferenceEventDinner : Hashable, Decodable {
+public struct ConferenceEventDinner : Hashable, Decodable, Encodable {
     public let name: String
     public let city: String
     public let zip_code: String

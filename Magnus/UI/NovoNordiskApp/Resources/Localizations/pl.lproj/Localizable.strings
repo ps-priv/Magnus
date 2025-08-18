@@ -192,6 +192,10 @@
 "EVENT_AGENDA_QUIZ"="Quiz";
 "EVENT_AGENDA_DAY"="Dzień";
 
+"EVENT_DETAILS_NOT_FOUND_TITLE"="Nie znaleziono wydarzenia";
+"EVENT_DETAILS_NOT_FOUND_MESSAGE"="Sprobuj ponownie później lub poproś administratora o pomoc.";
+
+
 
 
 

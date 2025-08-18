@@ -1,4 +1,4 @@
-public struct ConferenceEventAgendaContent : Hashable, Decodable {
+public struct ConferenceEventAgendaContent : Hashable, Decodable, Encodable {
     public let time_from: String //HH:mm:ss
     public let time_to: String //HH:mm:ss
     public let place: String

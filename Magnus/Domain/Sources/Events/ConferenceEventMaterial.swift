@@ -1,4 +1,4 @@
-public struct ConferenceEventMaterial : Identifiable, Hashable, Decodable {
+public struct ConferenceEventMaterial : Identifiable, Hashable, Decodable, Encodable {
     public let id: String
     public let name: String
     public let file_type: Int

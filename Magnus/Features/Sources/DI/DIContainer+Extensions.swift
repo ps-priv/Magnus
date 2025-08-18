@@ -20,6 +20,14 @@ public extension DIContainer {
         }
         return service
     }
+
+    /// Returns registered MagnusStorageService instance
+    var storageService: MagnusStorageService {
+        guard let service = resolve(MagnusStorageService.self) else {
+            fatalError("MagnusStorageService not registered in DI container")
+        }
+        return service
+    }
     
     /// Returns registered DashboardService instance
     var dashboardService: DashboardService {

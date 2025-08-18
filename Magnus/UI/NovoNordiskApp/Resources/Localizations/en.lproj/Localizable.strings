@@ -191,3 +191,7 @@
 "EVENT_AGENDA_QUIZ"="Quiz";
 "EVENT_AGENDA_DAY"="Day";
 
+"EVENT_DETAILS_NOT_FOUND_TITLE"="Event not found";
+"EVENT_DETAILS_NOT_FOUND_MESSAGE"="Try again later or ask the administrator for help.";
+
+

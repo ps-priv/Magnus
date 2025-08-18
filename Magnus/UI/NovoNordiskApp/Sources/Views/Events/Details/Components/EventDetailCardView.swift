@@ -19,6 +19,8 @@ struct EventDetailCardView: View {
                 EventDetailsSection
             }
         }
+        .padding(.vertical, 16)
+        .padding(.horizontal, 16)
     }
 
     @ViewBuilder

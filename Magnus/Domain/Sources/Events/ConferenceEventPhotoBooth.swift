@@ -1,5 +1,5 @@
 
-public struct ConferenceEventPhotoBooth : Identifiable, Hashable, Decodable {
+public struct ConferenceEventPhotoBooth : Identifiable, Hashable, Decodable, Encodable {
     public let id: String
     public let image: String //url
 

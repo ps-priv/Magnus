@@ -1,4 +1,4 @@
-public struct ConferenceEventAgenda : Identifiable, Hashable, Decodable {
+public struct ConferenceEventAgenda : Identifiable, Hashable, Decodable, Encodable {
     public let id: String
     public let date: String //yyyy-MM-dd
     public let day: Int

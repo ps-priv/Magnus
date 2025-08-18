@@ -76,6 +76,10 @@ public class DIContainer {
                 IosAuthStorageService()
             }.inObjectScope(.container)
 
+            container.register(MagnusStorageService.self) { _ in
+                IosStorageService()
+            }.inObjectScope(.container)
+
             container.register(DashboardService.self) { resolver in
                 let authStorageService = resolver.resolve(AuthStorageService.self)!
                 let dashboardNetworkService = resolver.resolve(
