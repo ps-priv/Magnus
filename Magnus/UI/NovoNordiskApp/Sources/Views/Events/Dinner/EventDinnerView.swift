@@ -3,15 +3,15 @@ import MagnusDomain
 import MagnusFeatures
 import SwiftUI
 
-struct EventLocationView: View {
+struct EventDinnerView: View {
 
-    @StateObject private var viewModel: EventLocationViewModel
+    @StateObject private var viewModel: EventDinnerViewModel
 
     let eventId: String
 
     init(eventId: String) {
         self.eventId = eventId
-        _viewModel = StateObject(wrappedValue: EventLocationViewModel(eventId:eventId))
+        _viewModel = StateObject(wrappedValue: EventDinnerViewModel(eventId:eventId))
     }
 
     var body: some View {
@@ -20,7 +20,7 @@ struct EventLocationView: View {
                 ProgressView()
             } else {
                 if let event = viewModel.event {
-                    EventLocationCardView(location: event.location, event_name: event.name)
+                    EventDinnerCardView(dinner: event.dinner, event_name: event.name)
                 } else {
                    EventDetailErrorMessageView(errorMessage: viewModel.errorMessage, errorTitle: LocalizedStrings.eventDetailsNotFoundTitle)
                 }
