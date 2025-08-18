@@ -78,7 +78,7 @@ struct BottomMenuItemView: View {
             VStack(spacing: 4) {
                 FAIcon(
                     tab.icon,
-                    type: .thin,
+                    type: .regular,
                     size: 24,
                     color: isSelected ? Color.novoNordiskLightBlue : Color.novoNordiskBlue
                 )
