@@ -35,6 +35,7 @@ public class EventDetailViewModel: ObservableObject {
 
         do {
             let data: ConferenceEventDetails = try await eventsService.getEventDetails(id: eventId)
+            print("Event details loaded: \(data)")
 
             try storageService.saveEventDetails(data)
 
@@ -43,6 +44,7 @@ public class EventDetailViewModel: ObservableObject {
                 isLoading = false
             }
         } catch let error {
+            print("Error loading event details: \(error)")
             await MainActor.run {
                 isLoading = false
                 errorMessage = error.localizedDescription
