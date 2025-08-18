@@ -48,7 +48,7 @@ struct LoginView: View {
                     .padding(.top, geometry.safeAreaInsets.top + 24)
 
                     // Login form
-                    VStack(spacing: 24) {
+                    VStack(spacing: 10) {
                         if !viewModel.errorMessage.isEmpty {
                             NovoNordiskErrorView.error(
                                 viewModel.errorMessage,
