@@ -18,7 +18,7 @@ struct EventDetailView: View {
                 ProgressView()
             } else {
                 if let event = viewModel.event {
-                    EventDetailCardView(event: event)
+                    EventDetailCardView(event: event, eventId: eventId)
                 } else {
                     EventDetailsNotFound()
                 }

@@ -6,10 +6,12 @@ import SwiftUI
 
 struct EventDetailCardView: View {
     let event: ConferenceEventDetails
+    let eventId: String
     @EnvironmentObject var navigationManager: NavigationManager
 
-    init(event: ConferenceEventDetails) {
+    init(event: ConferenceEventDetails, eventId: String) {
         self.event = event
+        self.eventId = eventId
     }
 
     var body: some View {
@@ -237,7 +239,7 @@ struct EventDetailCardView: View {
             }
 
             Button(action: {
-                //navigationManager.popToRoot()
+                navigationManager.navigateToEventMaterials(eventId: eventId)
             }) {
                 FAIcon(FontAwesome.Icon.file, type: .light, size: 16, color: .novoNordiskBlue)
                 Text(LocalizedStrings.eventTabMaterials)
@@ -288,7 +290,7 @@ struct EventDetailCardView: View {
 
     VStack {
         if let event = event {
-            EventDetailCardView(event: event)
+            EventDetailCardView(event: event, eventId: "1")
                 .environmentObject(NavigationManager())
         } else {
             Text("Event not found")

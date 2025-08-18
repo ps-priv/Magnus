@@ -76,6 +76,7 @@ enum LocalizedStrings {
     static let dashboardScreenTitle = "DASHBOARD_SCREEN_TITLE".localized
     static let eventsListScreenTitle = "EVENTS_LIST_SCREEN_TITLE".localized
     static let eventDetailsScreenTitle = "EVENT_DETAILS_SCREEN_TITLE".localized
+    static let eventMaterialsScreenTitle = "EVENT_MATERIALS_SCREEN_TITLE".localized
     static let materialsListScreenTitle = "MATERIALS_LIST_SCREEN_TITLE".localized
     static let materialDetailsScreenTitle = "MATERIAL_DETAILS_SCREEN_TITLE".localized
     static let newsListScreenTitle = "NEWS_LIST_SCREEN_TITLE".localized

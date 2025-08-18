@@ -125,6 +125,8 @@ struct MainNavigationContainer: View {
             EventDinnerView(eventId: eventId)
         case let .eventSurvey(eventId):
             EventSurveyView(eventId: eventId)
+        case let .eventMaterials(eventId):
+            EventMaterialsView(eventId: eventId)
         }
     }
 
@@ -149,6 +151,8 @@ struct MainNavigationContainer: View {
         case let .eventDinner(eventId):
             return eventId
         case let .eventSurvey(eventId):
+            return eventId
+        case let .eventMaterials(eventId):
             return eventId
         default:
             return nil

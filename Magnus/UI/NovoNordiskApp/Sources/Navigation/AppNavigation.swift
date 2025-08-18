@@ -8,6 +8,7 @@ enum AppScreen: Equatable, Identifiable {
     case eventsList
     case eventDetail(eventId: String)
     case eventQrCode(eventId: String)
+    case eventMaterials(eventId: String)
     case materialsList
     case materialDetail(materialId: String)
     case newsList
@@ -33,6 +34,8 @@ enum AppScreen: Equatable, Identifiable {
             return "event_detail_\(eventId)"
         case let .eventQrCode(eventId):
             return "event_qr_code_\(eventId)"
+        case let .eventMaterials(eventId):
+            return "event_materials_\(eventId)"
         case .materialsList:
             return "materials_list"
         case let .materialDetail(materialId):
@@ -72,6 +75,8 @@ enum AppScreen: Equatable, Identifiable {
             return LocalizedStrings.eventsListScreenTitle
         case .eventDetail:
             return LocalizedStrings.eventDetailsScreenTitle
+        case .eventMaterials:
+            return LocalizedStrings.eventMaterialsScreenTitle
         case .eventQrCode:
             return ""
         case .materialsList:
@@ -112,6 +117,8 @@ enum AppScreen: Equatable, Identifiable {
         case .eventsList:
             return .events
         case .eventDetail:
+            return .eventDetails
+        case .eventMaterials:
             return .eventDetails
         case .materialsList, .materialDetail:
             return .materials
@@ -242,6 +249,10 @@ class NavigationManager: ObservableObject {
     // Convenience methods for specific navigation with parameters
     func navigateToEventDetail(eventId: String) {
         navigate(to: .eventDetail(eventId: eventId))
+    }
+
+    func navigateToEventMaterials(eventId: String) {
+        navigate(to: .eventMaterials(eventId: eventId))
     }
 
     func navigateToEventQrCode(event: ConferenceEvent) {
