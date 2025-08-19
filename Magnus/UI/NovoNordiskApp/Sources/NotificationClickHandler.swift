@@ -18,11 +18,11 @@ public class NotificationClickHandler: NSObject, OSNotificationClickListener {
         }
         
         // // Extract action buttons if any
-        if let actionButtons = event.notification.actionButtons {
-            for button in actionButtons {
-                print("Action button: \(button.id) - \(button.text )")
-            }
-        }
+        // if let actionButtons = event.notification.actionButtons {
+        //     for button in actionButtons {
+        //         print("Action button: \(button.id) - \(button.text )")
+        //     }
+        // }
 
     }
 }

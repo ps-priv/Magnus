@@ -41,7 +41,7 @@ struct DashboardUpcomingEventsCard: View {
                     .lineLimit(3)
                     .multilineTextAlignment(.leading)
                 HStack {
-                    Text(PublishedDateHelper.formatDateRangeForEvent(item.date_from, item.date_to, LocalizedStrings.months))
+                    Text(PublishedDateHelper.formatDateRangeForEvent(item.date_from, item.date_to, LocalizedStrings.months, dateFormat: "yyyy-MM-dd"))
                         .font(.system(size: 16))
                         .fontWeight(.bold)
                         .foregroundColor(.novoNordiskBlue)
