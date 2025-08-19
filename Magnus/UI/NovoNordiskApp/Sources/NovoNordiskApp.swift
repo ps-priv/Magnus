@@ -1,6 +1,7 @@
 import MagnusFeatures
 import Sentry
 import SwiftUI
+import OneSignalFramework
 
 #if DEBUG
     import Inject
@@ -18,6 +19,16 @@ struct NovoNordiskApp: App {
             // For more information, visit: https://docs.sentry.io/platforms/apple/data-management/data-collected/
             options.sendDefaultPii = true
         }
+        OneSignal.Debug.setLogLevel(.LL_VERBOSE)
+        // OneSignal Push Notifications initialization
+        // App ID configured for NovoNordisk app
+        OneSignal.initialize("fdc9099d-cf34-484d-8030-ecdbb4f2be91", withLaunchOptions: nil)
+        // Configure OneSignal notification handlers
+        //OneSignalService.configureHandlers()
+        // Prompt for push permission (non-blocking). Customize as needed.
+        OneSignal.Notifications.requestPermission({ accepted in
+            print("OneSignal permission accepted: \(accepted)")
+        }, fallbackToSettings: true)
 
         // Initialize DI Container with NovoNordisk configuration
         DIContainer.shared.configure(
@@ -42,3 +53,4 @@ struct NovoNordiskApp: App {
         }
     }
 }
+

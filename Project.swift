@@ -7,7 +7,8 @@ let packages: [Package] = [
     .package(url: "https://github.com/getsentry/sentry-cocoa", from: "8.53.2"),
     .package(url: "https://github.com/EmergeTools/Pow", from: "1.0.0"),
     .package(url: "https://github.com/onevcat/Kingfisher.git", from: "7.0.0"),
-    .package(url: "https://github.com/exyte/PopupView.git", from: "4.1.11")
+    .package(url: "https://github.com/exyte/PopupView.git", from: "4.1.11"),
+    .package(url: "https://github.com/OneSignal/OneSignal-iOS-SDK.git", from: "5.2.14")
 ]
 
 let project = Project(
@@ -23,6 +24,30 @@ let project = Project(
             sources: ["Magnus/Domain/Sources/**"],
             resources: ["Magnus/Domain/Resources/**"],
             dependencies: []
+        ),
+        .target(
+            name: "OneSignalNotificationServiceExtension",
+            destinations: .iOS,
+            product: .appExtension,
+            bundleId: "pl.mz.NovoNordiskApp.OneSignalNotificationServiceExtension",
+            infoPlist: .extendingDefault(
+                with: [
+                    "NSExtension": [
+                        "NSExtensionPointIdentifier": "com.apple.usernotifications.service",
+                        "NSExtensionPrincipalClass": "$(PRODUCT_MODULE_NAME).NotificationService",
+                    ],
+                ]
+            ),
+            sources: ["Magnus/OneSignalNotificationServiceExtension/Sources/**"],
+            resources: [],
+            dependencies: [
+                .package(product: "OneSignalExtension")
+            ],
+            settings: .settings(
+                base: [
+                    "IPHONEOS_DEPLOYMENT_TARGET": "13.0"
+                ]
+            )
         ),
         .target(
             name: "MagnusApplication",
@@ -83,6 +108,9 @@ let project = Project(
                     "NSAppTransportSecurity": [
                         "NSAllowsArbitraryLoads": true
                     ],
+                    "UIBackgroundModes": [
+                        "remote-notification"
+                    ],
                 ]
             ),
             sources: ["Magnus/UI/NovoNordiskApp/Sources/**"],
@@ -96,6 +124,8 @@ let project = Project(
                 .package(product: "Pow"),
                 .package(product: "Kingfisher"),
                 .package(product: "PopupView"),
+                .package(product: "OneSignalFramework"),
+                .target(name: "OneSignalNotificationServiceExtension"),
             ],
             settings: .settings(
                 base: [
@@ -103,6 +133,7 @@ let project = Project(
                     "CODE_SIGN_STYLE": "Automatic",
                     "DEVELOPMENT_TEAM": "MULTIZONE IT Sp. z o.o.",
                     "CODE_SIGN_IDENTITY": "iPhone Developer",
+                    "CODE_SIGN_ENTITLEMENTS": "Magnus/UI/NovoNordiskApp/NovoNordiskApp.entitlements",
                 ],
                 configurations: [
                     .debug(
