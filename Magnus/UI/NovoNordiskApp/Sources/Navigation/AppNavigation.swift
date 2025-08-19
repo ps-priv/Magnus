@@ -176,7 +176,7 @@ enum AppScreen: Equatable, Identifiable {
     // Helper to check if top bar search button should be shown
     var shouldShowSearchButton: Bool {
         switch self {
-        case .eventsList, .materialsList, .newsList:
+        case .eventsList, .materialsList, .newsList, .messagesList:
             return true
         default:
             return false
