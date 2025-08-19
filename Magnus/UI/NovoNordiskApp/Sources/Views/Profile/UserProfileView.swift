@@ -3,6 +3,7 @@ import CoreImage.CIFilterBuiltins
 import MagnusDomain
 import MagnusFeatures
 import SwiftUI
+import PopupView
 
 #if DEBUG
     import Inject
@@ -24,6 +25,10 @@ struct UserProfileView: View {
     @State private var confirmPassword: String = ""
     @State private var showSuccessAlert = false
     @State private var hasBusiness = false
+
+    @State private var showPrivacyPolicy = false
+    @State private var showTermsOfUse = false
+    @State private var showGdprPolicy = false
 
     #if DEBUG
         @ObserveInjection var inject
@@ -70,7 +75,8 @@ struct UserProfileView: View {
 
                 Spacer()
             }
-            .padding()
+            .padding(.vertical, 16)
+            .padding(.horizontal, 16)  
         }
         .background(Color.novoNordiskBackgroundGrey)
         .onAppear {
@@ -80,6 +86,22 @@ struct UserProfileView: View {
             Button("OK") {}
         } message: {
             Text("Hasło zostało pomyślnie zmienione")
+        }
+        .sheet(isPresented: $showPrivacyPolicy) {
+            VStack() {
+                PrivacyPolicyView()
+            }
+            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
+            .background(Color.white)
+            .cornerRadius(20, corners: [.topLeft, .topRight])
+        }
+        .sheet(isPresented: $showTermsOfUse) {
+            VStack() {
+                TermsOfServiceView()
+            }
+            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
+            .background(Color.white)
+            .cornerRadius(20, corners: [.topLeft, .topRight])
         }
     }
 
@@ -217,7 +239,7 @@ struct UserProfileView: View {
                         NovoNordiskLinkButton(
                             title: LocalizedStrings.userProfilePolicyLink, style: .small
                         ) {
-                            print("Regulamin aplikacji tapped")
+                           showPrivacyPolicy = true
                         }
                         .padding(.leading, 30)
                     }
@@ -232,6 +254,7 @@ struct UserProfileView: View {
                         NovoNordiskLinkButton(
                             title: LocalizedStrings.userProfileRodoLink, style: .small
                         ) {
+                            showTermsOfUse = true
                             print("Regulamin aplikacji tapped")
                         }
                         .padding(.leading, 30)
@@ -247,7 +270,7 @@ struct UserProfileView: View {
                         NovoNordiskLinkButton(
                             title: LocalizedStrings.userProfileMarketingLink, style: .small
                         ) {
-                            print("Regulamin aplikacji tapped")
+                                print("Regulamin aplikacji tapped")
                         }
                         .padding(.leading, 30)
                     }
