@@ -9,6 +9,8 @@ import OneSignalFramework
 
 @main
 struct NovoNordiskApp: App {
+    private let notificationClickHandler = NotificationClickHandler()
+
     init() {
         SentrySDK.start { options in
             options.dsn =
@@ -29,6 +31,10 @@ struct NovoNordiskApp: App {
         OneSignal.Notifications.requestPermission({ accepted in
             print("OneSignal permission accepted: \(accepted)")
         }, fallbackToSettings: true)
+
+
+        OneSignal.Notifications.addClickListener(notificationClickHandler)
+
 
         // Initialize DI Container with NovoNordisk configuration
         DIContainer.shared.configure(
