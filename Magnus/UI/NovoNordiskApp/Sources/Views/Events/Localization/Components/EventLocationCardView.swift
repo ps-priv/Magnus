@@ -127,7 +127,13 @@ struct EventLocationCardView: View {
             )
 
             Map(position: $cameraPosition) {
-                Marker(location.name, systemImage: "mappin", coordinate: coord)
+                Annotation(location.name, coordinate: coord) {
+                    Button(action: openInMaps) {
+                        Image(systemName: "mappin.circle.fill")
+                            .font(.title)
+                            .foregroundColor(.red)
+                    }
+                }
             }
             .frame(height: 200)
             .cornerRadius(12)
@@ -137,6 +143,17 @@ struct EventLocationCardView: View {
         }
         .padding(.horizontal, 20)
         .padding(.vertical, 10)
+    }
+
+    private func openInMaps() {
+        let coordinate = CLLocationCoordinate2D(
+            latitude: Double(location.latitude) ?? 0.0,
+            longitude: Double(location.longitude) ?? 0.0
+        )
+        let placemark = MKPlacemark(coordinate: coordinate)
+        let mapItem = MKMapItem(placemark: placemark)
+        mapItem.name = location.name
+        mapItem.openInMaps()
     }
 }
 
