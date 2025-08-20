@@ -13,6 +13,12 @@ enum AppScreen: Equatable, Identifiable {
     case materialDetail(materialId: String)
     case newsList
     case newsDetail(newsId: String)
+    case newsCreate
+    case newsBookmarks
+    case newsDrafts
+    case newsEdit(newsId: String)
+    case newsEditDraft(newsId: String)
+    case newsGroups
     case profile
     case settings
     case academy
@@ -44,6 +50,18 @@ enum AppScreen: Equatable, Identifiable {
             return "news_list"
         case let .newsDetail(newsId):
             return "news_detail_\(newsId)"
+        case .newsCreate:
+            return "news_create"
+        case .newsBookmarks:
+            return "news_bookmarks"
+        case .newsDrafts:
+            return "news_drafts"
+        case let .newsEdit(newsId):
+            return "news_edit_\(newsId)"
+        case let .newsEditDraft(newsId):
+            return "news_edit_draft_\(newsId)"
+        case .newsGroups:
+            return "news_groups"
         case .profile:
             return "profile"
         case .settings:
@@ -87,6 +105,18 @@ enum AppScreen: Equatable, Identifiable {
             return LocalizedStrings.newsListScreenTitle
         case .newsDetail:
             return LocalizedStrings.newsDetailsScreenTitle
+        case .newsCreate:
+            return LocalizedStrings.newsCreateScreenTitle
+        case .newsBookmarks:
+            return LocalizedStrings.newsBookmarksScreenTitle
+        case .newsDrafts:
+            return LocalizedStrings.newsDraftsScreenTitle
+        case .newsEdit:
+            return LocalizedStrings.newsEditScreenTitle
+        case .newsEditDraft:
+            return LocalizedStrings.newsEditDraftScreenTitle
+        case .newsGroups:
+            return LocalizedStrings.newsGroupsScreenTitle
         case .profile:
             return LocalizedStrings.userProfileScreenTitle
         case .settings:
@@ -123,6 +153,10 @@ enum AppScreen: Equatable, Identifiable {
         case .materialsList, .materialDetail:
             return .materials
         case .newsList, .newsDetail:
+            return .news
+        case .newsCreate, .newsEdit, .newsEditDraft, .newsBookmarks, .newsDrafts:
+            return .news
+        case .newsGroups:
             return .news
         case .academy:
             return .academy

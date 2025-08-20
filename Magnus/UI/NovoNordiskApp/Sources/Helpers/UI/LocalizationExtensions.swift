@@ -81,6 +81,13 @@ enum LocalizedStrings {
     static let materialDetailsScreenTitle = "MATERIAL_DETAILS_SCREEN_TITLE".localized
     static let newsListScreenTitle = "NEWS_LIST_SCREEN_TITLE".localized
     static let newsDetailsScreenTitle = "NEWS_DETAILS_SCREEN_TITLE".localized
+    static let newsCreateScreenTitle = "NEWS_CREATE_SCREEN_TITLE".localized
+    static let newsBookmarksScreenTitle = "NEWS_BOOKMARKS_SCREEN_TITLE".localized
+    static let newsDraftsScreenTitle = "NEWS_DRAFTS_SCREEN_TITLE".localized
+    static let newsEditScreenTitle = "NEWS_EDIT_SCREEN_TITLE".localized
+    static let newsEditDraftScreenTitle = "NEWS_EDIT_DRAFT_SCREEN_TITLE".localized
+    static let newsGroupsScreenTitle = "NEWS_GROUPS_SCREEN_TITLE".localized
+    
     static let userProfileScreenTitle = "USER_PROFILE_SCREEN_TITLE".localized
     static let settingsScreenTitle = "SETTINGS_SCREEN_TITLE".localized
     static let academyScreenTitle = "ACADEMY_SCREEN_TITLE".localized

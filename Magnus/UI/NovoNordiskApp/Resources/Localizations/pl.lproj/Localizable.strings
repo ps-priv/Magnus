@@ -75,6 +75,12 @@
 "MATERIAL_DETAILS_SCREEN_TITLE" = "Materiał";
 "NEWS_LIST_SCREEN_TITLE" = "Aktualności";
 "NEWS_DETAILS_SCREEN_TITLE" = "Aktualność";
+"NEWS_CREATE_SCREEN_TITLE" = "Dodaj wpis";
+"NEWS_BOOKMARKS_SCREEN_TITLE" = "Zakładki";
+"NEWS_DRAFTS_SCREEN_TITLE" = "Wpisy robocze";
+"NEWS_EDIT_SCREEN_TITLE" = "Edytuj wpis";
+"NEWS_EDIT_DRAFT_SCREEN_TITLE" = "Edytuj wpis roboczy";
+"NEWS_GROUPS_SCREEN_TITLE" = "Twoje grupy";
 "USER_PROFILE_SCREEN_TITLE" = "Moje konto";
 "SETTINGS_SCREEN_TITLE" = "Ustawienia";
 "ACADEMY_SCREEN_TITLE" = "Akademia";
