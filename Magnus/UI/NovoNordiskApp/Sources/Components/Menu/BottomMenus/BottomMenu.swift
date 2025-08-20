@@ -130,6 +130,7 @@ struct BottomMenu: View {
                 }
             }
             .padding(.top, 20)
+            .padding(.horizontal, 15)
             .background(Color.white)
         }
        // .background(Color.white)
