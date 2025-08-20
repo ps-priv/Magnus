@@ -277,14 +277,31 @@ class NavigationManager: ObservableObject {
 
     // Back navigation
     func goBack() {
-        if !navigationStack.isEmpty {
-            currentScreen = navigationStack.removeLast()
 
-            // Update bottom tab
-            if let tab = currentScreen.bottomMenuTab {
-                selectedBottomTab = tab
+        if case let .eventDetail(eventId) = currentScreen, !eventId.isEmpty {
+            navigate(to: .eventsList)
+        } else
+        if case let .eventAgenda(eventId) = currentScreen, !eventId.isEmpty {
+            navigate(to: .eventDetail(eventId: eventId))
+        } else
+        if case let .eventLocation(eventId) = currentScreen, !eventId.isEmpty {
+            navigate(to: .eventDetail(eventId: eventId))
+        } else
+        if case let .eventDinner(eventId) = currentScreen, !eventId.isEmpty {
+            navigate(to: .eventDetail(eventId: eventId))
+        } else
+        if case let .eventSurvey(eventId) = currentScreen, !eventId.isEmpty {
+            navigate(to: .eventDetail(eventId: eventId))
+        } else {
+            if !navigationStack.isEmpty {
+                currentScreen = navigationStack.removeLast()
+
+                // Update bottom tab
+                if let tab = currentScreen.bottomMenuTab {
+                    selectedBottomTab = tab
+                }
             }
-        }
+        } 
     }
 
     // Navigate to root screen for a tab

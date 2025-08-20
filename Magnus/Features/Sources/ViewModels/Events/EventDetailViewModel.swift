@@ -35,8 +35,7 @@ public class EventDetailViewModel: ObservableObject {
 
         do {
             let data: ConferenceEventDetails = try await eventsService.getEventDetails(id: eventId)
-            print("Event details loaded: \(data)")
-
+            
             try storageService.saveEventDetails(data)
 
             await MainActor.run {
