@@ -1,9 +1,6 @@
 import MagnusFeatures
 import SwiftUI
 
-#if DEBUG
-    import Inject
-#endif
 
 extension Notification.Name {
     static let userDidLogout = Notification.Name("userDidLogout")
@@ -20,9 +17,6 @@ struct RootView: View {
     @State private var authCheckCompleted = false
     @StateObject private var networkStatusViewModel: NetworkStatusViewModel
 
-    #if DEBUG
-        @ObserveInjection var inject
-    #endif
 
     init() {
         let networkMonitor = DIContainer.shared.resolve(NetworkMonitorProtocol.self)!
@@ -68,9 +62,6 @@ struct RootView: View {
                 appState = .unauthenticated
             }
         }
-        #if DEBUG
-            .enableInjection()
-        #endif
     }
 
     private func checkAuthenticationStatus() {

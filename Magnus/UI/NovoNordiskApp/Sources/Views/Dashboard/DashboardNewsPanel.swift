@@ -4,14 +4,8 @@ import MagnusFeatures
 import SwiftUI
 import Kingfisher
 
-#if DEBUG
-    import Inject
-#endif
 
 struct DashboardNewsPanel: View {
-    #if DEBUG
-        @ObserveInjection var inject
-    #endif
 
     @Binding var items: [NewsItem]
     @State private var currentPage: Int = 0

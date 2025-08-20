@@ -3,18 +3,12 @@ import MagnusFeatures
 import MagnusDomain
 import Kingfisher
 
-#if DEBUG
-import Inject
-#endif
 
 struct MessageDetailView: View {
     let messageId: String
     @State private var message: ConferenceMessage? = nil
     @EnvironmentObject var navigationManager: NavigationManager
     
-    #if DEBUG
-    @ObserveInjection var inject
-    #endif
 
     var body: some View {
         ScrollView {
@@ -92,9 +86,6 @@ struct MessageDetailView: View {
         .onAppear {
             loadMessage()
         }
-        #if DEBUG
-        .enableInjection()
-        #endif
     }
     
     private func loadMessage() {

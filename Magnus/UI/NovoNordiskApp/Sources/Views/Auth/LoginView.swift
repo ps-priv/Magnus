@@ -3,9 +3,6 @@ import Pow
 import Sentry
 import SwiftUI
 
-#if DEBUG
-    import Inject
-#endif
 
 struct LoginView: View {
     let onAuthenticationSuccess: () -> Void
@@ -13,9 +10,6 @@ struct LoginView: View {
     @StateObject private var viewModel = LoginViewModel()
     @State private var showError = false
     @State private var showForgotPassword = false
-    #if DEBUG
-        @ObserveInjection var inject
-    #endif
 
     init(onAuthenticationSuccess: @escaping () -> Void = {}) {
         self.onAuthenticationSuccess = onAuthenticationSuccess
@@ -142,9 +136,6 @@ struct LoginView: View {
                 showForgotPassword = false
             }
         }
-        #if DEBUG
-            .enableInjection()
-        #endif
     }
 
     private func registerAction() {

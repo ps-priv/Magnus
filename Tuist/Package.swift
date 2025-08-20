@@ -18,7 +18,6 @@ let package = Package(
         // Add your own dependencies here:
         .package(url: "https://github.com/Alamofire/Alamofire", from: "5.8.0"),
         .package(url: "https://github.com/Swinject/Swinject.git", from: "2.9.1"),
-        .package(url: "https://github.com/krzysztofzablocki/Inject.git", from: "1.5.0"),
         .package(url: "https://github.com/getsentry/sentry-cocoa", from: "8.53.2"),
         .package(url: "https://github.com/exyte/PopupView.git", from: "4.1.11")
     ]

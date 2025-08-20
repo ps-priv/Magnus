@@ -2,17 +2,11 @@ import SwiftUI
 import MagnusFeatures
 import MagnusDomain
 
-#if DEBUG
-import Inject
-#endif
 
 struct MessagesListView: View {
     @State private var messages: [ConferenceMessage] = MessagesMockGenerator.createMany(count: 14)
     @EnvironmentObject var navigationManager: NavigationManager
     
-    #if DEBUG
-    @ObserveInjection var inject
-    #endif
     
     var body: some View {
         ScrollView {
@@ -25,9 +19,6 @@ struct MessagesListView: View {
             .padding(.top, 8)
         }
         .background(Color.novoNordiskBackgroundGrey)
-        #if DEBUG
-        .enableInjection()
-        #endif
     }
 }
 

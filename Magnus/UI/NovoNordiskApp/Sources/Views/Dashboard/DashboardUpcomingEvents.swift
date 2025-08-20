@@ -2,15 +2,9 @@ import SwiftUI
 import MagnusFeatures
 import MagnusDomain
 import MagnusApplication
-#if DEBUG
-import Inject
-#endif
 
 struct DashboardUpcomingEventsPanel: View {
 
-    #if DEBUG
-    @ObserveInjection var inject
-    #endif
 
     @Binding var items: [EventItem]
     @State private var currentPage: Int = 0

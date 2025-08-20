@@ -5,9 +5,6 @@ import MagnusFeatures
 import SwiftUI
 import PopupView
 
-#if DEBUG
-    import Inject
-#endif
 
 enum UserProfilePanel {
     case informacje
@@ -30,9 +27,6 @@ struct UserProfileView: View {
     @State private var showTermsOfUse = false
     @State private var showGdprPolicy = false
 
-    #if DEBUG
-        @ObserveInjection var inject
-    #endif
 
     var body: some View {
         ScrollView {

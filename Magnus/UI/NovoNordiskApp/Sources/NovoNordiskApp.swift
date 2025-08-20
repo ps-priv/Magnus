@@ -3,9 +3,6 @@ import Sentry
 import SwiftUI
 import OneSignalFramework
 
-#if DEBUG
-    import Inject
-#endif
 
 @main
 struct NovoNordiskApp: App {
@@ -42,20 +39,12 @@ struct NovoNordiskApp: App {
             apiBaseURL: "https://nncv2-dev.serwik.pl"  // Configure your API base URL here
         )
 
-        #if DEBUG
-            // Load InjectionIII Bundle for hot reload
-            Bundle(path: "/Applications/InjectionIII.app/Contents/Resources/iOSInjection.bundle")?
-                .load()
-        #endif
     }
 
     var body: some Scene {
         WindowGroup {
             RootView()
                 .novoNordiskTypography()
-                #if DEBUG
-                    .enableInjection()
-                #endif
         }
     }
 }

@@ -2,14 +2,8 @@ import MagnusApplication
 import MagnusDomain
 import MagnusFeatures
 import SwiftUI
-#if DEBUG
-    import Inject
-#endif
 
 struct DashboardMaterialsPanel: View {
-    #if DEBUG
-        @ObserveInjection var inject
-    #endif
 
     @Binding var items: [MaterialItem]
     @EnvironmentObject var navigationManager: NavigationManager

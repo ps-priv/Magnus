@@ -3,18 +3,12 @@ import MagnusDomain
 import MagnusFeatures
 import SwiftUI
 
-#if DEBUG
-    import Inject
-#endif
 
 struct DashboardMainView: View {
 
     @StateObject private var viewModel = DashboardViewModel()
 
     @EnvironmentObject var navigationManager: NavigationManager
-    #if DEBUG
-        @ObserveInjection var inject
-    #endif
 
     var body: some View {
         ScrollView {
