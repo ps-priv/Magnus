@@ -102,6 +102,13 @@ class NavigationManager: ObservableObject {
                 screen = .eventDinner(eventId: eventId ?? "")
             case .eventsSurvey:
                 screen = .eventSurvey(eventId: eventId ?? "")
+
+            case .newsCreate:
+                screen = .newsCreate
+            case .newsGroups:
+                screen = .newsGroups
+            case .newsBookmarks:
+                screen = .newsBookmarks
         }
 
         // Clear navigation stack and go to tab root

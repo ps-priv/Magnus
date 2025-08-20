@@ -141,6 +141,8 @@ enum FontAwesome {
         case camera = "\u{f030}"
         case image = "\u{f03e}"
 
+        case plus = "\u{f067}"
+
         var unicode: String {
             return rawValue
         }

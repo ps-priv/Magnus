@@ -163,9 +163,34 @@ struct MainNavigationContainer: View {
         }
     }
 
+    private func currentNewsId() -> String? {
+        switch navigationManager.currentScreen {
+        case .newsList:
+            return "news_list"
+        case let .newsDetail(newsId):
+            return newsId
+        case .newsGroups:
+            return "news_groups"
+        case .newsBookmarks:
+            return "news_bookmarks"
+        case .newsCreate:
+            return "news_add"
+        case .newsDrafts:
+            return "news_drafts"
+        case let .newsEdit(newsId):
+            return "news_edit_\(newsId)"
+        case let .newsEditDraft(newsId):
+            return "news_edit_draft_\(newsId)"
+        default:
+            return nil
+        }
+    }
+
     private var visibleBottomTabs: [BottomMenuTab] {
         if currentEventId() != nil {
             return [.eventDetails, .eventsAgenda, .eventsLocation, .eventsDinner, .eventsSurvey]
+        } else if currentNewsId() != nil {
+            return [.start, .news, .newsGroups, .newsBookmarks, .newsCreate]
         } else {
             return [.start, .news, .events, .materials, .academy]
         }

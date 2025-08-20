@@ -14,6 +14,11 @@ enum BottomMenuTab: Int, CaseIterable {
     case eventsDinner = 8
     case eventsSurvey = 9
 
+    case newsGroups = 10
+    case newsBookmarks = 11
+    case newsCreate = 12
+    
+
     
     var icon: FontAwesome.Icon {
         switch self {
@@ -38,6 +43,13 @@ enum BottomMenuTab: Int, CaseIterable {
             return .dinner
         case .eventsSurvey:
             return .survey
+
+        case .newsGroups:
+            return .users
+        case .newsBookmarks:
+            return .bookmark
+        case .newsCreate:
+            return .plus
         }
     }
 
@@ -47,6 +59,12 @@ enum BottomMenuTab: Int, CaseIterable {
             return NSLocalizedString("BOTTOM_MENU_START", comment: "")
         case .news:
             return NSLocalizedString("BOTTOM_MENU_NEWS", comment: "")
+        case .newsGroups:
+            return NSLocalizedString("NEWS_GROUPS_SCREEN_TITLE", comment: "")
+        case .newsBookmarks:
+            return NSLocalizedString("NEWS_BOOKMARKS_SCREEN_TITLE", comment: "")
+        case .newsCreate:
+            return NSLocalizedString("NEWS_CREATE_SCREEN_TITLE", comment: "")
         case .events:
             return NSLocalizedString("BOTTOM_MENU_EVENTS", comment: "")
         case .materials:

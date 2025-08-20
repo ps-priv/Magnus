@@ -43,6 +43,12 @@ struct TabContentView: View {
                         EventDinnerView(eventId: "1")
                     case .eventsSurvey:
                         EventSurveyView(eventId: "1")
+                    case .newsCreate:
+                        NewsAddView()
+                    case .newsGroups:
+                        NewsGroupsView()
+                    case .newsBookmarks:
+                        NewsBookmarksView()
                     }
                 }
                 .padding()
