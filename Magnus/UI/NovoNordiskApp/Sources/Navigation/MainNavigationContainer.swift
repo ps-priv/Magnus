@@ -35,6 +35,7 @@ struct MainNavigationContainer: View {
 
                 // Main Content Area
                 currentScreenView()
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
                 // .frame(
                 //     width: geometry.size.width,
                 //     height: geometry.size.height - topBarHeight - (navigationManager.currentScreen.shouldShowBottomMenu ? bottomMenuHeight(geometry: geometry) : 0)
