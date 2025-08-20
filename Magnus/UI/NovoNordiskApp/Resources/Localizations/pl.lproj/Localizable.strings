@@ -207,6 +207,15 @@
 "NEWS_GROUPS_EMPTY_STATE_TITLE"="Brak grup";
 "NEWS_GROUPS_EMPTY_STATE_DESCRIPTION"="Nie znaleziono grup";
 
+/* News bookmarks */
+"NEWS_BOOKMARKS_EMPTY_STATE_TITLE"="Brak zakładek";
+"NEWS_BOOKMARKS_EMPTY_STATE_DESCRIPTION"="Nie znaleziono zapisanych zakładek";
+
+"NEWS_EMPTY_STATE_TITLE"="Brak aktualności";
+"NEWS_EMPTY_STATE_DESCRIPTION"="Nie znaleziono aktualności spełniających kryteria wyszukiwania";
+
+
+
 
 
 

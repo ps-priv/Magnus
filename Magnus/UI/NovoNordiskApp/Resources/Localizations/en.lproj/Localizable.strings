@@ -205,3 +205,11 @@
 "NEWS_GROUPS_CREATE_GROUP"="Create group"; 
 "NEWS_GROUPS_EMPTY_STATE_TITLE"="No groups";
 "NEWS_GROUPS_EMPTY_STATE_DESCRIPTION"="No groups found";
+
+/* News bookmarks */
+"NEWS_BOOKMARKS_EMPTY_STATE_TITLE"="No bookmarks";
+"NEWS_BOOKMARKS_EMPTY_STATE_DESCRIPTION"="No bookmarks found";
+
+"NEWS_EMPTY_STATE_TITLE"="No news";
+"NEWS_EMPTY_STATE_DESCRIPTION"="No news found";
+

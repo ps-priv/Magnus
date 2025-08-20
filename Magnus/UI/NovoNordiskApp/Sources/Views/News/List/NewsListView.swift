@@ -58,11 +58,11 @@ struct NewsListView: View {
         VStack(spacing: 16) {
             Spacer()
             FAIcon(.newspaper, type: .light, size: 60, color: .gray)
-            Text("Brak aktualności")
+            Text(LocalizedStrings.newsEmptyStateTitle)
                 .font(.title2)
                 .fontWeight(.bold)
                 .foregroundColor(.gray)
-            Text("Nie znaleziono aktualności spełniających kryteria wyszukiwania")
+            Text(LocalizedStrings.newsEmptyStateDescription)
                 .font(.body)
                 .foregroundColor(.gray)
                 .multilineTextAlignment(.center)

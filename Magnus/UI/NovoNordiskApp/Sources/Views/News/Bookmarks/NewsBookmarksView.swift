@@ -1,13 +1,82 @@
 import SwiftUI
+import MagnusFeatures
+import MagnusDomain
+import Kingfisher
 
 struct NewsBookmarksView: View {
+
+    @StateObject private var viewModel: BookmarksViewModel = BookmarksViewModel()
+    @EnvironmentObject var navigationManager: NavigationManager
+    
+
     var body: some View {
-        VStack {
-            Text("NewsBookmarksView")
-            .font(.system(size: 24))
-            .foregroundColor(Color.novoNordiskTextGrey)
+        VStack(spacing: 0) {
+            if viewModel.isLoading {
+                ProgressView()
+            } else {
+                newsList
+            }
         }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(Color.novoNordiskLighGreyForPanelBackground)
+        .background(Color.novoNordiskBackgroundGrey)
+    }
+     
+    @ViewBuilder
+    private var newsList: some View {
+        if viewModel.news.isEmpty {
+            emptyStateView
+        } else {
+            ScrollView {
+                LazyVStack(spacing: 12) {
+                    ForEach(viewModel.news) { newsItem in
+                        NewsListCardView(news: newsItem, 
+                            onTap: {
+                                navigationManager.navigateToNewsDetail(newsId: newsItem.id)
+                            },
+                            onBookmarkTap: {
+                                Task {
+                                    await viewModel.changeNewsBookmarkStatus(id: newsItem.id)
+                                }
+                            },
+                            onEditTap: {
+                                //navigationManager.navigateToNewsEdit(newsId: newsItem.id)
+                            },
+                            onDeleteTap: {
+                                // Task {
+                                //     await viewModel.deleteNews(id: newsItem.id)
+                                // }
+                            })
+                    }
+                }
+                .padding(.horizontal)
+                .padding(.vertical, 8)
+            }
+        }
+    }
+    
+    @ViewBuilder
+    private var emptyStateView: some View {
+        VStack(spacing: 16) {
+            Spacer()
+            FAIcon(.newspaper, type: .light, size: 60, color: .gray)
+            Text(LocalizedStrings.newsBookmarksEmptyStateTitle)
+                .font(.title2)
+                .fontWeight(.bold)
+                .foregroundColor(.gray)
+            Text(LocalizedStrings.newsBookmarksEmptyStateDescription)
+                .font(.body)
+                .foregroundColor(.gray)
+                .multilineTextAlignment(.center)
+                .padding(.horizontal, 32)
+            Spacer()
+        }
     }
 }
+
+#Preview {
+    VStack {    
+        NewsBookmarksView()
+            .environmentObject(NavigationManager())
+    }
+    .padding(20)
+    .background(Color(.systemGray6))
+} 

@@ -39,6 +39,12 @@ public class ApiNewsService: NewsServiceProtocol {
         return news
     }
 
+    public func getBookmarks() async throws -> GetNewsResponse {
+        var response: GetNewsResponse = try await getNews()
+        let news = response.news.filter { $0.isBookmarked }
+        return GetNewsResponse(news: news)
+    }
+
     public func getNewsById(id: String) async throws -> NewsDetails {
         let token = try authStorageService.getAccessToken() ?? ""
         let news = try await withCheckedThrowingContinuation { continuation in

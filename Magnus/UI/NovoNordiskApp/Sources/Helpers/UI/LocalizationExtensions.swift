@@ -216,4 +216,11 @@ enum LocalizedStrings {
     static let newsGroupsCreateGroup = "NEWS_GROUPS_CREATE_GROUP".localized
     static let newsGroupsEmptyStateTitle = "NEWS_GROUPS_EMPTY_STATE_TITLE".localized
     static let newsGroupsEmptyStateDescription = "NEWS_GROUPS_EMPTY_STATE_DESCRIPTION".localized
+
+    //News bookmarks
+    static let newsBookmarksEmptyStateTitle = "NEWS_BOOKMARKS_EMPTY_STATE_TITLE".localized
+    static let newsBookmarksEmptyStateDescription = "NEWS_BOOKMARKS_EMPTY_STATE_DESCRIPTION".localized
+
+    static let newsEmptyStateTitle = "NEWS_EMPTY_STATE_TITLE".localized
+    static let newsEmptyStateDescription = "NEWS_EMPTY_STATE_DESCRIPTION".localized
 }
