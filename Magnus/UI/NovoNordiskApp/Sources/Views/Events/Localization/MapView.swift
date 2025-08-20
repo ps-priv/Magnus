@@ -19,10 +19,18 @@ struct MapView: View {
     }
 
     var body: some View {
-        Map(coordinateRegion: $region, annotationItems: [AnnotationItem(coordinate: region.center)]) { item in
-            MapMarker(coordinate: item.coordinate, tint: .blue)
+        if #available(iOS 17.0, *) {
+            Map(initialPosition: .region(region)) {
+                Marker(location.name, coordinate: region.center)
+                    .tint(.blue)
+            }
+            .cornerRadius(12)
+        } else {
+            Map(coordinateRegion: $region, annotationItems: [AnnotationItem(coordinate: region.center)]) { item in
+                MapMarker(coordinate: item.coordinate, tint: .blue)
+            }
+            .cornerRadius(12)
         }
-        .cornerRadius(12)
     }
 }
 
