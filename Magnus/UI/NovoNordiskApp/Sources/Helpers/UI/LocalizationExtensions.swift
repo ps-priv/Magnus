@@ -211,4 +211,9 @@ enum LocalizedStrings {
 
     static let eventDetailsNotFoundTitle = "EVENT_DETAILS_NOT_FOUND_TITLE".localized
     static let eventDetailsNotFoundMessage = "EVENT_DETAILS_NOT_FOUND_MESSAGE".localized
+
+    //News groups
+    static let newsGroupsCreateGroup = "NEWS_GROUPS_CREATE_GROUP".localized
+    static let newsGroupsEmptyStateTitle = "NEWS_GROUPS_EMPTY_STATE_TITLE".localized
+    static let newsGroupsEmptyStateDescription = "NEWS_GROUPS_EMPTY_STATE_DESCRIPTION".localized
 }

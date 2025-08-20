@@ -144,4 +144,26 @@ public class ApiNewsService: NewsServiceProtocol {
                 .store(in: &cancellables)
         }
     }  
+
+    public func getGroups() async throws -> GetGroupsResponse {
+        let token = try authStorageService.getAccessToken() ?? ""
+        let groups = try await withCheckedThrowingContinuation { continuation in
+            newsNetworkService.getGroups(token: token)
+                .sink(
+                    receiveCompletion: { completion in
+                        switch completion {
+                        case .finished:
+                            break
+                        case .failure(let error):
+                            continuation.resume(throwing: error)
+                        }
+                    },
+                    receiveValue: { value in
+                        continuation.resume(returning: value)
+                    }
+                )
+                .store(in: &cancellables)
+        }
+        return groups
+    }
 }

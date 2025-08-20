@@ -11,7 +11,7 @@ public struct NewsDetails : Identifiable, Hashable, Decodable {
     public let block_reactions: Int
     public let author: Author
     public let tags: [String]
-    public let groups: [Group]
+    public let groups: [NewsGroup]
     public let isBookmarked: Bool
     public let read_count: Int
     public let reactions_count: Int
@@ -22,7 +22,7 @@ public struct NewsDetails : Identifiable, Hashable, Decodable {
     public let attachments: [NewsMaterial]
 
     public init(id: String, publish_date: String, title: String, description: String, image: String, highlight_entry: Int, block_comments: Int, 
-                block_reactions: Int, author: Author, tags: [String], groups: [Group], isBookmarked: Bool, 
+                block_reactions: Int, author: Author, tags: [String], groups: [NewsGroup], isBookmarked: Bool, 
                 read_count: Int, reactions_count: Int, comments_count: Int, 
                 comments: [Comment], reactions: [Reaction], read: [ReadBy], attachments: [NewsMaterial]
     ) {

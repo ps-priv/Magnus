@@ -5,4 +5,5 @@ public protocol NewsServiceProtocol {
     func sendNewsReaction(id: String, reaction: ReactionEnum) async throws -> Void
     func markNewsAsRead(id: String) async throws -> Void
     func addCommentToNews(id: String, comment: String) async throws -> Void
+    func getGroups() async throws -> GetGroupsResponse
 }

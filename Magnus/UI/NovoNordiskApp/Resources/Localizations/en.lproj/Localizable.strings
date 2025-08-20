@@ -201,4 +201,7 @@
 "EVENT_DETAILS_NOT_FOUND_TITLE"="Event not found";
 "EVENT_DETAILS_NOT_FOUND_MESSAGE"="Try again later or ask the administrator for help.";
 
-
+/* News groups */
+"NEWS_GROUPS_CREATE_GROUP"="Create group"; 
+"NEWS_GROUPS_EMPTY_STATE_TITLE"="No groups";
+"NEWS_GROUPS_EMPTY_STATE_DESCRIPTION"="No groups found";

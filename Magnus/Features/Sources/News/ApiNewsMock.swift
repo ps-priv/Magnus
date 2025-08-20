@@ -16,4 +16,14 @@ public class ApiNewsMock {
             image: "https://nncv2-dev.serwik.pl/images/th-4109958356.jpeg"
         )
     }
+
+    public static func getGroups() -> GetGroupsResponse {
+        return GetGroupsResponse(
+            groups: [
+                NewsGroup(id: "1", name: "Badania i rozwój"),
+                NewsGroup(id: "2", name: "Kardiologia"),
+                NewsGroup(id: "3", name: "Ortopedia")
+            ]
+        )
+    }
 } 

@@ -202,6 +202,13 @@
 "EVENT_DETAILS_NOT_FOUND_TITLE"="Nie znaleziono wydarzenia";
 "EVENT_DETAILS_NOT_FOUND_MESSAGE"="Sprobuj ponownie później lub poproś administratora o pomoc.";
 
+/* News groups */
+"NEWS_GROUPS_CREATE_GROUP"="Utwórz grupę";
+"NEWS_GROUPS_EMPTY_STATE_TITLE"="Brak grup";
+"NEWS_GROUPS_EMPTY_STATE_DESCRIPTION"="Nie znaleziono grup";
+
+
+
 
 
 
