@@ -213,3 +213,14 @@
 "NEWS_EMPTY_STATE_TITLE"="No news";
 "NEWS_EMPTY_STATE_DESCRIPTION"="No news found";
 
+"PUBLISH_BUTTON"="Publish";
+"CANCEL_BUTTON"="Cancel";
+"SAVE_BUTTON"="Save";
+"DELETE_BUTTON"="Delete";
+"NEWS_ADD_TITLE"="Add news title";
+"NEWS_ADD_ATTACHMENTS"="Attachments:";
+"ATTACHMENT_FROM_DEVICE"="From device";
+"ATTACHMENT_FROM_LINK"="Link to material";
+"NEWS_ADD_CONTENT"="Content:";
+
+

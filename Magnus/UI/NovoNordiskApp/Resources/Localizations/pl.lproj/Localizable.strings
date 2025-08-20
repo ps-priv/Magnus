@@ -214,6 +214,18 @@
 "NEWS_EMPTY_STATE_TITLE"="Brak aktualności";
 "NEWS_EMPTY_STATE_DESCRIPTION"="Nie znaleziono aktualności spełniających kryteria wyszukiwania";
 
+"PUBLISH_BUTTON"="Opublikuj";
+"CANCEL_BUTTON"="Anuluj";
+"SAVE_BUTTON"="Zapisz";
+"DELETE_BUTTON"="Usuń";
+"NEWS_ADD_TITLE"="Dodaj tytuł";
+"NEWS_ADD_ATTACHMENTS"="Załączniki:";
+"ATTACHMENT_FROM_DEVICE"="Z urządzenia";
+"ATTACHMENT_FROM_LINK"="Link do materiału";
+"NEWS_ADD_CONTENT"="Treść:";
+
+
+
 
 
 

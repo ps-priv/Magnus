@@ -223,4 +223,15 @@ enum LocalizedStrings {
 
     static let newsEmptyStateTitle = "NEWS_EMPTY_STATE_TITLE".localized
     static let newsEmptyStateDescription = "NEWS_EMPTY_STATE_DESCRIPTION".localized
+
+    static let publishButton = "PUBLISH_BUTTON".localized
+    static let cancelButton = "CANCEL_BUTTON".localized
+    static let saveButton = "SAVE_BUTTON".localized
+    static let deleteButton = "DELETE_BUTTON".localized
+
+    static let newsAddTitle = "NEWS_ADD_TITLE".localized
+    static let newsAddAttachments = "NEWS_ADD_ATTACHMENTS".localized
+    static let attachmentFromDevice = "ATTACHMENT_FROM_DEVICE".localized
+    static let attachmentFromLink = "ATTACHMENT_FROM_LINK".localized
+    static let newsAddContent = "NEWS_ADD_CONTENT".localized
 }
