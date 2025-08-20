@@ -174,7 +174,7 @@ struct MainNavigationContainer: View {
         case .newsBookmarks:
             return "news_bookmarks"
         case .newsCreate:
-            return "news_add"
+            return "news_create"
         case .newsDrafts:
             return "news_drafts"
         case let .newsEdit(newsId):

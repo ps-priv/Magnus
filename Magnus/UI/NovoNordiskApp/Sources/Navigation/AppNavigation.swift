@@ -154,13 +154,15 @@ enum AppScreen: Equatable, Identifiable {
             return .materials
         case .newsList, .newsDetail:
             return .news
-        case .newsCreate, .newsEdit, .newsEditDraft, .newsBookmarks, .newsDrafts:
-            return .news
+        case .newsCreate:
+            return .newsCreate
+        case .newsBookmarks:
+            return .newsBookmarks
         case .newsGroups:
-            return .news
+            return .newsGroups
         case .academy:
             return .academy
-        case .profile, .settings, .messagesList, .messageDetail, .eventQrCode, .academyCategory:
+        case .profile, .settings, .messagesList, .messageDetail, .eventQrCode, .academyCategory, .newsEdit, .newsEditDraft, .newsDrafts:
             return nil
 
         case .eventAgenda:

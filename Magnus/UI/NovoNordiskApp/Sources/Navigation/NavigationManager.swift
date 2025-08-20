@@ -91,7 +91,6 @@ class NavigationManager: ObservableObject {
                 screen = .materialsList
             case .academy:
                 screen = .academy
-            
             case .eventDetails:
                 screen = .eventDetail(eventId: eventId ?? "")
             case .eventsAgenda:
@@ -102,7 +101,6 @@ class NavigationManager: ObservableObject {
                 screen = .eventDinner(eventId: eventId ?? "")
             case .eventsSurvey:
                 screen = .eventSurvey(eventId: eventId ?? "")
-
             case .newsCreate:
                 screen = .newsCreate
             case .newsGroups:
