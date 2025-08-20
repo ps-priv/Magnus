@@ -113,9 +113,9 @@ struct BottomMenu: View {
     var body: some View {
         VStack(spacing: 0) {
             // Separator line
-//            Rectangle()
-//                .fill(Color.gray.opacity(0.2))
-//                .frame(height: 0.5)
+           Rectangle()
+               .fill(Color.novoNordiskGrey.opacity(0.5))
+               .frame(height: 0.5)
             
             // Menu items
             HStack(spacing: 0) {

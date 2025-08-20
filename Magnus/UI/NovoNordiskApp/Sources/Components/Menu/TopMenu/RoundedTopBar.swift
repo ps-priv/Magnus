@@ -61,17 +61,23 @@ struct RoundedTopBar: View {
         .background {
             Rectangle()
                 .fill(Color.white)
-                .clipShape(
-                    .rect(
-                        topLeadingRadius: 0,
-                        bottomLeadingRadius: 25,
-                        bottomTrailingRadius: 25,
-                        topTrailingRadius: 0
-                    )
-                )
+                // .clipShape(
+                //     .rect(
+                //         topLeadingRadius: 0,
+                //         bottomLeadingRadius: 25,
+                //         bottomTrailingRadius: 25,
+                //         topTrailingRadius: 0
+                //     )
+                // )
                 .ignoresSafeArea(edges: .all)
-                .shadow(color: .black.opacity(0.2), radius: 20, y: 5)
+                // .shadow(color: .black.opacity(0.2), radius: 20, y: 5)
         }
+        .overlay(
+            Rectangle()
+                .fill(Color.novoNordiskGrey.opacity(0.5))
+                .frame(height: 1),
+            alignment: .bottom
+        )
     }
 
     @ViewBuilder
