@@ -11,6 +11,7 @@ struct AttachmentFromLink: View {
                 FAIcon(.link, type: .light, size: 15, color: .white)
                 Text(LocalizedStrings.attachmentFromLink)
                     .font(.novoNordiskMiddleText)
+                    .fontWeight(.bold)
                     .foregroundColor(.white)
                     .padding(.vertical, 5)
             }

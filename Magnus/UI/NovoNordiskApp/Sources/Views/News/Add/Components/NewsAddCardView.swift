@@ -40,17 +40,25 @@ struct NewsAddCardView: View {
             }
             .frame(maxWidth: .infinity, alignment: .leading)
 
-            VStack {
+            VStack (alignment: .leading) {
                 Text(LocalizedStrings.newsAddContent)
                 .font(.novoNordiskRegularText)
                 .fontWeight(.bold)
                 .foregroundColor(Color.novoNordiskTextGrey)
 
-                NovoNordiskTextBox(
-                    placeholder: LocalizedStrings.newsAddTitle,
+                NovoNordiskTextArea(
+                    placeholder: LocalizedStrings.newsAddContent,
                     text: .constant("")
                 )
             }            
+            .frame(maxWidth: .infinity, alignment: .leading)
+
+            VStack (alignment: .leading) {
+                Text(LocalizedStrings.newsAddTags)
+                .font(.novoNordiskRegularText)
+                .fontWeight(.bold)
+                .foregroundColor(Color.novoNordiskTextGrey)
+            }
             .frame(maxWidth: .infinity, alignment: .leading)
             
         }

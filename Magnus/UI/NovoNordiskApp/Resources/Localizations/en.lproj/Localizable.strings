@@ -220,7 +220,8 @@
 "NEWS_ADD_TITLE"="Add news title";
 "NEWS_ADD_ATTACHMENTS"="Attachments:";
 "ATTACHMENT_FROM_DEVICE"="From device";
-"ATTACHMENT_FROM_LINK"="Link to material";
+"ATTACHMENT_FROM_LINK"="Link";
 "NEWS_ADD_CONTENT"="Content:";
+"NEWS_ADD_TAGS"="Tags:";
 
 

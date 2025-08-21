@@ -11,6 +11,7 @@ struct AttachmentFromDevice: View {
                 FAIcon(.paperclip, type: .light, size: 15, color: .white)
                 Text(LocalizedStrings.attachmentFromDevice)
                     .font(.novoNordiskMiddleText)
+                    .fontWeight(.bold)
                     .foregroundColor(.white)
                     .padding(.vertical, 5)
             }

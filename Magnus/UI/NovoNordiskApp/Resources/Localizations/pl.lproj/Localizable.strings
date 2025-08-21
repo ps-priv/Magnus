@@ -221,8 +221,10 @@
 "NEWS_ADD_TITLE"="Dodaj tytuł";
 "NEWS_ADD_ATTACHMENTS"="Załączniki:";
 "ATTACHMENT_FROM_DEVICE"="Z urządzenia";
-"ATTACHMENT_FROM_LINK"="Link do materiału";
+"ATTACHMENT_FROM_LINK"="Link";
 "NEWS_ADD_CONTENT"="Treść:";
+"NEWS_ADD_TAGS"="Tagi:";
+
 
 
 
