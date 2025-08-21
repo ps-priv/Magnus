@@ -1,6 +1,7 @@
 import SwiftUI  
 
 struct NewsAddCardView: View {
+    @State private var chips: [String] = []
     
     var body: some View {
         VStack(spacing: 20) {
@@ -60,6 +61,8 @@ struct NewsAddCardView: View {
                 .foregroundColor(Color.novoNordiskTextGrey)
             }
             .frame(maxWidth: .infinity, alignment: .leading)
+
+            ChipView(chips: $chips, placeholder: "#Tag")
             
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
