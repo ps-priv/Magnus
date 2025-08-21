@@ -3,13 +3,13 @@ import SwiftUI
 struct NewsAddView: View {
 
     @EnvironmentObject var navigationManager: NavigationManager
+    @State private var chips: [String] = []
 
     var body: some View {
         VStack {
-            Text("NewsAddView")
-            .font(.system(size: 24))
-            .foregroundColor(Color.novoNordiskTextGrey)
+            ChipView(chips: $chips, placeholder: "#Tag")
         }
+        .padding(20)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
 }

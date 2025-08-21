@@ -235,4 +235,5 @@ enum LocalizedStrings {
     static let attachmentFromLink = "ATTACHMENT_FROM_LINK".localized
     static let newsAddContent = "NEWS_ADD_CONTENT".localized
     static let newsAddTags = "NEWS_ADD_TAGS".localized
+    static let newsAddTagsButton = "NEWS_ADD_TAGS_BUTTON".localized
 }
