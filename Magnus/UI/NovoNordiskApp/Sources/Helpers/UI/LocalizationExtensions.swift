@@ -236,4 +236,7 @@ enum LocalizedStrings {
     static let newsAddContent = "NEWS_ADD_CONTENT".localized
     static let newsAddTags = "NEWS_ADD_TAGS".localized
     static let newsAddTagsButton = "NEWS_ADD_TAGS_BUTTON".localized
+
+    static let audienceSettingsAll = "AUDIENCE_SETTINGS_ALL".localized
+    static let audienceSettingsSelected = "AUDIENCE_SETTINGS_SELECTED".localized
 }

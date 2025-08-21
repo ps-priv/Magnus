@@ -225,4 +225,8 @@
 "NEWS_ADD_TAGS"="Tags:";
 "NEWS_ADD_TAGS_BUTTON"="Add";
 
+"AUDIENCE_SETTINGS_ALL"="All";
+"AUDIENCE_SETTINGS_SELECTED"="Selected groups";
+
+
 
