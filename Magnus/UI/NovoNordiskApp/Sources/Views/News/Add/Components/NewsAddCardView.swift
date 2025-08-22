@@ -1,7 +1,16 @@
 import SwiftUI  
+import MagnusDomain
 
 struct NewsAddCardView: View {
     @State private var chips: [String] = []
+    @State private var selectedGroups: [NewsGroup] = []
+
+    var availableGroups: [NewsGroup] = [
+        .init(id: "grupaA", name: "Kardio"),
+        .init(id: "grupaB", name: "Badania i rozwój"),
+        .init(id: "grupaC", name: "Produkty")
+    ]
+
     
     var body: some View {
         VStack(spacing: 20) {
@@ -63,6 +72,8 @@ struct NewsAddCardView: View {
             .frame(maxWidth: .infinity, alignment: .leading)
 
             ChipView(chips: $chips, placeholder: "#Tag")
+
+            AudienceSettings(selectedGroups: $selectedGroups, availableGroups: availableGroups)
             
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)

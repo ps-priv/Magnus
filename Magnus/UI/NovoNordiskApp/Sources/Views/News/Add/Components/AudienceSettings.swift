@@ -70,6 +70,7 @@ struct AudienceSettings: View {
                         .tint(Color.novoNordiskBlue)
                     }
                 }
+                .animation(.spring(), value: mode)
                 .padding(.leading, 2)
             }
         }
