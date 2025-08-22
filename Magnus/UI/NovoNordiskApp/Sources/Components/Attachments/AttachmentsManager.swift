@@ -10,6 +10,18 @@ public struct AttachmentsManager : View {
     }
     
     public var body: some View {
+        VStack(spacing: 16) {
+            LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 12) {
+                AttachmentFromDevice(action: {
+                    print("AttachmentFromDevice Tapped")
+                })
+                AttachmentFromLink(action: {
+                    print("AttachmentFromLink Tapped")
+                })
+            }
+        }
+        .frame(maxWidth: .infinity)
+        .background(Color.novoNordiskBackgroundGrey)
         ScrollView {
             LazyVStack {
                 ForEach(attachments, id: \.self) { attachment in

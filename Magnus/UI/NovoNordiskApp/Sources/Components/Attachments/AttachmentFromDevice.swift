@@ -2,7 +2,7 @@ import SwiftUI
 
 struct AttachmentFromDevice: View {
     var action: () -> Void
-    
+
     var body: some View {
         Button(action: {
             action()
@@ -15,10 +15,11 @@ struct AttachmentFromDevice: View {
                     .foregroundColor(.white)
                     .padding(.vertical, 5)
             }
-            .padding(.horizontal, 20)
+            .frame(maxWidth: .infinity)
+            .padding(.vertical, 12)
+            .frame(height:  40)
             .background(Color.novoNordiskBlue)
-            .frame(height: 27)
-            .cornerRadius(4)
+            .cornerRadius(8)
         }
     }
 }
