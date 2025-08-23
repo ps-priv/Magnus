@@ -3,6 +3,7 @@ import MagnusDomain
 
 public struct AttachmentsManager : View {
 
+    @State private var showDeviceSheet = false
     @Binding var attachments: [NewsAttachment]
 
     public init(attachments: Binding<[NewsAttachment]>) {
@@ -13,7 +14,7 @@ public struct AttachmentsManager : View {
         VStack(spacing: 16) {
             LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 12) {
                 AttachmentFromDevice(action: {
-                    print("AttachmentFromDevice Tapped")
+                    showDeviceSheet = true
                 })
                 AttachmentFromLink(action: {
                     print("AttachmentFromLink Tapped")
@@ -34,6 +35,21 @@ public struct AttachmentsManager : View {
                         attachment: attachment
                     )
                 }
+            }
+        }
+        .sheet(isPresented: $showDeviceSheet) {
+            if #available(iOS 16.0, *) {
+                DeviceAttachmentSheet(onAdd: { newAttachment in
+                    attachments.append(newAttachment)
+                })
+                .presentationDetents([.fraction(1.0/3.0)])
+                .presentationDragIndicator(.visible)
+                .background(Color.white)
+            } else {
+                DeviceAttachmentSheet(onAdd: { newAttachment in
+                    attachments.append(newAttachment)
+                })
+                .background(Color.white)
             }
         }
     }
