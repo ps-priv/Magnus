@@ -1,4 +1,4 @@
-public struct NewsAttachment: Hashable, Encodable {
+public struct NewsAttachment: Hashable, Encodable, Decodable {
     public let title: String
     public let type: FileTypeEnum
     public let content: String    

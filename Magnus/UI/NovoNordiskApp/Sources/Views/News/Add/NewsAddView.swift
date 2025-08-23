@@ -14,7 +14,9 @@ struct NewsAddView: View {
                 VStack {
                     NewsAddCardView(
                         saveAction: {
-                            //viewModel.sendNews()
+                            Task {
+                                await viewModel.saveNewsRequest()
+                            }
                         },
                         cancelAction: {
                             navigationManager.navigate(to: .newsList)

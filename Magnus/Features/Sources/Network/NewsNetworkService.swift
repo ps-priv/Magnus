@@ -95,11 +95,11 @@ public class NewsNetworkService: NewsNetworkServiceProtocol {
     public func addNews(token: String, title: String, content: String, image: String, selectedGroups: [NewsGroup], attachments: [NewsAttachment], tags: [String]) -> AnyPublisher<Void, Error> {
         let parameters: [String: Any] = [
             "title": title,
-            "content": content,
-            "image": image,
-            "selected_groups": selectedGroups,
-            "attachments": attachments,
-            "tags": tags
+            "message": content,
+            "image": image
+            // "tags": tags,            
+            // "user_groups": selectedGroups,
+            // "attachments": attachments,
         ]
 
         return networkService.requestWithBearerToken(

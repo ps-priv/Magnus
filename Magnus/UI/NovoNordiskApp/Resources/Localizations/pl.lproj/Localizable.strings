@@ -242,6 +242,11 @@
 "ATTACHMENT_LINK"="Link";
 "ATTACHMENT_LINK_PLACEHOLDER"="Wprowadź link";
 
+"NEWS_ADD_SUCCESS_MESSAGE"="Aktualność została wysłana";
+"NEWS_ADD_ERROR_MESSAGE"="Aktualność nie została wysłana";
+"NEWS_ADD_SAVE_TO_STORAGE"="Szablon aktualności został zapisany";
+
+
 
 
 

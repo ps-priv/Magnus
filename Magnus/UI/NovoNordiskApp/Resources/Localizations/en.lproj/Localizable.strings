@@ -241,6 +241,9 @@
 "ATTACHMENT_LINK"="Link";
 "ATTACHMENT_LINK_PLACEHOLDER"="Enter link";
 
+"NEWS_ADD_SUCCESS_MESSAGE"="News sent successfully";
+"NEWS_ADD_ERROR_MESSAGE"="News not added";
+"NEWS_ADD_SAVE_TO_STORAGE"="Save to storage";
 
 
 

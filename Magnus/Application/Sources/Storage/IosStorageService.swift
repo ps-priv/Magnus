@@ -36,6 +36,27 @@ public class IosStorageService: MagnusStorageService {
             throw MagnusStorageError.decodingFailed
         }
     }       
+
+    public func saveNewsRequest(news: AddNewsRequest) throws {
+        do {
+            let data = try jsonEncoder.encode(news)
+            userDefaults.set(data, forKey: MagnusStorageKey.addNews.rawValue)
+        } catch {
+            throw MagnusStorageError.encodingFailed
+        }
+    }
+
+    public func getNewsRequest() throws -> AddNewsRequest? {
+        guard let data = userDefaults.data(forKey: MagnusStorageKey.addNews.rawValue) else {
+            return nil
+        }
+        
+        do {
+            return try jsonDecoder.decode(AddNewsRequest.self, from: data)
+        } catch {
+            throw MagnusStorageError.decodingFailed
+        }
+    }
 }
 
 private extension IosStorageService {

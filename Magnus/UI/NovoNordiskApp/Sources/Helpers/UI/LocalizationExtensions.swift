@@ -253,4 +253,7 @@ enum LocalizedStrings {
     static let attachmentLink = "ATTACHMENT_LINK".localized
     static let attachmentLinkPlaceholder = "ATTACHMENT_LINK_PLACEHOLDER".localized
 
+    static let newsAddSuccessMessage = "NEWS_ADD_SUCCESS_MESSAGE".localized
+    static let newsAddErrorMessage = "NEWS_ADD_ERROR_MESSAGE".localized
+    static let newsAddSaveToStorage = "NEWS_ADD_SAVE_TO_STORAGE".localized
 }

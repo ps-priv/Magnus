@@ -1,4 +1,4 @@
-public struct AddNewsRequest: Hashable, Encodable {
+public struct AddNewsRequest: Hashable, Encodable, Decodable {
     public let title: String
     public let message: String
     public let image: String
