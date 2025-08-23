@@ -4,6 +4,8 @@ import SwiftUI
 struct NewsAddCardView: View {
     @State private var chips: [String] = ["#Kardio", "#Badania i rozwój", "#Produkty"]
     @State private var selectedGroups: [NewsGroup] = []
+    @State private var attachments: [NewsAttachment] = []
+
 
     var availableGroups: [NewsGroup] = [
         .init(id: "grupaA", name: "Kardio"),
@@ -41,22 +43,7 @@ struct NewsAddCardView: View {
                 print("Image selected: \($0)")
             })
 
-            VStack(alignment: .leading) {
-                Text(LocalizedStrings.newsAddAttachments)
-                    .font(.novoNordiskRegularText)
-                    .fontWeight(.bold)
-                    .foregroundColor(Color.novoNordiskTextGrey)
-                HStack {
-                    AttachmentFromDevice(action: {
-                        print("AttachmentFromDevice Tapped")
-                    })
-                    Spacer()
-                    AttachmentFromLink(action: {
-                        print("AttachmentFromLink Tapped")
-                    })
-                }
-            }
-            .frame(maxWidth: .infinity, alignment: .leading)
+            AttachmentsManager(attachments: $attachments)
 
             VStack(alignment: .leading) {
                 Text(LocalizedStrings.newsAddContent)
