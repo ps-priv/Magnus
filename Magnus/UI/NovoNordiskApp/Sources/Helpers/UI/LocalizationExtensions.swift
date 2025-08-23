@@ -239,4 +239,15 @@ enum LocalizedStrings {
 
     static let audienceSettingsAll = "AUDIENCE_SETTINGS_ALL".localized
     static let audienceSettingsSelected = "AUDIENCE_SETTINGS_SELECTED".localized
+
+    static let attachmentAdd    = "ATTACHMENT_ADD".localized
+    static let attachmentTitle    = "ATTACHMENT_TITLE".localized
+    static let attachmentTitlePlaceholder = "ATTACHMENT_TITLE_PLACEHOLDER".localized
+    static let attachmentFileName = "ATTACHMENT_FILE_NAME".localized
+    static let attachmentFileNameNoFileSelected = "ATTACHMENT_FILE_NAME_NO_FILE_SELECTED".localized
+    static let attachmentFileType = "ATTACHMENT_FILE_TYPE".localized
+    static let attachmentFilePickerButton = "ATTACHMENT_FILE_PICKER_BUTTON".localized
+    static let attachmentFilePickerTitle = "ATTACHMENT_FILE_PICKER_TITLE".localized
+    static let attachmentFilePickerCancel = "ATTACHMENT_FILE_PICKER_CANCEL".localized
+
 }

@@ -20,25 +20,25 @@ struct DeviceAttachmentSheet: View {
         VStack(alignment: .leading, spacing: 16) {
             // Title field
             VStack(alignment: .leading, spacing: 6) {
-                Text("Tytuł")
+                Text(LocalizedStrings.attachmentTitle)
                     .font(.headline)
-                TextField("Wpisz tytuł", text: $title)
+                TextField(LocalizedStrings.attachmentTitlePlaceholder, text: $title)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                     .multilineTextAlignment(.leading)
             }
 
             // File name label
             VStack(alignment: .leading, spacing: 6) {
-                Text("Nazwa pliku")
+                Text(LocalizedStrings.attachmentFileName)
                     .font(.headline)
-                Text(pickedURL?.lastPathComponent ?? "Brak wybranego pliku")
+                Text(pickedURL?.lastPathComponent ?? LocalizedStrings.attachmentFileNameNoFileSelected)
                     .foregroundColor(.secondary)
                     .lineLimit(2)
             }
 
             // File type label
             VStack(alignment: .leading, spacing: 6) {
-                Text("Typ pliku")
+                Text(LocalizedStrings.attachmentFileType)
                     .font(.headline)
                 Text(fileTypeText.isEmpty ? "—" : fileTypeText)
                     .foregroundColor(.secondary)
@@ -47,8 +47,8 @@ struct DeviceAttachmentSheet: View {
             // Pick button
             Button(action: { showImporter = true }) {
                 HStack {
-                    Image(systemName: "doc")
-                    Text("Wybierz plik")
+                    FAIcon(.file, type: .light, size: 18, color: .white)
+                    Text(LocalizedStrings.attachmentFilePickerButton)
                         .fontWeight(.semibold)
                 }
                 .frame(maxWidth: .infinity)
@@ -61,8 +61,8 @@ struct DeviceAttachmentSheet: View {
             // Add attachment button
             Button(action: addAttachment) {
                 HStack {
-                    Image(systemName: "plus.circle.fill")
-                    Text("Dodaj załącznik")
+                    FAIcon(.plus, type: .light, size: 18, color: .white)
+                    Text(LocalizedStrings.attachmentAdd)
                         .fontWeight(.semibold)
                 }
                 .frame(maxWidth: .infinity)

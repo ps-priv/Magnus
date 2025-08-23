@@ -43,7 +43,7 @@ public struct AttachmentsManager : View {
                 DeviceAttachmentSheet(onAdd: { newAttachment in
                     attachments.append(newAttachment)
                 })
-                .presentationDetents([.fraction(1.0/3.0)])
+                .presentationDetents([.medium, .large])
                 .presentationDragIndicator(.visible)
                 .background(Color.white)
             } else {
