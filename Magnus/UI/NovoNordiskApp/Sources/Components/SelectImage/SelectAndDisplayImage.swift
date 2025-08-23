@@ -3,9 +3,6 @@ import PhotosUI
 import SwiftUI
 
 public struct SelectAndDisplayImage: View {
-
-    // Opcjonalny callback, np. do zbudowania NewsAttachment po wyborze
-    // Przechowywany w @State, aby można go było wyczyścić (ustawić na nil)
     @State private var onImageSelectedState: ((Data) -> Void)?
 
     @State private var pickerItem: PhotosPickerItem?

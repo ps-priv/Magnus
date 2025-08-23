@@ -6,10 +6,6 @@ struct NewsAddView: View {
     @State private var chips: [String] = []
 
     var body: some View {
-        VStack {
-            ChipView(chips: $chips, placeholder: "#Tag")
-        }
-        .padding(20)
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
+
     }
 }

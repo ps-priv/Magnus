@@ -1,3 +1,5 @@
+import Foundation
+
 public protocol NewsServiceProtocol {
     func getNews() async throws -> GetNewsResponse
     func getBookmarks() async throws -> GetNewsResponse
@@ -7,4 +9,5 @@ public protocol NewsServiceProtocol {
     func markNewsAsRead(id: String) async throws -> Void
     func addCommentToNews(id: String, comment: String) async throws -> Void
     func getGroups() async throws -> GetGroupsResponse
+    func addNews(title: String, content: String, image: Data?, selectedGroups: [NewsGroup], attachments: [NewsAttachment], tags: [String]) async throws -> Void
 }

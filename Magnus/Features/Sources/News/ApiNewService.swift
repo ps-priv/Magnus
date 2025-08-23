@@ -172,4 +172,28 @@ public class ApiNewsService: NewsServiceProtocol {
         }
         return groups
     }
+
+    public func addNews(title: String, content: String, image: Data?, selectedGroups: [NewsGroup], attachments: [NewsAttachment], tags: [String]) async throws -> Void {
+        let token = try authStorageService.getAccessToken() ?? ""
+
+        let imageString = ImageToBase64Converter.convert(imageData: image ?? Data()) ?? ""
+
+        try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<Void, Error>) in
+            newsNetworkService.addNews(token: token, title: title, content: content, image: imageString, selectedGroups: selectedGroups, attachments: attachments, tags: tags)
+                .sink(
+                    receiveCompletion: { completion in
+                        switch completion {
+                        case .finished:
+                            continuation.resume(returning: ())
+                        case .failure(let error):
+                            continuation.resume(throwing: error)
+                        }
+                    },
+                    receiveValue: { _ in
+                        // Void response, nothing to do
+                    }
+                )
+                .store(in: &cancellables)
+        }
+    }
 }

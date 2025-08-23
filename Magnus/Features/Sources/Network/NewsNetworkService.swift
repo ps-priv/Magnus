@@ -11,6 +11,7 @@ public protocol NewsNetworkServiceProtocol {
     func markNewsAsRead(token: String, id: String) -> AnyPublisher<Void, Error>
     func addCommentToNews(token: String, id: String, comment: String) -> AnyPublisher<Void, Error>
     func getGroups(token: String) -> AnyPublisher<GetGroupsResponse, Error>
+    func addNews(token: String, title: String, content: String, image: String, selectedGroups: [NewsGroup], attachments: [NewsAttachment], tags: [String]) -> AnyPublisher<Void, Error>
 }
 
 public class NewsNetworkService: NewsNetworkServiceProtocol {
@@ -87,6 +88,25 @@ public class NewsNetworkService: NewsNetworkServiceProtocol {
             endpoint: "/api/groups",
             method: .get,
             responseType: GetGroupsResponse.self,
+            bearerToken: token
+        )
+    }
+
+    public func addNews(token: String, title: String, content: String, image: String, selectedGroups: [NewsGroup], attachments: [NewsAttachment], tags: [String]) -> AnyPublisher<Void, Error> {
+        let parameters: [String: Any] = [
+            "title": title,
+            "content": content,
+            "image": image,
+            "selected_groups": selectedGroups,
+            "attachments": attachments,
+            "tags": tags
+        ]
+
+        return networkService.requestWithBearerToken(
+            endpoint: "/api/news",
+            method: .post,
+            parameters: parameters,
+            encoding: JSONEncoding.default,
             bearerToken: token
         )
     }
