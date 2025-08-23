@@ -23,6 +23,15 @@ public protocol NetworkServiceProtocol {
         encoding: ParameterEncoding,
         bearerToken: String?
     ) -> AnyPublisher<Void, Error>
+
+    // New: request with Encodable body (JSON)
+    func request<T: Encodable>(
+        endpoint: String,
+        method: HTTPMethod,
+        headers: HTTPHeaders?,
+        body: T,
+        bearerToken: String?
+    ) -> AnyPublisher<Void, Error>
 }
 
 public class NetworkService: NetworkServiceProtocol {
@@ -125,6 +134,49 @@ public class NetworkService: NetworkServiceProtocol {
         }
         .eraseToAnyPublisher()
     }
+
+    // New: request with Encodable body (JSON)
+    public func request<T: Encodable>(
+        endpoint: String,
+        method: HTTPMethod = .post,
+        headers: HTTPHeaders? = nil,
+        body: T,
+        bearerToken: String? = nil
+    ) -> AnyPublisher<Void, Error> {
+        let url = configuration.baseURL + endpoint
+
+        // Combine default headers with bearer token if provided
+        var finalHeaders = self.configuration.headers
+        if let customHeaders = headers {
+            customHeaders.forEach { header in
+                finalHeaders.add(header)
+            }
+        }
+
+        if let token = bearerToken, !token.isEmpty {
+            finalHeaders.add(.authorization(bearerToken: token))
+        }
+
+        return Future<Void, Error> { promise in
+            self.session.request(
+                url,
+                method: method,
+                parameters: body,
+                encoder: JSONParameterEncoder.default,
+                headers: finalHeaders
+            )
+            .validate()
+            .response { response in
+                switch response.result {
+                case .success:
+                    promise(.success(()))
+                case .failure(let error):
+                    promise(.failure(error))
+                }
+            }
+        }
+        .eraseToAnyPublisher()
+    }
 }
 
 // MARK: - Convenience Extensions
@@ -166,6 +218,23 @@ public extension NetworkServiceProtocol {
             headers: headers,
             parameters: parameters,
             encoding: encoding,
+            bearerToken: bearerToken
+        )
+    }
+
+    /// Convenience method for requests with bearer token and Encodable JSON body
+    func requestWithBearerToken<T: Encodable>(
+        endpoint: String,
+        method: HTTPMethod = .post,
+        headers: HTTPHeaders? = nil,
+        body: T,
+        bearerToken: String
+    ) -> AnyPublisher<Void, Error> {
+        return request(
+            endpoint: endpoint,
+            method: method,
+            headers: headers,
+            body: body,
             bearerToken: bearerToken
         )
     }
