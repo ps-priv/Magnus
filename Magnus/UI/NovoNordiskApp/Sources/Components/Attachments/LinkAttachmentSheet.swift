@@ -1,5 +1,6 @@
 import SwiftUI
 import MagnusDomain
+import MagnusFeatures
 
 struct LinkAttachmentSheet: View {
     var onAdd: (NewsAttachment) -> Void
@@ -9,7 +10,8 @@ struct LinkAttachmentSheet: View {
 
     private var canAdd: Bool {
         !title.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty &&
-        !link.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+        !link.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty &&
+        link.isValidUrl
     }
 
     var body: some View {
