@@ -250,4 +250,7 @@ enum LocalizedStrings {
     static let attachmentFilePickerTitle = "ATTACHMENT_FILE_PICKER_TITLE".localized
     static let attachmentFilePickerCancel = "ATTACHMENT_FILE_PICKER_CANCEL".localized
 
+    static let attachmentLink = "ATTACHMENT_LINK".localized
+    static let attachmentLinkPlaceholder = "ATTACHMENT_LINK_PLACEHOLDER".localized
+
 }

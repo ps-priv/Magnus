@@ -16,9 +16,9 @@ struct LinkAttachmentSheet: View {
         VStack(alignment: .leading, spacing: 16) {
             // Title field
             VStack(alignment: .leading, spacing: 6) {
-                Text("Tytuł")
+                Text(LocalizedStrings.attachmentTitle)
                     .font(.headline)
-                TextField("Wpisz tytuł", text: $title)
+                TextField(LocalizedStrings.attachmentTitlePlaceholder, text: $title)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                     .multilineTextAlignment(.leading)
                     .keyboardType(.default)
@@ -27,9 +27,9 @@ struct LinkAttachmentSheet: View {
 
             // Link field
             VStack(alignment: .leading, spacing: 6) {
-                Text("Link")
+                Text(LocalizedStrings.attachmentLink)
                     .font(.headline)
-                TextField("Wklej link", text: $link)
+                TextField(LocalizedStrings.attachmentLinkPlaceholder, text: $link)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                     .multilineTextAlignment(.leading)
                     .keyboardType(.URL)
@@ -39,8 +39,8 @@ struct LinkAttachmentSheet: View {
 
             Button(action: handleAdd) {
                 HStack {
-                    Image(systemName: "plus.circle.fill")
-                    Text("Dodaj załącznik")
+                    FAIcon(.plus, type: .light, size: 18, color: .white)
+                    Text(LocalizedStrings.attachmentAdd)
                         .fontWeight(.semibold)
                 }
                 .frame(maxWidth: .infinity)
