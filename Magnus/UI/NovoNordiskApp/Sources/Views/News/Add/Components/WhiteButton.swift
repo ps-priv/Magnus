@@ -3,10 +3,12 @@ import SwiftUI
 struct WhiteButton: View {
     var action: () -> Void
     var title: String
+    var isDisabled: Bool
     
-    init(title: String, action: @escaping () -> Void) {
+    init(title: String, action: @escaping () -> Void, isDisabled: Bool = false) {
         self.title = title
         self.action = action
+        self.isDisabled = isDisabled
     }
     
 
@@ -21,14 +23,14 @@ struct WhiteButton: View {
                     .padding(.horizontal, 15)
                     .padding(.vertical, 5)
             }
-            .background(Color.white)
+            .background(isDisabled ? Color.gray : Color.white)
             .frame(height: 27)
             .overlay(
                 RoundedRectangle(cornerRadius: 4)
-                    .stroke(Color.novoNordiskTextGrey, lineWidth: 1)
+                    .stroke(isDisabled ? Color.gray : Color.novoNordiskTextGrey, lineWidth: 1)
             )
-
             .cornerRadius(4)
+            .disabled(isDisabled)
         }
     }
 }

@@ -3,7 +3,7 @@ import Combine
 import MagnusDomain
 
 @MainActor
-class NewsAddViewModel: ObservableObject {
+public class NewsAddViewModel: ObservableObject {
     @Published public var isLoading: Bool = false
     @Published public var errorMessage: String = ""
     @Published public var hasError: Bool = false

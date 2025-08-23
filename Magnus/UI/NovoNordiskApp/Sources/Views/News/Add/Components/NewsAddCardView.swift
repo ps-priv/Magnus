@@ -2,46 +2,76 @@ import MagnusDomain
 import SwiftUI
 
 struct NewsAddCardView: View {
-    @State private var chips: [String] = ["#Kardio", "#Badania i rozwój", "#Produkty"]
-    @State private var selectedGroups: [NewsGroup] = []
-    @State private var attachments: [NewsAttachment] = []
+    @State public var tags: [String] = []
+    @State public var selectedGroups: [NewsGroup] = []
+    @State public var attachments: [NewsAttachment] = []
 
+    @State public var title: String = ""
+    @State public var content: String = ""
+    @State public var image: Data?
 
-    var availableGroups: [NewsGroup] = [
-        .init(id: "grupaA", name: "Kardio"),
-        .init(id: "grupaB", name: "Badania i rozwój"),
-        .init(id: "grupaC", name: "Produkty"),
-    ]
+    @State public var canSendNews: Bool = false
+
+    let saveAction: () -> Void
+    let cancelAction: () -> Void
+    let deleteAction: () -> Void
+    let publishAction: () -> Void
+
+    var availableGroups: [NewsGroup] = []
+
+    init(
+        saveAction: @escaping () -> Void,
+        cancelAction: @escaping () -> Void,
+        deleteAction: @escaping () -> Void,
+        publishAction: @escaping () -> Void,
+        availableGroups: [NewsGroup],
+        tags: [String] = [],
+        selectedGroups: [NewsGroup] = [],
+        attachments: [NewsAttachment] = [],
+        title: String = "",
+        content: String = "",
+        image: Data?,
+        canSendNews: Bool = false
+    ) {
+        self.saveAction = saveAction
+        self.cancelAction = cancelAction
+        self.deleteAction = deleteAction
+        self.publishAction = publishAction
+        self.availableGroups = availableGroups
+        self.tags = tags
+        self.selectedGroups = selectedGroups
+        self.attachments = attachments
+        self.title = title
+        self.content = content
+        self.image = image
+        self.canSendNews = canSendNews
+    }
 
     var body: some View {
         VStack(spacing: 20) {
             HStack {
-                PublishButton(action: {
-                    print("PublishButton Tapped")
-                })
+                PublishButton(action: publishAction)
                 WhiteButton(
                     title: LocalizedStrings.saveButton,
-                    action: {
-                        print("Cancel Button Tapped")
-                    })
+                    action: saveAction,
+                    isDisabled: !canSendNews)
                 WhiteButton(
                     title: LocalizedStrings.cancelButton,
-                    action: {
-                        print("Save Button Tapped")
-                    })
+                    action: cancelAction,
+                    isDisabled: !canSendNews)
                 Spacer()
-                DeleteButton(action: {
-                    print("Delete Button Tapped")
-                })
+                DeleteButton(action: deleteAction)
             }
             NovoNordiskTextBox(
                 placeholder: LocalizedStrings.newsAddTitle,
-                text: .constant("")
+                text: $title
             )
 
-            SelectAndDisplayImage(onImageSelected: {
-                print("Image selected: \($0)")
-            })
+            SelectAndDisplayImage(
+                onImageSelected: {
+                    image = $0
+                }
+            )
 
             AttachmentsManager(attachments: $attachments)
 
@@ -53,7 +83,7 @@ struct NewsAddCardView: View {
 
                 NovoNordiskTextArea(
                     placeholder: LocalizedStrings.newsAddContent,
-                    text: .constant("")
+                    text: $content
                 )
             }
             .frame(maxWidth: .infinity, alignment: .leading)
@@ -66,7 +96,7 @@ struct NewsAddCardView: View {
             }
             .frame(maxWidth: .infinity, alignment: .leading)
 
-            ChipView(chips: $chips, placeholder: "#Tag")
+            ChipView(chips: $tags, placeholder: "#Tag")
 
             AudienceSettings(selectedGroups: $selectedGroups, availableGroups: availableGroups)
 
@@ -78,7 +108,19 @@ struct NewsAddCardView: View {
 
 #Preview {
     VStack {
-        NewsAddCardView()
+        NewsAddCardView(
+            saveAction: {},
+            cancelAction: {},
+            deleteAction: {},
+            publishAction: {},
+            availableGroups: [],
+            tags: [],
+            selectedGroups: [],
+            attachments: [],
+            title: "",
+            content: "",
+            image: nil,
+            canSendNews: false) 
     }
     .padding()
     .background(Color.novoNordiskBackgroundGrey)
