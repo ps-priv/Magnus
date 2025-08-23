@@ -4,6 +4,7 @@ import MagnusDomain
 public struct AttachmentsManager : View {
 
     @State private var showDeviceSheet = false
+    @State private var showLinkSheet = false
     @Binding var attachments: [NewsAttachment]
 
     public init(attachments: Binding<[NewsAttachment]>) {
@@ -17,7 +18,7 @@ public struct AttachmentsManager : View {
                     showDeviceSheet = true
                 })
                 AttachmentFromLink(action: {
-                    print("AttachmentFromLink Tapped")
+                    showLinkSheet = true
                 })
             }
         }
@@ -47,6 +48,21 @@ public struct AttachmentsManager : View {
                 .background(Color.white)
             } else {
                 DeviceAttachmentSheet(onAdd: { newAttachment in
+                    attachments.append(newAttachment)
+                })
+                .background(Color.white)
+            }
+        }
+        .sheet(isPresented: $showLinkSheet) {
+            if #available(iOS 16.0, *) {
+                LinkAttachmentSheet(onAdd: { newAttachment in
+                    attachments.append(newAttachment)
+                })
+                .presentationDetents([.fraction(1.0/3.0)])
+                .presentationDragIndicator(.visible)
+                .background(Color.white)
+            } else {
+                LinkAttachmentSheet(onAdd: { newAttachment in
                     attachments.append(newAttachment)
                 })
                 .background(Color.white)
