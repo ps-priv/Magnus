@@ -61,14 +61,6 @@ public class NewsAddViewModel: ObservableObject {
         }
 
         do {
-            print("title: \(title)")
-            print("content: \(content)")
-            // print("image: \(image)")
-            print("selectedGroups: \(selectedGroups)")
-            print("attachments: \(attachments)")
-            print("tags: \(tags)")
-
-
             try await newsService.addNews(title: title, content: content, image: image, selectedGroups: selectedGroups, attachments: attachments, tags: tags)
 
             await MainActor.run {
@@ -113,13 +105,12 @@ public class NewsAddViewModel: ObservableObject {
         }
     }
 
-    public func canSendNews() -> Bool {
-
+    public func canSendNews() -> Bool {  
         if (title.isEmpty || content.isEmpty) {
             return false
         }
 
-        if image == nil {
+        if image == nil || image?.isEmpty == true {
             return false
         }
 

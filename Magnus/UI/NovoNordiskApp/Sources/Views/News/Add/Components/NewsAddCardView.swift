@@ -50,7 +50,7 @@ struct NewsAddCardView: View {
     var body: some View {
         VStack(spacing: 20) {
             HStack {
-                PublishButton(action: publishAction)
+                PublishButton(action: publishAction, isDisabled: !canSendNews)
                 WhiteButton(
                     title: LocalizedStrings.saveButton,
                     action: saveAction,
@@ -74,6 +74,7 @@ struct NewsAddCardView: View {
             }
 
             SelectAndDisplayImage(
+                imageData: $image,
                 onImageSelected: {
                     image = $0
                 }

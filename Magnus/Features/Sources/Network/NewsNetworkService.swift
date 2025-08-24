@@ -93,34 +93,14 @@ public class NewsNetworkService: NewsNetworkServiceProtocol {
     }
 
     public func addNews(token: String, title: String, content: String, image: String, selectedGroups: [NewsGroup], attachments: [NewsAttachment], tags: [String]) -> AnyPublisher<Void, Error> {
-        // let request = AddNewsRequest(
-        //     title: title,
-        //     message: content,
-        //     image: image,
-        //     tags: tags,
-        //     user_groups: selectedGroups.map { $0.id },
-        //     attachments: attachments
-        // )
-
         let request = AddNewsRequest(
             title: title,
             message: content,
-            image: "image",
-            tags: [],
-            user_groups: [],
-            attachments: []
+            image: image,
+            tags: tags,
+            user_groups: selectedGroups.map { $0.id },
+            attachments: attachments
         )
-
-        // let request = AddNewsRequest(
-        //     title: "test1",
-        //     message: "Test1 message",
-        //     image: "image",
-        //     tags: [],
-        //     user_groups: [],
-        //     attachments: []
-        // )
-
-
 
         return networkService.requestWithBearerToken(
             endpoint: "/api/news",

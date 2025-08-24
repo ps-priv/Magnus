@@ -6,15 +6,16 @@ public struct SelectAndDisplayImage: View {
     @State private var onImageSelectedState: ((Data) -> Void)?
 
     @State private var pickerItem: PhotosPickerItem?
-    @State private var imageData: Data?
+    @Binding private var imageData: Data?
 
     // UI konfig
     private let height: CGFloat = 180
     private let cornerRadius: CGFloat = 12
     private let dash: [CGFloat] = [8, 6]
 
-    public init(onImageSelected: ((Data) -> Void)? = nil) {
+    public init(imageData: Binding<Data?>, onImageSelected: ((Data) -> Void)? = nil) {
         _onImageSelectedState = State(initialValue: onImageSelected)
+        _imageData = imageData
     }
 
     public var body: some View {
@@ -92,7 +93,7 @@ public struct SelectAndDisplayImage: View {
 
 #Preview {
     VStack {
-        SelectAndDisplayImage(onImageSelected: {
+        SelectAndDisplayImage(imageData: .constant(nil), onImageSelected: {
             print("Image selected: \($0)")
         })
     }
