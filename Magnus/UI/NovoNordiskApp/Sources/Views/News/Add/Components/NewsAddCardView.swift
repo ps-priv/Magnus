@@ -2,15 +2,15 @@ import MagnusDomain
 import SwiftUI
 
 struct NewsAddCardView: View {
-    @State public var tags: [String] = []
-    @State public var selectedGroups: [NewsGroup] = []
-    @State public var attachments: [NewsAttachment] = []
+    @Binding public var tags: [String]
+    @Binding public var selectedGroups: [NewsGroup]
+    @Binding public var attachments: [NewsAttachment]
 
-    @State public var title: String = ""
-    @State public var content: String = ""
-    @State public var image: Data?
+    @Binding public var title: String
+    @Binding public var content: String
+    @Binding public var image: Data?
 
-    @State public var canSendNews: Bool = false
+    public var canSendNews: Bool = false
 
     let saveAction: () -> Void
     let cancelAction: () -> Void
@@ -25,12 +25,12 @@ struct NewsAddCardView: View {
         deleteAction: @escaping () -> Void,
         publishAction: @escaping () -> Void,
         availableGroups: [NewsGroup],
-        tags: [String] = [],
-        selectedGroups: [NewsGroup] = [],
-        attachments: [NewsAttachment] = [],
-        title: String = "",
-        content: String = "",
-        image: Data?,
+        tags: Binding<[String]>,
+        selectedGroups: Binding<[NewsGroup]>,
+        attachments: Binding<[NewsAttachment]>,
+        title: Binding<String>,
+        content: Binding<String>,
+        image: Binding<Data?>,
         canSendNews: Bool = false
     ) {
         self.saveAction = saveAction
@@ -38,12 +38,12 @@ struct NewsAddCardView: View {
         self.deleteAction = deleteAction
         self.publishAction = publishAction
         self.availableGroups = availableGroups
-        self.tags = tags
-        self.selectedGroups = selectedGroups
-        self.attachments = attachments
-        self.title = title
-        self.content = content
-        self.image = image
+        self._tags = tags
+        self._selectedGroups = selectedGroups
+        self._attachments = attachments
+        self._title = title
+        self._content = content
+        self._image = image
         self.canSendNews = canSendNews
     }
 
@@ -62,10 +62,16 @@ struct NewsAddCardView: View {
                 Spacer()
                 DeleteButton(action: deleteAction)
             }
-            NovoNordiskTextBox(
-                placeholder: LocalizedStrings.newsAddTitle,
-                text: $title
-            )
+            VStack(alignment: .leading)  {
+                Text(LocalizedStrings.newsAddTitle)
+                    .font(.novoNordiskRegularText)
+                    .fontWeight(.bold)
+                    .foregroundColor(Color.novoNordiskTextGrey)
+                NovoNordiskTextBox(
+                    placeholder: LocalizedStrings.newsAddTitle,
+                    text: $title
+                )
+            }
 
             SelectAndDisplayImage(
                 onImageSelected: {
@@ -114,13 +120,13 @@ struct NewsAddCardView: View {
             deleteAction: {},
             publishAction: {},
             availableGroups: [],
-            tags: [],
-            selectedGroups: [],
-            attachments: [],
-            title: "",
-            content: "",
-            image: nil,
-            canSendNews: false) 
+            tags: .constant([]),
+            selectedGroups: .constant([]),
+            attachments: .constant([]),
+            title: .constant(""),
+            content: .constant(""),
+            image: .constant(nil),
+            canSendNews: false)
     }
     .padding()
     .background(Color.novoNordiskBackgroundGrey)

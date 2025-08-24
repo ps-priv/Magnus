@@ -16,7 +16,6 @@ public class NewsAddViewModel: ObservableObject {
     @Published public var selectedGroups: [NewsGroup] = []
     @Published public var attachments: [NewsAttachment] = []
     @Published public var tags: [String] = []
-
     @Published public var groups: [NewsGroup] = []
 
     private let newsService: ApiNewsService
@@ -62,6 +61,14 @@ public class NewsAddViewModel: ObservableObject {
         }
 
         do {
+            print("title: \(title)")
+            print("content: \(content)")
+            // print("image: \(image)")
+            print("selectedGroups: \(selectedGroups)")
+            print("attachments: \(attachments)")
+            print("tags: \(tags)")
+
+
             try await newsService.addNews(title: title, content: content, image: image, selectedGroups: selectedGroups, attachments: attachments, tags: tags)
 
             await MainActor.run {
@@ -70,11 +77,13 @@ public class NewsAddViewModel: ObservableObject {
                 message = FeaturesLocalizedStrings.newsAddSuccessMessage
             }
         } catch let error {
+            print(error)
             isLoading = false
             errorMessage = error.localizedDescription
             hasError = true
             showToast = true
             message = FeaturesLocalizedStrings.newsAddErrorMessage
+
             SentryHelper.capture(error: error, action: "NewsAddViewModel.sendNews")
         }
     }

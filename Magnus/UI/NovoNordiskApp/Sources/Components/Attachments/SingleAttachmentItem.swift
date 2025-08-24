@@ -22,6 +22,7 @@ public struct AttachmentRowItem: View {
                 .font(.novoNordiskMiddleText)
                 .fontWeight(.bold)
                 .lineLimit(1)
+                .foregroundColor(Color.novoNordiskTextGrey)
             Spacer()
             Button(action: onDelete) {
                 FAIcon(.delete, size: 16, color: Color.novoNordiskLightBlue)
