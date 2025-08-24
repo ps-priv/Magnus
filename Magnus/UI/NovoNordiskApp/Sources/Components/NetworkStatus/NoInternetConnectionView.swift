@@ -40,7 +40,7 @@ struct NoInternetConnectionView: View {
             .padding(.bottom, 32)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(Color(.systemGray6))
+        .background(Color.novoNordiskBackgroundGrey)
     }
 }
 
