@@ -66,6 +66,7 @@ struct AudienceSettings: View {
                     ForEach(availableGroups) { group in
                         Toggle(isOn: binding(for: group)) {
                             Text(group.name)
+                            .foregroundColor(Color.novoNordiskTextGrey)
                         }
                         .tint(Color.novoNordiskBlue)
                     }

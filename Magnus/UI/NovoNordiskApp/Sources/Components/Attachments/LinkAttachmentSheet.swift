@@ -20,23 +20,35 @@ struct LinkAttachmentSheet: View {
             VStack(alignment: .leading, spacing: 6) {
                 Text(LocalizedStrings.attachmentTitle)
                     .font(.headline)
-                TextField(LocalizedStrings.attachmentTitlePlaceholder, text: $title)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
-                    .multilineTextAlignment(.leading)
-                    .keyboardType(.default)
-                    .textInputAutocapitalization(.sentences)
+                    .foregroundColor(Color.novoNordiskTextGrey)
+                // TextField(LocalizedStrings.attachmentTitlePlaceholder, text: $title)
+                //     .textFieldStyle(RoundedBorderTextFieldStyle())
+                //     .multilineTextAlignment(.leading)
+                //     .keyboardType(.default)
+                //     .textInputAutocapitalization(.sentences)
+
+                NovoNordiskTextBox(
+                    placeholder: LocalizedStrings.attachmentTitlePlaceholder,
+                    text: $title
+                )    
             }
 
             // Link field
             VStack(alignment: .leading, spacing: 6) {
                 Text(LocalizedStrings.attachmentLink)
                     .font(.headline)
-                TextField(LocalizedStrings.attachmentLinkPlaceholder, text: $link)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
-                    .multilineTextAlignment(.leading)
-                    .keyboardType(.URL)
-                    .textInputAutocapitalization(.never)
-                    .autocorrectionDisabled(true)
+                    .foregroundColor(Color.novoNordiskTextGrey)
+                // TextField(LocalizedStrings.attachmentLinkPlaceholder, text: $link)
+                //     .textFieldStyle(RoundedBorderTextFieldStyle())
+                //     .multilineTextAlignment(.leading)
+                //     .keyboardType(.URL)
+                //     .textInputAutocapitalization(.never)
+                //     .autocorrectionDisabled(true)
+
+                NovoNordiskTextBox(
+                    placeholder: LocalizedStrings.attachmentLinkPlaceholder,
+                    text: $link
+                )    
             }
 
             Button(action: handleAdd) {

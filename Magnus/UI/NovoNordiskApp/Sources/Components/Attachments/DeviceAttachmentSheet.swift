@@ -22,17 +22,20 @@ struct DeviceAttachmentSheet: View {
             VStack(alignment: .leading, spacing: 6) {
                 Text(LocalizedStrings.attachmentTitle)
                     .font(.headline)
-                TextField(LocalizedStrings.attachmentTitlePlaceholder, text: $title)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
-                    .multilineTextAlignment(.leading)
+                    .foregroundColor(Color.novoNordiskTextGrey)
+                NovoNordiskTextBox(
+                    placeholder: LocalizedStrings.attachmentTitlePlaceholder,
+                    text: $title
+                )    
             }
 
             // File name label
             VStack(alignment: .leading, spacing: 6) {
                 Text(LocalizedStrings.attachmentFileName)
                     .font(.headline)
+                    .foregroundColor(Color.novoNordiskTextGrey)
                 Text(pickedURL?.lastPathComponent ?? LocalizedStrings.attachmentFileNameNoFileSelected)
-                    .foregroundColor(.secondary)
+                    .foregroundColor(Color.novoNordiskTextGrey)
                     .lineLimit(2)
             }
 
@@ -41,7 +44,7 @@ struct DeviceAttachmentSheet: View {
                 Text(LocalizedStrings.attachmentFileType)
                     .font(.headline)
                 Text(fileTypeText.isEmpty ? "—" : fileTypeText)
-                    .foregroundColor(.secondary)
+                    .foregroundColor(Color.novoNordiskTextGrey)
             }
 
             // Pick button
