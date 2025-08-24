@@ -19,10 +19,9 @@ struct EventDetailView: View {
             } else {
                 if let event = viewModel.event {
                     EventDetailCardView(event: event, eventId: eventId)
+                } else {
+                    EventDetailsNotFound()
                 }
-                // } else {
-                //     EventDetailsNotFound()
-                // }
             }
         }
         .background(Color.novoNordiskBackgroundGrey)

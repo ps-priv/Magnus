@@ -54,7 +54,7 @@ struct EventGalleryCardView: View {
     private var galleryTitle: some View {
         HStack {
             HStack {
-                FAIcon(.location, type: .regular, size: 20, color: Color.novoNordiskBlue)
+                FAIcon(.image, type: .regular, size: 20, color: Color.novoNordiskBlue)
                 Text(LocalizedStrings.eventPhotoScreenTitle)
                     .font(.novoNordiskSectionTitle)
                     .fontWeight(.bold)

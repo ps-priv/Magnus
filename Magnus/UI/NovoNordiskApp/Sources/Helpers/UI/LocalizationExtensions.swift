@@ -260,4 +260,7 @@ enum LocalizedStrings {
     static let eventPhotoScreenTitle = "EVENT_PHOTO_SCREEN_TITLE".localized
     static let eventGalleryScreenTitle = "EVENT_GALLERY_SCREEN_TITLE".localized
     static let eventAddPhotoScreenTitle = "EVENT_ADD_PHOTO_SCREEN_TITLE".localized
+
+    static let eventPhotosNotFoundTitle = "EVENT_PHOTOS_NOT_FOUND_TITLE".localized
+    static let eventPhotosNotFoundMessage = "EVENT_PHOTOS_NOT_FOUND_MESSAGE".localized
 }

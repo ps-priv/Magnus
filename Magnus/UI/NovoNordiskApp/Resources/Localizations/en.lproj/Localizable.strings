@@ -249,6 +249,10 @@
 "EVENT_GALLERY_SCREEN_TITLE"="Photo booth";
 "EVENT_ADD_PHOTO_SCREEN_TITLE"="Add photo";
 
+"EVENT_PHOTOS_NOT_FOUND_TITLE"="No photos";
+"EVENT_PHOTOS_NOT_FOUND_MESSAGE"="No photos found";
+    
+
 
 
 
