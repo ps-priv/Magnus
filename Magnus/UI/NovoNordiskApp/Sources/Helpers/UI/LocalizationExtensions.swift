@@ -256,4 +256,8 @@ enum LocalizedStrings {
     static let newsAddSuccessMessage = "NEWS_ADD_SUCCESS_MESSAGE".localized
     static let newsAddErrorMessage = "NEWS_ADD_ERROR_MESSAGE".localized
     static let newsAddSaveToStorage = "NEWS_ADD_SAVE_TO_STORAGE".localized
+
+    static let eventPhotoScreenTitle = "EVENT_PHOTO_SCREEN_TITLE".localized
+    static let eventGalleryScreenTitle = "EVENT_GALLERY_SCREEN_TITLE".localized
+    static let eventAddPhotoScreenTitle = "EVENT_ADD_PHOTO_SCREEN_TITLE".localized
 }

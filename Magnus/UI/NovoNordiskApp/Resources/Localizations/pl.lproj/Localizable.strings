@@ -246,6 +246,11 @@
 "NEWS_ADD_ERROR_MESSAGE"="Aktualność nie została wysłana";
 "NEWS_ADD_SAVE_TO_STORAGE"="Szablon aktualności został zapisany";
 
+"EVENT_PHOTO_SCREEN_TITLE"="Fotobudka";
+"EVENT_GALLERY_SCREEN_TITLE"="Fotobudka";
+"EVENT_ADD_PHOTO_SCREEN_TITLE"="Dodaj zdjęcie";
+
+
 
 
 

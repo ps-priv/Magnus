@@ -248,7 +248,7 @@ struct EventDetailCardView: View {
             }
 
             Button(action: {
-                //navigationManager.popToRoot()
+                navigationManager.navigateToEventGallery(eventId: eventId)
             }) {
                 FAIcon(FontAwesome.Icon.image, type: .light, size: 16, color: .novoNordiskBlue)
                 Text(LocalizedStrings.eventTabPhotobooth)

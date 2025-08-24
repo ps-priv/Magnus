@@ -1,10 +1,10 @@
 import SwiftUI
 
 struct EventPhotoView: View {
-    var eventId: String
+    var photoId: String
 
-    init(eventId: String) {
-        self.eventId = eventId
+    init(photoId: String) {
+        self.photoId = photoId
     }
 
     var body: some View {
