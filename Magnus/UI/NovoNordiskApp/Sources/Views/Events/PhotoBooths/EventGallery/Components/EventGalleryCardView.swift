@@ -31,8 +31,7 @@ struct EventGalleryCardView: View {
                         LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: spacing), count: Int(columnsCount)), spacing: spacing) {
                             ForEach(gallery) { photo in
                                 EventPhotoItem(photo: photo, size: itemSize, deleteAction: deleteAction, displayAction: {
-                                    print("displayAction \(photo.id)")
-                                    navigationManager.navigate(to: .eventPhoto(photoId: photo.id))
+                                    navigationManager.navigateToEventPhoto(photoId: photo.id, photoUrl: photo.image)
                                 })
                             }
                         }

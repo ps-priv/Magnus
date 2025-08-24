@@ -131,8 +131,8 @@ struct MainNavigationContainer: View {
             EventSurveyView(eventId: eventId)
         case let .eventMaterials(eventId):
             EventMaterialsView(eventId: eventId)
-        case let .eventPhoto(photoId):
-            EventPhotoView(photoId: photoId)
+        case let .eventPhoto(photoId, photoUrl):
+            EventPhotoView(photoId: photoId, photoUrl: photoUrl)
         case let .eventGallery(eventId):
             EventGalleryView(eventId: eventId)
         case let .eventAddPhoto(eventId):

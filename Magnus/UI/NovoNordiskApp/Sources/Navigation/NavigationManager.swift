@@ -48,8 +48,8 @@ class NavigationManager: ObservableObject {
         navigate(to: .academyCategory(categoryId: categoryId))
     }
 
-    func navigateToEventPhoto(photoId: String) {
-        navigate(to: .eventPhoto(photoId: photoId))
+    func navigateToEventPhoto(photoId: String, photoUrl: String) {
+        navigate(to: .eventPhoto(photoId: photoId, photoUrl: photoUrl))
     }
 
     func navigateToEventGallery(eventId: String) {

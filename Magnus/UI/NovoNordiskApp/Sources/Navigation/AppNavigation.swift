@@ -29,7 +29,7 @@ enum AppScreen: Equatable, Identifiable {
     case eventLocation(eventId: String)
     case eventDinner(eventId: String)
     case eventSurvey(eventId: String)
-    case eventPhoto(photoId: String)
+    case eventPhoto(photoId: String, photoUrl: String)
     case eventGallery(eventId: String)
     case eventAddPhoto(eventId: String)
 
@@ -79,14 +79,14 @@ enum AppScreen: Equatable, Identifiable {
             return "message_detail_\(messageId)"
         case let .eventAgenda(eventId):
             return "event_agenda_\(eventId)"
-        case let .eventLocation(eventId):
+        case let .eventLocation(eventId):   
             return "event_location_\(eventId)"
         case let .eventDinner(eventId):
             return "event_dinner_\(eventId)"
         case let .eventSurvey(eventId):
             return "event_survey_\(eventId)"
 
-        case let .eventPhoto(photoId):
+        case let .eventPhoto(photoId, photoUrl  ):
             return "event_photo_\(photoId)"
         case let .eventGallery(eventId):
             return "event_gallery_\(eventId)"
@@ -212,7 +212,7 @@ enum AppScreen: Equatable, Identifiable {
     // Helper to check if bottom menu should be shown
     var shouldShowBottomMenu: Bool {
         switch self {
-        case .profile, .settings:
+        case .profile, .settings, .eventPhoto, .eventAddPhoto:
             return false
         case .eventQrCode, .materialDetail, .newsDetail:
             return false // Ukryj również na ekranach szczegółów
