@@ -27,6 +27,13 @@ struct NewsAddView: View {
                         publishAction: {
                             Task {
                                 await viewModel.sendNews()
+                                if !viewModel.hasError {
+                                    // Wait 5 seconds before redirecting to news list
+                                    try? await Task.sleep(nanoseconds: 3_000_000_000)
+                                    await MainActor.run {
+                                        navigationManager.navigate(to: .newsList)
+                                    }
+                                }
                             }                         
                         },
                         availableGroups: viewModel.groups,
