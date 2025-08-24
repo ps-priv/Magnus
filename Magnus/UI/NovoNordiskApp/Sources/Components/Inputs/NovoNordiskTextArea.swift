@@ -27,6 +27,7 @@ struct NovoNordiskTextArea: View {
                 Text(style.title)
                     .font(style.titleFont)
                     .foregroundColor(isEnabled ? Color("NovoNordiskBlue") : Color.novoNordiskTextGrey)
+
             }
             
             ZStack(alignment: .topLeading) {
@@ -51,6 +52,7 @@ struct NovoNordiskTextArea: View {
                     .foregroundColor(.gray)
             }
         }
+        .background(Color.clear)
     }
 }
 
@@ -63,7 +65,9 @@ private extension View {
             .padding(.horizontal, 12)
             .padding(.vertical, 14)
             .frame(minHeight: 120, alignment: .top)
-            .background(isEnabled ? Color.white : Color.white)
+            //.background(isEnabled ? Color.white : Color.white)
+            .scrollContentBackground(.hidden)
+            .background(Color.white)
             .overlay(
                 RoundedRectangle(cornerRadius: 8)
                     .stroke(
@@ -120,5 +124,7 @@ struct NovoNordiskTextAreaStyle {
             style: .complete(title: "Notatki", helperText: "Możesz tu wpisać dodatkowe uwagi", boldTitle: false)
         )
     }
+    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+    .background(Color.novoNordiskBackgroundGrey)    
     .padding()
 }
