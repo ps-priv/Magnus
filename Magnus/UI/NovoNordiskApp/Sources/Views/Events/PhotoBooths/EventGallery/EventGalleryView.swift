@@ -4,6 +4,7 @@ import MagnusFeatures
 struct EventGalleryView: View {
     let eventId: String
     @StateObject private var viewModel: EventGalleryViewModel
+    @EnvironmentObject var navigationManager: NavigationManager
 
     init(eventId: String) {
         self.eventId = eventId
@@ -21,7 +22,6 @@ struct EventGalleryView: View {
                             get: { viewModel.gallery ?? [] },
                             set: { viewModel.gallery = $0 }
                         ),
-                        displayAction: {},
                         deleteAction: {}
                     )
                 }

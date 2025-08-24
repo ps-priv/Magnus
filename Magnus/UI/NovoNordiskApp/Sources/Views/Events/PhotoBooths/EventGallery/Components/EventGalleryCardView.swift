@@ -2,14 +2,15 @@ import SwiftUI
 import MagnusDomain
 
 struct EventGalleryCardView: View {
+
+    @EnvironmentObject var navigationManager: NavigationManager
+
     @Binding public var gallery: [ConferenceEventPhotoBooth]
 
-    let displayAction: () -> Void
     let deleteAction: () -> Void
 
-    init(gallery: Binding<[ConferenceEventPhotoBooth]>, displayAction: @escaping () -> Void, deleteAction: @escaping () -> Void) {
+    init(gallery: Binding<[ConferenceEventPhotoBooth]>, deleteAction: @escaping () -> Void) {
         self._gallery = gallery
-        self.displayAction = displayAction
         self.deleteAction = deleteAction
     }
 
@@ -29,11 +30,10 @@ struct EventGalleryCardView: View {
                     ScrollView {
                         LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: spacing), count: Int(columnsCount)), spacing: spacing) {
                             ForEach(gallery) { photo in
-                                EventPhotoItem(photo: photo, size: itemSize) {
-                                    // Forward delete action for the item
-                                    deleteAction()
-                                }
-                                .onTapGesture { displayAction() }
+                                EventPhotoItem(photo: photo, size: itemSize, deleteAction: deleteAction, displayAction: {
+                                    print("displayAction \(photo.id)")
+                                    navigationManager.navigate(to: .eventPhoto(photoId: photo.id))
+                                })
                             }
                         }
                         .padding(.horizontal, horizontalPadding)
@@ -73,9 +73,10 @@ struct EventGalleryCardView: View {
         ConferenceEventPhotoBooth(id: "\(i)", image: "https://nncv2-dev.serwik.pl/images/1_Gratulujemy_Zwyciezcom_CDC_Poland.jpg")
     }
     VStack {
-        EventGalleryCardView(gallery: .constant(items), displayAction: {}, deleteAction: {})
+        EventGalleryCardView(gallery: .constant(items), deleteAction: {})
     }
     .padding()
     .background(Color.novoNordiskBackgroundGrey)
     .frame(maxWidth: .infinity, maxHeight: .infinity)
 }
+

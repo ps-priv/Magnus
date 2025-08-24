@@ -8,7 +8,7 @@ struct EventPhotoView: View {
     }
 
     var body: some View {
-        Text("Event Photo")
+        Text("Event Photo \(photoId)")
     }
 }
 
