@@ -10,7 +10,8 @@ struct NewsAddCardView: View {
     @Binding public var content: String
     @Binding public var image: Data?
 
-    @FocusState private var isFocused: Bool
+    @FocusState private var isFocusedTitle: Bool    
+    @FocusState private var isFocusedContent: Bool
 
     public var canSendNews: Bool = false
 
@@ -52,7 +53,8 @@ struct NewsAddCardView: View {
     var body: some View {
         VStack(spacing: 20) {
             HStack {
-                PublishButton(action: publishAction, isDisabled: !canSendNews)
+                //PublishButton(action: publishAction, isDisabled: !canSendNews)
+                PublishButton(action: publishAction, isDisabled: false)
                 WhiteButton(
                     title: LocalizedStrings.saveButton,
                     action: saveAction,
@@ -73,7 +75,17 @@ struct NewsAddCardView: View {
                     placeholder: LocalizedStrings.newsAddTitle,
                     text: $title
                 )
+                .focused($isFocusedTitle)
             }
+            // .toolbar {
+            //     ToolbarItemGroup(placement: .keyboard) {
+            //         Spacer()
+            //         Button(LocalizedStrings.endEditingButton) { isFocusedTitle = false }
+            //         .background(Color.novoNordiskBlue)
+            //         .foregroundColor(.white)
+            //         .cornerRadius(8)
+            //     }
+            // }
 
             SelectAndDisplayImage(
                 imageData: $image,
@@ -94,18 +106,9 @@ struct NewsAddCardView: View {
                     placeholder: LocalizedStrings.newsAddContent,
                     text: $content
                 )
-                .focused($isFocused)
+                .focused($isFocusedContent)
             }
             .frame(maxWidth: .infinity, alignment: .leading)
-            .toolbar {
-                ToolbarItemGroup(placement: .keyboard) {
-                    Spacer()
-                    Button(LocalizedStrings.endEditingButton) { isFocused = false }
-                    .background(Color.novoNordiskBlue)
-                    .foregroundColor(.white)
-                    .cornerRadius(8)
-                }
-            }
 
             VStack(alignment: .leading) {
                 Text(LocalizedStrings.newsAddTags)
@@ -122,6 +125,18 @@ struct NewsAddCardView: View {
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
         .padding()
+        .toolbar {
+            ToolbarItemGroup(placement: .keyboard) {
+                Spacer()
+                Button(LocalizedStrings.endEditingButton) { 
+                    isFocusedContent = false
+                    isFocusedTitle = false 
+                }
+                .background(Color.novoNordiskBlue)
+                .foregroundColor(.white)
+                .cornerRadius(8)
+            }
+        }
     }
 }
 

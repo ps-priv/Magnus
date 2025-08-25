@@ -25,6 +25,7 @@ struct NewsAddView: View {
                             navigationManager.navigate(to: .newsList)
                         },
                         publishAction: {
+                            print("Publish action start")
                             Task {
                                 await viewModel.sendNews()
                                 if !viewModel.hasError {
@@ -34,7 +35,8 @@ struct NewsAddView: View {
                                         navigationManager.navigate(to: .newsList)
                                     }
                                 }
-                            }                         
+                            }  
+                            print("Publish action end")                       
                         },
                         availableGroups: viewModel.groups,
                         tags: $viewModel.tags,
