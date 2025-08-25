@@ -72,6 +72,7 @@ struct MainNavigationContainer: View {
                 }
             }
         }
+        .ignoresSafeArea(.keyboard, edges: .bottom)
         .environmentObject(navigationManager)
         .environmentObject(userProfileViewModel)
         .animation(.easeInOut(duration: 0.3), value: navigationManager.currentScreen)
