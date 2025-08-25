@@ -10,6 +10,8 @@ struct NewsAddCardView: View {
     @Binding public var content: String
     @Binding public var image: Data?
 
+    @FocusState private var isFocused: Bool
+
     public var canSendNews: Bool = false
 
     let saveAction: () -> Void
@@ -92,8 +94,18 @@ struct NewsAddCardView: View {
                     placeholder: LocalizedStrings.newsAddContent,
                     text: $content
                 )
+                .focused($isFocused)
             }
             .frame(maxWidth: .infinity, alignment: .leading)
+            .toolbar {
+                ToolbarItemGroup(placement: .keyboard) {
+                    Spacer()
+                    Button(LocalizedStrings.endEditingButton) { isFocused = false }
+                    .background(Color.novoNordiskBlue)
+                    .foregroundColor(.white)
+                    .cornerRadius(8)
+                }
+            }
 
             VStack(alignment: .leading) {
                 Text(LocalizedStrings.newsAddTags)

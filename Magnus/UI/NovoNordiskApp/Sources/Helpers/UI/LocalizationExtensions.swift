@@ -263,4 +263,6 @@ enum LocalizedStrings {
 
     static let eventPhotosNotFoundTitle = "EVENT_PHOTOS_NOT_FOUND_TITLE".localized
     static let eventPhotosNotFoundMessage = "EVENT_PHOTOS_NOT_FOUND_MESSAGE".localized
+
+    static let endEditingButton = "END_EDITING_BUTTON".localized
 }
