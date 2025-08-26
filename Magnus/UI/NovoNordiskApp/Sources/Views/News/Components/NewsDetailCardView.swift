@@ -199,17 +199,27 @@ struct NewsDetailCardView: View {
             }
             tabSection
         }
-        .alert(LocalizedStrings.newsDeleteConfirmationMessage, isPresented: $showDeleteConfirmation) {
-            Button(LocalizedStrings.deleteButton, role: .destructive) {
+        .novoNordiskAlert(
+            isPresented: $showDeleteConfirmation,
+            title: LocalizedStrings.newsDeleteConfirmationMessage,
+            message: nil,
+            icon: .delete,
+            primaryTitle: LocalizedStrings.deleteButton,
+            primaryStyle: .destructive,
+            primaryAction: {
                 onDeleteTap()
                 showToast = true
                 toastMessage = LocalizedStrings.newsDeletedMessage
                 DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
                     navigationManager.navigateToTabRoot(.news)
                 }
+            },
+            secondaryTitle: LocalizedStrings.cancelButton,
+            secondaryStyle: .cancel,
+            secondaryAction: {
+                // Cancel tapped
             }
-            Button(LocalizedStrings.cancelButton, role: .cancel) {}
-        }
+        )
         .toast(isPresented: $showToast, message: toastMessage)
     }
 
