@@ -12,6 +12,7 @@ public protocol NewsNetworkServiceProtocol {
     func addCommentToNews(token: String, id: String, comment: String) -> AnyPublisher<Void, Error>
     func getGroups(token: String) -> AnyPublisher<GetGroupsResponse, Error>
     func addNews(token: String, title: String, content: String, image: String, selectedGroups: [NewsGroup], attachments: [NewsAttachment], tags: [String]) -> AnyPublisher<Void, Error>
+    func updateNews(token: String, id: String, title: String, content: String, image: String, selectedGroups: [NewsGroup], attachments: [NewsAttachment], tags: [String]) -> AnyPublisher<Void, Error>
 }
 
 public class NewsNetworkService: NewsNetworkServiceProtocol {
@@ -105,6 +106,25 @@ public class NewsNetworkService: NewsNetworkServiceProtocol {
         return networkService.requestWithBearerToken(
             endpoint: "/api/news",
             method: .post,
+            body: request,
+            bearerToken: token
+        )
+    }
+
+    public func updateNews(token: String, id: String, title: String, content: String, image: String, selectedGroups: [NewsGroup], attachments: [NewsAttachment], tags: [String]) -> AnyPublisher<Void, Error> {
+        let request = UpdateNewsRequest(
+            id: id,
+            title: title,
+            message: content,
+            image: image,
+            tags: tags,
+            user_groups: selectedGroups.map { $0.id },
+            attachments: attachments
+        )
+
+        return networkService.requestWithBearerToken(
+            endpoint: "/api/news/\(id)",
+            method: .put,
             body: request,
             bearerToken: token
         )

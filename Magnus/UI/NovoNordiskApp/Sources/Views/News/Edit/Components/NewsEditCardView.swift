@@ -1,7 +1,7 @@
 import MagnusDomain
 import SwiftUI
 
-struct NewsAddCardView: View {
+struct NewsEditCardView: View {
     @Binding public var tags: [String]
     @Binding public var selectedGroups: [NewsGroup]
     @Binding public var attachments: [NewsAttachment]
@@ -54,7 +54,6 @@ struct NewsAddCardView: View {
         VStack(spacing: 20) {
             HStack {
                 PublishButton(action: publishAction, isDisabled: !canSendNews)
-                //PublishButton(action: publishAction, isDisabled: false)
                 WhiteButton(
                     title: LocalizedStrings.saveButton,
                     action: saveAction,
@@ -142,7 +141,7 @@ struct NewsAddCardView: View {
 
 #Preview {
     VStack {
-        NewsAddCardView(
+        NewsEditCardView(
             saveAction: {},
             cancelAction: {},
             deleteAction: {},

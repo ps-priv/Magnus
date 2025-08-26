@@ -1,6 +1,62 @@
 import SwiftUI
+import MagnusFeatures
 
 struct NewsEditView: View {
+    let newsId: String
+    @EnvironmentObject private var navigationManager: NavigationManager
+    @StateObject private var viewModel: NewsEditViewModel
+
+    init(newsId: String) {
+        self.newsId = newsId
+        _viewModel = StateObject(wrappedValue: NewsEditViewModel(id: newsId))
+    }
+
     var body: some View {
+        ScrollView {
+            if viewModel.isLoading {
+                ProgressView()
+            } else {
+                VStack {
+                    NewsEditCardView(
+                        saveAction: {
+                            Task {
+                                await viewModel.saveNewsRequest()
+                            }
+                        },
+                        cancelAction: {
+                            navigationManager.navigate(to: .newsList)
+                        },
+                        deleteAction: {
+                            navigationManager.navigate(to: .newsList)
+                        },
+                        publishAction: {
+                            print("Publish action start")
+                            Task {
+                                await viewModel.saveChanges()
+                                if !viewModel.hasError {
+                                    // Wait 5 seconds before redirecting to news list
+                                    try? await Task.sleep(nanoseconds: 3_000_000_000)
+                                    await MainActor.run {
+                                        navigationManager.navigate(to: .newsList)
+                                    }
+                                }
+                            }  
+                            print("Publish action end")                       
+                        },
+                        availableGroups: viewModel.groups,
+                        tags: $viewModel.tags,
+                        selectedGroups: $viewModel.selectedGroups,
+                        attachments: $viewModel.attachments,
+                        title: $viewModel.title,
+                        content: $viewModel.content,
+                        image: $viewModel.image,
+                        canSendNews: viewModel.canSendNews())
+                }
+            }
+        }
+        .padding(.vertical, 20)
+        .padding(.horizontal, 16)   
+        .background(Color.novoNordiskBackgroundGrey)
+        .toast(isPresented: $viewModel.showToast, message: viewModel.message)
     }
 }

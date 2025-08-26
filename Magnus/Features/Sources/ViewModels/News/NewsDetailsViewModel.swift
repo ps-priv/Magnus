@@ -42,7 +42,7 @@ public class NewsDetailsViewModel: ObservableObject {
         do {
             let data: NewsDetails = try await newsService.getNewsById(id: id)
 
-            //try await newsService.markNewsAsRead(id: id)
+            try await newsService.markNewsAsRead(id: id)
 
             //checkIfUserCanComment()
 

@@ -101,8 +101,8 @@ struct MainNavigationContainer: View {
             NewsDetailView(newsId: newsId)
         case .newsCreate:
             NewsAddView()
-        case .newsEdit:
-            NewsEditView()
+        case let .newsEdit(newsId):
+            NewsEditView(newsId: newsId)
         case .newsEditDraft:
             NewsEditDraftView()
         case .newsBookmarks:
