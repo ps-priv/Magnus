@@ -31,6 +31,7 @@ let project = Project(
             bundleId: "pl.mz.NovoNordiskApp.OneSignalNotificationServiceExtension",
             infoPlist: .extendingDefault(
                 with: [
+                    "CFBundleDisplayName": "NovoNordiskApp",
                     "NSExtension": [
                         "NSExtensionPointIdentifier": "com.apple.usernotifications.service",
                         "NSExtensionPrincipalClass": "$(PRODUCT_MODULE_NAME).NotificationService",
