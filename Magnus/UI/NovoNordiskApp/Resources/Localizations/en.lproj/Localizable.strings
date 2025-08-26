@@ -254,6 +254,9 @@
 
 "END_EDITING_BUTTON"="End editing";
 
+"NEWS_DELETED_MESSAGE"="News deleted successfully";
+"NEWS_DELETE_CONFIRMATION_MESSAGE"="Are you sure you want to delete this news?";
+
 
 
 

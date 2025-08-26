@@ -6,6 +6,7 @@ import Pow
 import SwiftUI
 
 struct NewsDetailCardView: View {
+    @EnvironmentObject private var navigationManager: NavigationManager
     let news: NewsDetailCardViewDto
     let isCommentsEnabled: Bool
     let onTap: () -> Void
@@ -17,6 +18,9 @@ struct NewsDetailCardView: View {
 
     @State var isBookmarked: Bool
     @State var showReactionsMenu: Bool = false
+    @State private var showDeleteConfirmation: Bool = false
+    @State private var showToast: Bool = false
+    @State private var toastMessage: String = ""
     
     private enum StatsTab: CaseIterable {
         case comments
@@ -195,6 +199,18 @@ struct NewsDetailCardView: View {
             }
             tabSection
         }
+        .alert(LocalizedStrings.newsDeleteConfirmationMessage, isPresented: $showDeleteConfirmation) {
+            Button(LocalizedStrings.deleteButton, role: .destructive) {
+                onDeleteTap()
+                showToast = true
+                toastMessage = LocalizedStrings.newsDeletedMessage
+                DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                    navigationManager.navigateToTabRoot(.news)
+                }
+            }
+            Button(LocalizedStrings.cancelButton, role: .cancel) {}
+        }
+        .toast(isPresented: $showToast, message: toastMessage)
     }
 
     @ViewBuilder
@@ -264,7 +280,7 @@ struct NewsDetailCardView: View {
             }
 
             Button(role: .destructive) {
-                onDeleteTap()
+                showDeleteConfirmation = true
             } label: {
                 Label(LocalizedStrings.newsListDeleteNews, systemImage: "trash")
             }
@@ -459,4 +475,5 @@ struct NewsDetailCardView: View {
     .frame(maxWidth: .infinity, maxHeight: .infinity)
     .padding(20)
     .background(Color.novoNordiskBackgroundGrey)
+    .environmentObject(NavigationManager())
  }

@@ -256,6 +256,9 @@
 
 "END_EDITING_BUTTON"="Zakończ edycję treści";
 
+"NEWS_DELETED_MESSAGE"="Aktualność została usunięta";
+"NEWS_DELETE_CONFIRMATION_MESSAGE"="Czy na pewno chcesz usunąć tę aktualność?";
+
 
 
 
