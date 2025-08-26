@@ -44,6 +44,10 @@ class NavigationManager: ObservableObject {
         navigate(to: .messageDetail(messageId: messageId))
     }
 
+    func navigateToNewsEdit(newsId: String) {
+        navigate(to: .newsEdit(newsId: newsId))
+    }
+
     func navigateToAcademyCategory(categoryId: String) {
         navigate(to: .academyCategory(categoryId: categoryId))
     }

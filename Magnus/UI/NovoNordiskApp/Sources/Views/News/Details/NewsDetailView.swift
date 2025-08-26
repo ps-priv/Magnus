@@ -6,6 +6,7 @@ import PopupView
 
 struct NewsDetailView: View {
     let newsId: String
+    @EnvironmentObject private var navigationManager: NavigationManager
     @StateObject private var viewModel: NewsDetailsViewModel
 
     init(newsId: String) {
@@ -30,7 +31,7 @@ struct NewsDetailView: View {
                                     print("Tapped")
                                 },
                                 onEditTap: {
-                                    print("Tapped")
+                                    navigationManager.navigateToNewsEdit(newsId: newsId)
                                 },
                                 onDeleteTap: {
                                     print("Tapped")
