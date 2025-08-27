@@ -17,13 +17,13 @@ struct NewsListView: View {
     var body: some View {
         VStack(spacing: 0) {
             if viewModel.isLoading {
-                ProgressView()
+                LoadingIndicator()
             } else {
                 newsList
             }
         }
         .background(Color.novoNordiskBackgroundGrey)
-                .novoNordiskAlert(
+        .novoNordiskAlert(
             isPresented: $showDeleteConfirmation,
             title: LocalizedStrings.newsDeleteConfirmationMessage,
             message: nil,

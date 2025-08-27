@@ -5,6 +5,11 @@ import Kingfisher
 
 struct NewsBookmarksView: View {
 
+    @State private var showDeleteConfirmation: Bool = false
+    @State private var showToast: Bool = false
+    @State private var toastMessage: String = ""
+    @State private var selectedNewsId: String = ""
+
     @StateObject private var viewModel: BookmarksViewModel = BookmarksViewModel()
     @EnvironmentObject var navigationManager: NavigationManager
     
@@ -18,6 +23,30 @@ struct NewsBookmarksView: View {
             }
         }
         .background(Color.novoNordiskBackgroundGrey)
+        .novoNordiskAlert(
+            isPresented: $showDeleteConfirmation,
+            title: LocalizedStrings.newsDeleteConfirmationMessage,
+            message: nil,
+            icon: .delete,
+            primaryTitle: LocalizedStrings.deleteButton,
+            primaryStyle: .destructive,
+            primaryAction: {
+                Task {
+                    //await viewModel.deleteNews(id: selectedNewsId)
+                }
+                showToast = true
+                toastMessage = LocalizedStrings.newsDeletedMessage
+                DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                    navigationManager.navigateToTabRoot(.news)
+                }
+            },
+            secondaryTitle: LocalizedStrings.cancelButton,
+            secondaryStyle: .cancel,
+            secondaryAction: {
+                // Cancel tapped
+            }
+        )
+        .toast(isPresented: $showToast, message: toastMessage)    
     }
      
     @ViewBuilder
@@ -38,12 +67,11 @@ struct NewsBookmarksView: View {
                                 }
                             },
                             onEditTap: {
-                                //navigationManager.navigateToNewsEdit(newsId: newsItem.id)
+                                navigationManager.navigateToNewsEdit(newsId: newsItem.id)
                             },
                             onDeleteTap: {
-                                // Task {
-                                //     await viewModel.deleteNews(id: newsItem.id)
-                                // }
+                                showDeleteConfirmation = true
+                                selectedNewsId = newsItem.id
                             })
                     }
                 }
