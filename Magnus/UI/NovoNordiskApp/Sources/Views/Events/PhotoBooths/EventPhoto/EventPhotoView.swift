@@ -2,6 +2,7 @@ import SwiftUI
 import Kingfisher
 
 struct EventPhotoView: View {
+    @EnvironmentObject var navigationManager: NavigationManager
     var photoId: String
     var photoUrl: String
     @State private var scale: CGFloat = 1.0
@@ -15,7 +16,7 @@ struct EventPhotoView: View {
     }
 
     var body: some View {
-        ZStack {
+        ZStack(alignment: .topTrailing) {
             Color.black.ignoresSafeArea()
             KFImage(URL(string: photoUrl))
                 .placeholder {
@@ -68,6 +69,17 @@ struct EventPhotoView: View {
                             }
                         }
                 )
+
+            Button(action: { 
+                navigationManager.goBack()
+             }) {
+                FAIcon(.close, type: .light, size: 18, color: .black)
+                    .padding(15)
+                    .background(Color.novoNordiskGrey.opacity(0.6))
+                    .clipShape(Circle())
+            }
+            .padding(.top, 16)
+            .padding(.trailing, 16)
         }
     }
 }
