@@ -263,6 +263,14 @@
 "NEWS_SAVE_CONFIRMATION_MESSAGE"="Czy na pewno chcesz zapisać tę aktualność?";
 "NEWS_SAVE_MESSAGE"="Aktualność została zapisana";
 
+"EVENT_ADD_PHOTO_FROM_GALLERY_TITLE"="Dodaj zdjęcie z galerii";
+"EVENT_ADD_PHOTO_UPLOAD_BUTTON_TITLE"="Przeslij do Fotobudki";
+"EVENT_ADD_PHOTO_TAKE_PHOTO_BUTTON_TITLE"="Zrób zdjęcie";
+"EVENT_ADD_PHOTO_ADDED_MESSAGE"="Zdjęcie zostało dodane";
+"EVENT_ADD_PHOTO_UNSUPPORTED_FORMAT_MESSAGE"="Niewspierany format zdjęcia";
+"OK_BUTTON"="OK";
+
+
 
 
 

@@ -111,6 +111,11 @@ let project = Project(
                     "UIBackgroundModes": [
                         "remote-notification"
                     ],
+                    // Required by iOS when saving to the user's photo library
+                    "NSPhotoLibraryAddUsageDescription": "Aplikacja potrzebuje dostępu do biblioteki zdjęć, aby zapisywać zdjęcia z fotobudki.",
+                    "NSPhotoLibraryUsageDescription": "Aplikacja potrzebuje dostępu do biblioteki zdjęć, aby zapisywać zdjęcia z fotobudki.",
+                    "NSCameraUsageDescription": "Aplikacja potrzebuje dostępu do kamery, aby zapisywać zdjęcia z fotobudki.",
+                    "NSMicrophoneUsageDescription": "Aplikacja potrzebuje dostępu do mikrofonu, aby zapisywać zdjęcia z fotobudki.",
                 ]
             ),
             sources: ["Magnus/UI/NovoNordiskApp/Sources/**"],

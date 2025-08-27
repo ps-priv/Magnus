@@ -261,6 +261,12 @@
 "NEWS_SAVE_CONFIRMATION_MESSAGE"="Are you sure you want to save this news?";
 "NEWS_SAVE_MESSAGE"="News saved successfully";
 
+"EVENT_ADD_PHOTO_FROM_GALLERY_TITLE"="Add photo from gallery";
+"EVENT_ADD_PHOTO_UPLOAD_BUTTON_TITLE"="Upload to photobooth";
+"EVENT_ADD_PHOTO_TAKE_PHOTO_BUTTON_TITLE"="Take photo";
+"EVENT_ADD_PHOTO_ADDED_MESSAGE"="Photo added successfully";
+"EVENT_ADD_PHOTO_UNSUPPORTED_FORMAT_MESSAGE"="Unsupported format";
+"OK_BUTTON"="OK";
 
 
 

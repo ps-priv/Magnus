@@ -22,7 +22,8 @@ struct EventGalleryView: View {
                             get: { viewModel.gallery ?? [] },
                             set: { viewModel.gallery = $0 }
                         ),
-                        deleteAction: {}
+                        deleteAction: {},
+                        eventId: eventId
                     )
                 }
                 else {
@@ -36,3 +37,4 @@ struct EventGalleryView: View {
 
     }
 }
+

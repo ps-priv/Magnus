@@ -272,4 +272,10 @@ enum LocalizedStrings {
 
     static let newsSaveConfirmationMessage = "NEWS_SAVE_CONFIRMATION_MESSAGE".localized
     static let newsSaveMessage = "NEWS_SAVE_MESSAGE".localized
+
+    static let eventAddPhotoFromGalleryTitle = "EVENT_ADD_PHOTO_FROM_GALLERY_TITLE".localized
+    static let eventAddPhotoUploadButtonTitle = "EVENT_ADD_PHOTO_UPLOAD_BUTTON_TITLE".localized
+    static let eventAddPhotoTakePhotoButtonTitle = "EVENT_ADD_PHOTO_TAKE_PHOTO_BUTTON_TITLE".localized
+    static let eventAddPhotoAddedMessage = "EVENT_ADD_PHOTO_ADDED_MESSAGE".localized
+    static let eventAddPhotoUnsupportedFormatMessage = "EVENT_ADD_PHOTO_UNSUPPORTED_FORMAT_MESSAGE".localized
 }

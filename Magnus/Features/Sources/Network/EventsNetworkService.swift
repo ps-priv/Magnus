@@ -6,6 +6,7 @@ import MagnusDomain
 public protocol EventsNetworkServiceProtocol {
     func getEvents(token: String) -> AnyPublisher<GetEventsListResponse, Error>
     func getEventDetails(token: String, id: String) -> AnyPublisher<ConferenceEventDetails, Error>
+    func uploadEventPhoto(token: String, eventId: String, imageBase64: String) -> AnyPublisher<Void, Error>
 }
 
 public class EventsNetworkService: EventsNetworkServiceProtocol {
@@ -29,6 +30,23 @@ public class EventsNetworkService: EventsNetworkServiceProtocol {
             endpoint: "/api/events/\(id)",
             method: .get,
             responseType: ConferenceEventDetails.self,
+            bearerToken: token
+        )
+    }
+
+    private struct UploadPhotoRequest: Encodable {
+        let image: String
+    }
+
+    public func uploadEventPhoto(token: String, eventId: String, imageBase64: String) -> AnyPublisher<Void, Error> {
+        // TODO: Confirm the exact endpoint with backend. Using a tentative path for now.
+        let endpoint = "/api/events/\(eventId)/photo"
+        let body = UploadPhotoRequest(image: imageBase64)
+        return networkService.requestWithBearerToken(
+            endpoint: endpoint,
+            method: .post,
+            headers: nil,
+            body: body,
             bearerToken: token
         )
     }

@@ -56,4 +56,31 @@ public class ApiEventsService: EventsServiceProtocol {
         }
         return eventDetails
     }
+
+    public func uploadEventPhoto(eventId: String, image: Data) async throws -> Void {
+        let token = try authStorageService.getAccessToken() ?? ""
+
+        // Convert to base64 with resize/compression similar to News
+        guard let imageString = ImageToBase64Converter.convert(imageData: image) else {
+            throw NSError(domain: "ApiEventsService", code: -1, userInfo: [NSLocalizedDescriptionKey: "Invalid image data"]) 
+        }
+
+        try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<Void, Error>) in
+            eventsNetworkService.uploadEventPhoto(token: token, eventId: eventId, imageBase64: imageString)
+                .sink(
+                    receiveCompletion: { completion in
+                        switch completion {
+                        case .finished:
+                            continuation.resume(returning: ())
+                        case .failure(let error):
+                            continuation.resume(throwing: error)
+                        }
+                    },
+                    receiveValue: { _ in
+                        // Void response
+                    }
+                )
+                .store(in: &cancellables)
+        }
+    }
 }
