@@ -144,6 +144,8 @@ enum FontAwesome {
         case plus = "\u{f067}"
         case link = "\u{f0c1}"
         case paperclip = "\u{f0c6}"
+        case download = "\u{f019}"
+        case share = "\u{f1e0}"
 
         var unicode: String {
             return rawValue
