@@ -40,7 +40,7 @@ public class EventsNetworkService: EventsNetworkServiceProtocol {
 
     public func uploadEventPhoto(token: String, eventId: String, imageBase64: String) -> AnyPublisher<Void, Error> {
         // TODO: Confirm the exact endpoint with backend. Using a tentative path for now.
-        let endpoint = "/api/events/\(eventId)/photo"
+        let endpoint = "/api/events/\(eventId)/photo_booth"
         let body = UploadPhotoRequest(image: imageBase64)
         return networkService.requestWithBearerToken(
             endpoint: endpoint,
