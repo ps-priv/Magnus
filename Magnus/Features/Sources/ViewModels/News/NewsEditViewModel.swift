@@ -44,13 +44,14 @@ public class NewsEditViewModel: ObservableObject {
         do {
             let data: GetGroupsResponse = try await newsService.getGroups()
             let newsData: NewsDetails = try await newsService.getNewsById(id: id)
+            let imageData = ImageReaderHelper.readImage(from: newsData.image)
 
             await MainActor.run {
                 groups = data.groups
                 id = newsData.id
                 title = newsData.title
                 content = newsData.description
-                //image = newsData.image
+                image = imageData
                 selectedGroups = newsData.groups
                 attachments = NewsMaterialToNewsAttachmentConverter.convert(newsMaterials: newsData.attachments)
                 tags = newsData.tags
