@@ -54,10 +54,10 @@ struct NewsEditCardView: View {
         VStack(spacing: 20) {
             HStack {
                 PublishButton(action: publishAction, isDisabled: !canSendNews)
-                WhiteButton(
-                    title: LocalizedStrings.saveButton,
-                    action: saveAction,
-                    isDisabled: !canSendNews)
+                // WhiteButton(
+                //     title: LocalizedStrings.saveButton,
+                //     action: saveAction,
+                //     isDisabled: !canSendNews)
                 WhiteButton(
                     title: LocalizedStrings.cancelButton,
                     action: cancelAction,
