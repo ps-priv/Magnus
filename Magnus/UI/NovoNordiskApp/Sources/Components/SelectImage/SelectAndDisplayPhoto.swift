@@ -31,58 +31,62 @@ public struct SelectAndDisplayPhoto: View {
 
         if let data = imageData {
             let provider = RawImageDataProvider(data: data, cacheKey: "picked-\(data.hashValue)")
-            ZStack(alignment: .topTrailing) {
-                KFImage(source: .provider(provider))
-                    .onFailure {  error in print("Image failed to load \(error)") }
-                    .resizable()
-                    .scaledToFill()
-                    .scaleEffect(scale)
-                    .offset(offset)
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    .clipShape(RoundedRectangle(cornerRadius: cornerRadius - 2))
-                    .padding(8)
-                    // Gestures: pan and pinch
-                    .gesture(
-                        DragGesture()
-                            .onChanged { value in
-                                offset = CGSize(
-                                    width: lastOffset.width + value.translation.width,
-                                    height: lastOffset.height + value.translation.height
-                                )
-                            }
-                            .onEnded { _ in
-                                lastOffset = offset
-                            }
-                    )
-                    .simultaneousGesture(
-                        MagnificationGesture()
-                            .onChanged { value in
-                                let newScale = lastScale * value
-                                // Clamp between 1x and 4x
-                                scale = min(max(newScale, 1.0), 4.0)
-                            }
-                            .onEnded { _ in
-                                lastScale = scale
-                            }
-                    )
-                
-                Button {
-                    imageData = nil
-                    onImageSelectedState = nil
-                    // Reset transforms when clearing the image
-                    scale = 1.0
-                    lastScale = 1.0
-                    offset = .zero
-                    lastOffset = .zero
-                } label: {
-                    FAIcon(.delete, size: 16, color: Color.novoNordiskOrangeRed)
-                        .frame(width: 25, height: 25)
-                        .background(Circle().fill(Color.novoNordiskBackgroundGrey))
-                        .clipShape(Circle())
+            GeometryReader { geo in
+                ZStack(alignment: .topTrailing) {
+                    KFImage(source: .provider(provider))
+                        .onFailure {  error in print("Image failed to load \(error)") }
+                        .resizable()
+                        .scaledToFill()
+                        .scaleEffect(scale)
+                        .offset(offset)
+                        .frame(width: geo.size.width, height: geo.size.height)
+                        .clipShape(RoundedRectangle(cornerRadius: cornerRadius - 2))
+                        .padding(8)
+                        // Gestures: pan and pinch
+                        .gesture(
+                            DragGesture()
+                                .onChanged { value in
+                                    offset = CGSize(
+                                        width: lastOffset.width + value.translation.width,
+                                        height: lastOffset.height + value.translation.height
+                                    )
+                                }
+                                .onEnded { _ in
+                                    lastOffset = offset
+                                }
+                        )
+                        .simultaneousGesture(
+                            MagnificationGesture()
+                                .onChanged { value in
+                                    let newScale = lastScale * value
+                                    // Clamp between 1x and 4x
+                                    scale = min(max(newScale, 1.0), 4.0)
+                                }
+                                .onEnded { _ in
+                                    lastScale = scale
+                                }
+                        )
+
+                    Button {
+                        imageData = nil
+                        onImageSelectedState = nil
+                        // Reset transforms when clearing the image
+                        scale = 1.0
+                        lastScale = 1.0
+                        offset = .zero
+                        lastOffset = .zero
+                    } label: {
+                        FAIcon(.delete, size: 16, color: Color.novoNordiskOrangeRed)
+                            .frame(width: 25, height: 25)
+                            .background(Circle().fill(Color.novoNordiskBackgroundGrey))
+                            .clipShape(Circle())
+                    }
+                    .buttonStyle(.plain)
+                    .padding(.top, 18)
+                    .padding(.trailing, 18)
                 }
-                .buttonStyle(.plain)
-                .padding(.top, 18)
-                .padding(.trailing, 18)
+                .frame(width: geo.size.width, height: geo.size.height)
+                .clipped()
             }
             // Reset transforms when a new image is set
             .onChange(of: imageData) { _, _ in
