@@ -14,7 +14,7 @@ struct NewsEditView: View {
     var body: some View {
         ScrollView {
             if viewModel.isLoading {
-                ProgressView()
+                LoadingIndicator()
             } else {
                 VStack {
                     NewsEditCardView(
@@ -30,7 +30,6 @@ struct NewsEditView: View {
                             navigationManager.navigate(to: .newsList)
                         },
                         publishAction: {
-                            print("Publish action start")
                             Task {
                                 await viewModel.saveChanges()
                                 if !viewModel.hasError {
@@ -40,8 +39,7 @@ struct NewsEditView: View {
                                         navigationManager.navigate(to: .newsList)
                                     }
                                 }
-                            }  
-                            print("Publish action end")                       
+                            }                     
                         },
                         availableGroups: viewModel.groups,
                         tags: $viewModel.tags,
@@ -57,6 +55,5 @@ struct NewsEditView: View {
         .padding(.vertical, 20)
         .padding(.horizontal, 16)   
         .background(Color.novoNordiskBackgroundGrey)
-        .toast(isPresented: $viewModel.showToast, message: viewModel.message)
     }
 }

@@ -9,7 +9,7 @@ struct NewsAddView: View {
     var body: some View {
         ScrollView {
             if viewModel.isLoading {
-                ProgressView()
+                LoadingIndicator()
             } else {
                 VStack {
                     NewsAddCardView(
