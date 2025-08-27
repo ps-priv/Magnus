@@ -12,6 +12,7 @@ enum AppScreen: Equatable, Identifiable {
     case materialsList
     case materialDetail(materialId: String)
     case newsList
+    case newsInGroup(groupId: String)
     case newsDetail(newsId: String)
     case newsCreate
     case newsBookmarks
@@ -51,6 +52,8 @@ enum AppScreen: Equatable, Identifiable {
             return "material_detail_\(materialId)"
         case .newsList:
             return "news_list"
+        case let .newsInGroup(groupId):
+            return "news_in_group_\(groupId)"
         case let .newsDetail(newsId):
             return "news_detail_\(newsId)"
         case .newsCreate:
@@ -85,7 +88,6 @@ enum AppScreen: Equatable, Identifiable {
             return "event_dinner_\(eventId)"
         case let .eventSurvey(eventId):
             return "event_survey_\(eventId)"
-
         case let .eventPhoto(photoId, photoUrl  ):
             return "event_photo_\(photoId)"
         case let .eventGallery(eventId):
@@ -113,6 +115,8 @@ enum AppScreen: Equatable, Identifiable {
             return LocalizedStrings.materialDetailsScreenTitle
         case .newsList:
             return LocalizedStrings.newsListScreenTitle
+        case .newsInGroup:
+            return LocalizedStrings.newsInGroupScreenTitle
         case .newsDetail:
             return LocalizedStrings.newsDetailsScreenTitle
         case .newsCreate:
@@ -168,7 +172,7 @@ enum AppScreen: Equatable, Identifiable {
             return .eventDetails
         case .materialsList, .materialDetail:
             return .materials
-        case .newsList, .newsDetail:
+        case .newsList, .newsDetail, .newsInGroup:
             return .news
         case .newsCreate:
             return .newsCreate

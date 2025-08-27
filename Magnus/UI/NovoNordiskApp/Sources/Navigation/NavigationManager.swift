@@ -64,6 +64,10 @@ class NavigationManager: ObservableObject {
         navigate(to: .eventAddPhoto(eventId: eventId))
     }
 
+    func navigateToNewsInGroup(groupId: String) {
+        navigate(to: .newsInGroup(groupId: groupId))
+    }
+
     // Back navigation
     func goBack() {
 

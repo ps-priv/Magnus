@@ -25,7 +25,9 @@ struct NewsGroupsView: View {
         } else {
             ScrollView {
                 LazyVStack(spacing: 12) {
-                    NewsGroupsCardView(groups: viewModel.groups)
+                    NewsGroupsCardView(groups: viewModel.groups, navigateToNewsInGroup: { groupId in
+                        navigationManager.navigateToNewsInGroup(groupId: groupId)
+                    })
                 }
                 .padding(.horizontal)
                 .padding(.vertical, 8)

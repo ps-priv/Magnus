@@ -97,6 +97,8 @@ struct MainNavigationContainer: View {
             MaterialDetailView(materialId: materialId)
         case .newsList:
             NewsListView()
+        case let .newsInGroup(groupId):
+            NewsInGroupListView(groupId: groupId)
         case let .newsDetail(newsId):
             NewsDetailView(newsId: newsId)
         case .newsCreate:

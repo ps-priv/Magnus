@@ -39,6 +39,33 @@ public class ApiNewsService: NewsServiceProtocol {
         return news
     }
 
+    public func getNews(groupId: String) async throws -> GetNewsResponse {
+
+        let response: GetNewsResponse = try await getNews()
+        //let news = response.news.filter { $0.isBookmarked }
+        return GetNewsResponse(news: response.news)
+        
+        // let token = try authStorageService.getAccessToken() ?? ""
+        // let news = try await withCheckedThrowingContinuation { continuation in
+        //     newsNetworkService.getNews(token: token)
+        //         .sink(
+        //             receiveCompletion: { completion in
+        //                 switch completion {
+        //                 case .finished:
+        //                     break
+        //                 case .failure(let error):
+        //                     continuation.resume(throwing: error)
+        //                 }
+        //             },
+        //             receiveValue: { value in
+        //                 continuation.resume(returning: value)
+        //             }
+        //         )
+        //         .store(in: &cancellables)
+        // }
+        // return news
+    }
+
     public func getBookmarks() async throws -> GetNewsResponse {
         var response: GetNewsResponse = try await getNews()
         let news = response.news.filter { $0.isBookmarked }

@@ -5,15 +5,19 @@ import SwiftUI
 struct NewsGroupsCardView: View {
 
     let groups: [NewsGroup]
+    let navigateToNewsInGroup: (String) -> Void
 
-    init(groups: [NewsGroup]) {
+    init(groups: [NewsGroup], navigateToNewsInGroup: @escaping (String) -> Void) {
         self.groups = groups
+        self.navigateToNewsInGroup = navigateToNewsInGroup
     }
 
     var body: some View {
         VStack(alignment: .leading) {
             ForEach(groups, id: \ .id) { group in
-                NewsGroupRowItem(group: group)
+                NewsGroupRowItem(group: group, navigateToNewsInGroup: {
+                    navigateToNewsInGroup(group.id)
+                })
                 .padding(.vertical, 4)
             }
         }
@@ -25,7 +29,7 @@ struct NewsGroupsCardView: View {
 #Preview {
     let response = ApiNewsMock.getGroups()
 
-    NewsGroupsCardView(groups: response.groups)
+    NewsGroupsCardView(groups: response.groups, navigateToNewsInGroup: { _ in })
     .padding(20)
     .frame(maxWidth: .infinity, maxHeight: .infinity)
     .background(Color.novoNordiskLighGreyForPanelBackground)

@@ -75,6 +75,7 @@
 "MATERIALS_LIST_SCREEN_TITLE" = "Materiały";
 "MATERIAL_DETAILS_SCREEN_TITLE" = "Materiał";
 "NEWS_LIST_SCREEN_TITLE" = "Aktualności";
+"NEWS_IN_GROUP_SCREEN_TITLE" = "Aktualności w grupie";
 "NEWS_DETAILS_SCREEN_TITLE" = "Aktualność";
 "NEWS_CREATE_SCREEN_TITLE" = "Dodaj wpis";
 "NEWS_BOOKMARKS_SCREEN_TITLE" = "Zakładki";
