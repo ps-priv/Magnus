@@ -2,6 +2,12 @@ import MagnusDomain
 import SwiftUI
 
 struct NewsAddCardView: View {
+
+    @EnvironmentObject private var navigationManager: NavigationManager
+    @State private var showSaveConfirmation: Bool = false
+    @State private var showToast: Bool = false
+    @State private var toastMessage: String = ""
+
     @Binding public var tags: [String]
     @Binding public var selectedGroups: [NewsGroup]
     @Binding public var attachments: [NewsAttachment]
@@ -53,17 +59,20 @@ struct NewsAddCardView: View {
     var body: some View {
         VStack(spacing: 20) {
             HStack {
-                PublishButton(action: publishAction, isDisabled: !canSendNews)
+                PublishButton(action: {
+                    showSaveConfirmation = true
+                }, isDisabled: !canSendNews)
                 // WhiteButton(
                 //     title: LocalizedStrings.saveButton,
                 //     action: saveAction,
                 //     isDisabled: !canSendNews)
+                Spacer()
                 WhiteButton(
                     title: LocalizedStrings.cancelButton,
                     action: cancelAction,
                     isDisabled: !canSendNews)
-                Spacer()
-                DeleteButton(action: deleteAction)
+
+                //DeleteButton(action: deleteAction)
             }
             VStack(alignment: .leading)  {
                 Text(LocalizedStrings.newsAddTitle)
@@ -136,6 +145,28 @@ struct NewsAddCardView: View {
                 .cornerRadius(8)
             }
         }
+        .novoNordiskAlert(
+            isPresented: $showSaveConfirmation,
+            title: LocalizedStrings.newsSaveConfirmationMessage,
+            message: nil,
+            icon: .save,
+            primaryTitle: LocalizedStrings.saveButton,
+            primaryStyle: .destructive,
+            primaryAction: {
+                publishAction()
+                showToast = true
+                toastMessage = LocalizedStrings.newsSaveMessage
+                // DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                //     navigationManager.navigateToTabRoot(.news)
+                // }
+            },
+            secondaryTitle: LocalizedStrings.cancelButton,
+            secondaryStyle: .cancel,
+            secondaryAction: {
+                // Cancel tapped
+            }
+        )
+        .toast(isPresented: $showToast, message: toastMessage)
     }
 }
 
