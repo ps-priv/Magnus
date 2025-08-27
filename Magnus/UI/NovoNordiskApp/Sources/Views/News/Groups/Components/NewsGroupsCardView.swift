@@ -12,20 +12,6 @@ struct NewsGroupsCardView: View {
 
     var body: some View {
         VStack(alignment: .leading) {
-            HStack {
-                Button(action: {
-                    print("Tapped")
-                }) {
-                    HStack {
-                        FAIcon(.plus, type: .light, size: 15, color: .novoNordiskBlue)
-                        Text(LocalizedStrings.newsGroupsCreateGroup)
-                            .font(.novoNordiskRegularText)
-                            .foregroundColor(.novoNordiskBlue)
-                    }
-                }
-                Spacer()
-            }
-
             ForEach(groups, id: \ .id) { group in
                 NewsGroupRowItem(group: group)
                 .padding(.vertical, 4)
