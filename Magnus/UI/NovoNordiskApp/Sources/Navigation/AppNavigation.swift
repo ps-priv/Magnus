@@ -229,7 +229,7 @@ enum AppScreen: Equatable, Identifiable {
 
     var shouldShowTopBar: Bool {
         switch self {
-        case .eventQrCode:
+        case .eventQrCode, .eventPhoto:
             return false
         default:
             return true
