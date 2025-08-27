@@ -259,6 +259,10 @@
 "NEWS_DELETED_MESSAGE"="Aktualność została usunięta";
 "NEWS_DELETE_CONFIRMATION_MESSAGE"="Czy na pewno chcesz usunąć tę aktualność?";
 
+"NEWS_SAVE_CONFIRMATION_MESSAGE"="Czy na pewno chcesz zapisać tę aktualność?";
+"NEWS_SAVE_MESSAGE"="Aktualność została zapisana";
+
+
 
 
 

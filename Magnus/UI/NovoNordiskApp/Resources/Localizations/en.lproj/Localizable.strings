@@ -257,6 +257,10 @@
 "NEWS_DELETED_MESSAGE"="News deleted successfully";
 "NEWS_DELETE_CONFIRMATION_MESSAGE"="Are you sure you want to delete this news?";
 
+"NEWS_SAVE_CONFIRMATION_MESSAGE"="Are you sure you want to save this news?";
+"NEWS_SAVE_MESSAGE"="News saved successfully";
+
+
 
 
 

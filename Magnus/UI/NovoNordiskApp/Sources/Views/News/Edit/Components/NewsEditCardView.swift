@@ -2,6 +2,12 @@ import MagnusDomain
 import SwiftUI
 
 struct NewsEditCardView: View {
+    @EnvironmentObject private var navigationManager: NavigationManager
+    @State private var showSaveConfirmation: Bool = false
+    @State private var showDeleteConfirmation: Bool = false
+    @State private var showToast: Bool = false
+    @State private var toastMessage: String = ""
+
     @Binding public var tags: [String]
     @Binding public var selectedGroups: [NewsGroup]
     @Binding public var attachments: [NewsAttachment]
@@ -53,7 +59,9 @@ struct NewsEditCardView: View {
     var body: some View {
         VStack(spacing: 20) {
             HStack {
-                PublishButton(action: publishAction, isDisabled: !canSendNews)
+                PublishButton(action: {
+                    showSaveConfirmation = true
+                }, isDisabled: !canSendNews)
                 // WhiteButton(
                 //     title: LocalizedStrings.saveButton,
                 //     action: saveAction,
@@ -63,7 +71,9 @@ struct NewsEditCardView: View {
                     action: cancelAction,
                     isDisabled: !canSendNews)
                 Spacer()
-                DeleteButton(action: deleteAction)
+                DeleteButton(action: {
+                    showDeleteConfirmation = true
+                })
             }
             VStack(alignment: .leading)  {
                 Text(LocalizedStrings.newsAddTitle)
@@ -136,6 +146,49 @@ struct NewsEditCardView: View {
                 .cornerRadius(8)
             }
         }
+        .novoNordiskAlert(
+            isPresented: $showDeleteConfirmation,
+            title: LocalizedStrings.newsDeleteConfirmationMessage,
+            message: nil,
+            icon: .delete,
+            primaryTitle: LocalizedStrings.deleteButton,
+            primaryStyle: .destructive,
+            primaryAction: {
+                deleteAction()
+                showToast = true
+                toastMessage = LocalizedStrings.newsDeletedMessage
+                DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                    navigationManager.navigateToTabRoot(.news)
+                }
+            },
+            secondaryTitle: LocalizedStrings.cancelButton,
+            secondaryStyle: .cancel,
+            secondaryAction: {
+                // Cancel tapped
+            }
+        )
+        .novoNordiskAlert(
+            isPresented: $showSaveConfirmation,
+            title: LocalizedStrings.newsSaveConfirmationMessage,
+            message: nil,
+            icon: .save,
+            primaryTitle: LocalizedStrings.saveButton,
+            primaryStyle: .destructive,
+            primaryAction: {
+                publishAction()
+                showToast = true
+                toastMessage = LocalizedStrings.newsSaveMessage
+                // DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                //     navigationManager.navigateToTabRoot(.news)
+                // }
+            },
+            secondaryTitle: LocalizedStrings.cancelButton,
+            secondaryStyle: .cancel,
+            secondaryAction: {
+                // Cancel tapped
+            }
+        )
+        .toast(isPresented: $showToast, message: toastMessage)
     }
 }
 

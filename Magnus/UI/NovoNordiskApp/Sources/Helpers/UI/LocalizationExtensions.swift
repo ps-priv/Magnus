@@ -268,4 +268,7 @@ enum LocalizedStrings {
 
     static let newsDeletedMessage = "NEWS_DELETED_MESSAGE".localized
     static let newsDeleteConfirmationMessage = "NEWS_DELETE_CONFIRMATION_MESSAGE".localized
+
+    static let newsSaveConfirmationMessage = "NEWS_SAVE_CONFIRMATION_MESSAGE".localized
+    static let newsSaveMessage = "NEWS_SAVE_MESSAGE".localized
 }
