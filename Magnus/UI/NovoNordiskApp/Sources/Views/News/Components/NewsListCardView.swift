@@ -6,6 +6,8 @@ import SwiftUI
 import Pow
 
 struct NewsListCardView: View {
+    @EnvironmentObject private var navigationManager: NavigationManager
+
     let news: News
     let onTap: () -> Void
     let onBookmarkTap: () -> Void
@@ -90,7 +92,7 @@ struct NewsListCardView: View {
             isBookmarked.toggle()
         }) {
             //if !news.is_bookmarked {
-            if isBookmarked {
+            if !isBookmarked {
                 FAIcon(
                     FontAwesome.Icon.bookmark,
                     type: .light,
