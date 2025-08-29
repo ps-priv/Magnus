@@ -33,7 +33,7 @@ public class NewsInGroupListViewModel: ObservableObject {
         }
 
         do {
-            let data: GetNewsResponse = try await newsService.getNews(groupId: groupId)
+            let data: GetNewsResponse = try await newsService.getNewsInGroup(groupId: groupId)
 
             await MainActor.run {
                 news = data.news

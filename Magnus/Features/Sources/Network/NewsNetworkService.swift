@@ -5,6 +5,7 @@ import MagnusDomain
 
 public protocol NewsNetworkServiceProtocol {
     func getNews(token: String) -> AnyPublisher<GetNewsResponse, Error>
+    func getNewsInGroup(token: String, groupId: String) -> AnyPublisher<GetNewsResponse, Error>
     func getNewsById(token: String, id: String) -> AnyPublisher<NewsDetails, Error>
     func changeNewsBookmarkStatus(token: String, id: String) -> AnyPublisher<Void, Error>
     func sendReaction(token: String, id: String, reaction: ReactionEnum) -> AnyPublisher<Void, Error>
@@ -25,6 +26,15 @@ public class NewsNetworkService: NewsNetworkServiceProtocol {
     public func getNews(token: String) -> AnyPublisher<GetNewsResponse, Error> {
         return networkService.requestWithBearerToken(
             endpoint: "/api/news",
+            method: .get,
+            responseType: GetNewsResponse.self,
+            bearerToken: token
+        )
+    }
+
+    public func getNewsInGroup(token: String, groupId: String) -> AnyPublisher<GetNewsResponse, Error> {
+        return networkService.requestWithBearerToken(
+            endpoint: "/api/news/groups/\(groupId)",
             method: .get,
             responseType: GetNewsResponse.self,
             bearerToken: token
