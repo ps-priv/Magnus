@@ -15,8 +15,9 @@ struct MaterialsListView: View {
             } else if viewModel.materials.isEmpty {
                 MaterialsListEmptyView()
             } else {
-                // materialsList
-            }
+                MaterialsListCardView(materials: viewModel.materials)
+                .padding(.horizontal, 16)
+            } 
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
         .background(Color.novoNordiskBackgroundGrey)
