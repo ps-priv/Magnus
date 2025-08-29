@@ -1,9 +1,14 @@
 import SwiftUI
 import MagnusFeatures
 import MagnusDomain
+import MagnusApplication
+import Foundation
 
 struct MaterialsListCardView: View {
     let materials: [ConferenceMaterialListItem]
+
+    let generalMaterials: [ConferenceMaterialListItem]
+    let eventMaterials: [ConferenceMaterialsDto]
     
     private enum Tab: Equatable {
         case general
@@ -14,6 +19,8 @@ struct MaterialsListCardView: View {
 
     init(materials: [ConferenceMaterialListItem]) {
         self.materials = materials
+        self.generalMaterials = MaterialsListHelper.getGeneralMaterials(materials: materials)
+        self.eventMaterials = MaterialsListHelper.getEventMaterials(materials: materials)
     }
 
     var body: some View {
@@ -77,37 +84,36 @@ struct MaterialsListCardView: View {
     private var GeneralTabContent: some View {
         // Placeholder content. Replace with actual list when row view is available.
         VStack(alignment: .leading, spacing: 12) {
-            Text(LocalizedStrings.materialsListTabGeneral)
-                .font(.novoNordiskMiddleText)
-                .foregroundColor(.novoNordiskBlue)
-            Text("\(materials.count)")
-                .font(.novoNordiskMiddleText)
-                .foregroundColor(.novoNordiskGrey)
+            ForEach(Array(generalMaterials.enumerated()), id: \.offset) { index, item in
+                MaterialRowItem(material: item)
+            }
         }
         .frame(maxWidth: .infinity, alignment: .leading)
         .padding(.top, 8)
+        .padding(.horizontal, 10)
+        .background(Color.white)
+        .cornerRadius(20)
+        .shadow(color: Color.black.opacity(0.1), radius: 4, x: 0, y: 2)
     }
 
     @ViewBuilder
     private var ForEventTabContent: some View {
         // Placeholder content for event-specific materials
         VStack(alignment: .leading, spacing: 12) {
-            Text(LocalizedStrings.materialsListTabForEvent)
-                .font(.novoNordiskMiddleText)
-                .foregroundColor(.novoNordiskBlue)
-            Text("\(materials.count)")
-                .font(.novoNordiskMiddleText)
-                .foregroundColor(.novoNordiskGrey)
+            ForEach(Array(eventMaterials.enumerated()), id: \.offset) { index, item in
+               MaterialsInEvent(eventMaterials: item)
+            }
         }
         .frame(maxWidth: .infinity, alignment: .leading)
         .padding(.top, 8)
+        .background(Color.white)
+        .cornerRadius(20)
+        .shadow(color: Color.black.opacity(0.1), radius: 4, x: 0, y: 2)
     }
 }
 
 #Preview {
     let response = MaterialsDetailsJsonMockGenerator.generateObject()
-
-
 
     VStack {
         MaterialsListCardView(materials: response?.materials ?? [])
