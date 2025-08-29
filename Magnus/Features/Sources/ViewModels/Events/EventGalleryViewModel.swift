@@ -11,12 +11,14 @@ public class EventGalleryViewModel: ObservableObject {
 
     @Published public var gallery: [ConferenceEventPhotoBooth]?
 
+    private let eventsService: ApiEventsService
     private let storageService: MagnusStorageService
 
     public init(eventId: String, 
+        eventsService: ApiEventsService = DIContainer.shared.eventsService,
         storageService: MagnusStorageService = DIContainer.shared.storageService) {
-
         self.eventId = eventId
+        self.eventsService = eventsService
         self.storageService = storageService
 
         Task {
@@ -32,16 +34,10 @@ public class EventGalleryViewModel: ObservableObject {
         }
 
         do {
-            let data = try storageService.getEventDetails()
+            let data = try await eventsService.getEventGallery(id: eventId)
             await MainActor.run {
-                if let data  {
-                    gallery = data.photo_booth
-                    isLoading = false
-                } else {
-                    isLoading = false
-                    hasError = true
-                    errorMessage = "No cached event details found."
-                }
+                gallery = data.photo_booth
+                isLoading = false
             }
         } catch let error {
             await MainActor.run {

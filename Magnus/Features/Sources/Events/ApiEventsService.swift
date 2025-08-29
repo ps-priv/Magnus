@@ -83,4 +83,26 @@ public class ApiEventsService: EventsServiceProtocol {
                 .store(in: &cancellables)
         }
     }
+
+    public func getEventGallery(id: String) async throws -> GetEventGalleryResponse {
+        let token = try authStorageService.getAccessToken() ?? ""
+        let eventDetails = try await withCheckedThrowingContinuation { continuation in
+            eventsNetworkService.getEventGallery(token: token, id: id)
+                .sink(
+                    receiveCompletion: { completion in
+                        switch completion {
+                        case .finished:
+                            break
+                        case .failure(let error):
+                            continuation.resume(throwing: error)
+                        }
+                    },
+                    receiveValue: { value in
+                        continuation.resume(returning: value)
+                    }
+                )
+                .store(in: &cancellables)
+        }
+        return eventDetails
+    }
 }
