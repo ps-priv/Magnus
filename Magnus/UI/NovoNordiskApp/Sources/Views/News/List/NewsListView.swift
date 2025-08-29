@@ -33,12 +33,10 @@ struct NewsListView: View {
             primaryAction: {
                 Task {
                     await viewModel.deleteNews(id: selectedNewsId)
+                    await viewModel.loadData()
                 }
                 showToast = true
                 toastMessage = LocalizedStrings.newsDeletedMessage
-                DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-                    navigationManager.navigateToTabRoot(.news)
-                }
             },
             secondaryTitle: LocalizedStrings.cancelButton,
             secondaryStyle: .cancel,
