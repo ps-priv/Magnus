@@ -12,14 +12,28 @@ public class NewsInGroupListViewModel: ObservableObject {
     @Published public var errorMessage: String = ""
     @Published public var hasError: Bool = false
 
-    private let newsService: ApiNewsService
+    @Published public var allowEdit: Bool = false
 
-    public init(newsService: ApiNewsService = DIContainer.shared.newsService, groupId: String) {
+    private let newsService: ApiNewsService
+    private let authStorageService: AuthStorageService
+
+    public init(newsService: ApiNewsService = DIContainer.shared.newsService, authStorageService: AuthStorageService = DIContainer.shared.authStorageService, groupId: String) {
         self.newsService = newsService
+        self.authStorageService = authStorageService
         self.groupId = groupId
 
         Task {
             await loadData()
+            checkIfUserCanEdit()
+        }
+    }
+
+    private func checkIfUserCanEdit() {
+        do {
+            let userData = try authStorageService.getUserData()
+            allowEdit = userData?.role == .przedstawiciel
+        } catch {
+            allowEdit = false
         }
     }
 

@@ -111,11 +111,13 @@ struct EventPhotoView: View {
                     }
 
                     // Delete button
-                    Button(action: { showDeleteConfirmation = true }) {
-                        FAIcon(.delete, type: .light, size: 18, color: .white)
-                            .padding(18)
-                            .background(Color.novoNordiskOrangeRed.opacity(0.7))
-                            .clipShape(Circle())
+                    if viewModel.allowEdit {
+                        Button(action: { showDeleteConfirmation = true }) {
+                            FAIcon(.delete, type: .light, size: 18, color: .white)
+                                .padding(18)
+                                .background(Color.novoNordiskOrangeRed.opacity(0.7))
+                                .clipShape(Circle())
+                        }
                     }
                 }
                 .padding(.bottom, 32)

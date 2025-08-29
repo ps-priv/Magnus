@@ -15,14 +15,16 @@ struct NewsListCardView: View {
     let onDeleteTap: () -> Void
 
     @State var isBookmarked: Bool
+    @State var allowEdit: Bool
 
-    init(news: News, onTap: @escaping () -> Void, onBookmarkTap: @escaping () -> Void, onEditTap: @escaping () -> Void, onDeleteTap: @escaping () -> Void) {
+    init(news: News, onTap: @escaping () -> Void, onBookmarkTap: @escaping () -> Void, onEditTap: @escaping () -> Void, onDeleteTap: @escaping () -> Void, allowEdit: Bool) {
         self.news = news
         self.onTap = onTap
         self.onBookmarkTap = onBookmarkTap
         self.onEditTap = onEditTap
         self.onDeleteTap = onDeleteTap
         _isBookmarked = State(initialValue: news.isBookmarked)
+        _allowEdit = State(initialValue: allowEdit)
     }
 
     var body: some View {
@@ -123,6 +125,7 @@ struct NewsListCardView: View {
 
     @ViewBuilder
     var editSection: some View {
+        if allowEdit {
         Menu {
             Button {
                 onEditTap()
@@ -146,6 +149,7 @@ struct NewsListCardView: View {
         .menuStyle(BorderlessButtonMenuStyle())
         .background(Color.white)
         //.shadow(color: .black.opacity(0.9), radius: 12, x: 0, y: 0)
+        }
     }
 
     @ViewBuilder
@@ -243,7 +247,8 @@ struct NewsListCardView: View {
         },
         onDeleteTap: {
             print("Tapped")
-        })
+        },
+        allowEdit: true)
     }
     .padding(20)
     .background(Color(.systemGray6))

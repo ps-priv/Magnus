@@ -70,7 +70,8 @@ struct NewsListView: View {
                             onDeleteTap: {
                                 showDeleteConfirmation = true
                                 selectedNewsId = newsItem.id
-                            })
+                            },
+                            allowEdit: viewModel.allowEdit)
                     }
                 }
                 .padding(.horizontal)

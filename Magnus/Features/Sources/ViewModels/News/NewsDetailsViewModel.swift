@@ -16,6 +16,8 @@ public class NewsDetailsViewModel: ObservableObject {
     @Published public var showPopup: Bool = false
     @Published public var popupMessage: String = ""
 
+    @Published public var allowEdit: Bool = false
+
     private let newsService: ApiNewsService
     private let authStorageService: AuthStorageService
 
@@ -29,6 +31,17 @@ public class NewsDetailsViewModel: ObservableObject {
 
         Task {
             await loadData(id: id)
+        }
+
+        checkIfUserCanEdit()
+    }
+
+    public func checkIfUserCanEdit() {
+        do {
+            let userData = try authStorageService.getUserData()
+            allowEdit = userData?.role == .przedstawiciel
+        } catch {
+            allowEdit = false
         }
     }
 

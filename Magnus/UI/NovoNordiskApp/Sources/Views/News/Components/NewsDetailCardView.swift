@@ -15,13 +15,14 @@ struct NewsDetailCardView: View {
     let onDeleteTap: () -> Void
     let onReactionTap: (ReactionEnum) -> Void
     let onCommentTap: (String) -> Void
+    let allowEdit: Bool
 
     @State var isBookmarked: Bool
     @State var showReactionsMenu: Bool = false
     @State private var showDeleteConfirmation: Bool = false
     @State private var showToast: Bool = false
     @State private var toastMessage: String = ""
-    
+
     private enum StatsTab: CaseIterable {
         case comments
         case reactions
@@ -35,7 +36,7 @@ struct NewsDetailCardView: View {
             }
         }
     }
-    
+
     @State private var selectedStatsTab: StatsTab = .comments
 
     init(
@@ -46,7 +47,8 @@ struct NewsDetailCardView: View {
         onEditTap: @escaping () -> Void,
         onDeleteTap: @escaping () -> Void,
         onReactionTap: @escaping (ReactionEnum) -> Void,
-        onCommentTap: @escaping (String) -> Void
+        onCommentTap: @escaping (String) -> Void,
+        allowEdit: Bool
     ) {
         self.news = news
         self.isCommentsEnabled = isCommentsEnabled
@@ -57,6 +59,7 @@ struct NewsDetailCardView: View {
         self.onReactionTap = onReactionTap
         _isBookmarked = State(initialValue: news.isBookmarked)
         self.onCommentTap = onCommentTap
+        self.allowEdit = allowEdit
     }
 
     var body: some View {
@@ -120,7 +123,7 @@ struct NewsDetailCardView: View {
                                 color: Color.novoNordiskBlue
                             )
                         }
-                        
+
                         // Heart
                         Button(action: {
                             onReactionTap(.HEART)
@@ -133,7 +136,7 @@ struct NewsDetailCardView: View {
                                 color: Color.novoNordiskBlue
                             )
                         }
-                        
+
                         // Clapping Hands
                         Button(action: {
                             onReactionTap(.CLAPPING_HANDS)
@@ -146,7 +149,7 @@ struct NewsDetailCardView: View {
                                 color: Color.novoNordiskBlue
                             )
                         }
-                        
+
                         // Lightbulb
                         Button(action: {
                             onReactionTap(.LIGHT_BULB)
@@ -159,7 +162,7 @@ struct NewsDetailCardView: View {
                                 color: Color.novoNordiskBlue
                             )
                         }
-                        
+
                         // Hand with Heart
                         Button(action: {
                             onReactionTap(.HAND_HOLDING_HEART)
@@ -172,7 +175,7 @@ struct NewsDetailCardView: View {
                                 color: Color.novoNordiskBlue
                             )
                         }
-                        
+
                         // Thumbs Down
                         Button(action: {
                             onReactionTap(.THUMBS_DOWN)
@@ -192,7 +195,7 @@ struct NewsDetailCardView: View {
                     .cornerRadius(20)
                     .shadow(color: .black.opacity(0.1), radius: 4, x: 0, y: 2)
                     .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottomTrailing)
-                    .offset(x: -10, y: -20) 
+                    .offset(x: -10, y: -20)
                     .zIndex(1000)
                     .transition(.opacity.combined(with: .scale))
                 }
@@ -282,28 +285,30 @@ struct NewsDetailCardView: View {
 
     @ViewBuilder
     var editSection: some View {
-        Menu {
-            Button {
-                onEditTap()
-            } label: {
-                Label(LocalizedStrings.newsListEditNews, systemImage: "pencil")
-            }
+        if allowEdit {
+            Menu {
+                Button {
+                    onEditTap()
+                } label: {
+                    Label(LocalizedStrings.newsListEditNews, systemImage: "pencil")
+                }
 
-            Button(role: .destructive) {
-                showDeleteConfirmation = true
+                Button(role: .destructive) {
+                    showDeleteConfirmation = true
+                } label: {
+                    Label(LocalizedStrings.newsListDeleteNews, systemImage: "trash")
+                }
             } label: {
-                Label(LocalizedStrings.newsListDeleteNews, systemImage: "trash")
+                FAIcon(
+                    FontAwesome.Icon.ellipsisVertical,
+                    type: .light,
+                    size: 16,
+                    color: Color.novoNordiskTextGrey
+                )
             }
-        } label: {
-            FAIcon(
-                FontAwesome.Icon.ellipsisVertical,
-                type: .light,
-                size: 16,
-                color: Color.novoNordiskTextGrey
-            )
+            .menuStyle(BorderlessButtonMenuStyle())
+            .background(Color.white)
         }
-        .menuStyle(BorderlessButtonMenuStyle())
-        .background(Color.white)
         //.shadow(color: .black.opacity(0.9), radius: 12, x: 0, y: 0)
     }
 
@@ -385,7 +390,6 @@ struct NewsDetailCardView: View {
         }
     }
 
-
     @ViewBuilder
     var newsStatsSection: some View {
         HStack {
@@ -458,10 +462,10 @@ struct NewsDetailCardView: View {
 #Preview("JSON") {
     let news: NewsDetailCardViewDto = NewsDetailCardViewDtoMock.fromProvidedJson()
 
-    VStack(alignment: .leading){
+    VStack(alignment: .leading) {
         NewsDetailCardView(
             news: news,
-            isCommentsEnabled: true,    
+            isCommentsEnabled: true,
             onTap: {
                 print("Tapped")
             },
@@ -479,11 +483,12 @@ struct NewsDetailCardView: View {
             },
             onCommentTap: { text in
                 print("Comment tapped: \(text)")
-            })
+            },
+            allowEdit: true)
         Spacer()
     }
     .frame(maxWidth: .infinity, maxHeight: .infinity)
     .padding(20)
     .background(Color.novoNordiskBackgroundGrey)
     .environmentObject(NavigationManager())
- }
+}

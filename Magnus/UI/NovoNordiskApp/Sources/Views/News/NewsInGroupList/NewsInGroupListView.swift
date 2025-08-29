@@ -77,7 +77,8 @@ struct NewsInGroupListView: View {
                             onDeleteTap: {
                                 showDeleteConfirmation = true
                                 selectedNewsId = newsItem.id
-                            })
+                            },
+                            allowEdit: viewModel.allowEdit)
                     }
                 }
                 .padding(.horizontal)
@@ -103,4 +104,4 @@ struct NewsInGroupListView: View {
             Spacer()
         }
     }
-}
+}   

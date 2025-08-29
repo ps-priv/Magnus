@@ -7,13 +7,29 @@ public class EventPhotoViewModel: ObservableObject {
     @Published public var photoId: String
 
     private let eventsService: ApiEventsService
+    private let authStorageService: AuthStorageService
+
+    @Published public var allowEdit: Bool = false
 
     public init(
         photoId: String,
         eventsService: ApiEventsService = DIContainer.shared.eventsService,
+        authStorageService: AuthStorageService = DIContainer.shared.authStorageService
     ) {
         self.photoId = photoId
         self.eventsService = eventsService
+        self.authStorageService = authStorageService
+
+        checkIfUserCanEdit()
+    }
+
+    public func checkIfUserCanEdit() {
+        do {
+            let userData = try authStorageService.getUserData()
+            allowEdit = userData?.role == .przedstawiciel
+        } catch {
+            allowEdit = false
+        }
     }
 
     public func deletePhoto() async {
