@@ -270,6 +270,13 @@
 "EVENT_ADD_PHOTO_UNSUPPORTED_FORMAT_MESSAGE"="Niewspierany format zdjęcia";
 "OK_BUTTON"="OK";
 
+"MATERIALS_LIST_EMPTY_STATE_TITLE"="Brak materiałów";
+"MATERIALS_LIST_EMPTY_STATE_DESCRIPTION"="Nie znaleziono materiałów";
+
+"MATERIALS_LIST_TAB_GENERAL"="Ogólne";
+"MATERIALS_LIST_TAB_FOR_EVENT"="Do wydarzenia";
+
+
 
 
 

@@ -278,4 +278,11 @@ enum LocalizedStrings {
     static let eventAddPhotoTakePhotoButtonTitle = "EVENT_ADD_PHOTO_TAKE_PHOTO_BUTTON_TITLE".localized
     static let eventAddPhotoAddedMessage = "EVENT_ADD_PHOTO_ADDED_MESSAGE".localized
     static let eventAddPhotoUnsupportedFormatMessage = "EVENT_ADD_PHOTO_UNSUPPORTED_FORMAT_MESSAGE".localized
+
+    // Materials
+    static let materialsListEmptyStateTitle = "MATERIALS_LIST_EMPTY_STATE_TITLE".localized
+    static let materialsListEmptyStateDescription = "MATERIALS_LIST_EMPTY_STATE_DESCRIPTION".localized
+
+    static let materialsListTabGeneral = "MATERIALS_LIST_TAB_GENERAL".localized
+    static let materialsListTabForEvent = "MATERIALS_LIST_TAB_FOR_EVENT".localized
 }

@@ -18,13 +18,6 @@ struct SwiftUINavigationExample: View {
                 //     }
                 //     .tag(BottomMenuTab.events)
                 
-                // Materials Tab  
-                MaterialsNavigationView()
-                    .tabItem {
-                        FAIcon(.fileAlt, type: .light)
-                        Text("Materiały")
-                    }
-                    .tag(BottomMenuTab.materials)
                 
                 // News Tab
                 NewsNavigationView()
@@ -38,23 +31,6 @@ struct SwiftUINavigationExample: View {
     }
 }
 
-
-// MARK: - Materials Navigation with NavigationStack
-struct MaterialsNavigationView: View {
-    @State private var materials: [Material] = MaterialMockData.sampleMaterials
-    
-    var body: some View {
-        List(materials) { material in
-            NavigationLink(value: material) { // ✨ Przekazujemy cały obiekt Material
-                MaterialRowView(material: material)
-            }
-        }
-        .navigationTitle("Materiały")
-        .navigationDestination(for: Material.self) { material in // ✨ Odbieramy Material
-            MaterialDetailSwiftUIView(material: material) // ✨ Przekazujemy do detail view
-        }
-    }
-}
 
 // MARK: - News Navigation with NavigationStack
 struct NewsNavigationView: View {

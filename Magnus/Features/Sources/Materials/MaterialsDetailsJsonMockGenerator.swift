@@ -1,0 +1,75 @@
+import Foundation
+import MagnusDomain
+
+public class MaterialsDetailsJsonMockGenerator {
+    public static func generateObject() -> GetMaterialsListResponse? {
+
+        do {
+            let data = Data(json.utf8)
+            let decoder = JSONDecoder()
+            return try decoder.decode(GetMaterialsListResponse.self, from: data)
+        } catch {
+            print("Failed to decode JSON: \(error)")
+            return nil
+        }
+    }
+
+    static let json: String = #"""
+        {
+            "materials": [
+                {
+                    "id": "eyJpZCI6MiwidG9rZW4iOiIzNXxTSUtXb3BrdHk4amhGNkN1RWZTNnIzcmMzcWxDRTBKSlF6cEtrekl1YzRmMDk2M2QifQ==",
+                    "name": "Pięć kroków do bezpiecznej żywności",
+                    "file_type": 1,
+                    "link": "https://nncv2-dev.serwik.pl/materials/piec-krokowk-do-bezpieczniejszej-zywnosci.pdf",
+                    "publication_date": "2025-06-04 13:20:00",
+                    "type": 2,
+                    "event_title": "Pierwsze wydarzenie",
+                    "date_from": "2025-10-01",
+                    "date_to": "2025-10-03"
+                },
+                {
+                    "id": "eyJpZCI6MywidG9rZW4iOiIzNXxTSUtXb3BrdHk4amhGNkN1RWZTNnIzcmMzcWxDRTBKSlF6cEtrekl1YzRmMDk2M2QifQ==",
+                    "name": "Przykładowy plik z Worda",
+                    "file_type": 2,
+                    "link": "https://nncv2-dev.serwik.pl/materials/NovoIndex_Probki_tekstow.docx",
+                    "publication_date": "2025-06-04 13:20:00",
+                    "type": 2,
+                    "event_title": "Pierwsze wydarzenie",
+                    "date_from": "2025-10-01",
+                    "date_to": "2025-10-03"
+                },
+                {
+                    "id": "eyJpZCI6NCwidG9rZW4iOiIzNXxTSUtXb3BrdHk4amhGNkN1RWZTNnIzcmMzcWxDRTBKSlF6cEtrekl1YzRmMDk2M2QifQ==",
+                    "name": "Przykładowy plik z Worda",
+                    "file_type": 4,
+                    "link": "https://www.forum-dla-otylosci.pl/",
+                    "publication_date": "2025-06-04 13:20:00",
+                    "type": 2,
+                    "event_title": "Pierwsze wydarzenie",
+                    "date_from": "2025-10-01",
+                    "date_to": "2025-10-03"
+                },
+                {
+                    "id": "eyJpZCI6NSwidG9rZW4iOiIzNXxTSUtXb3BrdHk4amhGNkN1RWZTNnIzcmMzcWxDRTBKSlF6cEtrekl1YzRmMDk2M2QifQ==",
+                    "name": "Przykładowy Sharepoint",
+                    "file_type": 3,
+                    "link": "https://novonordisk.sharepoint.com/sites/Poland/SitePages/Zwyci%C4%99zcy-Simply-The-Best-CDC-Poland.aspx?source=https%3A%2F%2Fnovonordisk.sharepoint.com%2Fsites%2FPoland",
+                    "publication_date": "2025-06-04 13:20:00",
+                    "type": 2,
+                    "event_title": "Pierwsze wydarzenie",
+                    "date_from": "2025-10-01",
+                    "date_to": "2025-10-03"
+                },
+                {
+                    "id": "eyJpZCI6MSwidG9rZW4iOiIzNXxTSUtXb3BrdHk4amhGNkN1RWZTNnIzcmMzcWxDRTBKSlF6cEtrekl1YzRmMDk2M2QifQ==",
+                    "name": "Grypa",
+                    "file_type": 1,
+                    "link": "https://nncv2-dev.serwik.pl/materials/ulotka-informacyjna-dla-pacjentow.pdf",
+                    "publication_date": "2025-06-02 12:20:00",
+                    "type": 1
+                }
+            ]
+        }    
+    """#
+}

@@ -52,6 +52,14 @@ public extension DIContainer {
         }
         return service
     }
+
+    /// Returns registered MaterialsService instance
+    var materialsService: ApiMaterialsService {
+        guard let service = resolve(ApiMaterialsService.self) else {
+            fatalError("ApiMaterialsService not registered in DI container")
+        }
+        return service
+    }
     
     // MARK: - Convenience Methods
     
