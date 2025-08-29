@@ -14,6 +14,7 @@ public protocol NewsNetworkServiceProtocol {
     func getGroups(token: String) -> AnyPublisher<GetGroupsResponse, Error>
     func addNews(token: String, title: String, content: String, image: String, selectedGroups: [NewsGroup], attachments: [NewsAttachment], tags: [String]) -> AnyPublisher<Void, Error>
     func updateNews(token: String, id: String, title: String, content: String, image: String, selectedGroups: [NewsGroup], attachments: [NewsAttachment], tags: [String]) -> AnyPublisher<Void, Error>
+    func deleteNews(token: String, id: String) -> AnyPublisher<Void, Error>
 }
 
 public class NewsNetworkService: NewsNetworkServiceProtocol {
@@ -136,6 +137,14 @@ public class NewsNetworkService: NewsNetworkServiceProtocol {
             endpoint: "/api/news/\(id)",
             method: .put,
             body: request,
+            bearerToken: token
+        )
+    }
+
+    public func deleteNews(token: String, id: String) -> AnyPublisher<Void, Error> {
+        return networkService.requestWithBearerToken(
+            endpoint: "/api/news/\(id)",
+            method: .delete,
             bearerToken: token
         )
     }

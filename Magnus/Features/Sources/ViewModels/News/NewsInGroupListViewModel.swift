@@ -56,10 +56,10 @@ public class NewsInGroupListViewModel: ObservableObject {
     }
 
     public func deleteNews(id: String) async {
-        // do {
-        //     try await newsService.deleteNews(id: id)
-        // } catch let error {
-        //     SentryHelper.capture(error: error, action: "NewsListViewModel.deleteNews")
-        // }
+        do {
+            try await newsService.deleteNews(id: id)
+        } catch let error {
+            SentryHelper.capture(error: error, action: "NewsListViewModel.deleteNews")
+        }
     }  
 } 

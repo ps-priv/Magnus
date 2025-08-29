@@ -12,4 +12,5 @@ public protocol NewsServiceProtocol {
     func getGroups() async throws -> GetGroupsResponse
     func addNews(title: String, content: String, image: Data?, selectedGroups: [NewsGroup], attachments: [NewsAttachment], tags: [String]) async throws -> Void
     func updateNews(id: String, title: String, content: String, image: Data?, selectedGroups: [NewsGroup], attachments: [NewsAttachment], tags: [String]) async throws -> Void
+    func deleteNews(id: String) async throws -> Void
 }

@@ -1,11 +1,11 @@
-import SwiftUI
-import MagnusFeatures
-import MagnusDomain
 import Kingfisher
+import MagnusDomain
+import MagnusFeatures
+import SwiftUI
 
 struct NewsInGroupListView: View {
 
-    let groupId : String
+    let groupId: String
 
     @State private var showDeleteConfirmation: Bool = false
     @State private var showToast: Bool = false
@@ -19,7 +19,6 @@ struct NewsInGroupListView: View {
         self.groupId = groupId
         _viewModel = StateObject(wrappedValue: NewsInGroupListViewModel(groupId: groupId))
     }
-    
 
     var body: some View {
         VStack(spacing: 0) {
@@ -30,7 +29,7 @@ struct NewsInGroupListView: View {
             }
         }
         .background(Color.novoNordiskBackgroundGrey)
-                .novoNordiskAlert(
+        .novoNordiskAlert(
             isPresented: $showDeleteConfirmation,
             title: LocalizedStrings.newsDeleteConfirmationMessage,
             message: nil,
@@ -40,12 +39,10 @@ struct NewsInGroupListView: View {
             primaryAction: {
                 Task {
                     await viewModel.deleteNews(id: selectedNewsId)
+                    await viewModel.loadData()
                 }
                 showToast = true
                 toastMessage = LocalizedStrings.newsDeletedMessage
-                DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-                    navigationManager.navigateToTabRoot(.news)
-                }
             },
             secondaryTitle: LocalizedStrings.cancelButton,
             secondaryStyle: .cancel,
@@ -55,7 +52,7 @@ struct NewsInGroupListView: View {
         )
         .toast(isPresented: $showToast, message: toastMessage)
     }
-     
+
     @ViewBuilder
     private var newsList: some View {
         if viewModel.news.isEmpty {
@@ -64,7 +61,8 @@ struct NewsInGroupListView: View {
             ScrollView {
                 LazyVStack(spacing: 12) {
                     ForEach(viewModel.news) { newsItem in
-                        NewsListCardView(news: newsItem, 
+                        NewsListCardView(
+                            news: newsItem,
                             onTap: {
                                 navigationManager.navigateToNewsDetail(newsId: newsItem.id)
                             },
@@ -87,7 +85,7 @@ struct NewsInGroupListView: View {
             }
         }
     }
-    
+
     @ViewBuilder
     private var emptyStateView: some View {
         VStack(spacing: 16) {
