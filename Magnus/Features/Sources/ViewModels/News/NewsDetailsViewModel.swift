@@ -100,4 +100,21 @@ public class NewsDetailsViewModel: ObservableObject {
             SentryHelper.capture(error: error, action: "NewsDetailsViewModel.addCommentToNews")
         }
     }
+
+    public func deleteNews() async {
+        do {
+            try await newsService.deleteNews(id: id)
+        } catch let error {
+            SentryHelper.capture(error: error, action: "NewsDetailsViewModel.deleteNews")
+        }
+    }  
+
+
+    public func changeNewsBookmarkStatus() async {
+        do {
+            try await newsService.changeNewsBookmarkStatus(id: id)
+        } catch let error {
+            SentryHelper.capture(error: error, action: "NewsDetailsViewModel.changeNewsBookmarkStatus")
+        }
+    }
 }
