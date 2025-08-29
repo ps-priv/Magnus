@@ -285,4 +285,6 @@ enum LocalizedStrings {
 
     static let materialsListTabGeneral = "MATERIALS_LIST_TAB_GENERAL".localized
     static let materialsListTabForEvent = "MATERIALS_LIST_TAB_FOR_EVENT".localized
+
+    static let eventPhotoDeleteConfirmationMessage = "EVENT_PHOTO_DELETE_CONFIRMATION_MESSAGE".localized
 }

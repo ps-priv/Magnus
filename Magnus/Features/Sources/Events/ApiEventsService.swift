@@ -105,4 +105,25 @@ public class ApiEventsService: EventsServiceProtocol {
         }
         return eventDetails
     }
+
+    public func deleteEventPhoto(photoId: String) async throws -> Void {
+        let token = try authStorageService.getAccessToken() ?? ""
+        try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<Void, Error>) in
+            eventsNetworkService.deleteEventPhoto(token: token, photoId: photoId)
+                .sink(
+                    receiveCompletion: { completion in
+                        switch completion {
+                        case .finished:
+                            continuation.resume(returning: ())
+                        case .failure(let error):
+                            continuation.resume(throwing: error)
+                        }
+                    },
+                    receiveValue: { _ in
+                        // Void response, nothing to do
+                    }
+                )
+                .store(in: &cancellables)
+        }
+    }
 }

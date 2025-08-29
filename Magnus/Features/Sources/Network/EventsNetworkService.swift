@@ -8,6 +8,7 @@ public protocol EventsNetworkServiceProtocol {
     func getEventDetails(token: String, id: String) -> AnyPublisher<ConferenceEventDetails, Error>
     func uploadEventPhoto(token: String, eventId: String, imageBase64: String) -> AnyPublisher<Void, Error>
     func getEventGallery(token: String, id: String) -> AnyPublisher<GetEventGalleryResponse, Error>
+    func deleteEventPhoto(token: String, photoId: String) -> AnyPublisher<Void, Error>
 }
 
 public class EventsNetworkService: EventsNetworkServiceProtocol {
@@ -57,6 +58,14 @@ public class EventsNetworkService: EventsNetworkServiceProtocol {
             endpoint: "/api/events/\(id)/photo_booth",
             method: .get,
             responseType: GetEventGalleryResponse.self,
+            bearerToken: token
+        )
+    }
+
+    public func deleteEventPhoto(token: String, photoId: String) -> AnyPublisher<Void, Error> {
+        return networkService.requestWithBearerToken(
+            endpoint: "/api/events/photo_booth/\(photoId)",
+            method: .delete,
             bearerToken: token
         )
     }

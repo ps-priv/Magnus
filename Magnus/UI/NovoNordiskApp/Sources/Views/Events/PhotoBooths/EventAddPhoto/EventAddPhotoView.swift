@@ -117,7 +117,7 @@ private struct CameraPicker: UIViewControllerRepresentable {
                 if let service: ApiEventsService = DIContainer.shared.resolve(ApiEventsService.self) {
                     try await service.uploadEventPhoto(eventId: eventId, image: data)
                     toastMessage = LocalizedStrings.eventAddPhotoAddedMessage
-                    showToast = true
+                    //showToast = true
                     // navigate back after short delay
                     DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
                         navigationManager.goBack()

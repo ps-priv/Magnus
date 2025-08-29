@@ -276,6 +276,9 @@
 
 "NEWS_DELETED_MESSAGE"="News deleted successfully";
 
+"EVENT_PHOTO_DELETE_CONFIRMATION_MESSAGE"="Are you sure you want to delete this photo?";
+
+
 
 
 
