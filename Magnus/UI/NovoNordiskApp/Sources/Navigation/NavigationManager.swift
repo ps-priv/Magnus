@@ -40,6 +40,10 @@ class NavigationManager: ObservableObject {
         navigate(to: .newsDetail(newsId: newsId))
     }
 
+    func navigateToMessagesList() {
+        navigate(to: .messagesList)
+    }
+
     func navigateToMessageDetail(messageId: String) {
         navigate(to: .messageDetail(messageId: messageId))
     }
@@ -66,6 +70,10 @@ class NavigationManager: ObservableObject {
 
     func navigateToNewsInGroup(groupId: String) {
         navigate(to: .newsInGroup(groupId: groupId))
+    }
+
+    func navigateToMaterials() {
+        navigate(to: .materialsList)
     }
 
     // Back navigation

@@ -135,24 +135,24 @@ let project = Project(
                 base: [
                     "ASSETCATALOG_COMPILER_APPICON_NAME": "NovoNordiskAppIcon",
                     "CODE_SIGN_STYLE": "Automatic",
-                    "DEVELOPMENT_TEAM": "MULTIZONE IT Sp. z o.o.",
-                    "CODE_SIGN_IDENTITY": "iPhone Developer",
+                    "DEVELOPMENT_TEAM": "X5NVKUSVAE",
+                    "CODE_SIGN_IDENTITY": "Apple Development",
                     "CODE_SIGN_ENTITLEMENTS": "Magnus/UI/NovoNordiskApp/NovoNordiskApp.entitlements",
                 ],
                 configurations: [
                     .debug(
                         name: .debug,
                         settings: [
-                            "CODE_SIGN_IDENTITY": "iPhone Developer",
-                            "PROVISIONING_PROFILE_SPECIFIER": "",  // Automatyczne
+                            "CODE_SIGN_IDENTITY": "Apple Development",
+                            //"PROVISIONING_PROFILE_SPECIFIER": "",  // Automatyczne
                             "OTHER_LDFLAGS": ["-Xlinker", "-interposable"],
                             "EMIT_FRONTEND_COMMAND_LINES": "YES",
                         ]),
                     .release(
                         name: .release,
                         settings: [
-                            "CODE_SIGN_IDENTITY": "iPhone Distribution",
-                            "PROVISIONING_PROFILE_SPECIFIER": "",  // Automatyczne
+                            "CODE_SIGN_IDENTITY": "Apple Distribution",
+                            //"PROVISIONING_PROFILE_SPECIFIER": "",  // Automatyczne
                         ]),
                 ]
             )
