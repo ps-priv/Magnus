@@ -3,7 +3,7 @@ import MagnusFeatures
 import MagnusDomain
 
 struct MainNavigationContainer: View {
-    @StateObject private var navigationManager = NavigationManager()
+    @ObservedObject private var navigationManager = NavigationManager.shared
     @StateObject private var userProfileViewModel = UserProfileViewModel()
     private let allowedFunctions = AllowedFunctions()
 

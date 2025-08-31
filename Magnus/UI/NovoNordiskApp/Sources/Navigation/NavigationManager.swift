@@ -2,6 +2,8 @@ import MagnusDomain
 import SwiftUI
 
 class NavigationManager: ObservableObject {
+    static let shared = NavigationManager()
+
     @Published var currentScreen: AppScreen = .dashboard
     @Published var navigationStack: [AppScreen] = []
     @Published var selectedBottomTab: BottomMenuTab = .start

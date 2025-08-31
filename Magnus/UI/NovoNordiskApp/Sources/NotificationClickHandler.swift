@@ -10,7 +10,7 @@ public class NotificationClickHandler: NSObject, OSNotificationClickListener {
             
             for (key, value) in additionalData {
                 print("[OneSignal] Key: \(key), Value: \(value)")
-                PushNotificationKeyNavigation().performCheck(t: key as! String, value: value as! String)
+                PushNotificationKeyNavigation().performCheck(key: key as! String, value: value as! String)
                 break
             }
         }
