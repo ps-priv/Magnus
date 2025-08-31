@@ -56,7 +56,7 @@ struct EventMaterialsCardView: View {
             materialsTitle
             
             ForEach(event.materials, id: \.id) { material in
-                MaterialItemComponent(file_type: material.file_type, name: material.name, publication_date: material.publication_date)
+                MaterialItemComponent(file_type: material.file_type, name: material.name, publication_date: material.publication_date, link: material.link)
             }
         }
         .background(Color.white)

@@ -8,10 +8,15 @@ struct DashboardMaterialsPanel: View {
     @Binding var items: [MaterialItem]
     @EnvironmentObject var navigationManager: NavigationManager
 
+    init(items: Binding<[MaterialItem]>) {
+        self._items = items
+    }
+
     var body: some View {
         VStack {
             if !items.isEmpty {
-                DashboardMaterialsCard(items: $items, action: { navigationManager.navigate(to: .materialsList) })
+                DashboardMaterialsCard(
+                    items: $items, action: { navigationManager.navigate(to: .materialsList) })
                 Spacer()
             }
         }
@@ -26,33 +31,40 @@ struct DashboardMaterialsCard: View {
         VStack(spacing: 0) {
             titleSection
             ForEach(Array(items.enumerated()), id: \.offset) { index, item in
-                HStack(alignment: .top) {
-                    FAIcon(
-                        FileTypeConverter.getIcon(from: item.file_type),
-                        type: .thin,
-                        size: 21,
-                        color: Color.novoNordiskTextGrey
-                    )
-                    .padding(.top, 5)
-                    .frame(width: 30)
-                    
-                    VStack(alignment: .leading, spacing: 4) {
-                        Text(item.name)
-                            .font(.novoNordiskBody)
-                            .foregroundColor(Color.novoNordiskTextGrey)
-                            .lineLimit(3)
-                            .multilineTextAlignment(.leading)
-                        VStack {
-                            Text(PublishedDateHelper.formatDateForEvent(item.publication_date, LocalizedStrings.months))
+                Button(action: {
+                    MaterialNavigatorHelper.navigateToMaterialItem(material: item)
+                }) {
+                    HStack(alignment: .top) {
+                        FAIcon(
+                            FileTypeConverter.getIcon(from: item.file_type),
+                            type: .thin,
+                            size: 21,
+                            color: Color.novoNordiskTextGrey
+                        )
+                        .padding(.top, 5)
+                        .frame(width: 30)
+
+                        VStack(alignment: .leading, spacing: 4) {
+                            Text(item.name)
+                                .font(.novoNordiskBody)
+                                .foregroundColor(Color.novoNordiskTextGrey)
+                                .lineLimit(3)
+                                .multilineTextAlignment(.leading)
+                            VStack {
+                                Text(
+                                    PublishedDateHelper.formatDateForEvent(
+                                        item.publication_date, LocalizedStrings.months)
+                                )
                                 .font(.system(size: 14))
                                 .foregroundColor(.novoNordiskBlue)
+                            }
+                            .padding(.top, 2)
                         }
-                        .padding(.top, 2)
                     }
+                    .padding(.horizontal, 5)
+                    .padding(.vertical, 8)
+                    .frame(maxWidth: .infinity, alignment: .leading)
                 }
-                .padding(.horizontal, 5)
-                .padding(.vertical, 8)
-                .frame(maxWidth: .infinity, alignment: .leading)
             }
             footerSection
         }
@@ -85,10 +97,11 @@ struct DashboardMaterialsCard: View {
     var footerSection: some View {
         HStack {
             Spacer()
-            NovoNordiskLinkButton(icon: FontAwesome.Icon.circle_arrow_right,
-                                  title: LocalizedStrings.dashboardEventsSectionLoadMore,
-                                  style: .small)
-            {
+            NovoNordiskLinkButton(
+                icon: FontAwesome.Icon.circle_arrow_right,
+                title: LocalizedStrings.dashboardEventsSectionLoadMore,
+                style: .small
+            ) {
                 action()
             }
             .padding(.bottom, 10)
