@@ -23,10 +23,6 @@ struct MainNavigationContainer: View {
             let userData = try authStorageService.getUserData()
             let role = userData?.role
             allowEdit = (role == .przedstawiciel)
-
-            // Optional debug:
-            print("role:", String(describing: role))
-            print("allowEdit:", allowEdit)
         } catch {
             allowEdit = false
         }
