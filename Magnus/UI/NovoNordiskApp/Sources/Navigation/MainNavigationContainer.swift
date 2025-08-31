@@ -1,9 +1,36 @@
 import SwiftUI
 import MagnusFeatures
+import MagnusDomain
 
 struct MainNavigationContainer: View {
     @StateObject private var navigationManager = NavigationManager()
     @StateObject private var userProfileViewModel = UserProfileViewModel()
+    private let allowedFunctions = AllowedFunctions()
+
+    private let authStorageService: AuthStorageService
+
+    @State private var allowEdit: Bool = false
+
+    public init(
+        authStorageService: AuthStorageService = DIContainer.shared.authStorageService
+    ) {
+        self.authStorageService = authStorageService
+        checkIfUserCanEdit()
+    }
+
+    public func checkIfUserCanEdit() {
+        do {
+            let userData = try authStorageService.getUserData()
+            let role = userData?.role
+            allowEdit = (role == .przedstawiciel)
+
+            // Optional debug:
+            print("role:", String(describing: role))
+            print("allowEdit:", allowEdit)
+        } catch {
+            allowEdit = false
+        }
+    }
 
     var body: some View {
         GeometryReader { geometry in
@@ -71,6 +98,9 @@ struct MainNavigationContainer: View {
                     .transition(.move(edge: .bottom).combined(with: .opacity))
                 }
             }
+        }    
+        .onAppear {
+            checkIfUserCanEdit()
         }
         .ignoresSafeArea(.keyboard, edges: .bottom)
         .scrollDismissesKeyboard(.interactively) 
@@ -189,8 +219,8 @@ struct MainNavigationContainer: View {
             return "news_drafts"
         case let .newsEdit(newsId):
             return "news_edit_\(newsId)"
-        case let .newsEditDraft(newsId):
-            return "news_edit_draft_\(newsId)"
+        case .newsEditDraft:
+            return "news_edit_draft"
         default:
             return nil
         }
@@ -200,9 +230,39 @@ struct MainNavigationContainer: View {
         if currentEventId() != nil {
             return [.eventDetails, .eventsAgenda, .eventsLocation, .eventsDinner, .eventsSurvey]
         } else if currentNewsId() != nil {
-            return [.start, .news, .newsGroups, .newsBookmarks, .newsCreate]
+
+            var tabs: [BottomMenuTab] = [.start]
+
+            if allowedFunctions.allowNews {
+                tabs.append(.news)
+                tabs.append(.newsGroups)
+                tabs.append(.newsBookmarks)
+            }
+
+            if allowedFunctions.allowNewsCreate && allowEdit {
+                tabs.append(.newsCreate)
+            }
+
+            return tabs
         } else {
-            return [.start, .news, .events, .materials, .academy]
+            var tabs: [BottomMenuTab] = [.start]
+
+            if allowedFunctions.allowNews {
+                tabs.append(.news)
+            }
+
+            if allowedFunctions.allowEvents {
+                tabs.append(.events)
+            }
+
+            if allowedFunctions.allowMaterials {
+                tabs.append(.materials)
+            }
+
+            if allowedFunctions.allowAcademy {
+                tabs.append(.academy)
+            }
+            return tabs
         }
     }
 }
