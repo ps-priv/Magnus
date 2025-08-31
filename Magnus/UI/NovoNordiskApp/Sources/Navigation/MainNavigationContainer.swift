@@ -36,10 +36,10 @@ struct MainNavigationContainer: View {
                     RoundedTopBar(
                         title: navigationManager.currentScreen.title,
                         canGoBack: navigationManager.canGoBack && navigationManager.currentScreen.shouldShowBackButton,
-                        showSearchButton: navigationManager.currentScreen.shouldShowSearchButton,
-                        showNotificationButtons: navigationManager.currentScreen.shouldShowNotificationButtons,
-                        showProfileButton: navigationManager.currentScreen.shouldShowProfileButton,
-                        showSettingsButton: navigationManager.currentScreen.shouldShowSettingsButton,
+                        showSearchButton: navigationManager.currentScreen.shouldShowSearchButton && allowedFunctions.allowSearch,
+                        showNotificationButtons: navigationManager.currentScreen.shouldShowNotificationButtons && allowedFunctions.allowNotification,
+                        showProfileButton: navigationManager.currentScreen.shouldShowProfileButton && allowedFunctions.allowProfile,
+                        showSettingsButton: navigationManager.currentScreen.shouldShowSettingsButton && allowedFunctions.allowSettings,
                         isMessagesActive: navigationManager.currentScreen == .messagesList,
                         onBackTap: {
                             navigationManager.goBack()
