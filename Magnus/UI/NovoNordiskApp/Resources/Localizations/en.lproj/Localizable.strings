@@ -278,6 +278,8 @@
 
 "EVENT_PHOTO_DELETE_CONFIRMATION_MESSAGE"="Are you sure you want to delete this photo?";
 
+"RECOVERY_EMAIL_TEXT_BOX_LABEL"="Enter the email address connected to your account:";
+
 
 
 

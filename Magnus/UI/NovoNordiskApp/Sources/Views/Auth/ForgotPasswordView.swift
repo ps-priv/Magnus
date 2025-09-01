@@ -58,21 +58,28 @@ struct ForgotPasswordView: View {
                             }
 
                             // Instructions
-                            Text(LocalizedStrings.forgotPasswordMessage)
-                                .font(.novoNordiskBody)
-                                .fontWeight(.bold)
-                                .foregroundColor(.primary)
-                                .multilineTextAlignment(.center)
+                            // Text(LocalizedStrings.forgotPasswordMessage)
+                            //     .font(.novoNordiskBody)
+                            //     .fontWeight(.bold)
+                            //     .foregroundColor(Color.novoNordiskBlue)
+                            //     .multilineTextAlignment(.center)
 
+                            Spacer()
                             // Email input
                             VStack(alignment: .leading, spacing: 8) {
+                                Text(LocalizedStrings.recoveryEmailTextBoxLabel)
+                                    .font(.novoNordiskBody)
+                                    .fontWeight(.bold)
+                                    .foregroundColor(Color.novoNordiskTextGrey)
+                                    .multilineTextAlignment(.center)
+
                                 NovoNordiskTextBox(
                                     placeholder: LocalizedStrings.emailPlaceholder,
-                                    text: $viewModel.email,
-                                    style: .withTitle(LocalizedStrings.emailLabel, bold: true)
+                                    text: $viewModel.email
                                 )
                                 .keyboardType(.emailAddress)
                                 .textInputAutocapitalization(.never)
+
                             }
 
                             Spacer(minLength: 20)

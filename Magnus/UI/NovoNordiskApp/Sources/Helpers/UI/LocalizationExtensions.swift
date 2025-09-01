@@ -30,6 +30,7 @@ enum LocalizedStrings {
     static let forgotPasswordMessage = "FORGOT_PASSWORD_MESSAGE".localized
     static let resetPasswordButton = "RESET_PASSWORD_BUTTON".localized
     static let haveVerificationCode = "HAVE_VERIFICATION_CODE".localized
+    static let recoveryEmailTextBoxLabel = "RECOVERY_EMAIL_TEXT_BOX_LABEL".localized
 
     // Password Reset Confirmation
     static let emailSentMessage = "EMAIL_SENT_MESSAGE".localized
