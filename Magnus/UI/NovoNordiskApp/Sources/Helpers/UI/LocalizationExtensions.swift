@@ -38,7 +38,13 @@ enum LocalizedStrings {
 
     // Password Change Confirmation
     static let passwordChangedMessage = "PASSWORD_CHANGED_MESSAGE".localized
+    static let confirmPasswordLabel = "CONFIRM_PASSWORD_LABEL".localized
+    static let verificationCodeLabel = "VERIFICATION_CODE_LABEL".localized
+    static let buttonResetPassword = "BUTTON_RESET_PASSWORD".localized
     static let goToLogin = "GO_TO_LOGIN".localized
+
+    //Reset password view
+    static let resetPasswordTitle = "RESET_PASSWORD_TITLE".localized
 
     // Common
     static let loading = "LOADING".localized

@@ -282,6 +282,14 @@
 
 "RECOVERY_EMAIL_TEXT_BOX_LABEL"="Podaj email powiązany z Twoim kontem:";
 
+"RESET_PASSWORD_TITLE" = "ZRESETUJ HASŁO";
+"CONFIRM_PASSWORD_LABEL" = "Potwierdź hasło";
+"VERIFICATION_CODE_LABEL" = "Kod weryfikacyjny";
+"BUTTON_RESET_PASSWORD" = "Zapisz nowe hasło";
+
+
+
+
 
 
 

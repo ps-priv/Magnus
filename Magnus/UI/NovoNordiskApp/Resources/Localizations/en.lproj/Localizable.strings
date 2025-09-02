@@ -280,6 +280,13 @@
 
 "RECOVERY_EMAIL_TEXT_BOX_LABEL"="Enter the email address connected to your account:";
 
+"RESET_PASSWORD_TITLE" = "PASSWORD RESET";
+"CONFIRM_PASSWORD_LABEL" = "Confirm Password";
+"VERIFICATION_CODE_LABEL" = "Verification Code";
+"BUTTON_RESET_PASSWORD" = "Reset Password";
+
+
+
 
 
 
