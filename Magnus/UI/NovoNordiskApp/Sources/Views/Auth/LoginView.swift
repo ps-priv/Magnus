@@ -10,7 +10,7 @@ struct LoginView: View {
     @StateObject private var viewModel = LoginViewModel()
     @State private var showError = false
     @State private var showForgotPassword = false
-
+    
     init(onAuthenticationSuccess: @escaping () -> Void = {}) {
         self.onAuthenticationSuccess = onAuthenticationSuccess
     }

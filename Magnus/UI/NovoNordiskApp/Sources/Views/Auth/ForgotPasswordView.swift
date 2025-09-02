@@ -7,6 +7,7 @@ struct ForgotPasswordView: View {
     @StateObject private var viewModel = ForgotPasswordViewModel()
 
     @State private var showConfirmation = false
+    @State private var showResetPassword = false
 
     init(onCancel: @escaping () -> Void) {
         self.onCancel = onCancel
@@ -143,11 +144,17 @@ struct ForgotPasswordView: View {
                 //                onCancel() // For now, go back to login
                 //            }
             }
+            .fullScreenCover(isPresented: $showResetPassword) {
+                ResetPasswordView {
+                    showResetPassword = false
+                }
+            }
         }
     }
 
     private func haveVerificationCodeAction() {
         print("Have verification code tapped")
+        showResetPassword = true
         // TODO: Navigate to verification code screen
     }
 }
