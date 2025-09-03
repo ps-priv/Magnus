@@ -11,6 +11,7 @@ public class NewsListViewModel: ObservableObject {
     @Published public var hasError: Bool = false
 
     @Published public var allowEdit: Bool = false
+    @Published public var currentUserId: String = ""
 
     private let newsService: ApiNewsService
     private let authStorageService: AuthStorageService
@@ -19,18 +20,23 @@ public class NewsListViewModel: ObservableObject {
         self.newsService = newsService
         self.authStorageService = authStorageService
 
-        Task {
-            await loadData()
-            checkIfUserCanEdit()
+        // Safe to use self synchronously after stored properties are initialized
+        checkIfUserCanEdit()
+
+        // Start async loading without strongly capturing self during initialization
+        Task { [weak self] in
+            await self?.loadData()
         }
     }
 
     private func checkIfUserCanEdit() {
         do {
             let userData = try authStorageService.getUserData()
-            allowEdit = userData?.role == .przedstawiciel
+            self.allowEdit = userData?.role == .przedstawiciel
+            self.currentUserId = userData?.id ?? ""
         } catch {
-            allowEdit = false
+            self.allowEdit = false
+            self.currentUserId = ""
         }
     }
 
@@ -58,15 +64,6 @@ public class NewsListViewModel: ObservableObject {
         }
     }
     
-    // public func checkIfUserCanEdit() {
-    //     do {
-    //         let userData = try authStorageService.getUserData()
-    //         allowEdit = userData?.role == "admin"
-    //     } catch {
-    //         allowEdit = false
-    //     }
-    // }
-
     public func changeNewsBookmarkStatus(id: String) async {
         do {
             try await newsService.changeNewsBookmarkStatus(id: id)

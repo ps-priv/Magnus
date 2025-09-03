@@ -63,6 +63,7 @@ struct NewsInGroupListView: View {
                     ForEach(viewModel.news) { newsItem in
                         NewsListCardView(
                             news: newsItem,
+                            currentUserId: viewModel.currentUserId,
                             onTap: {
                                 navigationManager.navigateToNewsDetail(newsId: newsItem.id)
                             },

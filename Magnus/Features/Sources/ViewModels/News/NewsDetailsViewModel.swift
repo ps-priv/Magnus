@@ -17,6 +17,7 @@ public class NewsDetailsViewModel: ObservableObject {
     @Published public var popupMessage: String = ""
 
     @Published public var allowEdit: Bool = false
+    @Published public var currentUserId: String = ""
 
     private let newsService: ApiNewsService
     private let authStorageService: AuthStorageService
@@ -40,8 +41,10 @@ public class NewsDetailsViewModel: ObservableObject {
         do {
             let userData = try authStorageService.getUserData()
             allowEdit = userData?.role == .przedstawiciel
+            currentUserId = userData?.id ?? ""
         } catch {
             allowEdit = false
+            currentUserId = ""
         }
     }
 

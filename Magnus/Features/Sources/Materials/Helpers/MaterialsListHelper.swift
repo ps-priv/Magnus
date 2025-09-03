@@ -1,6 +1,5 @@
 import Foundation
 import MagnusDomain
-import MagnusFeatures
 
 public class MaterialsListHelper {
 

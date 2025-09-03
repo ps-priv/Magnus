@@ -13,6 +13,7 @@ public class NewsInGroupListViewModel: ObservableObject {
     @Published public var hasError: Bool = false
 
     @Published public var allowEdit: Bool = false
+    @Published public var currentUserId: String = ""
 
     private let newsService: ApiNewsService
     private let authStorageService: AuthStorageService
@@ -31,9 +32,11 @@ public class NewsInGroupListViewModel: ObservableObject {
     private func checkIfUserCanEdit() {
         do {
             let userData = try authStorageService.getUserData()
-            allowEdit = userData?.role == .przedstawiciel
+            self.allowEdit = userData?.role == .przedstawiciel
+            self.currentUserId = userData?.id ?? ""
         } catch {
-            allowEdit = false
+            self.allowEdit = false
+            self.currentUserId = ""
         }
     }
 

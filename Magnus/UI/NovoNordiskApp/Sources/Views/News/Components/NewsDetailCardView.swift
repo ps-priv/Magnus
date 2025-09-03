@@ -16,6 +16,7 @@ struct NewsDetailCardView: View {
     let onReactionTap: (ReactionEnum) -> Void
     let onCommentTap: (String) -> Void
     let allowEdit: Bool
+    let currentUserId: String
 
     @State var isBookmarked: Bool
     @State var showReactionsMenu: Bool = false
@@ -48,7 +49,8 @@ struct NewsDetailCardView: View {
         onDeleteTap: @escaping () -> Void,
         onReactionTap: @escaping (ReactionEnum) -> Void,
         onCommentTap: @escaping (String) -> Void,
-        allowEdit: Bool
+        allowEdit: Bool,
+        currentUserId: String
     ) {
         self.news = news
         self.isCommentsEnabled = isCommentsEnabled
@@ -60,6 +62,7 @@ struct NewsDetailCardView: View {
         _isBookmarked = State(initialValue: news.isBookmarked)
         self.onCommentTap = onCommentTap
         self.allowEdit = allowEdit
+        self.currentUserId = currentUserId
     }
 
     var body: some View {
@@ -285,7 +288,7 @@ struct NewsDetailCardView: View {
 
     @ViewBuilder
     var editSection: some View {
-        if allowEdit {
+        if currentUserId == news.author.id {
             Menu {
                 Button {
                     onEditTap()
@@ -484,7 +487,8 @@ struct NewsDetailCardView: View {
             onCommentTap: { text in
                 print("Comment tapped: \(text)")
             },
-            allowEdit: true)
+            allowEdit: true,
+            currentUserId: "")
         Spacer()
     }
     .frame(maxWidth: .infinity, maxHeight: .infinity)

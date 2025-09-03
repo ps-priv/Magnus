@@ -16,8 +16,9 @@ struct NewsListCardView: View {
 
     @State var isBookmarked: Bool
     @State var allowEdit: Bool
+    var currentUserId: String
 
-    init(news: News, onTap: @escaping () -> Void, onBookmarkTap: @escaping () -> Void, onEditTap: @escaping () -> Void, onDeleteTap: @escaping () -> Void, allowEdit: Bool) {
+    init(news: News, currentUserId: String, onTap: @escaping () -> Void, onBookmarkTap: @escaping () -> Void, onEditTap: @escaping () -> Void, onDeleteTap: @escaping () -> Void, allowEdit: Bool) {
         self.news = news
         self.onTap = onTap
         self.onBookmarkTap = onBookmarkTap
@@ -25,6 +26,7 @@ struct NewsListCardView: View {
         self.onDeleteTap = onDeleteTap
         _isBookmarked = State(initialValue: news.isBookmarked)
         _allowEdit = State(initialValue: allowEdit)
+        self.currentUserId = currentUserId
     }
 
     var body: some View {
@@ -125,7 +127,7 @@ struct NewsListCardView: View {
 
     @ViewBuilder
     var editSection: some View {
-        if allowEdit {
+        if currentUserId == news.author.id {
         Menu {
             Button {
                 onEditTap()
@@ -236,6 +238,7 @@ struct NewsListCardView: View {
 
     VStack {
         NewsListCardView(news: news, 
+        currentUserId: "",
         onTap: {
             print("Tapped")
         },

@@ -58,6 +58,7 @@ struct NewsBookmarksView: View {
                 LazyVStack(spacing: 12) {
                     ForEach(viewModel.news) { newsItem in
                         NewsListCardView(news: newsItem, 
+                            currentUserId: viewModel.currentUserId,
                             onTap: {
                                 navigationManager.navigateToNewsDetail(newsId: newsItem.id)
                             },
