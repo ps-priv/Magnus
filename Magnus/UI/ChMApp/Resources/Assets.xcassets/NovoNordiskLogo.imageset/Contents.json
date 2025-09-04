@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "SplashScreenLogo.png",
+      "filename" : "trainings-bg-1664x350.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "SplashScreenLogo@2x.png",
+      "filename" : "trainings-bg-1664x350 1.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "SplashScreenLogo@3x.png",
+      "filename" : "trainings-bg-1664x350 2.png",
       "idiom" : "universal",
       "scale" : "3x"
     }
