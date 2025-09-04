@@ -21,7 +21,8 @@ struct NovoNordiskApp: App {
         OneSignal.Debug.setLogLevel(.LL_VERBOSE)
         // OneSignal Push Notifications initialization
         // App ID configured for NovoNordisk app
-        OneSignal.initialize("fdc9099d-cf34-484d-8030-ecdbb4f2be91", withLaunchOptions: nil)
+        //OneSignal.initialize("fdc9099d-cf34-484d-8030-ecdbb4f2be91", withLaunchOptions: nil)
+        OneSignal.initialize("ae211c9f-9ee9-48fd-9753-eda1d172ad1b", withLaunchOptions: nil) //ustawienia dla NN_Rep_dev
         // Configure OneSignal notification handlers
         //OneSignalService.configureHandlers()
         // Prompt for push permission (non-blocking). Customize as needed.

@@ -1,0 +1,327 @@
+/* Login View */
+
+"LOGIN_TITLE" = "ZALOGUJ";
+"EMAIL_LABEL" = "Email";
+"EMAIL_PLACEHOLDER" = "email@domena.pl";
+"PASSWORD_LABEL" = "Hasło";
+"PASSWORD_PLACEHOLDER" = "••••••••••••";
+"FORGOT_PASSWORD" = "Nie pamiętam hasła";
+"LOGIN_BUTTON" = "Zaloguj";
+"REGISTER_BUTTON" = "Zarejestruj";
+"LOGIN_ERROR" = "Błąd logowania";
+
+/* Forgot Password View */
+"FORGOT_PASSWORD_TITLE" = "PRZYPOMNIENIE HASŁA";
+"FORGOT_PASSWORD_MESSAGE" = "Podaj email powiązany z Twoim kontem:";
+"RESET_PASSWORD_BUTTON" = "Zresetuj hasło";
+"HAVE_VERIFICATION_CODE" = "Mam już kod weryfikacyjny";
+
+/* Password Reset Confirmation */
+"EMAIL_SENT_MESSAGE" = "Sprawdź swoją skrzynkę pocztową i postępuj zgodnie z przesłanymi instrukcjami.";
+"GO_TO_PASSWORD_RESET" = "Przejdź do resetu hasła";
+
+/* Password Change Confirmation */
+"PASSWORD_CHANGED_MESSAGE" = "Twoje hasło zostało zmienione";
+"GO_TO_LOGIN" = "Zaloguj";
+
+/* Common */
+"LOADING" = "Pobieranie danych...";
+"ERROR" = "Błąd";
+"OK" = "OK";
+"CANCEL" = "Anuluj";
+"LOAD_MORE" = "Więcej";
+"CLOSE"="Zamknij";
+"BACK"="Powrót";
+
+
+/* Validation */
+"FIELD_REQUIRED" = "To pole jest wymagane";
+"INVALID_EMAIL" = "Nieprawidłowy format email";
+"PASSWORD_TOO_SHORT" = "Hasło musi mieć co najmniej 6 znaków";
+
+/* Main App */
+"APP_TITLE" = "Novo Nordisk App";
+"WELCOME_MESSAGE" = "Kliknij przycisk aby zalogować się";
+"LOGIN_USER_BUTTON" = "Zaloguj użytkownika";
+
+/* Tab Bar */
+"TAB_HOME" = "Główna";
+"TAB_BUTTONS" = "Przyciski";
+"TAB_TEXT_BOXES" = "Pola tekstowe";
+"TAB_RADIO_BUTTONS" = "Przyciski radio";
+
+/* Bottom Menu */
+"BOTTOM_MENU_START" = "Start";
+"BOTTOM_MENU_NEWS" = "Aktualności";
+"BOTTOM_MENU_EVENTS" = "Wydarzenia";
+"BOTTOM_MENU_MATERIALS" = "Materiały";
+"BOTTOM_MENU_ACADEMY" = "Akademia";
+
+/* Dashboard */
+"DASHBOARD_NEWS_TITLE" = "Aktualności";
+"DASHBOARD_EVENTS_LOAD_MORE" = "Więcej";
+
+"DASHBOARD_EVENTS_TITLE" = "Nadchodzące wydarzenia";
+"DASHBOARD_UPCOMING_EVENTS_TITLE" = "Nadchodzące wydarzenia";
+"DASHBOARD_MATERIALS_TITLE" = "Najnowsze materiały";
+"DASHBOARD_ACADEMY_TITLE" = "Nowości w Akademii NovoNordisk";
+
+/* Screen titles*/
+"DASHBOARD_SCREEN_TITLE" = "Start";
+"NEWS_SCREEN_TITLE" = "Aktualności";
+"EVENTS_LIST_SCREEN_TITLE" = "Wydarzenia";
+"EVENT_DETAILS_SCREEN_TITLE" ="Wydarzenie";
+"EVENT_MATERIALS_SCREEN_TITLE" = "Materiały";
+"MATERIALS_LIST_SCREEN_TITLE" = "Materiały";
+"MATERIAL_DETAILS_SCREEN_TITLE" = "Materiał";
+"NEWS_LIST_SCREEN_TITLE" = "Aktualności";
+"NEWS_IN_GROUP_SCREEN_TITLE" = "Aktualności w grupie";
+"NEWS_DETAILS_SCREEN_TITLE" = "Aktualność";
+"NEWS_CREATE_SCREEN_TITLE" = "Dodaj wpis";
+"NEWS_BOOKMARKS_SCREEN_TITLE" = "Zakładki";
+"NEWS_DRAFTS_SCREEN_TITLE" = "Wpisy robocze";
+"NEWS_EDIT_SCREEN_TITLE" = "Edytuj wpis";
+"NEWS_EDIT_DRAFT_SCREEN_TITLE" = "Edytuj wpis roboczy";
+"NEWS_GROUPS_SCREEN_TITLE" = "Twoje grupy";
+"USER_PROFILE_SCREEN_TITLE" = "Moje konto";
+"SETTINGS_SCREEN_TITLE" = "Ustawienia";
+"ACADEMY_SCREEN_TITLE" = "Akademia";
+"MESSAGES_SCREEN_TITLE" = "Komunikaty";
+"MESSAGE_DETAILS_SCREEN_TITLE" = "Komunikat";
+
+/* User profile */
+"USER_PROFILE_INFORMATION_BUTTON" = "Informacje";
+"USER_PROFILE_ID_BUTTON" = "Identyfikator";
+"USER_PROFILE_CHANGE_PASSWORD" = "Zmień hasło";
+"USER_PROFILE_FIRSTNAME"="Imię";
+"USER_PROFILE_LASTNAME"="Nazwisko";
+"USER_PROFILE_DEPARTMENT"= "Dział";
+"USER_PROFILE_EMAIL" = "Email";
+"USER_PROFILE_NPWZ" = "NPWZ";
+"USER_PROFILE_ADDRESS" = "Adres";
+"USER_PROFILE_POSTALCODE" = "Kod pocztowy";
+"USER_PROFILE_CITY" = "Miejscowość";
+"USER_PROFILE_PESEL" = "PESEL";
+"USER_PROFILE_HAS_COMPANY" = "Prowadzę działalność gospodarczą";
+"USER_PROFILE_NIP" = "NIP";
+"USER_PROFILE_COMPANY_NAME" = "Nazwa firmy";
+"USER_PROFILE_TAX_OFFICE" = "Urząd skarbowy";
+"USER_PROFILE_POLICY" = "Akceptuję regulamin aplikacji";
+"USER_PROFILE_POLICY_LINK" = "Zobacz Regulamin";
+"USER_PROFILE_RODO" = "Akceptuję postanowienia Polityki Prywatności i zapisy RODO";
+"USER_PROFILE_RODO_LINK" = "Zobacz Politykę Prywatności";
+"USER_PROFILE_MARKETING" = "Wyrażam zgodę na otrzymywanie informacji marketingowych i promocyjnych";
+"USER_PROFILE_MARKETING_LINK" = "Zobacz treść zgody";
+
+"USER_PROFILE_QRCODE_ID" = "Twój identyfikator";
+"USER_PROFILE_QRCODE_DESCRIPTION" = "Zeskanuj ten identyfikator w odpowiednim punkcie. To twoja przepustka na wydarzenia Novo Nordisk.";
+
+"USER_PROFILE_NEW_PASSWORD" = "Nowe hasło";
+"USER_PROFILE_RETYPE_NEW_PASSWORD" = "Powtórz hasło";
+
+"BUTTON_SAVE" = "Zapisz";
+"BUTTON_LOGOUT" = "Wyloguj";
+"BUTTON_CHANGE_PASSWORD" = "Zmień hasło";
+
+/* Polish months */
+"MONTH_1" = "stycznia";
+"MONTH_2" = "lutego";
+"MONTH_3" = "marca";
+"MONTH_4" = "kwietnia";
+"MONTH_5" = "maja";
+"MONTH_6" = "czerwca";
+"MONTH_7" = "lipca";
+"MONTH_8" = "sierpnia";
+"MONTH_9" = "września";
+"MONTH_10" = "października";
+"MONTH_11" = "listopada";
+"MONTH_12" = "grudnia";
+
+/* Events list */
+"EVENTS_LIST_LINK_TO_ARCHIVE" = "Archiwum wydarzeń";
+"EVENTS_LIST_EMPTY_STATE_TITLE" = "Brak wydarzeń";
+"EVENTS_LIST_EMPTY_STATE_DESCRIPTION" = "Nie znaleziono aktywnych wydarzeń";
+"EVENT_AVAILABLE_TRANSMISSION"="DOSTĘPNA TRANSMISJA";
+"EVENT_IN_PROGRESS"="TRWA";
+"EVENT_SOON"="NADCHODZĄCE";
+"EVENT_FINISHED"="ZAKOŃCZONE";
+"EVENT_SEATS"="Miejsc:";
+"EVENT_SEATS_NOT_CONFIRMED"="Niepotwierdzone:";
+"DASHBOARD_UPCOMING_EVENTS_EMPTY"="Brak wydarzeń";
+
+/* Event qr code */
+"EVENT_QR_CODE_SCAN_TO_REGISTER"="Zeskanuj kod aby zgłosić swój udział";
+
+/* Archived Events */
+"ARCHIVED_EVENT_EMPTY_LIST_MESSAGE"="Lista historycznych wydarzeń jest pusta";
+"FINISHED_EVENT"="ZAKOŃCZONE";
+"ARCHIVED_EVENT_TITLE"="Archiwum wydarzeń";
+
+/* Academy */
+"ACADEMY_DOCTOR" = "Lekarz";
+"ACADEMY_PATIENT" = "Pacjent";
+
+/* Network Connection */
+"NO_INTERNET_CONNECTION_TITLE" = "Brak połączenia z internetem";
+"NO_INTERNET_CONNECTION_MESSAGE" = "Sprawdź połączenie z internetem i spróbuj ponownie.";
+"NO_INTERNET_CONNECTION_RETRY_BUTTON" = "Spróbuj ponownie";
+
+/* News list */
+"NEWS_LIST_EDIT_NEWS"="Edytuj wpis";
+"NEWS_LIST_DELETE_NEWS"="Usuń wpis";
+
+/* News details */
+"NEWS_DETAILS_COMMENTS_TAB"="Komentarze";
+"NEWS_DETAILS_REACTIONS_TAB"="Reakcje";
+"NEWS_DETAILS_READS_TAB"="Wyświetlenia";
+
+"CREATE_COMMENT_FOR_NEWS"="Napisz coś od siebie";
+"NEWS_DETAILS_NOT_FOUND_TITLE"="Nie znaleziono artykułu";
+"NEWS_DETAILS_NOT_FOUND_MESSAGE"="Sprobuj ponownie później lub poproś administratora o pomoc.";
+
+"NEWS_REACTION_SENT_SUCCESSFULLY"="Reakcja została wysłana";
+"NEWS_COMMENT_SENT_SUCCESSFULLY" = "Komentarz został wysłany";
+
+/* Event details */
+"EVENT_DETAILS_EVENT"="Wydarzenie";
+"EVENT_DETAILS_MATERIALS"="Materiały";
+"EVENT_DETAILS_PHOTOBOOTH"="Fotobudka";
+"EVENT_DETAILS_GIFTS"="Gratisty";
+"EVENT_DETAILS_LOCATION_CONTACT"="KONTAKT Z HOTELEM";
+"EVENT_DETAILS_EVENT_MANAGER"="OPIEKUNOWIE WYDARZENIA";
+
+"EVENT_AGENDA_SCREEN_TITLE"="Agenda";
+"EVENT_LOCATION_SCREEN_TITLE"="Lokalizacja";
+"EVENT_DINNER_SCREEN_TITLE"="Kolacja";
+"EVENT_SURVEY_SCREEN_TITLE"="Ankieta";
+
+"EVENT_AGENDA_SPEAKER"="Mówca";
+"EVENT_AGENDA_PRESENTER"="Prowadzący";
+"EVENT_AGENDA_JOIN_ONLINE"="Dołącz online";
+"EVENT_AGENDA_QUIZ"="Quiz";
+"EVENT_AGENDA_DAY"="Dzień";
+
+"EVENT_DETAILS_NOT_FOUND_TITLE"="Nie znaleziono wydarzenia";
+"EVENT_DETAILS_NOT_FOUND_MESSAGE"="Sprobuj ponownie później lub poproś administratora o pomoc.";
+
+/* News groups */
+"NEWS_GROUPS_CREATE_GROUP"="Utwórz grupę";
+"NEWS_GROUPS_EMPTY_STATE_TITLE"="Brak grup";
+"NEWS_GROUPS_EMPTY_STATE_DESCRIPTION"="Nie znaleziono grup";
+
+/* News bookmarks */
+"NEWS_BOOKMARKS_EMPTY_STATE_TITLE"="Brak zakładek";
+"NEWS_BOOKMARKS_EMPTY_STATE_DESCRIPTION"="Nie znaleziono zapisanych zakładek";
+
+"NEWS_EMPTY_STATE_TITLE"="Brak aktualności";
+"NEWS_EMPTY_STATE_DESCRIPTION"="Nie znaleziono aktualności spełniających kryteria wyszukiwania";
+
+"PUBLISH_BUTTON"="Opublikuj";
+"CANCEL_BUTTON"="Anuluj";
+"SAVE_BUTTON"="Zapisz";
+"DELETE_BUTTON"="Usuń";
+"NEWS_ADD_TITLE"="Dodaj tytuł";
+"NEWS_ADD_ATTACHMENTS"="Załączniki:";
+"ATTACHMENT_FROM_DEVICE"="Z urządzenia";
+"ATTACHMENT_FROM_LINK"="Link";
+"NEWS_ADD_CONTENT"="Treść:";
+"NEWS_ADD_TAGS"="Tagi:";
+"NEWS_ADD_TAGS_BUTTON"="Dodaj";
+
+"AUDIENCE_SETTINGS_ALL"="Wszyscy";
+"AUDIENCE_SETTINGS_SELECTED"="Wybrane grupy";
+
+"ATTACHMENT_ADD"="Dodaj załącznik";
+"ATTACHMENT_TITLE"="Tytuł";
+"ATTACHMENT_TITLE_PLACEHOLDER"="Wprowadź tytuł";
+"ATTACHMENT_FILE_NAME"="Nazwa pliku";
+"ATTACHMENT_FILE_NAME_NO_FILE_SELECTED"="Nie wybrano pliku";
+"ATTACHMENT_FILE_TYPE"="Typ pliku";
+"ATTACHMENT_FILE_PICKER_BUTTON"="Wybierz plik";
+"ATTACHMENT_FILE_PICKER_TITLE"="Wybierz plik";
+"ATTACHMENT_FILE_PICKER_CANCEL"="Anuluj";
+
+"ATTACHMENT_LINK"="Link";
+"ATTACHMENT_LINK_PLACEHOLDER"="Wprowadź link";
+
+"NEWS_ADD_SUCCESS_MESSAGE"="Aktualność została wysłana";
+"NEWS_ADD_ERROR_MESSAGE"="Aktualność nie została wysłana";
+"NEWS_ADD_SAVE_TO_STORAGE"="Szablon aktualności został zapisany";
+
+"EVENT_PHOTO_SCREEN_TITLE"="Fotobudka";
+"EVENT_GALLERY_SCREEN_TITLE"="Fotobudka";
+"EVENT_ADD_PHOTO_SCREEN_TITLE"="Dodaj zdjęcie";
+
+"EVENT_PHOTOS_NOT_FOUND_TITLE"="Galeria zdjęć jest pusta";
+"EVENT_PHOTOS_NOT_FOUND_MESSAGE"="Uczestnicy jeszcze nie przesłali zdjęć do galerii.";
+
+"END_EDITING_BUTTON"="Zakończ edycję treści";
+
+"NEWS_DELETED_MESSAGE"="Aktualność została usunięta";
+"NEWS_DELETE_CONFIRMATION_MESSAGE"="Czy na pewno chcesz usunąć tę aktualność?";
+
+"NEWS_SAVE_CONFIRMATION_MESSAGE"="Czy na pewno chcesz zapisać tę aktualność?";
+"NEWS_SAVE_MESSAGE"="Aktualność została zapisana";
+
+"EVENT_ADD_PHOTO_FROM_GALLERY_TITLE"="Dodaj zdjęcie z galerii";
+"EVENT_ADD_PHOTO_UPLOAD_BUTTON_TITLE"="Przeslij do Fotobudki";
+"EVENT_ADD_PHOTO_TAKE_PHOTO_BUTTON_TITLE"="Zrób zdjęcie";
+"EVENT_ADD_PHOTO_ADDED_MESSAGE"="Zdjęcie zostało dodane";
+"EVENT_ADD_PHOTO_UNSUPPORTED_FORMAT_MESSAGE"="Niewspierany format zdjęcia";
+"OK_BUTTON"="OK";
+
+"MATERIALS_LIST_EMPTY_STATE_TITLE"="Brak materiałów";
+"MATERIALS_LIST_EMPTY_STATE_DESCRIPTION"="Nie znaleziono materiałów";
+
+"MATERIALS_LIST_TAB_GENERAL"="Ogólne";
+"MATERIALS_LIST_TAB_FOR_EVENT"="Do wydarzenia";
+
+"NEWS_DELETED_MESSAGE"="Aktualność została usunięta";
+
+"EVENT_PHOTO_DELETE_CONFIRMATION_MESSAGE"="Czy na pewno chcesz usunąć to zdjęcie?";
+
+"RECOVERY_EMAIL_TEXT_BOX_LABEL"="Podaj email powiązany z Twoim kontem:";
+
+"RESET_PASSWORD_TITLE" = "ZRESETUJ HASŁO";
+"CONFIRM_PASSWORD_LABEL" = "Potwierdź hasło";
+"VERIFICATION_CODE_LABEL" = "Kod weryfikacyjny";
+"BUTTON_RESET_PASSWORD" = "Zapisz nowe hasło";
+
+"MESSAGES_LIST_EMPTY_STATE_TITLE"="Brak wiadomości";
+"MESSAGES_LIST_EMPTY_STATE_DESCRIPTION"="Nie znaleziono wiadomości";
+
+"ACADEMY_EMPTY_MATERIALS_LIST_TITLE"="Brak materiałów";
+"ACADEMY_EMPTY_MATERIALS_LIST_DESCRIPTION"="Nie znaleziono materiałów";
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

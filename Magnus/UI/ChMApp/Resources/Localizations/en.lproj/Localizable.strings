@@ -1,0 +1,301 @@
+/* Login View */
+"LOGIN_TITLE" = "LOGIN";
+"EMAIL_LABEL" = "Email";
+"EMAIL_PLACEHOLDER" = "email@domain.com";
+"PASSWORD_LABEL" = "Password";
+"PASSWORD_PLACEHOLDER" = "••••••••••••";
+"FORGOT_PASSWORD" = "Forgot password";
+"LOGIN_BUTTON" = "Login";
+"REGISTER_BUTTON" = "Register";
+"LOGIN_ERROR" = "Login Error";
+
+/* Forgot Password View */
+"FORGOT_PASSWORD_TITLE" = "PASSWORD RESET";
+"FORGOT_PASSWORD_MESSAGE" = "Enter email associated with your account:";
+"RESET_PASSWORD_BUTTON" = "Reset password";
+"HAVE_VERIFICATION_CODE" = "I have verification code";
+
+/* Password Reset Confirmation */
+"EMAIL_SENT_MESSAGE" = "Check your inbox and follow the instructions sent to you.";
+"GO_TO_PASSWORD_RESET" = "Go to password reset";
+
+/* Password Change Confirmation */
+"PASSWORD_CHANGED_MESSAGE" = "Your password has been changed";
+"GO_TO_LOGIN" = "Go to login";
+
+/* Common */
+"LOADING" = "Loading...";
+"ERROR" = "Error";
+"OK" = "OK";
+"CANCEL" = "Cancel";
+"LOAD_MORE" = "More";
+"CLOSE"="Close";
+"BACK"="Back";
+
+/* Validation */
+"FIELD_REQUIRED" = "This field is required";
+"INVALID_EMAIL" = "Invalid email format";
+"PASSWORD_TOO_SHORT" = "Password must be at least 6 characters";
+
+/* Main App */
+"APP_TITLE" = "Novo Nordisk App";
+"WELCOME_MESSAGE" = "Click the button to log in";
+"LOGIN_USER_BUTTON" = "Login User";
+
+/* Tab Bar */
+"TAB_HOME" = "Home";
+"TAB_BUTTONS" = "Buttons";
+"TAB_TEXT_BOXES" = "Text Boxes";
+"TAB_RADIO_BUTTONS" = "Radio Buttons";
+
+/* Bottom Menu */
+"BOTTOM_MENU_START" = "Start";
+"BOTTOM_MENU_NEWS" = "News";
+"BOTTOM_MENU_EVENTS" = "Events";
+"BOTTOM_MENU_MATERIALS" = "Materials";
+"BOTTOM_MENU_ACADEMY" = "Academy";
+
+/* Dashboard */
+"DASHBOARD_NEWS_TITLE" = "News";
+"DASHBOARD_EVENTS_LOAD_MORE" = "More";
+
+"DASHBOARD_EVENTS_TITLE" = "Upcoming Events";
+"DASHBOARD_UPCOMING_EVENTS_TITLE" = "Upcoming Events";
+"DASHBOARD_MATERIALS_TITLE" = "Latest materials";
+"DASHBOARD_ACADEMY_TITLE" = "News in the Novo Nordisk Academy";
+
+/* Screen titles*/
+"DASHBOARD_SCREEN_TITLE" = "Start";
+"NEWS_SCREEN_TITLE" = "News";
+"EVENTS_LIST_SCREEN_TITLE" = "Events";
+"EVENT_DETAILS_SCREEN_TITLE" ="Event";
+"EVENT_MATERIALS_SCREEN_TITLE" = "Materials";
+"MATERIALS_LIST_SCREEN_TITLE" = "Materials";
+"MATERIAL_DETAILS_SCREEN_TITLE" = "Material";
+"NEWS_LIST_SCREEN_TITLE" = "News";
+"NEWS_IN_GROUP_SCREEN_TITLE" = "News in group";
+"NEWS_DETAILS_SCREEN_TITLE" = "News";
+"NEWS_CREATE_SCREEN_TITLE" = "Add post";
+"NEWS_BOOKMARKS_SCREEN_TITLE" = "Bookmarks";
+"NEWS_DRAFTS_SCREEN_TITLE" = "Drafts";
+"NEWS_EDIT_SCREEN_TITLE" = "Edit post";
+"NEWS_EDIT_DRAFT_SCREEN_TITLE" = "Edit draft";
+"NEWS_GROUPS_SCREEN_TITLE" = "Your groups";
+"USER_PROFILE_SCREEN_TITLE" = "My Account";
+"SETTINGS_SCREEN_TITLE" = "Settings";
+"ACADEMY_SCREEN_TITLE" = "Academy";
+"MESSAGES_SCREEN_TITLE" = "Messages";
+"MESSAGE_DETAILS_SCREEN_TITLE" = "Message";
+
+/* User profile */
+"USER_PROFILE_INFORMATION_BUTTON" = "Information";
+"USER_PROFILE_ID_BUTTON" = "Identifier";
+"USER_PROFILE_CHANGE_PASSWORD" = "Change password";
+"USER_PROFILE_FIRSTNAME"="Firstname";
+"USER_PROFILE_LASTNAME"="Lastname";
+"USER_PROFILE_DEPARTMENT"= "Department";
+"USER_PROFILE_EMAIL" = "Email";
+"USER_PROFILE_NPWZ" = "NPWZ";
+"USER_PROFILE_ADDRESS" = "Address";
+"USER_PROFILE_POSTALCODE" = "Postal Code";
+"USER_PROFILE_CITY" = "Locality";
+"USER_PROFILE_PESEL" = "PESEL";
+"USER_PROFILE_HAS_COMPANY" = "I operate a business";
+"USER_PROFILE_NIP" = "Tax ID";
+"USER_PROFILE_COMPANY_NAME" = "Company";
+"USER_PROFILE_TAX_OFFICE" = "Tax Office";
+"USER_PROFILE_POLICY" = "I accept the app’s Terms of Service";
+"USER_PROFILE_POLICY_LINK" = "View Terms of Service";
+"USER_PROFILE_RODO" = "I accept the provisions of the Privacy Policy and the GDPR terms";
+"USER_PROFILE_RODO_LINK" = "View Privacy Policy";
+"USER_PROFILE_MARKETING" = "I agree to receive marketing and promotional information";
+"USER_PROFILE_MARKETING_LINK" = "View consent text";
+
+"USER_PROFILE_QRCODE_ID" = "Your identifier";
+"USER_PROFILE_QRCODE_DESCRIPTION" = "can this identifier at the designated point. It is your pass for Novo Nordisk events.";
+
+"USER_PROFILE_NEW_PASSWORD" = "New password";
+"USER_PROFILE_RETYPE_NEW_PASSWORD" = "Retype password";
+
+"BUTTON_SAVE" = "Save";
+"BUTTON_LOGOUT" = "Logout";
+"BUTTON_CHANGE_PASSWORD" = "Change password";
+
+/* English months */
+"MONTH_1" = "January";
+"MONTH_2" = "February";
+"MONTH_3" = "March";
+"MONTH_4" = "April";
+"MONTH_5" = "May";
+"MONTH_6" = "June";
+"MONTH_7" = "July";
+"MONTH_8" = "August";
+"MONTH_9" = "September";
+"MONTH_10" = "October";
+"MONTH_11" = "November";
+"MONTH_12" = "December";
+
+/* Events list */
+"EVENTS_LIST_LINK_TO_ARCHIVE" = "Event Archive";
+"EVENTS_LIST_EMPTY_STATE_TITLE" = "No events";
+"EVENTS_LIST_EMPTY_STATE_DESCRIPTION" = "No active events found";
+"EVENT_AVAILABLE_TRANSMISSION"="LIVESTREAM";
+"EVENT_IN_PROGRESS"="IN PROGRESS";
+"EVENT_SOON"="SOON";
+"EVENT_FINISHED"="FINISHED";
+"EVENT_SEATS"="Seats:";
+"EVENT_SEATS_NOT_CONFIRMED"="Not confirmed:";
+"DASHBOARD_UPCOMING_EVENTS_EMPTY"="No events";
+
+/* Event qr code */
+"EVENT_QR_CODE_SCAN_TO_REGISTER"="Scan the code to submit your participation";
+
+/* Archived Events */
+"ARCHIVED_EVENT_EMPTY_LIST_MESSAGE"="The list of historical events is empty";
+"FINISHED_EVENT"="FINISHED";
+"ARCHIVED_EVENT_TITLE"="Archive events";
+
+/* Academy */
+"ACADEMY_DOCTOR" = "Doctor";
+"ACADEMY_PATIENT" = "Patient";
+
+/* Network Connection */
+"NO_INTERNET_CONNECTION_TITLE" = "No Internet Connection";
+"NO_INTERNET_CONNECTION_MESSAGE" = "Please check your internet connection and try again.";
+"NO_INTERNET_CONNECTION_RETRY_BUTTON" = "Retry";
+
+/* News list */
+"NEWS_LIST_EDIT_NEWS"="Edit news";
+"NEWS_LIST_DELETE_NEWS"="Delete news";
+
+/* News details */
+"NEWS_DETAILS_COMMENTS_TAB"="Comments";
+"NEWS_DETAILS_REACTIONS_TAB"="Reactions";
+"NEWS_DETAILS_READS_TAB"="Reads";
+
+"CREATE_COMMENT_FOR_NEWS"="Write something about yourself";
+"NEWS_DETAILS_NOT_FOUND_TITLE"="Article not found";
+"NEWS_DETAILS_NOT_FOUND_MESSAGE"="Try again later or ask the administrator for help.";
+
+"NEWS_REACTION_SENT_SUCCESSFULLY"="Reaction sent successfully";
+"NEWS_COMMENT_SENT_SUCCESSFULLY" = "Comment sent successfully";
+
+/* Event details */
+"EVENT_DETAILS_EVENT"="Event";
+"EVENT_DETAILS_MATERIALS"="Materials";
+"EVENT_DETAILS_PHOTOBOOTH"="Photobooth";
+"EVENT_DETAILS_GIFTS"="Gifts";
+"EVENT_DETAILS_LOCATION_CONTACT"="LOCATION CONTACT";
+"EVENT_DETAILS_EVENT_MANAGER"="EVENT MANAGERS";
+
+"EVENT_AGENDA_SCREEN_TITLE"="Agenda";
+"EVENT_LOCATION_SCREEN_TITLE"="Location";
+"EVENT_DINNER_SCREEN_TITLE"="Dinner";
+"EVENT_SURVEY_SCREEN_TITLE"="Survey";
+
+"EVENT_AGENDA_SPEAKER"="Speaker";
+"EVENT_AGENDA_PRESENTER"="Presenter";
+"EVENT_AGENDA_JOIN_ONLINE"="Join online";
+"EVENT_AGENDA_QUIZ"="Quiz";
+"EVENT_AGENDA_DAY"="Day";
+
+"EVENT_DETAILS_NOT_FOUND_TITLE"="Event not found";
+"EVENT_DETAILS_NOT_FOUND_MESSAGE"="Try again later or ask the administrator for help.";
+
+/* News groups */
+"NEWS_GROUPS_CREATE_GROUP"="Create group"; 
+"NEWS_GROUPS_EMPTY_STATE_TITLE"="No groups";
+"NEWS_GROUPS_EMPTY_STATE_DESCRIPTION"="No groups found";
+
+/* News bookmarks */
+"NEWS_BOOKMARKS_EMPTY_STATE_TITLE"="No bookmarks";
+"NEWS_BOOKMARKS_EMPTY_STATE_DESCRIPTION"="No bookmarks found";
+
+"NEWS_EMPTY_STATE_TITLE"="No news";
+"NEWS_EMPTY_STATE_DESCRIPTION"="No news found";
+
+"PUBLISH_BUTTON"="Publish";
+"CANCEL_BUTTON"="Cancel";
+"SAVE_BUTTON"="Save";
+"DELETE_BUTTON"="Delete";
+"NEWS_ADD_TITLE"="Add news title";
+"NEWS_ADD_ATTACHMENTS"="Attachments:";
+"ATTACHMENT_FROM_DEVICE"="From device";
+"ATTACHMENT_FROM_LINK"="Link";
+"NEWS_ADD_CONTENT"="Content:";
+"NEWS_ADD_TAGS"="Tags:";
+"NEWS_ADD_TAGS_BUTTON"="Add";
+
+"AUDIENCE_SETTINGS_ALL"="All";
+"AUDIENCE_SETTINGS_SELECTED"="Selected groups";
+
+"ATTACHMENT_ADD"="Add attachment";
+"ATTACHMENT_TITLE"="Title";
+"ATTACHMENT_TITLE_PLACEHOLDER"="Enter title";
+"ATTACHMENT_FILE_NAME"="File name";
+"ATTACHMENT_FILE_NAME_NO_FILE_SELECTED"="No file selected";
+"ATTACHMENT_FILE_TYPE"="File type";
+"ATTACHMENT_FILE_PICKER_BUTTON"="Select file";
+"ATTACHMENT_FILE_PICKER_TITLE"="Select file";
+"ATTACHMENT_FILE_PICKER_CANCEL"="Cancel";
+
+"ATTACHMENT_LINK"="Link";
+"ATTACHMENT_LINK_PLACEHOLDER"="Enter link";
+
+"NEWS_ADD_SUCCESS_MESSAGE"="News sent successfully";
+"NEWS_ADD_ERROR_MESSAGE"="News not added";
+"NEWS_ADD_SAVE_TO_STORAGE"="Save to storage";
+
+"EVENT_PHOTO_SCREEN_TITLE"="Photo booth";
+"EVENT_GALLERY_SCREEN_TITLE"="Photo booth";
+"EVENT_ADD_PHOTO_SCREEN_TITLE"="Add photo";
+
+"EVENT_PHOTOS_NOT_FOUND_TITLE"="No photos";
+"EVENT_PHOTOS_NOT_FOUND_MESSAGE"="No photos found";
+
+"END_EDITING_BUTTON"="End editing";
+
+"NEWS_DELETED_MESSAGE"="News deleted successfully";
+"NEWS_DELETE_CONFIRMATION_MESSAGE"="Are you sure you want to delete this news?";
+
+"NEWS_SAVE_CONFIRMATION_MESSAGE"="Are you sure you want to save this news?";
+"NEWS_SAVE_MESSAGE"="News saved successfully";
+
+"EVENT_ADD_PHOTO_FROM_GALLERY_TITLE"="Add photo from gallery";
+"EVENT_ADD_PHOTO_UPLOAD_BUTTON_TITLE"="Upload to photobooth";
+"EVENT_ADD_PHOTO_TAKE_PHOTO_BUTTON_TITLE"="Take photo";
+"EVENT_ADD_PHOTO_ADDED_MESSAGE"="Photo added successfully";
+"EVENT_ADD_PHOTO_UNSUPPORTED_FORMAT_MESSAGE"="Unsupported format";
+"OK_BUTTON"="OK";
+
+"MATERIALS_LIST_EMPTY_STATE_TITLE"="No materials";
+"MATERIALS_LIST_EMPTY_STATE_DESCRIPTION"="No materials found";
+
+"MATERIALS_LIST_TAB_GENERAL"="General";
+"MATERIALS_LIST_TAB_FOR_EVENT"="For event";
+
+"NEWS_DELETED_MESSAGE"="News deleted successfully";
+
+"EVENT_PHOTO_DELETE_CONFIRMATION_MESSAGE"="Are you sure you want to delete this photo?";
+
+"RECOVERY_EMAIL_TEXT_BOX_LABEL"="Enter the email address connected to your account:";
+
+"RESET_PASSWORD_TITLE" = "PASSWORD RESET";
+"CONFIRM_PASSWORD_LABEL" = "Confirm Password";
+"VERIFICATION_CODE_LABEL" = "Verification Code";
+"BUTTON_RESET_PASSWORD" = "Reset Password";
+
+"MESSAGES_LIST_EMPTY_STATE_TITLE"="No messages";
+"MESSAGES_LIST_EMPTY_STATE_DESCRIPTION"="No messages found";
+
+"ACADEMY_EMPTY_MATERIALS_LIST_TITLE"="No materials";
+"ACADEMY_EMPTY_MATERIALS_LIST_DESCRIPTION"="No materials found";
+
+
+
+
+
+
+
+
+

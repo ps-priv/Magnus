@@ -50,6 +50,31 @@ let project = Project(
             )
         ),
         .target(
+            name: "ChMOneSignalNotificationServiceExtension",
+            destinations: .iOS,
+            product: .appExtension,
+            bundleId: "pl.serwik.chm.conference.OneSignalNotificationServiceExtension",
+            infoPlist: .extendingDefault(
+                with: [
+                    "CFBundleDisplayName": "ChMApp",
+                    "NSExtension": [
+                        "NSExtensionPointIdentifier": "com.apple.usernotifications.service",
+                        "NSExtensionPrincipalClass": "$(PRODUCT_MODULE_NAME).NotificationService",
+                    ],
+                ]
+            ),
+            sources: ["Magnus/OneSignalNotificationServiceExtension/Sources/**"],
+            resources: [],
+            dependencies: [
+                .package(product: "OneSignalExtension")
+            ],
+            settings: .settings(
+                base: [
+                    "IPHONEOS_DEPLOYMENT_TARGET": "13.0"
+                ]
+            )
+        ),
+        .target(
             name: "MagnusApplication",
             destinations: .iOS,
             product: .framework,
@@ -88,7 +113,7 @@ let project = Project(
             infoPlist: .extendingDefault(
                 with: [
                     "CFBundleShortVersionString": "1.0",
-                    "CFBundleVersion": "9",
+                    "CFBundleVersion": "10",
                     "UILaunchScreen": [
                         "UIColorName": "",
                         "UIImageName": "",
@@ -161,40 +186,74 @@ let project = Project(
             name: "ChMApp",
             destinations: .iOS,
             product: .app,
-            bundleId: "pl.mz.magnust.ChMApp",
+            bundleId: "pl.serwik.chm.conference",
             infoPlist: .extendingDefault(
                 with: [
+                    "CFBundleShortVersionString": "1.0",
+                    "CFBundleVersion": "1",
                     "UILaunchScreen": [
                         "UIColorName": "",
                         "UIImageName": "",
-                    ]
+                    ],
+                    "UIAppFonts": [
+                        "FontAwesome6Brands-Regular-400.otf",
+                        "FontAwesome6Pro-Light-300.otf",
+                        "FontAwesome6Pro-Regular-400.otf",
+                        "FontAwesome6Pro-Solid-900.otf",
+                        "FontAwesome6Pro-Thin-100.otf",
+                        "OpenSans-Light.ttf",
+                        "OpenSans-Regular.ttf",
+                        "OpenSans-Bold.ttf",
+                    ],
+                    "CFBundleLocalizations": ["en", "pl"],
+                    "CFBundleDevelopmentRegion": "en",
+                    "NSAppTransportSecurity": [
+                        "NSAllowsArbitraryLoads": true
+                    ],
+                    "UIBackgroundModes": [
+                        "remote-notification"
+                    ],
+                    // Required by iOS when saving to the user's photo library
+                    "NSPhotoLibraryAddUsageDescription": "Aplikacja potrzebuje dostępu do biblioteki zdjęć, aby zapisywać zdjęcia z fotobudki.",
+                    "NSPhotoLibraryUsageDescription": "Aplikacja potrzebuje dostępu do biblioteki zdjęć, aby zapisywać zdjęcia z fotobudki.",
+                    "NSCameraUsageDescription": "Aplikacja potrzebuje dostępu do kamery, aby zapisywać zdjęcia z fotobudki.",
+                    "NSMicrophoneUsageDescription": "Aplikacja potrzebuje dostępu do mikrofonu, aby zapisywać zdjęcia z fotobudki.",
                 ]
             ),
             sources: ["Magnus/UI/ChMApp/Sources/**"],
             resources: ["Magnus/UI/ChMApp/Resources/**"],
             dependencies: [
-                .target(name: "MagnusApplication"), .target(name: "MagnusDomain"),
+                .target(name: "MagnusApplication"),
+                .target(name: "MagnusDomain"),
                 .target(name: "MagnusFeatures"),
+                .package(product: "Sentry"),
+                .package(product: "Pow"),
+                .package(product: "Kingfisher"),
+                .package(product: "PopupView"),
+                .package(product: "OneSignalFramework"),
+                .target(name: "ChMOneSignalNotificationServiceExtension"),
             ],
             settings: .settings(
                 base: [
-                    "ASSETCATALOG_COMPILER_APPICON_NAME": "AppIconChMApp",
+                    "ASSETCATALOG_COMPILER_APPICON_NAME": "NovoNordiskAppIcon",
                     "CODE_SIGN_STYLE": "Automatic",
-                    "DEVELOPMENT_TEAM": "Apple Development: Pawel Salek (WP36EZATFS)",
+                    "DEVELOPMENT_TEAM": "69392QSC2U",
                     "CODE_SIGN_IDENTITY": "iPhone Developer",
                 ],
                 configurations: [
                     .debug(
                         name: .debug,
                         settings: [
-                            "CODE_SIGN_IDENTITY": "iPhone Developer",
-                            "PROVISIONING_PROFILE_SPECIFIER": "",
+                            "CODE_SIGN_IDENTITY": "Apple Development",
+                            //"PROVISIONING_PROFILE_SPECIFIER": "",  // Automatyczne
+                            "OTHER_LDFLAGS": ["-Xlinker", "-interposable"],
+                            "EMIT_FRONTEND_COMMAND_LINES": "YES",
                         ]),
                     .release(
                         name: .release,
                         settings: [
-                            "CODE_SIGN_IDENTITY": "iPhone Distribution",
-                            "PROVISIONING_PROFILE_SPECIFIER": "",
+                            "CODE_SIGN_IDENTITY": "Apple Distribution",
+                            //"PROVISIONING_PROFILE_SPECIFIER": "",  // Automatyczne
                         ]),
                 ]
             )
