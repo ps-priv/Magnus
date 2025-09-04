@@ -38,10 +38,15 @@ public class MessagesMockGenerator {
         "2025-01-15", "2025-01-14", "2025-01-13", "2025-01-12", "2025-01-11",
         "2025-01-10", "2025-01-09", "2025-01-08", "2025-01-07", "2025-01-06"
     ]
+
+    private static let sampleTimes = [
+        "08:00", "09:00", "10:00", "11:00", "12:00",
+        "13:00", "14:00", "15:00", "16:00", "17:00"
+    ]
     
     private static func generateLoremContent(length: Int) -> String {
         var content = ""
-        let targetLength = max(100, min(1000, length))
+        let targetLength = max(100, min(1000, length))  
         
         while content.count < targetLength {
             let randomWord = loremWords.randomElement() ?? "lorem"
@@ -72,17 +77,17 @@ public class MessagesMockGenerator {
         let randomId = UUID().uuidString
         let randomTitle = novoNordiskTitles.randomElement() ?? "Komunikat konferencyjny"
         let randomDate = sampleDates.randomElement() ?? "2025-01-15"
+        let randomTime = sampleTimes.randomElement() ?? "08:00"
         let randomImageId = Int.random(in: 300...399)
-        let randomContentLength = Int.random(in: 100...1000)
         let randomIsRead = Bool.random()
         
         return ConferenceMessage(
             id: randomId,
             title: randomTitle,
-            date: randomDate,
-            content: generateLoremContent(length: randomContentLength),
-            image: "https://picsum.photos/400/\(randomImageId)",
-            isRead: randomIsRead
+            publish_date: randomDate,
+            publish_time: randomTime,
+            picture: "https://picsum.photos/400/\(randomImageId)",
+            is_read: randomIsRead
         )
     }
     
@@ -93,17 +98,17 @@ public class MessagesMockGenerator {
             let id = "message_\(i + 1)"
             let title = novoNordiskTitles[i % novoNordiskTitles.count]
             let date = sampleDates[i % sampleDates.count]
+            let time = sampleTimes[i % sampleTimes.count]
             let imageId = 300 + (i % 100)
-            let contentLength = 100 + (i * 50) % 900 + 100 // Varies from 100 to 1000
             let isRead = i % 3 != 0 // About 2/3 of messages are read
             
             let message = ConferenceMessage(
                 id: id,
                 title: title,
-                date: date,
-                content: generateLoremContent(length: contentLength),
-                image: "https://picsum.photos/400/\(imageId)",
-                isRead: isRead
+                publish_date: date,
+                publish_time: time,
+                picture: "https://picsum.photos/400/\(imageId)",
+                is_read: isRead
             )
             
             messages.append(message)
@@ -117,10 +122,10 @@ public class MessagesMockGenerator {
             ConferenceMessage(
                 id: message.id,
                 title: message.title,
-                date: message.date,
-                content: message.content,
-                image: message.image,
-                isRead: false
+                publish_date: message.publish_date,
+                publish_time: message.publish_time,
+                picture: message.picture,
+                is_read: false
             )
         }
     }
@@ -130,10 +135,10 @@ public class MessagesMockGenerator {
             ConferenceMessage(
                 id: message.id,
                 title: message.title,
-                date: message.date,
-                content: message.content,
-                image: message.image,
-                isRead: true
+                publish_date: message.publish_date,
+                publish_time: message.publish_time,
+                picture: message.picture,
+                is_read: true
             )
         }
     }

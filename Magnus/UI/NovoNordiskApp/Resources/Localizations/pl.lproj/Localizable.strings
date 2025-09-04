@@ -287,6 +287,10 @@
 "VERIFICATION_CODE_LABEL" = "Kod weryfikacyjny";
 "BUTTON_RESET_PASSWORD" = "Zapisz nowe hasło";
 
+"MESSAGES_LIST_EMPTY_STATE_TITLE"="Brak wiadomości";
+"MESSAGES_LIST_EMPTY_STATE_DESCRIPTION"="Nie znaleziono wiadomości";
+
+
 
 
 

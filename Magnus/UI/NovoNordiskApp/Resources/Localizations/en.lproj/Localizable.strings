@@ -285,6 +285,10 @@
 "VERIFICATION_CODE_LABEL" = "Verification Code";
 "BUTTON_RESET_PASSWORD" = "Reset Password";
 
+"MESSAGES_LIST_EMPTY_STATE_TITLE"="No messages";
+"MESSAGES_LIST_EMPTY_STATE_DESCRIPTION"="No messages found";
+
+
 
 
 

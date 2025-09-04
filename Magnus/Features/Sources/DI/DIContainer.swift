@@ -67,6 +67,11 @@ public class DIContainer {
             return MaterialsNetworkService(networkService: networkService)
         }.inObjectScope(.container)
 
+        container.register(MessagesNetworkServiceProtocol.self) { resolver in
+            let networkService = resolver.resolve(NetworkServiceProtocol.self)!
+            return MessagesNetworkService(networkService: networkService)
+        }.inObjectScope(.container)
+
         // Register AuthService based on application type
         switch applicationType {
         case .novonordisk:
@@ -115,6 +120,14 @@ public class DIContainer {
                 let authStorageService = resolver.resolve(AuthStorageService.self)!
                 return ApiMaterialsService(
                     materialsNetworkService: materialsNetworkService,
+                    authStorageService: authStorageService)
+            }.inObjectScope(.container)
+
+            container.register(ApiMessagesService.self) { resolver in
+                let messagesNetworkService = resolver.resolve(MessagesNetworkServiceProtocol.self)!
+                let authStorageService = resolver.resolve(AuthStorageService.self)!
+                return ApiMessagesService(
+                    messagesNetworkService: messagesNetworkService,
                     authStorageService: authStorageService)
             }.inObjectScope(.container)
 

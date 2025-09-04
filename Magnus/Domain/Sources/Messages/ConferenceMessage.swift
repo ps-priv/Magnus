@@ -1,17 +1,17 @@
-public struct ConferenceMessage {
+public struct ConferenceMessage: Identifiable, Hashable, Decodable {
     public let id: String
+    public let publish_date: String
+    public let publish_time: String
     public let title: String
-    public let date: String
-    public let content: String
-    public let image: String
-    public let isRead: Bool
+    public let picture: String
+    public let is_read: Bool
 
-    public init(id: String, title: String, date: String, content: String, image: String, isRead: Bool) {
+    public init(id: String, title: String, publish_date: String, publish_time: String, picture: String, is_read: Bool) {
         self.id = id
         self.title = title
-        self.date = date
-        self.content = content
-        self.image = image
-        self.isRead = isRead
+        self.publish_date = publish_date
+        self.publish_time = publish_time
+        self.picture = picture
+        self.is_read = is_read
     }
 }

@@ -16,7 +16,7 @@ struct MessageDetailView: View {
                 VStack(alignment: .leading, spacing: 16) {
 
                     VStack(alignment: .leading) {
-                        KFImage(URL(string: message.image))
+                        KFImage(URL(string: message.picture))
                             .placeholder {
                                 Rectangle()
                                     .fill(Color.gray.opacity(0.1))
@@ -38,14 +38,14 @@ struct MessageDetailView: View {
                                 .foregroundColor(Color.novoNordiskTextGrey)
                                 .font(.system(size: 19))
                             
-                            Text(message.date)
+                            Text(message.publish_date)
                                 .font(.subheadline)
                                 .foregroundColor(Color.novoNordiskBlue)
 
-                            Text(message.content)
-                                .font(.body)
-                                .foregroundColor(Color.novoNordiskTextGrey)
-                                .padding(.top, 10)
+                            Text(message.publish_time)
+                                .font(.subheadline)
+                                .foregroundColor(Color.novoNordiskBlue)
+
                         }
                         .padding(16)
                     }

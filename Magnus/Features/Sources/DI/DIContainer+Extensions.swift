@@ -60,6 +60,14 @@ public extension DIContainer {
         }
         return service
     }
+
+    /// Returns registered MessagesService instance
+    var messagesService: ApiMessagesService {
+        guard let service = resolve(ApiMessagesService.self) else {
+            fatalError("ApiMessagesService not registered in DI container")
+        }
+        return service
+    }
     
     // MARK: - Convenience Methods
     
