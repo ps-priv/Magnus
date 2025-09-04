@@ -5,6 +5,7 @@ import MagnusDomain
 
 public protocol MessagesNetworkServiceProtocol {
     func getMessagesList(token: String) -> AnyPublisher<GetMessagesListResponse, Error>
+    func getMessageDetails(token: String, id: String) -> AnyPublisher<ConferenceMessageDetails, Error>
 }
 
 public class MessagesNetworkService: MessagesNetworkServiceProtocol {
@@ -19,6 +20,15 @@ public class MessagesNetworkService: MessagesNetworkServiceProtocol {
             endpoint: "/api/messages",
             method: .get,
             responseType: GetMessagesListResponse.self,
+            bearerToken: token
+        )
+    }
+
+    public func getMessageDetails(token: String, id: String) -> AnyPublisher<ConferenceMessageDetails, Error> {
+        return networkService.requestWithBearerToken(
+            endpoint: "/api/messages/\(id)",
+            method: .get,
+            responseType: ConferenceMessageDetails.self,
             bearerToken: token
         )
     }

@@ -6,13 +6,19 @@ import Kingfisher
 
 struct MessageDetailView: View {
     let messageId: String
-    @State private var message: ConferenceMessage? = nil
     @EnvironmentObject var navigationManager: NavigationManager
+
+    @StateObject private var viewModel: MessageDetailViewModel
+
+    init(messageId: String) {
+        self.messageId = messageId
+        _viewModel = StateObject(wrappedValue: MessageDetailViewModel(messageId: messageId))
+    }
     
 
     var body: some View {
         ScrollView {
-            if let message = message {
+            if let message = viewModel.message {
                 VStack(alignment: .leading, spacing: 16) {
 
                     VStack(alignment: .leading) {
@@ -38,14 +44,27 @@ struct MessageDetailView: View {
                                 .foregroundColor(Color.novoNordiskTextGrey)
                                 .font(.system(size: 19))
                             
-                            Text(message.publish_date)
-                                .font(.subheadline)
-                                .foregroundColor(Color.novoNordiskBlue)
+                            HStack {
+                                Text(message.publish_date)
+                                    .font(.subheadline)
+                                    .foregroundColor(Color.novoNordiskBlue)
 
-                            Text(message.publish_time)
-                                .font(.subheadline)
-                                .foregroundColor(Color.novoNordiskBlue)
+                                Text("|")
+                                    .font(.subheadline)
+                                    .foregroundColor(Color.novoNordiskBlue)
 
+                                Text(message.publish_time)
+                                    .font(.subheadline)
+                                    .foregroundColor(Color.novoNordiskBlue)
+
+                                Spacer()
+                            }
+
+                            Text(message.message)
+                                    .font(.body)
+                                    .foregroundColor(Color.novoNordiskTextGrey)
+                                    .padding(.horizontal, 16)
+                                    .padding(.vertical, 8)
                         }
                         .padding(16)
                     }
@@ -57,20 +76,20 @@ struct MessageDetailView: View {
                     //         .stroke(Color.white, lineWidth: 3)
                     // )
 
-                        VStack(spacing: 8) {
-                            MessageLinkView(
-                                icon: .fileAlt,
-                                title: "Nazwa udostępnionego pliku.pdf"
-                            )
+                        // VStack(spacing: 8) {
+                        //     MessageLinkView(
+                        //         icon: .fileAlt,
+                        //         title: "Nazwa udostępnionego pliku.pdf"
+                        //     )
                             
-                            MessageLinkView(
-                                icon: .fileAlt,
-                                title: "Nazwa udostępnionego pliku.docx"
-                            )
-                        }
-                        .background(Color.novoNordiskBackgroundGrey)
-                        .padding(.top, 10)
-                        .padding(.bottom, 16)
+                        //     MessageLinkView(
+                        //         icon: .fileAlt,
+                        //         title: "Nazwa udostępnionego pliku.docx"
+                        //     )
+                        // }
+                        // .background(Color.novoNordiskBackgroundGrey)
+                        // .padding(.top, 10)
+                        // .padding(.bottom, 16)
 
 
                 } 
@@ -83,21 +102,9 @@ struct MessageDetailView: View {
         }
         .padding()
         .background(Color.novoNordiskBackgroundGrey)
-        .onAppear {
-            loadMessage()
-        }
     }
     
-    private func loadMessage() {
-        // Simulate loading message by ID
-        let allMessages = MessagesMockGenerator.createMany(count: 20)
-        message = allMessages.first { $0.id == messageId }
-        
-        // If not found, create a mock message
-        if message == nil {
-            message = MessagesMockGenerator.createSingle()
-        }
-    }
+
     
     private func formatDate(_ dateString: String) -> String {
         let inputFormatter = DateFormatter()

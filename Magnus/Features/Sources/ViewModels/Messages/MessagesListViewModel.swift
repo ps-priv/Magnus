@@ -30,19 +30,14 @@ public class MessagesListViewModel: ObservableObject {
             errorMessage = ""
         }
 
-        print("Loading messages...")
-
         do {
             let data: GetMessagesListResponse = try await messagesService.getMessagesList()
-
-            print("Messages: \(data)")
 
             await MainActor.run {
                 messages = data.messages
                 isLoading = false
             }
         } catch let error {
-            print("Error loading messages: \(error)")
             isLoading = false
             errorMessage = error.localizedDescription
             hasError = true

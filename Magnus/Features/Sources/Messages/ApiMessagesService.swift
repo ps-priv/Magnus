@@ -35,4 +35,27 @@ public class ApiMessagesService: MessagesServiceProtocol {
         return messagesList
     }
 
+    public func getMessageDetails(id: String) async throws -> ConferenceMessageDetails {        
+        let token = try authStorageService.getAccessToken() ?? ""   
+        let messageDetails = try await withCheckedThrowingContinuation { continuation in    
+            messagesNetworkService.getMessageDetails(token: token, id: id)
+                .sink(
+                    receiveCompletion: { completion in
+                        switch completion {
+                        case .finished:
+                            break
+                        case .failure(let error):
+                            continuation.resume(throwing: error)
+                        }
+                    },
+                    receiveValue: { value in
+                        continuation.resume(returning: value)
+                    }
+                )
+                .store(in: &cancellables)
+        }
+
+        return messageDetails
+    }   
+
 }
