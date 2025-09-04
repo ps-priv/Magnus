@@ -5,22 +5,29 @@ import SwiftUI
 
 public struct AcademyCategoryMaterialsView: View {
     let categoryId: String
+    let categoryName: String
     let action: () -> Void
-    private var materials: [ConferenceMaterial] = ConferenceMaterialsMockGenerator.createRandomMany(
-        count: 3)
 
-    public init(categoryId: String, action: @escaping () -> Void) {
+    @StateObject private var viewModel: AcademyCategoryMaterialsViewModel
+
+    public init(categoryId: String, categoryName: String, action: @escaping () -> Void) {
         self.categoryId = categoryId
+        self.categoryName = categoryName
         self.action = action
+        _viewModel = StateObject(wrappedValue: AcademyCategoryMaterialsViewModel(selectedCategory: categoryId))
     }
 
     public var body: some View {
         VStack(alignment: .leading) {
             ScrollView {
                 titleSection
-                LazyVStack(alignment: .leading, spacing: 12) {
-                    ForEach(materials, id: \.id) { material in
-                        AcademyMaterialRowItem(material: material)
+                if viewModel.materials.isEmpty {
+                    AcademyEmptyMaterialsListPanel()
+                } else {
+                    LazyVStack(alignment: .leading, spacing: 12) {
+                        ForEach(viewModel.materials, id: \.id) { material in
+                            AcademyMaterialRowItem(material: material)
+                        }
                     }
                 }
             }
@@ -40,7 +47,7 @@ public struct AcademyCategoryMaterialsView: View {
                     size: 24,
                     color: Color.novoNordiskBlue
                 )
-                Text(categoryId)
+                Text(categoryName)
                     .font(.novoNordiskSectionTitle)
                     .fontWeight(.bold)
                     .foregroundColor(Color.novoNordiskBlue)
@@ -56,7 +63,7 @@ public struct AcademyCategoryMaterialsView: View {
 
 #Preview {
     VStack {
-        AcademyCategoryMaterialsView(categoryId: "Diabetologia", action: {})
+        AcademyCategoryMaterialsView(categoryId: "Diabetologia", categoryName: "Diabetologia", action: {})
     }
     .background(Color.novoNordiskBackgroundGrey)
     .padding(20)

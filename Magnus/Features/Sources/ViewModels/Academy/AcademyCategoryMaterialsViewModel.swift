@@ -3,20 +3,20 @@ import Combine
 import MagnusDomain
 
 @MainActor
-public class AcademyCategoryViewModel: ObservableObject {
+public class AcademyCategoryMaterialsViewModel: ObservableObject {
 
-    @Published public var academyCategories: [AcademyCategory] = []
+    @Published public var materials: [AcademyCategoryArticle] = []
+    @Published public var selectedCategory: String = ""   
+
     @Published public var isLoading: Bool = false
     @Published public var errorMessage: String = ""
     @Published public var hasError: Bool = false
     @Published public var showToast: Bool = false
 
-    @Published public var selectedCategory: AcademyCategoryType = .doctor
-
     private let academyService: ApiAcademyService
 
     public init(
-        selectedCategory: AcademyCategoryType = .doctor,
+        selectedCategory: String,
         academyService: ApiAcademyService = DIContainer.shared.academyService) {
         self.selectedCategory = selectedCategory
         self.academyService = academyService
@@ -29,6 +29,7 @@ public class AcademyCategoryViewModel: ObservableObject {
     // MARK: - Setup
     /// Load dashboard data
     public func loadData() async {
+
         await MainActor.run {
             isLoading = true
             hasError = false
@@ -36,10 +37,10 @@ public class AcademyCategoryViewModel: ObservableObject {
         }
 
         do {
-            let data: GetAcademyCategoriesResponse = try await academyService.getAcademyCategories(categoryType: selectedCategory)
+            let data: GetArticlesInAcademyCategoryResponse = try await academyService.getArticlesInAcademyCategory(categoryId: selectedCategory)
 
             await MainActor.run {
-                academyCategories = data.categories
+                materials = data.academy_materials
                 isLoading = false
             }
         } catch let error {

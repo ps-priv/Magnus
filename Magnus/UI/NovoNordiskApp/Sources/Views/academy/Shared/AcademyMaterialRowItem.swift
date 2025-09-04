@@ -4,32 +4,35 @@ import MagnusFeatures
 import SwiftUI
 
 struct AcademyMaterialRowItem: View {
-    let material: ConferenceMaterial
+    let material: AcademyCategoryArticle
 
     var body: some View {
         HStack(alignment: .top) {
-            FAIcon(
-                ConferenceMaterialTypeConverter.getIcon(from: material.type),
-                type: .thin,
-                size: 21,
-                color: Color.novoNordiskTextGrey
-            )
-            .padding(.top, 5)
-            .frame(width: 30)
-
-            VStack(alignment: .leading, spacing: 4) {
-                Text(material.title)
-                    .font(.novoNordiskBody)
-                    .foregroundColor(Color.novoNordiskTextGrey)
-                    .lineLimit(3)
-                    .multilineTextAlignment(.leading)
-                Text(
-                    PublishedDateHelper.formatDateForEvent(
-                        material.publicationDate, LocalizedStrings.months)
+            Button(action: { 
+                MaterialNavigatorHelper.navigateToMaterialUrl(link: material.link, fileType: material.file_type)
+            }) {
+                FAIcon(
+                    ConferenceMaterialTypeConverter.getIcon(from: material.file_type),
+                    type: .thin,
+                    size: 21,
+                    color: Color.novoNordiskTextGrey
                 )
-                .font(.system(size: 14))
-                .foregroundColor(.novoNordiskBlue)
+                .padding(.top, 5)
+                .frame(width: 30)
 
+                VStack(alignment: .leading, spacing: 4) {
+                    Text(material.name)
+                        .font(.novoNordiskBody)
+                        .foregroundColor(Color.novoNordiskTextGrey)
+                        .lineLimit(3)
+                        .multilineTextAlignment(.leading)
+                    Text(
+                        PublishedDateHelper.formatDateForEvent(
+                            material.publication_date, LocalizedStrings.months)
+                    )
+                    .font(.system(size: 14))
+                    .foregroundColor(.novoNordiskBlue)
+                }
             }
         }
         .padding(.horizontal, 5)
@@ -40,6 +43,7 @@ struct AcademyMaterialRowItem: View {
 
 #Preview {
     AcademyMaterialRowItem(
-        material: ConferenceMaterial(
-            id: "1", title: "Material 1", type: .pdf, publicationDate: "2021-01-01"))
+        material: AcademyCategoryArticle(
+            id: "1", name: "Material 1", file_type: .pdf, link: "https://example.com/material1.pdf",
+            publication_date: "2021-01-01"))
 }

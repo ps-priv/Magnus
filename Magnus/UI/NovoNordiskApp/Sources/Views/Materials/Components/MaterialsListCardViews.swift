@@ -30,7 +30,6 @@ struct MaterialsListCardView: View {
         guard !materialId.isEmpty else { return }
         // Check in general materials
         if generalMaterials.contains(where: { $0.id == materialId }) {
-            print("Selected general material: \(materialId)")
             selectedTab = .general
             scrollTargetId = materialId
             return
@@ -40,7 +39,6 @@ struct MaterialsListCardView: View {
             dto.eventMaterials.contains(where: { $0.id == materialId })
         }
         if existsInEvents {
-            print("Selected event material: \(materialId)")
             selectedTab = .forEvent
             scrollTargetId = materialId
         }
@@ -123,7 +121,6 @@ struct MaterialsListCardView: View {
     // MARK: - Tab Contents
     @ViewBuilder
     private var GeneralTabContent: some View {
-        // Placeholder content. Replace with actual list when row view is available.
         VStack(alignment: .leading, spacing: 12) {
             ForEach(Array(generalMaterials.enumerated()), id: \.offset) { index, item in
                 MaterialRowItem(material: item, isSelected: item.id == materialId)

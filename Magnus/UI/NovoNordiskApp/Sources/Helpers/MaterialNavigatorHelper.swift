@@ -41,4 +41,8 @@ public class MaterialNavigatorHelper {
     public static func navigateToMaterialItem(material: MaterialItem) {
         navigateToMaterial(link: material.link ?? "", fileType: material.file_type)
     }
+
+    public static func navigateToMaterialUrl(link: String, fileType: FileTypeEnum) {
+        navigateToMaterial(link: link, fileType: fileType)
+    }
 }

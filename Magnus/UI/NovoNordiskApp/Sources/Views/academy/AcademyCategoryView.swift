@@ -67,7 +67,8 @@ struct AcademyCategoryView: View {
                     }
                 } else {
                     AcademyCategoryMaterialsView(
-                        categoryId: selectedCategory?.name ?? "",
+                        categoryId: selectedCategory?.id ?? "",
+                        categoryName: selectedCategory?.name ?? "",
                         action: {
                             showMaterials = false
                         }
@@ -78,10 +79,7 @@ struct AcademyCategoryView: View {
                 }
             }
         }
-        // .onAppear {
-        //     categories = viewModel.academyCategories
-        //     currentCategories = categories
-        // }
+
         .background(Color.white)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .padding(.top, 20)

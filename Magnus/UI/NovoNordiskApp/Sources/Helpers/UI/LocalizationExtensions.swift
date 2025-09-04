@@ -298,4 +298,8 @@ enum LocalizedStrings {
     //Messages
     static let messagesListEmptyStateTitle = "MESSAGES_LIST_EMPTY_STATE_TITLE".localized
     static let messagesListEmptyStateDescription = "MESSAGES_LIST_EMPTY_STATE_DESCRIPTION".localized
+
+    //Academy
+    static let academyEmptyMaterialsListTitle = "ACADEMY_EMPTY_MATERIALS_LIST_TITLE".localized
+    static let academyEmptyMaterialsListDescription = "ACADEMY_EMPTY_MATERIALS_LIST_DESCRIPTION".localized
 }

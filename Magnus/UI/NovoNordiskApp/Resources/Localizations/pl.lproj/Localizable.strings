@@ -290,6 +290,9 @@
 "MESSAGES_LIST_EMPTY_STATE_TITLE"="Brak wiadomości";
 "MESSAGES_LIST_EMPTY_STATE_DESCRIPTION"="Nie znaleziono wiadomości";
 
+"ACADEMY_EMPTY_MATERIALS_LIST_TITLE"="Brak materiałów";
+"ACADEMY_EMPTY_MATERIALS_LIST_DESCRIPTION"="Nie znaleziono materiałów";
+
 
 
 
