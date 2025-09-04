@@ -4,31 +4,31 @@ import MagnusDomain
 public class AcademyCategoryMock {
     public static func generateMockCategories() -> [AcademyCategory] {
         return [
-            AcademyCategory(name: "Diabetologia", subcategories: [
-                AcademyCategory(name: "Diabetes typu 1", subcategories: [
-                    AcademyCategory(name: "Podstawy"),
-                    AcademyCategory(name: "Leczenie"),
-                    AcademyCategory(name: "Komplikacje"),
+            AcademyCategory(id: "1", name: "Diabetologia", subcategories: [
+                AcademyCategory(id: "2", name: "Diabetes typu 1", subcategories: [
+                    AcademyCategory(id: "3", name: "Podstawy"),
+                    AcademyCategory(id: "4", name: "Leczenie"),
+                    AcademyCategory(id: "5", name: "Komplikacje"),
                 ]),
-                AcademyCategory(name: "Diabetes typu 2", subcategories: [
-                    AcademyCategory(name: "Diagnostyka"),
-                    AcademyCategory(name: "Terapia"),
-                ]),
-            ]),
-            AcademyCategory(name: "Kardiologia", subcategories: [
-                AcademyCategory(name: "Choroby serca", subcategories: [
-                    AcademyCategory(name: "Niewydolność serca"),
-                    AcademyCategory(name: "Arytmie"),
-                ]),
-                AcademyCategory(name: "Profilaktyka"),
-            ]),
-            AcademyCategory(name: "Endokrynologia", subcategories: [
-                AcademyCategory(name: "Hormony", subcategories: [
-                    AcademyCategory(name: "Insulina"),
-                    AcademyCategory(name: "Glukagon"),
+                AcademyCategory(id: "6", name: "Diabetes typu 2", subcategories: [
+                    AcademyCategory(id: "7", name: "Diagnostyka"),
+                    AcademyCategory(id: "8", name: "Terapia"),
                 ]),
             ]),
-            AcademyCategory(name: "Pediatria"),
+            AcademyCategory(id: "9", name: "Kardiologia", subcategories: [
+                AcademyCategory(id: "10", name: "Choroby serca", subcategories: [
+                    AcademyCategory(id: "11", name: "Niewydolność serca"),
+                    AcademyCategory(id: "12", name: "Arytmie"),
+                ]),
+                AcademyCategory(id: "13", name: "Profilaktyka"),
+            ]),
+            AcademyCategory(id: "14", name: "Endokrynologia", subcategories: [
+                AcademyCategory(id: "15", name: "Hormony", subcategories: [
+                    AcademyCategory(id: "16", name: "Insulina"),
+                    AcademyCategory(id: "17", name: "Glukagon"),
+                ]),
+            ]),
+            AcademyCategory(id: "18", name: "Pediatria"),
         ]
     }
 }

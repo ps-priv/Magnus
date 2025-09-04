@@ -1,38 +1,36 @@
-// import Alamofire
-// import Combine
-// import Foundation
-// import MagnusDomain
+import Alamofire 
+import Combine
+import Foundation
+import MagnusDomain      
 
-// public protocol AcademyNetworkServiceProtocol {
-//     func fetchCategories() -> AnyPublisher<[AcademyCategory], Error>
-//     func fetchMaterials(for categoryId: String) -> AnyPublisher<[ConferenceMaterial], Error>
-// }
+public protocol AcademyNetworkServiceProtocol {
+    func getAcademyCategories(token: String, categoryType: AcademyCategoryType) -> AnyPublisher<GetAcademyCategoriesResponse, Error>
+    func getArticlesInAcademyCategory(token: String, categoryId: String) -> AnyPublisher<GetArticlesInAcademyCategoryResponse, Error>
+}
 
-// public class AcademyNetworkService: AcademyNetworkServiceProtocol {
-//     private let networkService: NetworkServiceProtocol
+public class AcademyNetworkService: AcademyNetworkServiceProtocol {
+    private let networkService: NetworkServiceProtocol
 
-//     public init(networkService: NetworkServiceProtocol) {
-//         self.networkService = networkService
-//     }
+    public init(networkService: NetworkServiceProtocol) {
+        self.networkService = networkService
+    }
 
-//     public func fetchCategories() -> AnyPublisher<[AcademyCategory], Error> {
-//         return networkService.request(
-//             endpoint: "/api/academy/categories",
-//             method: .get,
-//             parameters: nil,
-//             encoding: URLEncoding.default,
-//             responseType: [AcademyCategory].self
-//         )
-//     }
+    public func getAcademyCategories(token: String, categoryType: AcademyCategoryType) -> AnyPublisher<GetAcademyCategoriesResponse, Error> {
+        return networkService.requestWithBearerToken(
+            endpoint: "/api/academy/categories/\(categoryType)",
+            method: .get,
+            responseType: GetAcademyCategoriesResponse.self,
+            bearerToken: token
+        )
+    }
 
-//     public func fetchMaterials(for categoryId: String) -> AnyPublisher<[ConferenceMaterial], Error>
-//     {
-//         return networkService.request(
-//             endpoint: "/api/academy/categories/\(categoryId)/materials",
-//             method: .get,
-//             parameters: nil,
-//             encoding: URLEncoding.default,
-//             responseType: [ConferenceMaterial].self
-//         )
-//     }
-// }
+    public func getArticlesInAcademyCategory(token: String, categoryId: String) -> AnyPublisher<GetArticlesInAcademyCategoryResponse, Error>
+    {
+        return networkService.requestWithBearerToken(
+            endpoint: "/api/academy/materials/\(categoryId)",
+            method: .get,
+            responseType: GetArticlesInAcademyCategoryResponse.self,
+            bearerToken: token
+        )
+    }
+}

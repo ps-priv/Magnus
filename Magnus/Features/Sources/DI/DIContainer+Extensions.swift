@@ -68,6 +68,14 @@ public extension DIContainer {
         }
         return service
     }
+
+    /// Returns registered AcademyService instance
+    var academyService: ApiAcademyService {
+        guard let service = resolve(ApiAcademyService.self) else {
+            fatalError("ApiAcademyService not registered in DI container")
+        }
+        return service
+    }
     
     // MARK: - Convenience Methods
     
