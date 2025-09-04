@@ -183,7 +183,7 @@ let project = Project(
             )
         ),
         .target(
-            name: "ChMApp",
+            name: "ChM Academy",
             destinations: .iOS,
             product: .app,
             bundleId: "pl.serwik.chm.conference",
