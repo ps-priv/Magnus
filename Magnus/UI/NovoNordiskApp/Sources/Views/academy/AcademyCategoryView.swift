@@ -6,21 +6,30 @@ import MagnusFeatures
 import SwiftUI
 
 struct AcademyCategoryView: View {
-    let categoryId: String
     @State private var categories: [AcademyCategory] = []
-    @State private var parentCategory: AcademyCategory?
-    @State private var selectedCategory: AcademyCategory?
+    @State private var parentCategory: AcademyCategory? = nil
+    @State private var selectedCategory: AcademyCategory? = nil
     @State private var currentCategories: [AcademyCategory] = []
     @State private var navigationHistory: [AcademyCategory] = []
     @State private var showBackButton: Bool = false
     @State private var showMaterials: Bool = false
     @State private var cancellables = Set<AnyCancellable>()
 
-    private func loadCategories() {
-        // Use mock data for now - network services will be available after project rebuild
-        self.categories = AcademyCategoryMock.generateMockCategories()
-        self.currentCategories = self.categories
+    @StateObject private var viewModel: AcademyCategoryViewModel
+    @EnvironmentObject var navigationManager: NavigationManager
+
+    init(categoryId: String) {
+        var categoryType: AcademyCategoryType
+
+        if categoryId == "doctor" {
+            categoryType = .doctor
+        } else {
+            categoryType = .patient
+        }
+
+        _viewModel = StateObject(wrappedValue: AcademyCategoryViewModel(selectedCategory: categoryType))
     }
+
 
     var body: some View {
         VStack(alignment: .leading) {
@@ -32,7 +41,7 @@ struct AcademyCategoryView: View {
                             .padding(.top, 5)
                     }
                     LazyVStack(alignment: .leading, spacing: 12) {
-                        ForEach(Array(currentCategories.enumerated()), id: \.offset) {
+                        ForEach(Array(viewModel.academyCategories.enumerated()), id: \.offset) {
                             itemIndex, category in
                             Button(action: {
                                 if category.hasSubcategories {
@@ -69,20 +78,19 @@ struct AcademyCategoryView: View {
                 }
             }
         }
+        // .onAppear {
+        //     categories = viewModel.academyCategories
+        //     currentCategories = categories
+        // }
         .background(Color.white)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .onAppear {
-            if categories.isEmpty {
-                loadCategories()
-            }
-        }
         .padding(.top, 20)
     }
 
     private func navigateToSubcategories(_ category: AcademyCategory) {
         navigationHistory.append(category)
         showBackButton = true
-        currentCategories = category.subcategories
+        //currentCategories = category.subcategories
     }
 
     private func navigateBack() {
@@ -103,7 +111,7 @@ struct AcademyCategoryView: View {
         } else {
             // Back to previous category level
             let previousCategory = navigationHistory.last!
-            currentCategories = previousCategory.subcategories
+            //currentCategories = previousCategory.subcategories
         }
     }
 
@@ -117,12 +125,15 @@ struct AcademyCategoryView: View {
             return nil
         }
 
-        if path.count == 1 {
-            return category
-        } else {
-            let remainingPath = Array(path.dropFirst())
-            return findCategory(withPath: remainingPath, in: category.subcategories)
-        }
+        return category
+
+        // if path.count == 1 {
+        //     return category
+        // }
+        // } else {
+        //     let remainingPath = Array(path.dropFirst())
+        //     return findCategory(withPath: remainingPath, in: categories)
+        // }
     }
 }
 

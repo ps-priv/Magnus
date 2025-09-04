@@ -17,7 +17,7 @@ public class AcademyNetworkService: AcademyNetworkServiceProtocol {
 
     public func getAcademyCategories(token: String, categoryType: AcademyCategoryType) -> AnyPublisher<GetAcademyCategoriesResponse, Error> {
         return networkService.requestWithBearerToken(
-            endpoint: "/api/academy/categories/\(categoryType)",
+            endpoint: "/api/academy/categories/\(categoryType.rawValue)",
             method: .get,
             responseType: GetAcademyCategoriesResponse.self,
             bearerToken: token
