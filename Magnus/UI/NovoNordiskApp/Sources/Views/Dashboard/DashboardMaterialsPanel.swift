@@ -16,7 +16,7 @@ struct DashboardMaterialsPanel: View {
         VStack {
             if !items.isEmpty {
                 DashboardMaterialsCard(
-                    items: $items, action: { navigationManager.navigate(to: .materialsList) })
+                    items: $items, action: { navigationManager.navigateToMaterials(materialId: "") })
                 Spacer()
             }
         }

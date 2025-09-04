@@ -21,14 +21,14 @@ public struct PushNotificationKeyNavigation {
                 navigationManager.navigateToMessageDetail(messageId: value)
             }
 
-            if key == "mtr_n" && value == "0" {
+            if key == "mtr_n" {
                 //otwiera materialy i rozwija menu z materialami
-                navigationManager.navigateToMaterials()
+                navigationManager.navigateToMaterials(materialId: value)
             }
 
-            if key == "mtr" && value == "0" {
+            if key == "mtr" {
                 //otwiera liste z materialami
-                navigationManager.navigateToMaterials()
+                navigationManager.navigateToMaterials(materialId: value)
             }
 
             if key == "evn" && !value.isEmpty {

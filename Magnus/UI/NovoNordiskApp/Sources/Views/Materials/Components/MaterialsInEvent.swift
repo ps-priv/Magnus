@@ -6,11 +6,11 @@ import Foundation
 
 struct MaterialsInEvent: View {
     let eventMaterials: ConferenceMaterialsDto
+    let selectedMaterialId: String?
 
-    init(eventMaterials: ConferenceMaterialsDto) {
+    init(eventMaterials: ConferenceMaterialsDto, selectedMaterialId: String?) {
         self.eventMaterials = eventMaterials
-
-        print("MaterialsInEvent init \(eventMaterials)" )
+        self.selectedMaterialId = selectedMaterialId
     }
 
     var body: some View {
@@ -18,7 +18,8 @@ struct MaterialsInEvent: View {
             if eventMaterials.hasMaterials() {
                 eventTitle
                 ForEach(Array(eventMaterials.eventMaterials.enumerated()), id: \.offset) { index, item in
-                    MaterialRowItem(material: item)
+                    MaterialRowItem(material: item, isSelected: item.id == selectedMaterialId)
+                        .id(item.id)
                 }
             }
         }

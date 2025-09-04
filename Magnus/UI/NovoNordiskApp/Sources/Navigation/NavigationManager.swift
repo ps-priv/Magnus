@@ -74,8 +74,12 @@ class NavigationManager: ObservableObject {
         navigate(to: .newsInGroup(groupId: groupId))
     }
 
-    func navigateToMaterials() {
-        navigate(to: .materialsList)
+    // func navigateToMaterials() {
+    //     navigate(to: .materialsList)
+    // }
+
+    func navigateToMaterials(materialId: String) {
+        navigate(to: .materialsList(materialId: materialId))
     }
 
     // Back navigation
@@ -118,7 +122,7 @@ class NavigationManager: ObservableObject {
             case .events:
                 screen = .eventsList
             case .materials:
-                screen = .materialsList
+                screen = .materialsList(materialId: "")
             case .academy:
                 screen = .academy
             case .eventDetails:

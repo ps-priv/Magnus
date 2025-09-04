@@ -9,7 +9,7 @@ enum AppScreen: Equatable, Identifiable {
     case eventDetail(eventId: String)
     case eventQrCode(eventId: String)
     case eventMaterials(eventId: String)
-    case materialsList
+    case materialsList(materialId: String)
     case materialDetail(materialId: String)
     case newsList
     case newsInGroup(groupId: String)

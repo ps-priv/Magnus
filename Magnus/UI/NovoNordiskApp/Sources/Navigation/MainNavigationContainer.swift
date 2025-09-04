@@ -118,7 +118,7 @@ struct MainNavigationContainer: View {
         case let .eventQrCode(eventId):
             EventQrCodeView(eventId: eventId)
         case .materialsList:
-            MaterialsListView()
+            MaterialsListView(materialId: "")
         case let .materialDetail(materialId):
             MaterialDetailView(materialId: materialId)
         case .newsList:

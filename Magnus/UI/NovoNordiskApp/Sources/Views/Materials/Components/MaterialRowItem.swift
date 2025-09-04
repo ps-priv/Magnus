@@ -6,9 +6,11 @@ import SwiftUI
 struct MaterialRowItem: View {
 
     let material: ConferenceMaterialListItem
+    let isSelected: Bool
 
-    init(material: ConferenceMaterialListItem) {
+    init(material: ConferenceMaterialListItem, isSelected: Bool = false) {
         self.material = material
+        self.isSelected = isSelected
     }
 
     var body: some View {
@@ -28,6 +30,7 @@ struct MaterialRowItem: View {
                 VStack(alignment: .leading, spacing: 0) {
                     Text(material.name)
                         .font(.novoNordiskBody)
+                        .fontWeight(isSelected ? .bold : .regular)
                         .foregroundColor(Color.novoNordiskTextGrey)
                         .lineLimit(2)
                         .multilineTextAlignment(.leading)
@@ -48,3 +51,4 @@ struct MaterialRowItem: View {
         }
     }
 }
+
