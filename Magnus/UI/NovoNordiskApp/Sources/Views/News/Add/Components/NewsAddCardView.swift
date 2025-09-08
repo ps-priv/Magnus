@@ -133,18 +133,18 @@ struct NewsAddCardView: View {
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
         .padding()
-        .toolbar {
-            ToolbarItemGroup(placement: .keyboard) {
-                Spacer()
-                Button(LocalizedStrings.endEditingButton) { 
-                    isFocusedContent = false
-                    isFocusedTitle = false 
-                }
-                .background(Color.novoNordiskBlue)
-                .foregroundColor(.white)
-                .cornerRadius(8)
-            }
-        }
+        // .toolbar {
+        //     ToolbarItemGroup(placement: .keyboard) {
+        //         Spacer()
+        //         Button(LocalizedStrings.endEditingButton) { 
+        //             isFocusedContent = false
+        //             isFocusedTitle = false 
+        //         }
+        //         .background(Color.novoNordiskBlue)
+        //         .foregroundColor(.white)
+        //         .cornerRadius(8)
+        //     }
+        // }
         .novoNordiskAlert(
             isPresented: $showSaveConfirmation,
             title: LocalizedStrings.newsSaveConfirmationMessage,
