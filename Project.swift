@@ -113,7 +113,7 @@ let project = Project(
             infoPlist: .extendingDefault(
                 with: [
                     "CFBundleShortVersionString": "1.0",
-                    "CFBundleVersion": "10",
+                    "CFBundleVersion": "11",
                     "UILaunchScreen": [
                         "UIColorName": "",
                         "UIImageName": "",
