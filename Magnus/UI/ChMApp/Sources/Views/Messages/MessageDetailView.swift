@@ -19,85 +19,7 @@ struct MessageDetailView: View {
     var body: some View {
         ScrollView {
             if let message = viewModel.message {
-                VStack(alignment: .leading, spacing: 16) {
-
-                    VStack(alignment: .leading) {
-                        KFImage(URL(string: message.picture))
-                            .placeholder {
-                                Rectangle()
-                                    .fill(Color.gray.opacity(0.1))
-                                    .overlay(
-                                        ProgressView()
-                                            .scaleEffect(1.5)
-                                            .tint(.novoNordiskBlue)
-                                    )
-                            }
-                            .resizable()
-                            .aspectRatio(contentMode: .fill)
-                          .frame(height: 250)
-                          .clipped()
-                          .cornerRadius(25)
-
-                        VStack(alignment: .leading) {
-                            Text(message.title)
-                                .fontWeight(.bold)
-                                .foregroundColor(Color.novoNordiskTextGrey)
-                                .font(.system(size: 19))
-                            
-                            HStack {
-                                Text(message.publish_date)
-                                    .font(.subheadline)
-                                    .foregroundColor(Color.novoNordiskBlue)
-
-                                Text("|")
-                                    .font(.subheadline)
-                                    .foregroundColor(Color.novoNordiskBlue)
-
-                                Text(message.publish_time)
-                                    .font(.subheadline)
-                                    .foregroundColor(Color.novoNordiskBlue)
-
-                                Spacer()
-                            }
-
-                            Text(message.message)
-                                    .font(.body)
-                                    .foregroundColor(Color.novoNordiskTextGrey)
-                                    .padding(.horizontal, 16)
-                                    .padding(.vertical, 8)
-                        }
-                        .padding(16)
-                    }
-                    .background(Color.white)
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    .cornerRadius(25)
-                    // .overlay(
-                    //     RoundedRectangle(cornerRadius: 25)
-                    //         .stroke(Color.white, lineWidth: 3)
-                    // )
-
-                        // VStack(spacing: 8) {
-                        //     MessageLinkView(
-                        //         icon: .fileAlt,
-                        //         title: "Nazwa udostępnionego pliku.pdf"
-                        //     )
-                            
-                        //     MessageLinkView(
-                        //         icon: .fileAlt,
-                        //         title: "Nazwa udostępnionego pliku.docx"
-                        //     )
-                        // }
-                        // .background(Color.novoNordiskBackgroundGrey)
-                        // .padding(.top, 10)
-                        // .padding(.bottom, 16)
-
-
-                } 
-                 .frame(maxWidth: .infinity, maxHeight: .infinity)
-                 .overlay(
-                     RoundedRectangle(cornerRadius: 25)
-                         .stroke(Color.white, lineWidth: 3)
-                 )
+                MessageDetailCardView(message: message)
             }
         }
         .padding()
@@ -105,7 +27,6 @@ struct MessageDetailView: View {
     }
     
 
-    
     private func formatDate(_ dateString: String) -> String {
         let inputFormatter = DateFormatter()
         inputFormatter.dateFormat = "yyyy-MM-dd"

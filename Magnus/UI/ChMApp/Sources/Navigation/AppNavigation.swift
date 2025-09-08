@@ -33,6 +33,7 @@ enum AppScreen: Equatable, Identifiable {
     case eventPhoto(photoId: String, photoUrl: String)
     case eventGallery(eventId: String)
     case eventAddPhoto(eventId: String)
+    case eventAgendaItem(eventId: String)
 
     var id: String {
         switch self {
@@ -94,6 +95,8 @@ enum AppScreen: Equatable, Identifiable {
             return "event_gallery_\(eventId)"
         case let .eventAddPhoto(eventId):
             return "event_add_photo_\(eventId)"
+        case let .eventAgendaItem(eventId):
+            return "event_agenda_item_\(eventId)"
         }
     }
 
@@ -157,6 +160,8 @@ enum AppScreen: Equatable, Identifiable {
             return LocalizedStrings.eventGalleryScreenTitle
         case .eventAddPhoto:
             return LocalizedStrings.eventAddPhotoScreenTitle
+        case .eventAgendaItem:
+            return LocalizedStrings.eventAgendaScreenTitle
         }
     }
 
@@ -200,6 +205,8 @@ enum AppScreen: Equatable, Identifiable {
             return .eventDetails
         case .eventAddPhoto:
             return .eventDetails
+        case .eventAgendaItem:
+            return .eventsAgenda
         }
     }
 
@@ -287,7 +294,5 @@ enum AppScreen: Equatable, Identifiable {
             return true
         }
     }
-
-    
 }
 

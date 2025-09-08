@@ -32,6 +32,7 @@ let project = Project(
             infoPlist: .extendingDefault(
                 with: [
                     "CFBundleDisplayName": "NovoNordiskApp",
+                    "CFBundleVersion": "12",
                     "NSExtension": [
                         "NSExtensionPointIdentifier": "com.apple.usernotifications.service",
                         "NSExtensionPrincipalClass": "$(PRODUCT_MODULE_NAME).NotificationService",
@@ -39,13 +40,16 @@ let project = Project(
                 ]
             ),
             sources: ["Magnus/OneSignalNotificationServiceExtension/Sources/**"],
-            resources: [],
+            resources: [
+                "Magnus/OneSignalNotificationServiceExtension/Resources/PrivacyInfo.xcprivacy"
+            ],
             dependencies: [
                 .package(product: "OneSignalExtension")
             ],
             settings: .settings(
                 base: [
-                    "IPHONEOS_DEPLOYMENT_TARGET": "13.0"
+                    "IPHONEOS_DEPLOYMENT_TARGET": "13.0",
+                    "CURRENT_PROJECT_VERSION": "12"
                 ]
             )
         ),
@@ -57,6 +61,7 @@ let project = Project(
             infoPlist: .extendingDefault(
                 with: [
                     "CFBundleDisplayName": "ChMApp",
+                    "CFBundleVersion": "11",
                     "NSExtension": [
                         "NSExtensionPointIdentifier": "com.apple.usernotifications.service",
                         "NSExtensionPrincipalClass": "$(PRODUCT_MODULE_NAME).NotificationService",
@@ -64,13 +69,16 @@ let project = Project(
                 ]
             ),
             sources: ["Magnus/OneSignalNotificationServiceExtension/Sources/**"],
-            resources: [],
+            resources: [
+                "Magnus/OneSignalNotificationServiceExtension/Resources/PrivacyInfo.xcprivacy"
+            ],
             dependencies: [
                 .package(product: "OneSignalExtension")
             ],
             settings: .settings(
                 base: [
-                    "IPHONEOS_DEPLOYMENT_TARGET": "13.0"
+                    "IPHONEOS_DEPLOYMENT_TARGET": "13.0",
+                    "CURRENT_PROJECT_VERSION": "11"
                 ]
             )
         ),
@@ -113,7 +121,7 @@ let project = Project(
             infoPlist: .extendingDefault(
                 with: [
                     "CFBundleShortVersionString": "1.0",
-                    "CFBundleVersion": "12",
+                    "CFBundleVersion": "13",
                     "UILaunchScreen": [
                         "UIColorName": "",
                         "UIImageName": "",
@@ -163,6 +171,7 @@ let project = Project(
                     "DEVELOPMENT_TEAM": "X5NVKUSVAE",
                     "CODE_SIGN_IDENTITY": "Apple Development",
                     "CODE_SIGN_ENTITLEMENTS": "Magnus/UI/NovoNordiskApp/NovoNordiskApp.entitlements",
+                    "TARGETED_DEVICE_FAMILY": "1",
                 ],
                 configurations: [
                     .debug(
@@ -190,7 +199,7 @@ let project = Project(
             infoPlist: .extendingDefault(
                 with: [
                     "CFBundleShortVersionString": "2.0",
-                    "CFBundleVersion": "10",
+                    "CFBundleVersion": "13",
                     "UILaunchScreen": [
                         "UIColorName": "",
                         "UIImageName": "",
@@ -218,6 +227,8 @@ let project = Project(
                     "NSPhotoLibraryUsageDescription": "Aplikacja potrzebuje dostępu do biblioteki zdjęć, aby zapisywać zdjęcia z fotobudki.",
                     "NSCameraUsageDescription": "Aplikacja potrzebuje dostępu do kamery, aby zapisywać zdjęcia z fotobudki.",
                     "NSMicrophoneUsageDescription": "Aplikacja potrzebuje dostępu do mikrofonu, aby zapisywać zdjęcia z fotobudki.",
+                    "NSLocationWhenInUseUsageDescription": "Aplikacja potrzebuje dostępu do lokalizacji, aby wyświetlić Twoją pozycję na mapie oraz miejsce wydarzenia.",
+
                 ]
             ),
             sources: ["Magnus/UI/ChMApp/Sources/**"],
@@ -239,6 +250,7 @@ let project = Project(
                     "CODE_SIGN_STYLE": "Automatic",
                     "DEVELOPMENT_TEAM": "69392QSC2U",
                     "CODE_SIGN_IDENTITY": "iPhone Developer",
+                    "TARGETED_DEVICE_FAMILY": "1",
                 ],
                 configurations: [
                     .debug(

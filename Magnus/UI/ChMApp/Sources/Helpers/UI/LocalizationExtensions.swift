@@ -302,4 +302,10 @@ enum LocalizedStrings {
     //Academy
     static let academyEmptyMaterialsListTitle = "ACADEMY_EMPTY_MATERIALS_LIST_TITLE".localized
     static let academyEmptyMaterialsListDescription = "ACADEMY_EMPTY_MATERIALS_LIST_DESCRIPTION".localized
+
+
+    //Register
+    static let registerScreenTitle = "REGISTER_SCREEN_TITLE".localized
+    static let registerConfirmationTitle = "REGISTER_CONFIRMATION_TITLE".localized
+    static let registerMoveToLogin = "REGISTER_MOVE_TO_LOGIN".localized
 }

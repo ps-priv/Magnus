@@ -10,8 +10,12 @@ public class LoginViewModel: ObservableObject {
 
     // MARK: - Published Properties
 
-    @Published public var email: String = "user1@test.pl"
-    @Published public var password: String = "test123"
+    // @Published public var email: String = "user1@test.pl"
+    // @Published public var password: String = "test123"
+
+    @Published public var email: String = ""
+    @Published public var password: String = ""
+
     @Published public var isLoading: Bool = false
     @Published public var errorMessage: String = ""
     @Published public var isAuthenticated: Bool = false

@@ -26,7 +26,7 @@ public struct SelectAndDisplayImage: View {
     public var body: some View {
 
         if let data = imageData {
-            let provider = RawImageDataProvider(data: data, cacheKey: "picked-\(data.hashValue)")
+            let provider: RawImageDataProvider = RawImageDataProvider(data: data, cacheKey: "picked-\(data.hashValue)")
             ZStack(alignment: .topTrailing) {
                 KFImage(source: .provider(provider))
                     .onFailure {  error in print("Image failed to load \(error)") }
@@ -39,6 +39,7 @@ public struct SelectAndDisplayImage: View {
                 Button {
                     imageData = nil
                     onImageSelectedState = nil
+                    pickerItem = nil
                 } label: {
                     FAIcon(.delete, size: 16, color: Color.novoNordiskOrangeRed)
                         .frame(width: 25, height: 25)
@@ -100,6 +101,8 @@ public struct SelectAndDisplayImage: View {
                             await MainActor.run {
                                 self.imageData = normalized
                                 self.onImageSelectedState?(normalized)
+                                // Reset selection to avoid preselecting previously chosen image next time
+                                self.pickerItem = nil
                             }
                         }
                     }

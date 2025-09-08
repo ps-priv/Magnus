@@ -27,6 +27,9 @@ struct DashboardAcademyCard: View {
             titleSection
             //ForEach(items, id: \.id) { item in
             ForEach(Array(items.enumerated()), id: \.offset) { index, item in
+                Button(action: {
+                    MaterialNavigatorHelper.navigateToMaterialUrl(link: item.link ?? "", fileType: item.file_type)
+                }) {
                 HStack(alignment: .top) {
                     FAIcon(
                         FileTypeConverter.getIcon(from: item.file_type),
@@ -54,6 +57,7 @@ struct DashboardAcademyCard: View {
                 .padding(.horizontal, 5)
                 .padding(.vertical, 8)
                 .frame(maxWidth: .infinity, alignment: .leading)
+                }
             }
             footerSection
         }

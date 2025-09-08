@@ -38,7 +38,7 @@
 "PASSWORD_TOO_SHORT" = "Password must be at least 6 characters";
 
 /* Main App */
-"APP_TITLE" = "Novo Nordisk App";
+"APP_TITLE" = "ChM Academy";
 "WELCOME_MESSAGE" = "Click the button to log in";
 "LOGIN_USER_BUTTON" = "Login User";
 
@@ -62,7 +62,7 @@
 "DASHBOARD_EVENTS_TITLE" = "Upcoming Events";
 "DASHBOARD_UPCOMING_EVENTS_TITLE" = "Upcoming Events";
 "DASHBOARD_MATERIALS_TITLE" = "Latest materials";
-"DASHBOARD_ACADEMY_TITLE" = "News in the Novo Nordisk Academy";
+"DASHBOARD_ACADEMY_TITLE" = "News in the ChM Academy";
 
 /* Screen titles*/
 "DASHBOARD_SCREEN_TITLE" = "Start";
@@ -112,7 +112,7 @@
 "USER_PROFILE_MARKETING_LINK" = "View consent text";
 
 "USER_PROFILE_QRCODE_ID" = "Your identifier";
-"USER_PROFILE_QRCODE_DESCRIPTION" = "can this identifier at the designated point. It is your pass for Novo Nordisk events.";
+"USER_PROFILE_QRCODE_DESCRIPTION" = "can this identifier at the designated point. It is your pass for events.";
 
 "USER_PROFILE_NEW_PASSWORD" = "New password";
 "USER_PROFILE_RETYPE_NEW_PASSWORD" = "Retype password";
