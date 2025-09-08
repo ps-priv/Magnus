@@ -1,4 +1,5 @@
 import MagnusFeatures
+import MagnusDomain
 import Pow
 import Sentry
 import SwiftUI
@@ -10,6 +11,8 @@ struct LoginView: View {
     @StateObject private var viewModel = LoginViewModel()
     @State private var showError = false
     @State private var showForgotPassword = false
+    @State private var showRegister = false
+    @State private var showRegisterConfirmation = false
     
     init(onAuthenticationSuccess: @escaping () -> Void = {}) {
         self.onAuthenticationSuccess = onAuthenticationSuccess
@@ -114,7 +117,7 @@ struct LoginView: View {
                                 title: LocalizedStrings.registerButton,
                                 style: .outline
                             ) {
-                                registerAction()
+                                showRegister = true
                             }
                             .disabled(viewModel.isLoading)
                         }
@@ -136,11 +139,23 @@ struct LoginView: View {
                 showForgotPassword = false
             }
         }
-    }
-
-    private func registerAction() {
-        print("Register tapped")
-        // SentrySDK.capture(message: "Register tapped")
+        .fullScreenCover(isPresented: $showRegister) {
+            RegisterUserView(
+                onRegister: {
+                    showRegister = false
+                    showRegisterConfirmation = true
+                },
+                onCancel: {
+                    showRegister = false
+                }   
+            ) 
+        }
+        .fullScreenCover(isPresented: $showRegisterConfirmation) {
+            RegisterConfirmationView(onMoveToLogin: {
+                showRegister = false
+                showRegisterConfirmation = false
+            })
+        }
     }
 }
 

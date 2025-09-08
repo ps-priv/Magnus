@@ -291,6 +291,11 @@
 "ACADEMY_EMPTY_MATERIALS_LIST_TITLE"="No materials";
 "ACADEMY_EMPTY_MATERIALS_LIST_DESCRIPTION"="No materials found";
 
+"REGISTER_SCREEN_TITLE"="Your information";
+"REGISTER_CONFIRMATION_TITLE"="Registration completed";
+"REGISTER_MOVE_TO_LOGIN"="Move to login";
+
+
 
 
 

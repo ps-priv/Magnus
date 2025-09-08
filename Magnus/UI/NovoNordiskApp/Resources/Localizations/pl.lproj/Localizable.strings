@@ -293,6 +293,12 @@
 "ACADEMY_EMPTY_MATERIALS_LIST_TITLE"="Brak materiałów";
 "ACADEMY_EMPTY_MATERIALS_LIST_DESCRIPTION"="Nie znaleziono materiałów";
 
+"REGISTER_SCREEN_TITLE"="Twoje dane";
+"REGISTER_CONFIRMATION_TITLE"="Rejestracja zakończona";
+"REGISTER_MOVE_TO_LOGIN"="Przejdź do logowania";
+
+
+
 
 
 
