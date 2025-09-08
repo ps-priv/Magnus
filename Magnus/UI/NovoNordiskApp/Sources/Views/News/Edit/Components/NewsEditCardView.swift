@@ -1,5 +1,6 @@
 import MagnusDomain
 import SwiftUI
+import UIKit
 
 struct NewsEditCardView: View {
     @EnvironmentObject private var navigationManager: NavigationManager
@@ -155,18 +156,19 @@ struct NewsEditCardView: View {
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
         .padding()
-        // .toolbar {
-        //     ToolbarItemGroup(placement: .keyboard) {
-        //         Spacer()
-        //         Button(LocalizedStrings.endEditingButton) {
-        //             isFocusedContent = false
-        //             isFocusedTitle = false
-        //         }
-        //         .background(Color.novoNordiskBlue)
-        //         .foregroundColor(.white)
-        //         .cornerRadius(8)
-        //     }
-        // }
+        .toolbar {
+            ToolbarItemGroup(placement: .keyboard) {
+                Spacer()
+                Button(LocalizedStrings.endEditingButton) {
+                    hideKeyboard()
+                }
+                .foregroundColor(.white)
+                .padding(.horizontal, 12)
+                .padding(.vertical, 8)
+                .background(Color.novoNordiskBlue)
+                .cornerRadius(8)
+            }
+        }
         .novoNordiskAlert(
             isPresented: $showDeleteConfirmation,
             title: LocalizedStrings.newsDeleteConfirmationMessage,
@@ -232,4 +234,11 @@ struct NewsEditCardView: View {
     .padding()
     .background(Color.novoNordiskBackgroundGrey)
     .frame(maxWidth: .infinity, maxHeight: .infinity)
+}
+
+// MARK: - Keyboard helpers
+private extension View {
+    func hideKeyboard() {
+        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+    }
 }

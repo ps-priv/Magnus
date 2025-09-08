@@ -49,7 +49,6 @@ struct ChipView: View {
                 }
             }
             .frame(maxWidth: .infinity, alignment: .leading)
-
         }
     }
 
