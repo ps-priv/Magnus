@@ -2,6 +2,8 @@ import Foundation
 import Security
 import MagnusDomain
 
+
+
 public class IosStorageService: MagnusStorageService {
 
     private let userDefaults: UserDefaults
@@ -55,6 +57,48 @@ public class IosStorageService: MagnusStorageService {
             return try jsonDecoder.decode(AddNewsRequest.self, from: data)
         } catch {
             throw MagnusStorageError.decodingFailed
+        }
+    }
+
+    public func getAgendaItem() throws -> ConferenceEventAgendaContent? {
+        guard let data = userDefaults.data(forKey: MagnusStorageKey.agendaItem.rawValue) else {
+            return nil
+        }
+        
+        do {
+            return try jsonDecoder.decode(ConferenceEventAgendaContent.self, from: data)
+        } catch {
+            throw MagnusStorageError.decodingFailed
+        }
+    }
+
+    public func saveAgendaItem(agendaItem: ConferenceEventAgendaContent) throws {
+        do {
+            let data = try jsonEncoder.encode(agendaItem)
+            userDefaults.set(data, forKey: MagnusStorageKey.agendaItem.rawValue)
+        } catch {
+            throw MagnusStorageError.encodingFailed
+        }
+    }
+
+    public func getLocation() throws -> ConferenceEventLocation? {
+        guard let data = userDefaults.data(forKey: MagnusStorageKey.location.rawValue) else {
+            return nil
+        }
+        
+        do {
+            return try jsonDecoder.decode(ConferenceEventLocation.self, from: data)
+        } catch {
+            throw MagnusStorageError.decodingFailed
+        }
+    }
+
+    public func saveLocation(location: ConferenceEventLocation) throws {
+        do {
+            let data = try jsonEncoder.encode(location)
+            userDefaults.set(data, forKey: MagnusStorageKey.location.rawValue)
+        } catch {
+            throw MagnusStorageError.encodingFailed
         }
     }
 }
@@ -123,3 +167,4 @@ private extension IosStorageService {
     }
 } 
     
+
