@@ -111,13 +111,13 @@ struct LoginView: View {
                         .disabled(!viewModel.canLogin)
 
                         // Register button
-                        NovoNordiskButton(
-                            title: LocalizedStrings.registerButton,
-                            style: .outline
-                        ) {
-                            showRegister = true
-                        }
-                        .disabled(viewModel.isLoading)
+                        // NovoNordiskButton(
+                        //     title: LocalizedStrings.registerButton,
+                        //     style: .outline
+                        // ) {
+                        //     showRegister = true
+                        // }
+                        // .disabled(viewModel.isLoading)
                     }
                 }
                 .padding(.horizontal, 24)
