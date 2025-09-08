@@ -16,7 +16,7 @@ struct NewsAddCardView: View {
     @Binding public var content: String
     @Binding public var image: Data?
 
-    @FocusState private var isFocusedTitle: Bool    
+    @FocusState private var isFocusedTitle: Bool
     @FocusState private var isFocusedContent: Bool
 
     public var canSendNews: Bool = false
@@ -59,9 +59,10 @@ struct NewsAddCardView: View {
     var body: some View {
         VStack(spacing: 20) {
             HStack {
-                PublishButton(action: {
-                    showSaveConfirmation = true
-                }, isDisabled: !canSendNews)
+                PublishButton(
+                    action: {
+                        showSaveConfirmation = true
+                    }, isDisabled: !canSendNews)
                 // WhiteButton(
                 //     title: LocalizedStrings.saveButton,
                 //     action: saveAction,
@@ -74,7 +75,7 @@ struct NewsAddCardView: View {
 
                 //DeleteButton(action: deleteAction)
             }
-            VStack(alignment: .leading)  {
+            VStack(alignment: .leading) {
                 Text(LocalizedStrings.newsAddTitle)
                     .font(.novoNordiskRegularText)
                     .fontWeight(.bold)
@@ -130,15 +131,33 @@ struct NewsAddCardView: View {
 
             AudienceSettings(selectedGroups: $selectedGroups, availableGroups: availableGroups)
 
+            HStack {
+                PublishButton(
+                    action: {
+                        showSaveConfirmation = true
+                    }, isDisabled: !canSendNews)
+                // WhiteButton(
+                //     title: LocalizedStrings.saveButton,
+                //     action: saveAction,
+                //     isDisabled: !canSendNews)
+                Spacer()
+                WhiteButton(
+                    title: LocalizedStrings.cancelButton,
+                    action: cancelAction,
+                    isDisabled: !canSendNews)
+
+                //DeleteButton(action: deleteAction)
+            }
+            .padding(.top, 20)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
         .padding()
         // .toolbar {
         //     ToolbarItemGroup(placement: .keyboard) {
         //         Spacer()
-        //         Button(LocalizedStrings.endEditingButton) { 
+        //         Button(LocalizedStrings.endEditingButton) {
         //             isFocusedContent = false
-        //             isFocusedTitle = false 
+        //             isFocusedTitle = false
         //         }
         //         .background(Color.novoNordiskBlue)
         //         .foregroundColor(.white)
