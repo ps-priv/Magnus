@@ -5,9 +5,14 @@ import SwiftUI
 
 struct EventAgendaItem: View {
     let agendaItem: ConferenceEventAgendaContent
+    let storageService: MagnusStorageService
 
-    init(agendaItem: ConferenceEventAgendaContent) {
+    init(
+        agendaItem: ConferenceEventAgendaContent,
+        storageService: MagnusStorageService = DIContainer.shared.storageService
+    ) {
         self.agendaItem = agendaItem
+        self.storageService = storageService
     }
 
     var body: some View {
@@ -76,7 +81,9 @@ struct EventAgendaItem: View {
                     EventAgendaQuizButton(action: { print("AgendaItemButtonTapped") })
                 }
                 Spacer()
-                Button(action: { print("AgendaItemButtonTapped") }) {
+                Button(action: {
+                    navigateToAgendaItem()
+                }) {
                     HStack {
                         Text(LocalizedStrings.load_more)
                             .font(.novoNordiskRegularText)
@@ -107,11 +114,21 @@ struct EventAgendaItem: View {
         .background(Color.novoNordiskLightBlue)
         .cornerRadius(10)
     }
+
+    private func navigateToAgendaItem() {
+
+        do {
+            try storageService.saveAgendaItem(agendaItem: agendaItem)
+            NavigationManager.shared.navigate(to: .eventAgendaItem(eventId: ""))
+        } catch {
+            print("Error saving agenda item: \(error)")
+        }
+    }
 }
 
-
 #Preview("EventAgendaItem - Quiz, online") {
-    let agendaItem = EventAgendaMock.getEventAgendaContent(hasQuiz: true, hasOnline: true, timeFrom: "18:00:00", timeTo: "19:7:00")
+    let agendaItem = EventAgendaMock.getEventAgendaContent(
+        hasQuiz: true, hasOnline: true, timeFrom: "18:00:00", timeTo: "19:7:00")
     VStack {
         EventAgendaItem(agendaItem: agendaItem)
     }

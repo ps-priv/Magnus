@@ -37,6 +37,7 @@ public class EventDetailViewModel: ObservableObject {
             let data: ConferenceEventDetails = try await eventsService.getEventDetails(id: eventId)
             
             try storageService.saveEventDetails(data)
+            try storageService.saveLocation(location: data.location)
 
             await MainActor.run {
                 event = data

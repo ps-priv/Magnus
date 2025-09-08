@@ -23,6 +23,7 @@ struct AgendaItemView: View {
                 let agendaItem = viewModel.agenda
                 let location = viewModel.location
 
+
                 if let event = agendaItem, let location = location {
                     AgendaItemCardView(agendaItem: event, location: location, action: navigateToAgenda)
                 } else {

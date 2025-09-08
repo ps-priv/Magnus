@@ -45,6 +45,14 @@ public class EventAgendaItemViewModel: ObservableObject {
                     hasError = true
                     errorMessage = "No cached agenda item found."
                 }
+
+                if let locationItem {
+                    location = locationItem
+                }else {
+                    isLoading = false
+                    hasError = true
+                    errorMessage = "No cached location item found."
+                }
             }
         } catch let error {
             await MainActor.run {

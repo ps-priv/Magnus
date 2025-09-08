@@ -167,6 +167,8 @@ struct MainNavigationContainer: View {
             EventGalleryView(eventId: eventId)
         case let .eventAddPhoto(eventId):
             EventAddPhotoView(eventId: eventId)
+        case let .eventAgendaItem(eventId):
+            AgendaItemView(eventId: eventId)
         }
     }
 
@@ -194,6 +196,8 @@ struct MainNavigationContainer: View {
             return eventId
         case let .eventMaterials(eventId):
             return eventId
+        case let .eventAgendaItem(eventId):
+            return eventId   
         default:
             return nil
         }
