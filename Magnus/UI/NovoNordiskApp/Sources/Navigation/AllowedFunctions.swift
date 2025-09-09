@@ -13,4 +13,7 @@ public struct AllowedFunctions {
     public var allowProfile = true
     public var allowSettings = true
     public var allowMessages = true
+
+    //events
+    public var allowSurvey = true
 }

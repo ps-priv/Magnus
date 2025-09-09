@@ -228,7 +228,14 @@ struct MainNavigationContainer: View {
 
     private var visibleBottomTabs: [BottomMenuTab] {
         if currentEventId() != nil {
-            return [.eventDetails, .eventsAgenda, .eventsLocation, .eventsDinner, .eventsSurvey]
+            var eventTabs: [BottomMenuTab] = [.eventDetails, .eventsAgenda, .eventsLocation, .eventsDinner]
+
+            if allowedFunctions.allowSurvey {
+                eventTabs.append(.eventsSurvey)
+            }
+
+            return eventTabs
+            
         } else if currentNewsId() != nil {
 
             var tabs: [BottomMenuTab] = [.start]
