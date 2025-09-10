@@ -198,8 +198,8 @@ let project = Project(
             bundleId: "pl.serwik.chm.conference",
             infoPlist: .extendingDefault(
                 with: [
-                    "CFBundleShortVersionString": "2.0",
-                    "CFBundleVersion": "15",
+                    "CFBundleShortVersionString": "2.02",
+                    "CFBundleVersion": "16",
                     "UILaunchScreen": [
                         "UIColorName": "",
                         "UIImageName": "",

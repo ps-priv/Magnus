@@ -36,9 +36,8 @@ struct ChMApp: App {
         // Initialize DI Container with NovoNordisk configuration
         DIContainer.shared.configure(
             with: .novonordisk,
-            apiBaseURL: "https://nncv2-dev.serwik.pl"  // Configure your API base URL here
+            apiBaseURL: "https://chm2-dev.serwik.pl"
         )
-
     }
 
     var body: some Scene {

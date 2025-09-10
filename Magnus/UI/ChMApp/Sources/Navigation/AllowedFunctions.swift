@@ -1,11 +1,11 @@
 
 public struct AllowedFunctions {
     //bottom menu
-    public var allowNews: Bool = true
-    public var allowNewsCreate: Bool = true
+    public var allowNews: Bool = false
+    public var allowNewsCreate: Bool = false
     public var allowEvents: Bool = true
     public var allowMaterials: Bool = true
-    public var allowAcademy = true
+    public var allowAcademy = false
 
     //top bar
     public var allowSearch = false    
