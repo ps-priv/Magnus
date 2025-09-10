@@ -24,16 +24,19 @@ struct EventAgendaItem: View {
                 Text(TimeHelper.formatPublishDate(agendaItem.time_to))
                     .font(.novoNordiskSectionTitle)
                     .foregroundColor(Color.novoNordiskBlue)
-                Text("|")
-                    .font(.novoNordiskSectionTitle)
-                    .foregroundColor(Color.novoNordiskTextGrey)
-                Text(agendaItem.place)
-                    .font(.novoNordiskRegularText)
-                    .foregroundColor(Color.novoNordiskBlue)
-                Spacer()
-                if TimeHelper.isNow(agendaItem.time_from, agendaItem.time_to) {
-                    eventStatusIndicator
+
+                if !agendaItem.place.isEmpty {
+                    Text("|")
+                        .font(.novoNordiskSectionTitle)
+                        .foregroundColor(Color.novoNordiskTextGrey)
+                    Text(agendaItem.place)
+                        .font(.novoNordiskRegularText)
+                        .foregroundColor(Color.novoNordiskBlue)
                 }
+                Spacer()
+                // if TimeHelper.isNow(agendaItem.time_from, agendaItem.time_to) {
+                //     eventStatusIndicator
+                // }
             }
             .padding(.bottom, 6)
 
@@ -46,25 +49,30 @@ struct EventAgendaItem: View {
             }
             .padding(.bottom, 6)
 
-            HStack {
-                Text("\(LocalizedStrings.eventAgendaSpeaker): ")
-                    .font(.novoNordiskMiddleText)
-                    .fontWeight(.bold)
-                    .foregroundColor(Color.novoNordiskBlue)
-                Text(agendaItem.speakers)
-                    .font(.novoNordiskMiddleText)
-                    .foregroundColor(Color.novoNordiskBlue)
-                Spacer()
+            if !agendaItem.speakers.isEmpty {
+                HStack {
+                    Text("\(LocalizedStrings.eventAgendaSpeaker): ")
+                        .font(.novoNordiskMiddleText)
+                        .fontWeight(.bold)
+                        .foregroundColor(Color.novoNordiskBlue)
+                    Text(agendaItem.speakers)
+                        .font(.novoNordiskMiddleText)
+                        .foregroundColor(Color.novoNordiskBlue)
+                    Spacer()
+                }
             }
-            HStack {
-                Text("\(LocalizedStrings.eventAgendaPresenter): ")
-                    .font(.novoNordiskMiddleText)
-                    .fontWeight(.bold)
-                    .foregroundColor(Color.novoNordiskBlue)
-                Text(agendaItem.presenters)
-                    .font(.novoNordiskMiddleText)
-                    .foregroundColor(Color.novoNordiskBlue)
-                Spacer()
+            
+            if !agendaItem.presenters.isEmpty {
+                HStack {
+                    Text("\(LocalizedStrings.eventAgendaPresenter): ")
+                        .font(.novoNordiskMiddleText)
+                        .fontWeight(.bold)
+                        .foregroundColor(Color.novoNordiskBlue)
+                    Text(agendaItem.presenters)
+                        .font(.novoNordiskMiddleText)
+                        .foregroundColor(Color.novoNordiskBlue)
+                    Spacer()
+                }
             }
 
             Text(agendaItem.description)
@@ -75,11 +83,11 @@ struct EventAgendaItem: View {
                 .padding(.bottom, 4)
 
             HStack {
-                EventAgendaJoinOnlineButton(
-                    isOnline: agendaItem.is_online, action: { print("AgendaItemButtonTapped") })
-                if agendaItem.is_quiz == 1 {
-                    EventAgendaQuizButton(action: { print("AgendaItemButtonTapped") })
-                }
+                // EventAgendaJoinOnlineButton(
+                //     isOnline: agendaItem.is_online, action: { print("AgendaItemButtonTapped") })
+                // if agendaItem.is_quiz == 1 {
+                //     EventAgendaQuizButton(action: { print("AgendaItemButtonTapped") })
+                // }
                 Spacer()
                 Button(action: {
                     navigateToAgendaItem()

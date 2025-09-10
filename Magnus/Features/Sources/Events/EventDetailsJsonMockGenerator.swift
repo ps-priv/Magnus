@@ -15,6 +15,19 @@ public class EventDetailsJsonMockGenerator {
         }
     }
 
+    public static func generateObjectChM() -> ConferenceEventDetails? {
+
+        do {
+            let data = Data(jsonChm.utf8)
+            let decoder = JSONDecoder()
+            return try decoder.decode(ConferenceEventDetails.self, from: data)
+        } catch {
+            print("Failed to decode JSON: \(error)")
+            // Fallback to existing mock on decode failure
+            return nil
+        }
+    }
+
     static let json: String = #"""
         {
         "title": "Pierwsze wydarzenie",
@@ -261,6 +274,323 @@ public class EventDetailsJsonMockGenerator {
             {
                 "id": "eyJpZCI6MywidG9rZW4iOiIxNnxSNWJvN2l5NFJ0RnE1aE9YbmYzY3Q5c2NmWG5MNFJwV0pUQk1PYXJzN2UwNjhlYTUifQ==",
                 "image": "https://nncv2-dev.serwik.pl/images/image_photo_1755021416.jpg"
+            }
+        ]
+    }
+    """#
+
+
+    static let jsonChm: String = #"""
+    {
+    "title": "STOPA I STAW SKOKOWY",
+    "date_from": "2025-09-12",
+    "date_to": "2025-09-13",
+    "image": "https://chm2-dev.serwik.pl/images/OIP-3223226002.jpeg",
+    "name": "STOPA I STAW SKOKOWY",
+    "description": "Kurs praktyczny na sztucznych kościach",
+    "location": {
+        "name": "Centrum Konferencyjno-Wypoczynkowe Pałac i Folwark Łochów",
+        "city": "Łochów",
+        "zip_code": "07-130",
+        "street": "ul.Marii Konopnickiej 1 i 10",
+        "latitude": "52.51536102894889",
+        "longitude": "21.699441538540018",
+        "image": "https://chm2-dev.serwik.pl/images/OIP-3223226002.jpeg",
+        "phone": "+48 797 339 329",
+        "email": "recepcja@folwarklochow.pl",
+        "www": "https://www.palacifolwarklochow.pl/",
+        "header_description": "Pałac i Folwark",
+        "description": "Pałac i Folwark Łochów położony jest zaledwie godzinę jazdy od Warszawy drogą S8, w sercu Nadbużańskiego Parku Krajobrazowego, nad rzeką Liwiec, na terenie o powierzchni 40ha."
+    },
+    "guardians": [
+        {
+            "name": "Ewa Opiekun 1",
+            "email": "user4@test.pl",
+            "phone": "+48689456123"
+        },
+        {
+            "name": "Jacek Opiekun 2",
+            "email": "user5@test.pl",
+            "phone": "+48689456124"
+        }
+    ],
+    "agenda": [
+        {
+            "id": "eyJpZCI6MSwidG9rZW4iOiI3fGVRRUlNblkzM1RvYXJzRmxtdTBjanhnY245ZlEwZmpYS3pUQlk2ZzliNjA5MzFkNSJ9",
+            "date": "2025-09-12",
+            "day": 1,
+            "content": [
+                {
+                    "time_from": "10:30:00",
+                    "time_to": "11:00:00",
+                    "place": "",
+                    "title": "Rejestracja",
+                    "speakers": "",
+                    "presenters": "",
+                    "description": "",
+                    "is_quiz": 0,
+                    "is_online": 0
+                },
+                {
+                    "time_from": "11:00:00",
+                    "time_to": "11:30:00",
+                    "place": "",
+                    "title": "Rozpoczęcie kursu. Prezentacja firmy ChM",
+                    "speakers": "",
+                    "presenters": "",
+                    "description": "",
+                    "is_quiz": 1,
+                    "is_online": 0
+                },
+                {
+                    "time_from": "11:30:00",
+                    "time_to": "12:00:00",
+                    "place": "",
+                    "title": "Obrazowanie stawu skokowego i stopy",
+                    "speakers": "dr Andrzej Komor",
+                    "presenters": "",
+                    "description": "",
+                    "is_quiz": 0,
+                    "is_online": 0
+                },
+                {
+                    "time_from": "12:00:00",
+                    "time_to": "12:30:00",
+                    "place": "",
+                    "title": "Złamania typu tibial pilon – taktyka postępowania",
+                    "speakers": "dr hab. n. med. Henryk Liszka",
+                    "presenters": "",
+                    "description": "",
+                    "is_quiz": 0,
+                    "is_online": 0
+                },
+                {
+                    "time_from": "12:30:00",
+                    "time_to": "13:00:00",
+                    "place": "",
+                    "title": "Artroza stawu skokowego – taktyka postępowania",
+                    "speakers": "dr Andrzej Komor",
+                    "presenters": "",
+                    "description": "",
+                    "is_quiz": 0,
+                    "is_online": 0
+                },
+                {
+                    "time_from": "13:00:00",
+                    "time_to": "14:00:00",
+                    "place": "",
+                    "title": "Lunch",
+                    "speakers": "",
+                    "presenters": "",
+                    "description": "",
+                    "is_quiz": 0,
+                    "is_online": 0
+                },
+                {
+                    "time_from": "14:00:00",
+                    "time_to": "14:30:00",
+                    "place": "",
+                    "title": "Panartrodeza tyłostopia z użyciem gwoździa piszczelowego wstecznego Charfix",
+                    "speakers": "dr Andrzej Komor",
+                    "presenters": "",
+                    "description": "",
+                    "is_quiz": 0,
+                    "is_online": 0
+                },
+                {
+                    "time_from": "14:30:00",
+                    "time_to": "15:00:00",
+                    "place": "",
+                    "title": "Złamania kości piętowej – taktyka postępowania",
+                    "speakers": "dr Jarosław Blicharz",
+                    "presenters": "",
+                    "description": "",
+                    "is_quiz": 0,
+                    "is_online": 0
+                },
+                {
+                    "time_from": "15:00:00",
+                    "time_to": "15:30:00",
+                    "place": "",
+                    "title": "Gwóźdź piętowy – wskazania i technika operacyjna",
+                    "speakers": "dr Jarosław Blicharz",
+                    "presenters": "",
+                    "description": "",
+                    "is_quiz": 0,
+                    "is_online": 0
+                },
+                {
+                    "time_from": "15:30:00",
+                    "time_to": "16:00:00",
+                    "place": "",
+                    "title": "Przerwa kawowa",
+                    "speakers": "",
+                    "presenters": "",
+                    "description": "",
+                    "is_quiz": 0,
+                    "is_online": 0
+                },
+                {
+                    "time_from": "16:00:00",
+                    "time_to": "16:30:00",
+                    "place": "",
+                    "title": "Uszkodzenia stawu Lisfranca – taktyka postępowania",
+                    "speakers": "dr Andrzej Komor",
+                    "presenters": "",
+                    "description": "",
+                    "is_quiz": 0,
+                    "is_online": 0
+                },
+                {
+                    "time_from": "16:30:00",
+                    "time_to": "19:30:00",
+                    "place": "",
+                    "title": "Warsztaty na sztucznych kościach",
+                    "speakers": "",
+                    "presenters": "",
+                    "description": "",
+                    "is_quiz": 0,
+                    "is_online": 0
+                },
+                {
+                    "time_from": "20:00:00",
+                    "time_to": "23:00:00",
+                    "place": "",
+                    "title": "Kolacja",
+                    "speakers": "",
+                    "presenters": "",
+                    "description": "",
+                    "is_quiz": 0,
+                    "is_online": 0
+                }
+            ]
+        },
+        {
+            "id": "eyJpZCI6MiwidG9rZW4iOiI3fGVRRUlNblkzM1RvYXJzRmxtdTBjanhnY245ZlEwZmpYS3pUQlk2ZzliNjA5MzFkNSJ9",
+            "date": "2025-09-13",
+            "day": 2,
+            "content": [
+                {
+                    "time_from": "09:00:00",
+                    "time_to": "09:30:00",
+                    "place": "",
+                    "title": "Paluch koślawy – diagnostyka i leczenie",
+                    "speakers": "dr Andrzej Komor",
+                    "presenters": "",
+                    "description": "",
+                    "is_quiz": 0,
+                    "is_online": 0
+                },
+                {
+                    "time_from": "09:30:00",
+                    "time_to": "10:00:00",
+                    "place": "",
+                    "title": "Płytka do osteotomii dystalnej MT1 – moje doświadczenia",
+                    "speakers": "dr n. med. Jan Kiryluk",
+                    "presenters": "",
+                    "description": "",
+                    "is_quiz": 0,
+                    "is_online": 0
+                },
+                {
+                    "time_from": "10:00:00",
+                    "time_to": "10:30:00",
+                    "place": "",
+                    "title": "Mini-inwazyjna przezskórna korekcja przodostopia",
+                    "speakers": "dr hab. n. med. Henryk Liszka",
+                    "presenters": "",
+                    "description": "",
+                    "is_quiz": 0,
+                    "is_online": 0
+                },
+                {
+                    "time_from": "10:30:00",
+                    "time_to": "11:00:00",
+                    "place": "",
+                    "title": "",
+                    "speakers": "",
+                    "presenters": "",
+                    "description": "",
+                    "is_quiz": 0,
+                    "is_online": 0
+                },
+                {
+                    "time_from": "11:00:00",
+                    "time_to": "11:30:00",
+                    "place": "",
+                    "title": "`Płaskostopie` czyli Foot Collapsing Deformity – taktyka postępowania",
+                    "speakers": "dr hab. n. med. Henryk Liszka",
+                    "presenters": "",
+                    "description": "",
+                    "is_quiz": 0,
+                    "is_online": 0
+                },
+                {
+                    "time_from": "11:30:00",
+                    "time_to": "12:00:00",
+                    "place": "",
+                    "title": "Artroereza – moje doświadczenia",
+                    "speakers": "dr hab. n. med. Henryk Liszka",
+                    "presenters": "",
+                    "description": "",
+                    "is_quiz": 0,
+                    "is_online": 0
+                },
+                {
+                    "time_from": "12:00:00",
+                    "time_to": "13:00:00",
+                    "place": "",
+                    "title": "Lunch",
+                    "speakers": "",
+                    "presenters": "",
+                    "description": "",
+                    "is_quiz": 0,
+                    "is_online": 0
+                },
+                {
+                    "time_from": "13:00:00",
+                    "time_to": "15:30:00",
+                    "place": "",
+                    "title": "Warsztaty",
+                    "speakers": "",
+                    "presenters": "",
+                    "description": "",
+                    "is_quiz": 0,
+                    "is_online": 0
+                },
+                {
+                    "time_from": "15:30:00",
+                    "time_to": "17:30:00",
+                    "place": "",
+                    "title": "Uroczyste zakończenie kursu",
+                    "speakers": "",
+                    "presenters": "",
+                    "description": "",
+                    "is_quiz": 0,
+                    "is_online": 0
+                }
+            ]
+        }
+        ],
+        "dinner": {
+            "name": "Centrum Konferencyjno-Wypoczynkowe Pałac i Folwark Łochów",
+            "city": "Łochów",
+            "zip_code": "07-130",
+            "street": "ul.Marii Konopnickiej 1 i 10",
+            "latitude": "52.51536102894889",
+            "longitude": "21.699441538540018",
+            "image": "https://chm2-dev.serwik.pl/images/OIP-2933743797.jpeg",
+            "phone": "+48 797 339 329",
+            "email": "recepcja@folwarklochow.pl",
+            "www": "https://www.palacifolwarklochow.pl/",
+            "header_description": "Restauracja U Zamoyskiego – tradycja, smak i wyjątkowa atmosfera.",
+            "description": "Restauracja U Zamoyskiego serdecznie zaprasza do odkrywania smaków tradycyjnej kuchni polskiej oraz regionalnych specjałów inspirowanych bogactwem Mazowsza. Nasz lokal mieści się w urokliwym budynku, pieczołowicie odrestaurowanym z zachowaniem stylu pałacowego, co tworzy niepowtarzalny klimat i wyjątkową atmosferę.\nTo d        oskonałe miejsce zarówno na rodzinny obiad, spotkanie biznesowe, wieczór z przyjaciółmi, jak i organizację przyjęcia okolicznościowego. "
+        },
+        "materials": [],
+        "photo_booth": [
+            {
+                "id": "eyJpZCI6MSwidG9rZW4iOiI3fGVRRUlNblkzM1RvYXJzRmxtdTBjanhnY245ZlEwZmpYS3pUQlk2ZzliNjA5MzFkNSJ9",
+                "image": "https://chm2-dev.serwik.pl/images/th-4109958356.jpeg"
             }
         ]
     }

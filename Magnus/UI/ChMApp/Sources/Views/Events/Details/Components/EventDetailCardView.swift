@@ -300,3 +300,20 @@ struct EventDetailCardView: View {
     .frame(maxWidth: .infinity, maxHeight: .infinity)
     .background(Color.novoNordiskBackgroundGrey)
 }
+
+#Preview("EventDetailCardViewChM") {
+
+    let event = EventDetailsJsonMockGenerator.generateObjectChM()
+
+    VStack {
+        if let event = event {
+            EventDetailCardView(event: event, eventId: "1")
+                .environmentObject(NavigationManager())
+        } else {
+            Text("Event not found")
+        }
+    }
+    .padding(16)
+    .frame(maxWidth: .infinity, maxHeight: .infinity)
+    .background(Color.novoNordiskBackgroundGrey)
+}

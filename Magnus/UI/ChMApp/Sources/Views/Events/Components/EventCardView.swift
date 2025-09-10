@@ -16,48 +16,48 @@ struct EventCardView: View {
                     ZStack(alignment: .bottom) {
                         KFImage(URL(string: event.image))
                             .placeholder {
-                                Rectangle()
-                                    .fill(Color.gray.opacity(0.3))
-                                    .overlay(
-                                        VStack {
-                                            ProgressView()
-                                                .scaleEffect(1.2)
-                                                .tint(.novoNordiskBlue)
-                                            FAIcon(.calendar, type: .light, size: 18, color: .gray)
-                                                .padding(.top, 8)
-                                        }
-                                    )
+                            //    Rectangle()
+                            //        .fill(Color.gray.opacity(0.3))
+                            //        .overlay(
+                            //            VStack {
+                            //                ProgressView()
+                            //                    .scaleEffect(1.2)
+                            //                    .tint(.novoNordiskBlue)
+                            //                FAIcon(.calendar, type: .light, size: 18, color: .gray)
+                            //                    .padding(.top, 8)
+                            //            }
+                            //        )
                             }
                             .resizable()
                             .scaledToFill()
                         .frame(width: geometry.size.width, height: geometry.size.height * 0.6)
                         .clipped()
-                        .overlay(
-                            QrCodeButtonView(action: {
-                                navigationManager.navigateToEventQrCode(event: event)
-                            })
-                            .padding(.top, 12)
-                            .padding(.trailing, 12),
-                            alignment: .topTrailing
-                        )
+                        // .overlay(
+                        //     QrCodeButtonView(action: {
+                        //         navigationManager.navigateToEventQrCode(event: event)
+                        //     })
+                        //     .padding(.top, 12)
+                        //     .padding(.trailing, 12),
+                        //     alignment: .topTrailing
+                        // )
 
-                        HStack {
-                            Spacer()
-                            Button(action: {}) {
-                                HStack {
-                                    FAIcon(.circle_play, type: .light, size: 15, color: .novoNordiskOrangeRed)
-                                    Text(LocalizedStrings.eventAvailableTransmission)
-                                        .font(.system(size: 14, weight: .bold))
-                                        .foregroundColor(.white)
-                                }
-                                .padding(.horizontal, 16)
-                                .padding(.vertical, 8)
-                                .background(Color.black.opacity(0.4))
-                                .cornerRadius(16)
-                                .shadow(radius: 2)
-                            }
-                            Spacer()
-                        }
+//                        HStack {
+//                            Spacer()
+//                            Button(action: {}) {
+//                                HStack {
+//                                    FAIcon(.circle_play, type: .light, size: 15, color: .novoNordiskOrangeRed)
+//                                    Text(LocalizedStrings.eventAvailableTransmission)
+//                                        .font(.system(size: 14, weight: .bold))
+//                                        .foregroundColor(.white)
+//                                }
+//                                .padding(.horizontal, 16)
+//                                .padding(.vertical, 8)
+//                                .background(Color.black.opacity(0.4))
+//                                .cornerRadius(16)
+//                                .shadow(radius: 2)
+//                            }
+//                            Spacer()
+//                        }
                         .padding(.bottom, 12)
                     }
 

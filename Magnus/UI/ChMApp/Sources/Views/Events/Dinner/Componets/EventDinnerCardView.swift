@@ -165,3 +165,17 @@ struct EventDinnerCardView: View {
     .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
     .background(Color.novoNordiskBackgroundGrey)
 }
+
+#Preview("EventDinnerCardViewChm") {
+    let event = EventDetailsJsonMockGenerator.generateObjectChM()
+    VStack {
+        if let event = event {
+            EventDinnerCardView(dinner: event.dinner, event_name: event.name)
+        } else {
+            Text("Event not found")
+        }
+    }
+    .padding(16)
+    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+    .background(Color.novoNordiskBackgroundGrey)
+}

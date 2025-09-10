@@ -61,7 +61,7 @@ let project = Project(
             infoPlist: .extendingDefault(
                 with: [
                     "CFBundleDisplayName": "ChMApp",
-                    "CFBundleVersion": "11",
+                    "CFBundleVersion": "17",
                     "NSExtension": [
                         "NSExtensionPointIdentifier": "com.apple.usernotifications.service",
                         "NSExtensionPrincipalClass": "$(PRODUCT_MODULE_NAME).NotificationService",
@@ -198,8 +198,8 @@ let project = Project(
             bundleId: "pl.serwik.chm.conference",
             infoPlist: .extendingDefault(
                 with: [
-                    "CFBundleShortVersionString": "2.02",
-                    "CFBundleVersion": "16",
+                    "CFBundleShortVersionString": "2.03",
+                    "CFBundleVersion": "17",
                     "UILaunchScreen": [
                         "UIColorName": "",
                         "UIImageName": "",

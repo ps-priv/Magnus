@@ -68,12 +68,13 @@ struct DashboardNewsPanel: View {
                     }
                 }
                 .padding(.top, 8)
-            } else {
-                Text("Brak aktualności")
-                    .font(.novoNordiskBody)
-                    .foregroundColor(.gray)
-                    .padding()
-            }
+            } 
+            // else {
+            //     Text("Brak aktualności")
+            //         .font(.novoNordiskBody)
+            //         .foregroundColor(.gray)
+            //         .padding()
+            // }
         }
     }
 }
