@@ -235,6 +235,19 @@ struct NewsDetailCardView: View {
                 // Cancel tapped
             }
         )
+        .toolbar {
+            ToolbarItemGroup(placement: .keyboard) {
+                Spacer()
+                Button(LocalizedStrings.endEditingButton) {
+                    hideKeyboard()
+                }
+                .foregroundColor(.white)
+                .padding(.horizontal, 12)
+                .padding(.vertical, 8)
+                .background(Color.novoNordiskBlue)
+                .cornerRadius(8)
+            }
+        }
         .toast(isPresented: $showToast, message: toastMessage)
     }
 
@@ -463,6 +476,12 @@ struct NewsDetailCardView: View {
             .padding(.vertical, 8)
         }
         .padding(.top, 10)
+    }
+}
+
+private extension View {
+    func hideKeyboard() {
+        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
     }
 }
 
