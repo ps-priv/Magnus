@@ -77,7 +77,7 @@ public class NewsDetailsViewModel: ObservableObject {
     public func sendNewsReaction(reaction: ReactionEnum) async {
         do {
             try await newsService.sendNewsReaction(id: id, reaction: reaction)
-
+            //updateUserReactions(userReaction: reaction)
             await loadData(id: id)
 
             showPopup = true
@@ -89,6 +89,18 @@ public class NewsDetailsViewModel: ObservableObject {
         }
     }
 
+    private func updateUserReactions(userReaction: ReactionEnum) {
+        if let reactions = news?.reactions {
+            let updatedReactions = reactions.map { reaction in
+                if reaction.author.id == currentUserId {
+                    return reaction.copy(reaction: userReaction)
+                } else {
+                    return reaction
+                }  
+            }
+            news?.reactions = updatedReactions
+        } 
+    }
     public func checkIfUserCanComment() {
 
         do {

@@ -19,6 +19,7 @@ struct NewsDetailCardView: View {
     let currentUserId: String
 
     @State var isBookmarked: Bool
+    @State var selectedReaction: ReactionEnum = .THUMBS_UP
     @State var showReactionsMenu: Bool = false
     @State private var showDeleteConfirmation: Bool = false
     @State private var showToast: Bool = false
@@ -63,6 +64,8 @@ struct NewsDetailCardView: View {
         self.onCommentTap = onCommentTap
         self.allowEdit = allowEdit
         self.currentUserId = currentUserId
+
+        selectedReaction = news.reactions.first(where: { $0.author.id == currentUserId })?.reaction ?? .THUMBS_UP
     }
 
     var body: some View {
@@ -117,6 +120,7 @@ struct NewsDetailCardView: View {
                         // Thumbs Up
                         Button(action: {
                             onReactionTap(.THUMBS_UP)
+                            selectedReaction = .THUMBS_UP
                             showReactionsMenu = false
                         }) {
                             FAIcon(
@@ -130,7 +134,9 @@ struct NewsDetailCardView: View {
                         // Heart
                         Button(action: {
                             onReactionTap(.HEART)
+                            selectedReaction = .HEART
                             showReactionsMenu = false
+
                         }) {
                             FAIcon(
                                 FontAwesome.Icon.heart,
@@ -140,7 +146,7 @@ struct NewsDetailCardView: View {
                             )
                         }
 
-                        // Clapping Hands
+                        // Clapping Hands   
                         Button(action: {
                             onReactionTap(.CLAPPING_HANDS)
                             showReactionsMenu = false
@@ -156,6 +162,7 @@ struct NewsDetailCardView: View {
                         // Lightbulb
                         Button(action: {
                             onReactionTap(.LIGHT_BULB)
+                            selectedReaction = .LIGHT_BULB
                             showReactionsMenu = false
                         }) {
                             FAIcon(
@@ -169,6 +176,7 @@ struct NewsDetailCardView: View {
                         // Hand with Heart
                         Button(action: {
                             onReactionTap(.HAND_HOLDING_HEART)
+                            selectedReaction = .HAND_HOLDING_HEART
                             showReactionsMenu = false
                         }) {
                             FAIcon(
@@ -182,6 +190,7 @@ struct NewsDetailCardView: View {
                         // Thumbs Down
                         Button(action: {
                             onReactionTap(.THUMBS_DOWN)
+                            selectedReaction = .THUMBS_DOWN
                             showReactionsMenu = false
                         }) {
                             FAIcon(
@@ -380,15 +389,10 @@ struct NewsDetailCardView: View {
             }
         }) {
             HStack(spacing: 2) {
-                FAIcon(
-                    FontAwesome.Icon.smile,
-                    type: .light,
-                    size: 14,
-                    color: Color.novoNordiskTextGrey
+                RectionComponent(
+                    reactionsCount: news.reactions_count,
+                    selectedReaction: selectedReaction
                 )
-                Text(String(news.reactions_count))
-                    .font(.novoNordiskSmallText)
-                    .foregroundColor(Color.novoNordiskTextGrey)
             }
         }
     }

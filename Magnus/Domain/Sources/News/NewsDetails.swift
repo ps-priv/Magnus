@@ -17,7 +17,7 @@ public struct NewsDetails : Identifiable, Hashable, Decodable {
     public let reactions_count: Int
     public let comments_count: Int
     public let comments: [Comment]
-    public let reactions: [Reaction]
+    public var reactions: [Reaction]
     public let read: [ReadBy]
     public let attachments: [NewsMaterial]
 

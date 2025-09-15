@@ -14,7 +14,7 @@ public struct NewsDetailCardViewDto: Identifiable, Hashable, Decodable {
     public let image: String
     public let tags: String
     public let comments: [Comment]
-    public let reactions: [Reaction]
+    public var reactions: [Reaction]
     public let read: [ReadBy]
 
     public init(id: String, publish_date: String, title: String, description: String, isBookmarked: Bool, author: Author, 
