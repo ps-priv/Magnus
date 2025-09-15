@@ -107,3 +107,16 @@ struct EventAgendaCardView: View {
     }
 }
 
+#Preview("EventAgendaCardViewChm") {
+
+    let event = EventDetailsJsonMockGenerator.generateObjectChM()
+
+    VStack {
+        if let event = event {
+            EventAgendaCardView(event: event)
+        } else {
+            Text("Event not found")
+        }
+    }
+}
+
