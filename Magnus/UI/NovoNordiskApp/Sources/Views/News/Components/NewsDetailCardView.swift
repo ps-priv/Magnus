@@ -252,7 +252,14 @@ struct NewsDetailCardView: View {
                 .cornerRadius(8)
             }
         }
+        // .alert(isPresented: $showToast) {
+        //     Alert(title: Text("Komunikat"), message: Text(toastMessage))
+        // }
         .toast(isPresented: $showToast, message: toastMessage)
+        .onDisappear {
+            showToast = false
+            toastMessage = ""
+        }
     }
 
     @ViewBuilder

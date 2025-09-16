@@ -16,7 +16,7 @@ extension View {
         isPresented: Binding<Bool>,
         message: String,
         type: ToastType = .info,
-        autohideIn: Double? = 3,
+        autohideIn: Double? = 1,
         verticalPadding: CGFloat = 30,
         horizontalPadding: CGFloat = 16
     ) -> some View {
@@ -30,6 +30,7 @@ extension View {
                     useSafeAreaInset: true
                 ))
                 .closeOnTap(true)
+                .closeOnTapOutside(true)
                 .position(.bottom)
                 .autohideIn(autohideIn)
         }
