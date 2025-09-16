@@ -20,6 +20,7 @@ struct DashboardAcademyPanel: View {
 
 struct DashboardAcademyCard: View {
     @Binding var items: [AcademyItem]
+    @EnvironmentObject var navigationManager: NavigationManager
     let action: () -> Void
 
     var body: some View {
@@ -28,7 +29,9 @@ struct DashboardAcademyCard: View {
             //ForEach(items, id: \.id) { item in
             ForEach(Array(items.enumerated()), id: \.offset) { index, item in
                 Button(action: {
-                    MaterialNavigatorHelper.navigateToMaterialUrl(link: item.link ?? "", fileType: item.file_type)
+                    if item.link != nil && !item.link!.isEmpty {
+                        navigationManager.navigateToMaterialPreview(materialUrl: item.link!, fileType: item.file_type)
+                    }
                 }) {
                 HStack(alignment: .top) {
                     FAIcon(
