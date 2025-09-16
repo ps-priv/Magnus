@@ -114,8 +114,8 @@ struct RoundedTopBar: View {
             if showNotificationButtons {
                 TopBarEnvelopeButton(action: onMessagesTap, isActive: isMessagesActive)
                     .padding(.trailing, 4)
-                TopBarAlertButton(action: {})
-                    .padding(.trailing, 4)
+                // TopBarAlertButton(action: {})
+                //     .padding(.trailing, 4)
             }
 
             if showProfileButton {
