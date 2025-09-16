@@ -417,7 +417,7 @@ struct NewsDetailCardView: View {
                 FAIcon(
                     FontAwesome.Icon.eye,
                     type: .light,
-                    size: 14,
+                    size: 18,
                     color: Color.novoNordiskTextGrey
                 )
                 Text(String(news.read_count))
@@ -429,7 +429,7 @@ struct NewsDetailCardView: View {
                 FAIcon(
                     FontAwesome.Icon.comment,
                     type: .light,
-                    size: 14,
+                    size: 18,
                     color: Color.novoNordiskTextGrey
                 )
                 Text(String(news.comments_count))

@@ -20,7 +20,7 @@ struct RectionComponent: View {
                 FAIcon(
                     getIcon(for: selectedReaction),
                     type: .light,
-                    size: 14,
+                    size: 18,
                     color: Color.novoNordiskTextGrey
                 )
                 Text(String(reactionsCount))
