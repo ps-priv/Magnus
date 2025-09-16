@@ -279,25 +279,25 @@ struct NewsDetailCardView: View {
             isBookmarked.toggle()
         }) {
             //if !news.is_bookmarked {
-            if isBookmarked {
+            if !isBookmarked {
                 FAIcon(
                     FontAwesome.Icon.bookmark,
                     type: .light,
-                    size: 16,
+                    size: 25,
                     color: Color.novoNordiskTextGrey
                 )
             } else {
                 FAIcon(
                     FontAwesome.Icon.bookmark,
                     type: .solid,
-                    size: 16,
+                    size: 25,
                     color: Color.novoNordiskLightBlue
                 )
             }
         }
         .changeEffect(
             .spray(origin: UnitPoint(x: 0.25, y: 0.5)) {
-                if !isBookmarked {
+                if isBookmarked {
                     FAIcon(
                         FontAwesome.Icon.bookmark,
                         type: .solid,
@@ -327,7 +327,7 @@ struct NewsDetailCardView: View {
                 FAIcon(
                     FontAwesome.Icon.ellipsisVertical,
                     type: .light,
-                    size: 16,
+                    size: 25,
                     color: Color.novoNordiskTextGrey
                 )
             }
