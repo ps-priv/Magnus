@@ -101,7 +101,14 @@ struct DeviceAttachmentSheet: View {
         guard let url = pickedURL else { return }
         let ext = url.pathExtension.lowercased()
         do {
-            let data = try Data(contentsOf: url)
+            let data: Data
+            if url.startAccessingSecurityScopedResource() {
+                defer { url.stopAccessingSecurityScopedResource() }
+                data = try Data(contentsOf: url)
+            } else {
+                // If we cannot access the security-scoped resource, bail out gracefully
+                return
+            }
             let base64 = data.base64EncodedString()
             let attachment: NewsAttachment
             switch ext {
