@@ -19,7 +19,7 @@ public class NewsDetailCardViewDtoMock {
             comments: [],
             reactions: [],
             read: [],
-            //attachments: []
+            attachments: []
         )
     }
 
@@ -103,10 +103,16 @@ public class NewsDetailCardViewDtoMock {
             "attachments": [
                 {
                     "id": "eyJpZCI6MSwidG9rZW4iOiIzfGpwZ3gwRTFEdGh4RDA2cGdNRlJOeHJGdVNuTVdjTERzUWhjM0hYaVE0NzI4NzA3OCJ9",
-                    "title": "",
+                    "title": "Zalacznik 1",
                     "link": "https://novonordisk.sharepoint.com/sites/Poland/SitePages/Zwyci%C4%99zcy-Simply-The-Best-CDC-Poland.aspx?source=https%3A%2F%2Fnovonordisk.sharepoint.com%2Fsites%2FPoland",
                     "file_type": 4
-                }
+                },
+                        {
+                            "id": "eyJpZCI6MSwidG9rZW4iOiIzfGpwZ3gwRTFEdGh4RDA2cGdNRlJOeHJGdVNuTVdjTERzUWhjM0hYaVE0NzI4NzA3OCJ9",
+                            "title": "Zalacznik 2",
+                            "link": "https://novonordisk.sharepoint.com/sites/Poland/SitePages/Zwyci%C4%99zcy-Simply-The-Best-CDC-Poland.aspx?source=https%3A%2F%2Fnovonordisk.sharepoint.com%2Fsites%2FPoland",
+                            "file_type": 4
+                        }
             ]
         }
         """

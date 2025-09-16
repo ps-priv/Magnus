@@ -100,10 +100,13 @@ struct NewsDetailCardView: View {
                             tagsSection
                                 .padding(.bottom, 3)
                             footerSection
+                            attachmentsSection
                         }
                         .padding(.horizontal, 16)
                         .padding(.bottom, 16)
                     }
+
+                    
                 }
                 .buttonStyle(PlainButtonStyle())
                 .background(Color.novoNordiskLightBlueBackground)
@@ -113,6 +116,7 @@ struct NewsDetailCardView: View {
                         .stroke(Color.novoNordiskLightBlue, lineWidth: 1)
                 )
                 .shadow(color: .black.opacity(0.1), radius: 4, x: 0, y: 2)
+
 
                 // Menu reakcji jako overlay
                 if showReactionsMenu {
@@ -476,6 +480,18 @@ struct NewsDetailCardView: View {
             .padding(.vertical, 8)
         }
         .padding(.top, 10)
+    }
+
+    @ViewBuilder
+    private var attachmentsSection: some View {
+        if !news.attachments.isEmpty {
+            VStack(alignment: .leading, spacing: 12) {
+                ForEach(news.attachments, id: \.id) { attachment in
+                    NewsMaterialRowItem(material: attachment)
+                }
+            }
+            .padding(.top, 16)
+        }
     }
 }
 
