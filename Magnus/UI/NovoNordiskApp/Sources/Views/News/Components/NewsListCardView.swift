@@ -156,7 +156,7 @@ struct NewsListCardView: View {
 
     @ViewBuilder
     var descriptionSection: some View {
-        Text(news.description)
+        ClickableTextView(text: news.description)
             .font(.novoNordiskBody)
             .foregroundColor(Color.novoNordiskTextGrey)
             .lineLimit(4)

@@ -4,6 +4,7 @@ import MagnusDomain
 import MagnusFeatures
 import Pow
 import SwiftUI
+import Foundation
 
 struct NewsDetailCardView: View {
     @EnvironmentObject private var navigationManager: NavigationManager
@@ -350,7 +351,7 @@ struct NewsDetailCardView: View {
 
     @ViewBuilder
     var descriptionSection: some View {
-        Text(news.description)
+        ClickableTextView(text: news.description)
             .font(.novoNordiskBody)
             .foregroundColor(Color.novoNordiskTextGrey)
     }
