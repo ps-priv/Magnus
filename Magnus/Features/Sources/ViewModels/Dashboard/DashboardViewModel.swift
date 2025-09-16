@@ -45,7 +45,7 @@ public class DashboardViewModel: ObservableObject {
             let data = try await dashboardService.getDashboard()
 
             await MainActor.run {
-                news = data.news
+                news = data.news.sorted{ $0.publish_date > $1.publish_date }
                 events = data.events
                 materials = data.materials
                 academy = data.academy
