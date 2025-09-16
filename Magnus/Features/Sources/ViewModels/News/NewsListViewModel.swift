@@ -53,7 +53,7 @@ public class NewsListViewModel: ObservableObject {
             let data: GetNewsResponse = try await newsService.getNews()
 
             await MainActor.run {
-                news = data.news
+                news = data.news.sorted { $0.publish_date > $1.publish_date }
                 isLoading = false
             }
         } catch let error {
