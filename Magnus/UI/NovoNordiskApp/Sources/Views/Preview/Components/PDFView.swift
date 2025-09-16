@@ -24,9 +24,9 @@ private struct PDFContentView: View {
             } else if isLoading {
                 VStack(spacing: 12) {
                     ProgressView()
-                    Text("Loading PDF…")
-                        .foregroundColor(Color.novoNordiskTextGrey)
-                        .font(.footnote)
+                    // Text("Loading PDF…")
+                    //     .foregroundColor(Color.novoNordiskTextGrey)
+                    //     .font(.footnote)
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
             } else if let errorMessage {
