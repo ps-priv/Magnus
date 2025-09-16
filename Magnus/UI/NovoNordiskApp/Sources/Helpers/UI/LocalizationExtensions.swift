@@ -308,4 +308,7 @@ enum LocalizedStrings {
     static let registerScreenTitle = "REGISTER_SCREEN_TITLE".localized
     static let registerConfirmationTitle = "REGISTER_CONFIRMATION_TITLE".localized
     static let registerMoveToLogin = "REGISTER_MOVE_TO_LOGIN".localized
+
+    //Material Preview
+    static let materialPreviewScreenTitle = "MATERIAL_PREVIEW_SCREEN_TITLE".localized
 }

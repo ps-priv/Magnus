@@ -74,6 +74,10 @@ class NavigationManager: ObservableObject {
         navigate(to: .newsInGroup(groupId: groupId))
     }
 
+    func navigateToMaterialPreview(materialUrl: String, fileType: FileTypeEnum) {
+        navigate(to: .materialPreview(materialUrl: materialUrl, fileType: fileType))
+    }
+
     // func navigateToMaterials() {
     //     navigate(to: .materialsList)
     // }

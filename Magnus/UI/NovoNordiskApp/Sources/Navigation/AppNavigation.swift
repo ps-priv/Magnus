@@ -34,6 +34,7 @@ enum AppScreen: Equatable, Identifiable {
     case eventGallery(eventId: String)
     case eventAddPhoto(eventId: String)
     case eventAgendaItem(eventId: String)
+    case materialPreview(materialUrl: String, fileType: FileTypeEnum)
 
     var id: String {
         switch self {
@@ -97,6 +98,8 @@ enum AppScreen: Equatable, Identifiable {
             return "event_add_photo_\(eventId)"
         case let .eventAgendaItem(eventId):
             return "event_agenda_item_\(eventId)"
+        case let .materialPreview(materialUrl, fileType):
+            return "material_preview_\(materialUrl)_\(fileType)"
         }
     }
 
@@ -162,6 +165,8 @@ enum AppScreen: Equatable, Identifiable {
             return LocalizedStrings.eventAddPhotoScreenTitle
         case .eventAgendaItem:
             return LocalizedStrings.eventAgendaScreenTitle
+        case .materialPreview:
+            return LocalizedStrings.materialPreviewScreenTitle
         }
     }
 
@@ -207,6 +212,9 @@ enum AppScreen: Equatable, Identifiable {
             return .eventDetails
         case .eventAgendaItem:
             return .eventsAgenda
+
+        case .materialPreview:
+            return .materials
         }
     }
 
@@ -225,7 +233,7 @@ enum AppScreen: Equatable, Identifiable {
         switch self {
         case .profile, .settings, .eventPhoto, .eventAddPhoto:
             return false
-        case .eventQrCode, .materialDetail, .newsDetail:
+        case .eventQrCode, .materialDetail, .newsDetail, .materialPreview:
             return false // Ukryj również na ekranach szczegółów
         case .eventDetail:
             return true // Show bottom menu on event details to access agenda/location/dinner/survey

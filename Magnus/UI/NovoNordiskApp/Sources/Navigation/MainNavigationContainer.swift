@@ -169,6 +169,8 @@ struct MainNavigationContainer: View {
             EventAddPhotoView(eventId: eventId)
         case let .eventAgendaItem(eventId):
             AgendaItemView(eventId: eventId)
+        case let .materialPreview(materialUrl, fileType):
+            MaterialPreview(materialUrl: materialUrl, fileType: fileType)
         }
     }
 
