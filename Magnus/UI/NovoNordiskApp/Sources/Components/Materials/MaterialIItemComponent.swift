@@ -5,6 +5,9 @@ import MagnusFeatures
 import SwiftUI
 
 struct MaterialItemComponent: View {
+
+    @EnvironmentObject var navigationManager: NavigationManager
+
     let file_type: FileTypeEnum
     let name: String
     let publication_date: String
@@ -12,7 +15,10 @@ struct MaterialItemComponent: View {
 
     var body: some View {
         Button(action: {
-            MaterialNavigatorHelper.navigateToMaterial(link: link, fileType: file_type)
+            if !link.isEmpty {
+                navigationManager.navigateToMaterialPreview(
+                    materialUrl: link, fileType: file_type)
+            }
         }) {
             HStack(alignment: .top) {
                 FAIcon(
