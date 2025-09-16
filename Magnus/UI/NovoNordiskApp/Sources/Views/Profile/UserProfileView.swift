@@ -42,13 +42,13 @@ struct UserProfileView: View {
                             selectedPanel = selectedPanel == .informacje ? nil : .informacje
                         }
 
-                        UserProfileMainButton(
-                            title: LocalizedStrings.userProfileIdButton,
-                            icon: .qrcode,
-                            isSelected: selectedPanel == .identyfikator
-                        ) {
-                            selectedPanel = selectedPanel == .identyfikator ? nil : .identyfikator
-                        }
+                        // UserProfileMainButton(
+                        //     title: LocalizedStrings.userProfileIdButton,
+                        //     icon: .qrcode,
+                        //     isSelected: selectedPanel == .identyfikator
+                        // ) {
+                        //     selectedPanel = selectedPanel == .identyfikator ? nil : .identyfikator
+                        // }
 
                         UserProfileMainButton(
                             title: LocalizedStrings.userProfileChangePassword,
