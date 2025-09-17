@@ -22,7 +22,12 @@ let project = Project(
             infoPlist: .default,
             sources: ["Magnus/Domain/Sources/**"],
             resources: ["Magnus/Domain/Resources/**"],
-            dependencies: []
+            dependencies: [],
+            settings: .settings(
+                base: [
+                    "IPHONEOS_DEPLOYMENT_TARGET": "18.5"
+                ]
+            )
         ),
         .target(
             name: "OneSignalNotificationServiceExtension",
@@ -32,7 +37,7 @@ let project = Project(
             infoPlist: .extendingDefault(
                 with: [
                     "CFBundleDisplayName": "NovoNordiskApp",
-                    "CFBundleVersion": "13",
+                    "CFBundleVersion": "15",
                     "NSExtension": [
                         "NSExtensionPointIdentifier": "com.apple.usernotifications.service",
                         "NSExtensionPrincipalClass": "$(PRODUCT_MODULE_NAME).NotificationService",
@@ -48,7 +53,7 @@ let project = Project(
             ],
             settings: .settings(
                 base: [
-                    "IPHONEOS_DEPLOYMENT_TARGET": "13.0",
+                    "IPHONEOS_DEPLOYMENT_TARGET": "18.5",
                     "CURRENT_PROJECT_VERSION": "12"
                 ]
             )
@@ -77,7 +82,7 @@ let project = Project(
             ],
             settings: .settings(
                 base: [
-                    "IPHONEOS_DEPLOYMENT_TARGET": "13.0",
+                    "IPHONEOS_DEPLOYMENT_TARGET": "18.5",
                     "CURRENT_PROJECT_VERSION": "11"
                 ]
             )
@@ -91,6 +96,11 @@ let project = Project(
             sources: ["Magnus/Application/Sources/**"],
             resources: ["Magnus/Application/Resources/**"],
             dependencies: [.target(name: "MagnusDomain")],
+            settings: .settings(
+                base: [
+                    "IPHONEOS_DEPLOYMENT_TARGET": "18.5"
+                ]
+            )
         ),
         .target(
             name: "MagnusFeatures",
@@ -112,6 +122,11 @@ let project = Project(
                 .package(product: "Alamofire"),
                 .package(product: "Sentry"),
             ],
+            settings: .settings(
+                base: [
+                    "IPHONEOS_DEPLOYMENT_TARGET": "18.5"
+                ]
+            )
         ),
         .target(
             name: "NovoNordiskApp",
@@ -121,7 +136,7 @@ let project = Project(
             infoPlist: .extendingDefault(
                 with: [
                     "CFBundleShortVersionString": "1.0",
-                    "CFBundleVersion": "13",
+                    "CFBundleVersion": "15",
                     "UILaunchScreen": [
                         "UIColorName": "",
                         "UIImageName": "",
@@ -172,6 +187,7 @@ let project = Project(
                     "CODE_SIGN_IDENTITY": "Apple Development",
                     "CODE_SIGN_ENTITLEMENTS": "Magnus/UI/NovoNordiskApp/NovoNordiskApp.entitlements",
                     "TARGETED_DEVICE_FAMILY": "1",
+                    "IPHONEOS_DEPLOYMENT_TARGET": "18.5",
                 ],
                 configurations: [
                     .debug(
@@ -251,6 +267,7 @@ let project = Project(
                     "DEVELOPMENT_TEAM": "69392QSC2U",
                     "CODE_SIGN_IDENTITY": "iPhone Developer",
                     "TARGETED_DEVICE_FAMILY": "1",
+                    "IPHONEOS_DEPLOYMENT_TARGET": "18.5",
                 ],
                 configurations: [
                     .debug(
@@ -283,7 +300,12 @@ let project = Project(
                 .target(name: "MagnusFeatures"),
                 .package(product: "Alamofire"),
                 .package(product: "Sentry"),
-            ]
+            ],
+            settings: .settings(
+                base: [
+                    "IPHONEOS_DEPLOYMENT_TARGET": "18.5"
+                ]
+            )
         ),
     ]
 )

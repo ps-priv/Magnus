@@ -59,23 +59,32 @@ struct NewsAddCardView: View {
 
     var body: some View {
         VStack(spacing: 20) {
-            HStack {
-                PublishButton(
-                    action: {
-                        showSaveConfirmation = true
-                    }, isDisabled: !canSendNews)
-                // WhiteButton(
-                //     title: LocalizedStrings.saveButton,
-                //     action: saveAction,
-                //     isDisabled: !canSendNews)
-                Spacer()
-                WhiteButton(
-                    title: LocalizedStrings.cancelButton,
-                    action: cancelAction,
-                    isDisabled: !canSendNews)
+            // HStack {
+            //     PublishButton(
+            //         action: {
+            //             showSaveConfirmation = true
+            //         }, isDisabled: !canSendNews)
+            //     // WhiteButton(
+            //     //     title: LocalizedStrings.saveButton,
+            //     //     action: saveAction,
+            //     //     isDisabled: !canSendNews)
+            //     Spacer()
+            //     WhiteButton(
+            //         title: LocalizedStrings.cancelButton,
+            //         action: cancelAction,
+            //         isDisabled: !canSendNews)
 
-                //DeleteButton(action: deleteAction)
-            }
+            //     //DeleteButton(action: deleteAction)
+            // }
+        
+            SelectAndDisplayImage(
+                imageData: $image,
+                onImageSelected: {
+                    image = $0
+                }
+            )
+            
+            
             VStack(alignment: .leading) {
                 Text(LocalizedStrings.newsAddTitle)
                     .font(.novoNordiskRegularText)
@@ -97,12 +106,12 @@ struct NewsAddCardView: View {
             //     }
             // }
 
-            SelectAndDisplayImage(
-                imageData: $image,
-                onImageSelected: {
-                    image = $0
-                }
-            )
+//            SelectAndDisplayImage(
+//                imageData: $image,
+//                onImageSelected: {
+//                    image = $0
+//                }
+//            )
 
             AttachmentsManager(attachments: $attachments)
 

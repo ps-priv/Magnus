@@ -50,6 +50,7 @@ public struct SelectAndDisplayImage: View {
                 .padding(.top, 18)
                 .padding(.trailing, 18)
             }
+            .background(Color.novoNordiskBackgroundGrey)
 
         } else {
             ZStack {

@@ -15,8 +15,8 @@ struct NewsListCardView: View {
     let onDeleteTap: () -> Void
 
     @State var isBookmarked: Bool
-    @State var allowEdit: Bool
-    var userPermissions: UserPermissions
+    @State var allowEdit: Bool = false
+    @State var userPermissions: UserPermissions
 
     init(news: News, userPermissions: UserPermissions, onTap: @escaping () -> Void, onBookmarkTap: @escaping () -> Void, onEditTap: @escaping () -> Void, onDeleteTap: @escaping () -> Void) {
         self.news = news
