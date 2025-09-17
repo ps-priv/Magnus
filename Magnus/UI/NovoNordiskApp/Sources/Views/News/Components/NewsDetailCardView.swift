@@ -2,7 +2,7 @@ import Kingfisher
 import MagnusApplication
 import MagnusDomain
 import MagnusFeatures
-import Pow
+import PopupView
 import SwiftUI
 import Foundation
 
@@ -253,11 +253,11 @@ struct NewsDetailCardView: View {
         // .alert(isPresented: $showToast) {
         //     Alert(title: Text("Komunikat"), message: Text(toastMessage))
         // }
-        .toast(isPresented: $showToast, message: toastMessage)
+        //.toast(isPresented: $showToast, message: toastMessage)
         .onDisappear {
             showToast = false
             toastMessage = ""
-        }
+        } 
     }
 
     @ViewBuilder

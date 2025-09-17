@@ -187,7 +187,7 @@ struct NewsAddCardView: View {
                 // Cancel tapped
             }
         )
-        .toast(isPresented: $showToast, message: toastMessage)
+        //.toast(isPresented: $showToast, message: toastMessage)
     }
 }
 

@@ -25,6 +25,6 @@ struct MaterialsListView: View {
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
         .background(Color.novoNordiskBackgroundGrey)
-        .toast(isPresented: $viewModel.showToast, message: viewModel.errorMessage)
+        // .toast(isPresented: $viewModel.showToast, message: viewModel.errorMessage)
     }
 }

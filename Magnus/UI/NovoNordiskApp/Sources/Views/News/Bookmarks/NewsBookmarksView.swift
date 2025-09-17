@@ -46,7 +46,7 @@ struct NewsBookmarksView: View {
                 // Cancel tapped
             }
         )
-        .toast(isPresented: $showToast, message: toastMessage)    
+        //.toast(isPresented: $showToast, message: toastMessage)    
     }
 
     @ViewBuilder

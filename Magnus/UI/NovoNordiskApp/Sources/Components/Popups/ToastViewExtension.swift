@@ -12,7 +12,7 @@ extension View {
     ///   - verticalPadding: Vertical safe-area padding for the floater.
     ///   - horizontalPadding: Horizontal padding for the floater.
     /// - Returns: Modified view that can show a toast.
-    func toast(
+    func toast_old(
         isPresented: Binding<Bool>,
         message: String,
         type: ToastType = .info,
@@ -36,21 +36,21 @@ extension View {
         }
     }
 
-    /// Convenience: success toast
-    func successToast(
-        isPresented: Binding<Bool>,
-        message: String,
-        autohideIn: Double? = 3
-    ) -> some View {
-        toast(isPresented: isPresented, message: message, type: .success, autohideIn: autohideIn)
-    }
+    // /// Convenience: success toast
+    // func successToast(
+    //     isPresented: Binding<Bool>,
+    //     message: String,
+    //     autohideIn: Double? = 3
+    // ) -> some View {
+    //     toast(isPresented: isPresented, message: message, type: .success, autohideIn: autohideIn)
+    // }
 
-    /// Convenience: error toast
-    func errorToast(
-        isPresented: Binding<Bool>,
-        message: String,
-        autohideIn: Double? = 3
-    ) -> some View {
-        toast(isPresented: isPresented, message: message, type: .error, autohideIn: autohideIn)
-    }
+    // /// Convenience: error toast
+    // func errorToast(
+    //     isPresented: Binding<Bool>,
+    //     message: String,
+    //     autohideIn: Double? = 3
+    // ) -> some View {
+    //     toast(isPresented: isPresented, message: message, type: .error, autohideIn: autohideIn)
+    // }
 }

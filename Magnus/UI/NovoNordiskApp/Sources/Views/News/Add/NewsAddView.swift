@@ -55,7 +55,7 @@ struct NewsAddView: View {
         .padding(.vertical, 20)
         .padding(.horizontal, 16)   
         .background(Color.novoNordiskBackgroundGrey)
-        .toast(isPresented: $viewModel.showToast, message: viewModel.message)
+        // .toast(isPresented: $viewModel.showToast, message: viewModel.message)
     }
 }
 

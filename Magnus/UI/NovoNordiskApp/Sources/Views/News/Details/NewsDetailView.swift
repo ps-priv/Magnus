@@ -53,7 +53,7 @@ struct NewsDetailView: View {
                         },
                         userPermissions: viewModel.userPermissions
                     )
-                    .toast(isPresented: $viewModel.showPopup, message: viewModel.popupMessage)
+                    //.toast(isPresented: $viewModel.showPopup, message: viewModel.popupMessage)
                     .padding(.top, 16)
                     .padding(.horizontal, 16)
                     .padding(.bottom, 16)
@@ -61,6 +61,9 @@ struct NewsDetailView: View {
                     NewsDetailsNotFound()
                 }
             }
+        }
+        .onDisappear {
+            viewModel.showPopup = false
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
         .background(Color.novoNordiskBackgroundGrey)
@@ -87,6 +90,20 @@ struct NewsDetailView: View {
                 // Cancel tapped
             }
         )
-        .toast(isPresented: $showToast, message: toastMessage)
+        // .popup(isPresented: $viewModel.showPopup) {
+        //     ToastView.createToast(message: viewModel.popupMessage, type: .success)
+        // } customize: {  
+        //     $0
+        //         // .type(.floater(
+        //         //     verticalPadding: 30,
+        //         //     horizontalPadding: 16,
+        //         //     useSafeAreaInset: true
+        //         // ))
+        //         .type(.toast)
+        //         .closeOnTap(true)
+        //         .closeOnTapOutside(true)
+        //         .position(.bottom)
+        //         .autohideIn(5)
+        // }   
     }
 }
