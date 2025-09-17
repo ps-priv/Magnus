@@ -100,14 +100,14 @@ struct NewsListCardView: View {
                 FAIcon(
                     FontAwesome.Icon.bookmark,
                     type: .light,
-                    size: 18,
+                    size: 25,
                     color: Color.novoNordiskTextGrey
                 )
             } else {
                 FAIcon(
                     FontAwesome.Icon.bookmark,
                     type: .solid,
-                    size: 18,
+                    size: 25,
                     color: Color.novoNordiskLightBlue
                 )
             }            
@@ -198,7 +198,7 @@ struct NewsListCardView: View {
                 FAIcon(
                     FontAwesome.Icon.eye,
                     type: .light,
-                    size: 18,
+                    size: 20,
                     color: Color.novoNordiskTextGrey
                 )
                 Text(String(news.read_count))
@@ -210,7 +210,7 @@ struct NewsListCardView: View {
                 FAIcon(
                     FontAwesome.Icon.comment,
                     type: .light,
-                    size: 18,
+                    size: 20,
                     color: Color.novoNordiskTextGrey
                 )
                 Text(String(news.comments_count))
@@ -222,7 +222,7 @@ struct NewsListCardView: View {
                 FAIcon(
                     FontAwesome.Icon.smile,
                     type: .light,
-                    size: 18,
+                    size: 20,
                     color: Color.novoNordiskTextGrey
                 )
                 Text(String(news.reactions_count))

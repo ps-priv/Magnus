@@ -121,7 +121,7 @@ struct NewsDetailCardView: View {
 
                 // Menu reakcji jako overlay
                 if showReactionsMenu {
-                    VStack(spacing: 8) {
+                    VStack(spacing: 20) {
                         // Thumbs Up
                         Button(action: {
                             onReactionTap(.THUMBS_UP)
@@ -131,7 +131,7 @@ struct NewsDetailCardView: View {
                             FAIcon(
                                 FontAwesome.Icon.thumbsUp,
                                 type: .thin,
-                                size: 20,
+                                size: 25,
                                 color: Color.novoNordiskBlue
                             )
                         }
@@ -146,7 +146,7 @@ struct NewsDetailCardView: View {
                             FAIcon(
                                 FontAwesome.Icon.heart,
                                 type: .thin,
-                                size: 20,
+                                size: 25,
                                 color: Color.novoNordiskBlue
                             )
                         }
@@ -173,7 +173,7 @@ struct NewsDetailCardView: View {
                             FAIcon(
                                 FontAwesome.Icon.lightBulb,
                                 type: .thin,
-                                size: 20,
+                                size: 25,
                                 color: Color.novoNordiskBlue
                             )
                         }
@@ -187,7 +187,7 @@ struct NewsDetailCardView: View {
                             FAIcon(
                                 FontAwesome.Icon.handHoldingHeart,
                                 type: .thin,
-                                size: 20,
+                                size: 25,
                                 color: Color.novoNordiskBlue
                             )
                         }
@@ -201,7 +201,7 @@ struct NewsDetailCardView: View {
                             FAIcon(
                                 FontAwesome.Icon.thumbsDown,
                                 type: .thin,
-                                size: 20,
+                                size: 25,
                                 color: Color.novoNordiskBlue
                             )
                         }
@@ -429,7 +429,7 @@ struct NewsDetailCardView: View {
                 FAIcon(
                     FontAwesome.Icon.eye,
                     type: .light,
-                    size: 18,
+                    size: 20,
                     color: Color.novoNordiskTextGrey
                 )
                 Text(String(news.read_count))
@@ -441,7 +441,7 @@ struct NewsDetailCardView: View {
                 FAIcon(
                     FontAwesome.Icon.comment,
                     type: .light,
-                    size: 18,
+                    size: 20,
                     color: Color.novoNordiskTextGrey
                 )
                 Text(String(news.comments_count))
