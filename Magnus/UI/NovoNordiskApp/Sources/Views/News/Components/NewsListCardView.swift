@@ -16,17 +16,17 @@ struct NewsListCardView: View {
 
     @State var isBookmarked: Bool
     @State var allowEdit: Bool
-    var currentUserId: String
+    var userPermissions: UserPermissions
 
-    init(news: News, currentUserId: String, onTap: @escaping () -> Void, onBookmarkTap: @escaping () -> Void, onEditTap: @escaping () -> Void, onDeleteTap: @escaping () -> Void, allowEdit: Bool) {
+    init(news: News, userPermissions: UserPermissions, onTap: @escaping () -> Void, onBookmarkTap: @escaping () -> Void, onEditTap: @escaping () -> Void, onDeleteTap: @escaping () -> Void) {
         self.news = news
         self.onTap = onTap
         self.onBookmarkTap = onBookmarkTap
         self.onEditTap = onEditTap
         self.onDeleteTap = onDeleteTap
         _isBookmarked = State(initialValue: news.isBookmarked)
-        _allowEdit = State(initialValue: allowEdit)
-        self.currentUserId = currentUserId
+        self.userPermissions = userPermissions
+        self.allowEdit = userPermissions.canEditNews(newsAuthorId: news.author.id)
     }
 
     var body: some View {
@@ -127,7 +127,7 @@ struct NewsListCardView: View {
 
     @ViewBuilder
     var editSection: some View {
-        if currentUserId == news.author.id {
+        if userPermissions.id == news.author.id {
         Menu {
             Button {
                 onEditTap()
@@ -236,9 +236,11 @@ struct NewsListCardView: View {
 #Preview {
     var news: News = ApiNewsMock.getSingleNews()
 
+    let userPermissions = UserPermissions(id: "1", admin: 1, news_editor: 1, photo_booths_editor: 1)
+
     VStack {
         NewsListCardView(news: news, 
-        currentUserId: "",
+        userPermissions: userPermissions,
         onTap: {
             print("Tapped")
         },
@@ -250,8 +252,7 @@ struct NewsListCardView: View {
         },
         onDeleteTap: {
             print("Tapped")
-        },
-        allowEdit: true)
+        })
     }
     .padding(20)
     .background(Color(.systemGray6))

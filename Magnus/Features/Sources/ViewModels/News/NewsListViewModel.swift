@@ -15,6 +15,8 @@ public class NewsListViewModel: ObservableObject {
     @Published public var allowEdit: Bool = false
     @Published public var currentUserId: String = ""
 
+    @Published public var userPermissions: UserPermissions
+
     private let newsService: ApiNewsService
     private let authStorageService: AuthStorageService
 
@@ -22,24 +24,27 @@ public class NewsListViewModel: ObservableObject {
         self.newsService = newsService
         self.authStorageService = authStorageService
 
-        // Safe to use self synchronously after stored properties are initialized
-        checkIfUserCanEdit()
-
-        // Start async loading without strongly capturing self during initialization
+        self.userPermissions = try! authStorageService.getUserData()?.getUserPermissions() ?? UserPermissions(id: "", admin: 0, news_editor: 0, photo_booths_editor: 0)
+        self.currentUserId = userPermissions.id
+        self.allowEdit = false
+        
         Task { [weak self] in
             await self?.loadData()
         }
     }
-    private func checkIfUserCanEdit() {
-        do {
-            let userData = try authStorageService.getUserData()
-            self.allowEdit = userData?.role == .przedstawiciel
-            self.currentUserId = userData?.id ?? ""
-        } catch {
-            self.allowEdit = false
-            self.currentUserId = ""
-        }
-    }
+
+    // func checkIfUserCanEdit() {
+    //     do {
+    //         let userData = try authStorageService.getUserData()
+    //         self.allowEdit = userData?.role == .przedstawiciel
+    //         self.currentUserId = userData?.id ?? ""
+    //         self.userPermissions = userData?.getUserPermissions() ?? UserPermissions(id: "", admin: 0, news_editor: 0, photo_booths_editor: 0)
+    //     } catch {
+    //         self.allowEdit = false
+    //         self.currentUserId = ""
+    //         self.userPermissions = UserPermissions(id: "", admin: 0, news_editor: 0, photo_booths_editor: 0)
+    //     }
+    // }
 
     // MARK: - Setup
     /// Load dashboard data

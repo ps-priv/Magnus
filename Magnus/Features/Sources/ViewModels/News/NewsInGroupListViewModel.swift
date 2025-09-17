@@ -15,6 +15,8 @@ public class NewsInGroupListViewModel: ObservableObject {
     @Published public var allowEdit: Bool = false
     @Published public var currentUserId: String = ""
 
+    @Published public var userPermissions: UserPermissions = UserPermissions(id: "", admin: 0, news_editor: 0, photo_booths_editor: 0)
+
     private let newsService: ApiNewsService
     private let authStorageService: AuthStorageService
 
@@ -34,9 +36,11 @@ public class NewsInGroupListViewModel: ObservableObject {
             let userData = try authStorageService.getUserData()
             self.allowEdit = userData?.role == .przedstawiciel
             self.currentUserId = userData?.id ?? ""
+            self.userPermissions = userData?.getUserPermissions() ?? UserPermissions(id: "", admin: 0, news_editor: 0, photo_booths_editor: 0)
         } catch {
             self.allowEdit = false
             self.currentUserId = ""
+            self.userPermissions = UserPermissions(id: "", admin: 0, news_editor: 0, photo_booths_editor: 0)
         }
     }
 

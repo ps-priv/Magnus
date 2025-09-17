@@ -57,7 +57,7 @@ struct NewsListView: View {
                     ForEach(viewModel.news) { newsItem in
                         NewsListCardView(
                             news: newsItem,
-                            currentUserId: viewModel.currentUserId,
+                            userPermissions: viewModel.userPermissions,
                             onTap: {
                                 navigationManager.navigateToNewsDetail(newsId: newsItem.id)
                             },
@@ -72,8 +72,7 @@ struct NewsListView: View {
                             onDeleteTap: {
                                 showDeleteConfirmation = true
                                 selectedNewsId = newsItem.id
-                            },
-                            allowEdit: viewModel.allowEdit)
+                            })
                     }
                 }
                 .padding(.horizontal)

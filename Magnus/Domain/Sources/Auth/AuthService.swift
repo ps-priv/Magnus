@@ -24,6 +24,32 @@ public struct AuthResponse {
     }
 }
 
+public struct UserPermissions {
+    public let id: String
+    public let admin: Int
+    public let news_editor: Int
+    public let photo_booths_editor: Int
+
+    public init(id: String, admin: Int, news_editor: Int, photo_booths_editor: Int) {
+        self.id = id
+        self.admin = admin
+        self.news_editor = news_editor
+        self.photo_booths_editor = photo_booths_editor
+    }
+
+    public func canAddNews() -> Bool {
+        return admin == 1 || news_editor == 1
+    }
+
+    public func canEditNews(newsAuthorId: String) -> Bool {
+        return admin == 1 || news_editor == 1 || newsAuthorId == id
+    }
+
+    public func canDeletePhotos(newsAuthorId: String) -> Bool {
+        return admin == 1 || photo_booths_editor == 1
+    }
+}
+
 public struct AuthUser: Codable {
     public let id: String
     public let email: String
@@ -64,6 +90,15 @@ public struct AuthUser: Codable {
         case .przedstawiciel:
             return "Przedstawiciel firmy"
         }
+    }
+
+    public func getUserPermissions() -> UserPermissions {
+        return UserPermissions(
+            id: self.id,
+            admin: self.admin,
+            news_editor: self.news_editor,
+            photo_booths_editor: self.photo_booths_editor
+        )
     }
 }
 
