@@ -42,7 +42,20 @@ public struct UserPermissions {
     }
 
     public func canEditNews(newsAuthorId: String) -> Bool {
-        return admin == 1 || news_editor == 1 || newsAuthorId == id
+
+        if admin == 1 {
+            return true
+        }
+
+        if news_editor == 1 {
+            return true
+        }
+
+        if newsAuthorId == id {
+            return true
+        }
+
+        return false
     }
 
     public func canDeletePhotos(newsAuthorId: String) -> Bool {

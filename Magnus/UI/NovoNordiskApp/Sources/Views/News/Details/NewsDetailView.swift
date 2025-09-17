@@ -51,8 +51,7 @@ struct NewsDetailView: View {
                                 await viewModel.addCommentToNews(comment: text)
                             }
                         },
-                        allowEdit: viewModel.allowEdit,
-                        currentUserId: viewModel.currentUserId
+                        userPermissions: viewModel.userPermissions
                     )
                     .toast(isPresented: $viewModel.showPopup, message: viewModel.popupMessage)
                     .padding(.top, 16)

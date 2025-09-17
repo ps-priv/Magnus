@@ -16,8 +16,7 @@ public class NewsDetailsViewModel: ObservableObject {
     @Published public var showPopup: Bool = false
     @Published public var popupMessage: String = ""
 
-    @Published public var allowEdit: Bool = false
-    @Published public var currentUserId: String = ""
+    @Published public var userPermissions: UserPermissions
 
     private let newsService: ApiNewsService
     private let authStorageService: AuthStorageService
@@ -30,21 +29,15 @@ public class NewsDetailsViewModel: ObservableObject {
         self.newsService = newsService
         self.authStorageService = authStorageService
 
-        Task {
-            await loadData(id: id)
-        }
-
-        checkIfUserCanEdit()
-    }
-
-    public func checkIfUserCanEdit() {
         do {
             let userData = try authStorageService.getUserData()
-            allowEdit = userData?.role == .przedstawiciel
-            currentUserId = userData?.id ?? ""
+            userPermissions = userData?.getUserPermissions() ?? UserPermissions(id: "", admin: 0, news_editor: 0, photo_booths_editor: 0)
         } catch {
-            allowEdit = false
-            currentUserId = ""
+            userPermissions = UserPermissions(id: "", admin: 0, news_editor: 0, photo_booths_editor: 0)
+        }
+
+        Task {
+            await loadData(id: id)
         }
     }
 
@@ -59,8 +52,6 @@ public class NewsDetailsViewModel: ObservableObject {
             let data: NewsDetails = try await newsService.getNewsById(id: id)
 
             try await newsService.markNewsAsRead(id: id)
-
-            //checkIfUserCanComment()
 
             await MainActor.run {
                 news = data
@@ -93,7 +84,7 @@ public class NewsDetailsViewModel: ObservableObject {
     private func updateUserReactions(userReaction: ReactionEnum) {
         if let reactions = news?.reactions {
             let updatedReactions = reactions.map { reaction in
-                if reaction.author.id == currentUserId {
+                if reaction.author.id == userPermissions.id {
                     return reaction.copy(reaction: userReaction)
                 } else {
                     return reaction

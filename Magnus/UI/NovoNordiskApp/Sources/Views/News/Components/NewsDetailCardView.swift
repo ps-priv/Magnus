@@ -16,8 +16,7 @@ struct NewsDetailCardView: View {
     let onDeleteTap: () -> Void
     let onReactionTap: (ReactionEnum) -> Void
     let onCommentTap: (String) -> Void
-    let allowEdit: Bool
-    let currentUserId: String
+    let userPermissions: UserPermissions
 
     @State var isBookmarked: Bool
     @State var selectedReaction: ReactionEnum
@@ -28,7 +27,7 @@ struct NewsDetailCardView: View {
 
     private enum StatsTab: CaseIterable {
         case comments
-        case reactions
+        case reactions  
         case reads
 
         var title: String {
@@ -51,8 +50,7 @@ struct NewsDetailCardView: View {
         onDeleteTap: @escaping () -> Void,
         onReactionTap: @escaping (ReactionEnum) -> Void,
         onCommentTap: @escaping (String) -> Void,
-        allowEdit: Bool,
-        currentUserId: String
+        userPermissions: UserPermissions
     ) {
         self.news = news
         self.isCommentsEnabled = isCommentsEnabled
@@ -63,10 +61,9 @@ struct NewsDetailCardView: View {
         self.onReactionTap = onReactionTap
         _isBookmarked = State(initialValue: news.isBookmarked)
         self.onCommentTap = onCommentTap
-        self.allowEdit = allowEdit
-        self.currentUserId = currentUserId
+        self.userPermissions = userPermissions
 
-        selectedReaction = news.reactions.first(where: { $0.author.id == currentUserId })?.reaction ?? .SMILE
+        selectedReaction = news.reactions.first(where: { $0.author.id == userPermissions.id })?.reaction ?? .SMILE
     }
 
     var body: some View {
@@ -322,7 +319,7 @@ struct NewsDetailCardView: View {
 
     @ViewBuilder
     var editSection: some View {
-        if currentUserId == news.author.id {
+        if userPermissions.canEditNews(newsAuthorId: news.author.id) {
             Menu {
                 Button {
                     onEditTap()
@@ -535,8 +532,7 @@ private extension View {
             onCommentTap: { text in
                 print("Comment tapped: \(text)")
             },
-            allowEdit: true,
-            currentUserId: "eyJpZCI6MSwidG9rZW4iOiIzfGpwZ3gwRTFEdGh4RDA2cGdNRlJOeHJGdVNuTVdjTERzUWhjM0hYaVE0NzI4NzA3OCJ9")
+            userPermissions: UserPermissions(id: "1", admin: 1, news_editor: 1, photo_booths_editor: 1))
         Spacer()
     }
     .frame(maxWidth: .infinity, maxHeight: .infinity)

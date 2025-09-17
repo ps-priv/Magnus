@@ -127,7 +127,7 @@ struct NewsListCardView: View {
 
     @ViewBuilder
     var editSection: some View {
-        if userPermissions.id == news.author.id {
+        if allowEdit {
         Menu {
             Button {
                 onEditTap()
