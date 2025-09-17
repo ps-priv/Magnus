@@ -244,7 +244,8 @@ struct MainNavigationContainer: View {
 
             if allowedFunctions.allowNews {
                 tabs.append(.news)
-                tabs.append(.newsGroups)
+                //tabs.append(.newsGroups)
+                tabs.append(.events)
                 tabs.append(.newsBookmarks)
             }
 
