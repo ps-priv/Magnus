@@ -20,7 +20,7 @@ struct NewsDetailCardView: View {
     let currentUserId: String
 
     @State var isBookmarked: Bool
-    @State var selectedReaction: ReactionEnum = .THUMBS_UP
+    @State var selectedReaction: ReactionEnum
     @State var showReactionsMenu: Bool = false
     @State private var showDeleteConfirmation: Bool = false
     @State private var showToast: Bool = false
@@ -66,7 +66,7 @@ struct NewsDetailCardView: View {
         self.allowEdit = allowEdit
         self.currentUserId = currentUserId
 
-        selectedReaction = news.reactions.first(where: { $0.author.id == currentUserId })?.reaction ?? .THUMBS_UP
+        selectedReaction = news.reactions.first(where: { $0.author.id == currentUserId })?.reaction ?? .SMILE
     }
 
     var body: some View {
@@ -536,7 +536,7 @@ private extension View {
                 print("Comment tapped: \(text)")
             },
             allowEdit: true,
-            currentUserId: "")
+            currentUserId: "eyJpZCI6MSwidG9rZW4iOiIzfGpwZ3gwRTFEdGh4RDA2cGdNRlJOeHJGdVNuTVdjTERzUWhjM0hYaVE0NzI4NzA3OCJ9")
         Spacer()
     }
     .frame(maxWidth: .infinity, maxHeight: .infinity)
