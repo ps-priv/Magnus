@@ -9,7 +9,10 @@ public class AuthServiceMock: AuthService {
         id: "3F7A9B2E-8C45-4D91-B6E3-7F2A5C8E9D14",
         email: "user1@test.pl",
         firstName: "Jan",
-        lastName: "Kowalski"
+        lastName: "Kowalski",
+        admin: 0,
+        news_editor: 0,
+        photo_booths_editor: 1
     )
 
     private let mockToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.mock_token_data"
@@ -128,7 +131,10 @@ public class AuthServiceMock: AuthService {
                 email: email,
                 firstName: "Jan",
                 lastName: "Kowalski",
-                role: .uczestnik
+                role: .uczestnik,
+                admin: 0,
+                news_editor: 0,
+                photo_booths_editor: 0
             )
         case "user2@test.pl":
             return AuthUser(
@@ -136,7 +142,10 @@ public class AuthServiceMock: AuthService {
                 email: email,
                 firstName: "Jan",
                 lastName: "Nowak",
-                role: .uczestnik
+                role: .uczestnik,
+                admin: 0,
+                news_editor: 0,
+                photo_booths_editor: 0
             )
         case "user3@test.pl":
             return AuthUser(
@@ -144,7 +153,10 @@ public class AuthServiceMock: AuthService {
                 email: email,
                 firstName: "Anna",
                 lastName: "Kowalska",
-                role: .uczestnik
+                role: .uczestnik,
+                admin: 0,
+                news_editor: 0,
+                photo_booths_editor: 0
             )
         case "przedstawiciel@test.pl":
             return AuthUser(
@@ -152,7 +164,10 @@ public class AuthServiceMock: AuthService {
                 email: email,
                 firstName: "Józef",
                 lastName: "Kowalski",
-                role: .przedstawiciel
+                role: .przedstawiciel,
+                admin: 0,
+                news_editor: 0,
+                photo_booths_editor: 1
             )
         default:
             return AuthUser(
@@ -160,7 +175,10 @@ public class AuthServiceMock: AuthService {
                 email: email,
                 firstName: "Nieznany",
                 lastName: "User",
-                role: .uczestnik
+                role: .uczestnik,
+                admin: 0,
+                news_editor: 0,
+                photo_booths_editor: 0
             )
         }
     }

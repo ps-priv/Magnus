@@ -51,7 +51,10 @@ public class ApiAuthService: AuthService {
             email: loginResponse.user.email,
             firstName: loginResponse.user.firstName,
             lastName: loginResponse.user.lasName,
-            role: CurrentUserTypeEnum(rawValue: loginResponse.user.role) ?? .uczestnik
+            role: CurrentUserTypeEnum(rawValue: loginResponse.user.role) ?? .uczestnik,
+            admin: loginResponse.user.admin,
+            news_editor: loginResponse.user.news_editor,
+            photo_booths_editor: loginResponse.user.photo_booths_editor
         )
 
         currentToken = loginResponse.token

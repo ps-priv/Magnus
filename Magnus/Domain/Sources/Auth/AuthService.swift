@@ -30,16 +30,25 @@ public struct AuthUser: Codable {
     public let firstName: String
     public let lastName: String
     public let role: CurrentUserTypeEnum
+    public let admin: Int
+    public let news_editor: Int
+    public let photo_booths_editor: Int
 
     public init(
         id: String, email: String, firstName: String, lastName: String,
-        role: CurrentUserTypeEnum = .uczestnik
+        role: CurrentUserTypeEnum = .uczestnik,
+        admin: Int,
+        news_editor: Int,
+        photo_booths_editor: Int
     ) {
         self.id = id
         self.email = email
         self.firstName = firstName
         self.lastName = lastName
         self.role = role
+        self.admin = admin
+        self.news_editor = news_editor
+        self.photo_booths_editor = photo_booths_editor
     }
 
     public var fullName: String {

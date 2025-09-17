@@ -26,7 +26,8 @@ public class EventPhotoViewModel: ObservableObject {
     public func checkIfUserCanEdit() {
         do {
             let userData = try authStorageService.getUserData()
-            allowEdit = userData?.role == .przedstawiciel
+            //allowEdit = userData?.role == .przedstawiciel
+            allowEdit = userData?.photo_booths_editor == 1
         } catch {
             allowEdit = false
         }
