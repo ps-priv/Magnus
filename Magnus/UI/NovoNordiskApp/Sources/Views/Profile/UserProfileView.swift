@@ -134,7 +134,7 @@ struct UserProfileView: View {
 
                     NovoNordiskTextBox(
                         placeholder: LocalizedStrings.userProfileLastname,
-                        text: .constant(""),
+                        text: .constant(user.lastName),
                         style: .withTitle(LocalizedStrings.userProfileLastname + ":", bold: true)
                     )
 
@@ -146,130 +146,135 @@ struct UserProfileView: View {
 
                     NovoNordiskTextBox(
                         placeholder: LocalizedStrings.userProfileEmail,
-                        text: .constant(""),
-                        style: .withTitle(LocalizedStrings.userProfileEmail + ":", bold: true)
+                        text: .constant(user.email),
+                        style: .withTitle(LocalizedStrings.userProfileEmail + ":", bold: true),
+                        isEnabled: false
                     )
 
-                    NovoNordiskTextBox(
-                        placeholder: LocalizedStrings.userProfileNpwz,
-                        text: .constant(""),
-                        style: .withTitle(LocalizedStrings.userProfileNpwz + ":", bold: true)
-                    )
+                    // NovoNordiskTextBox(
+                    //     placeholder: LocalizedStrings.userProfileNpwz,
+                    //     text: .constant(""),
+                    //     style: .withTitle(LocalizedStrings.userProfileNpwz + ":", bold: true)
+                    // )
 
-                    NovoNordiskTextBox(
-                        placeholder: LocalizedStrings.userProfileAddress,
-                        text: .constant(""),
-                        style: .withTitle(LocalizedStrings.userProfileAddress + ":", bold: true)
-                    )
+                    // NovoNordiskTextBox(
+                    //     placeholder: LocalizedStrings.userProfileAddress,
+                    //     text: .constant(""),
+                    //     style: .withTitle(LocalizedStrings.userProfileAddress + ":", bold: true)
+                    // )
 
-                    GeometryReader { geometry in
-                        HStack(spacing: 12) {
-                            NovoNordiskTextBox(
-                                placeholder: LocalizedStrings.userProfilePostalcode,
-                                text: .constant(""),
-                                style: .withTitle(
-                                    LocalizedStrings.userProfilePostalcode + ":", bold: true)
-                            )
-                            .frame(width: (geometry.size.width - 12) / 3)  // 1/3 szerokości minus spacing
+                    // GeometryReader { geometry in
+                    //     HStack(spacing: 12) {
+                    //         NovoNordiskTextBox(
+                    //             placeholder: LocalizedStrings.userProfilePostalcode,
+                    //             text: .constant(""),
+                    //             style: .withTitle(
+                    //                 LocalizedStrings.userProfilePostalcode + ":", bold: true)
+                    //         )
+                    //         .frame(width: (geometry.size.width - 12) / 3)  // 1/3 szerokości minus spacing
 
-                            NovoNordiskTextBox(
-                                placeholder: LocalizedStrings.userProfileCity,
-                                text: .constant(""),
-                                style: .withTitle(
-                                    LocalizedStrings.userProfileCity + ":", bold: true)
-                            )
-                            .frame(width: (geometry.size.width - 12) * 2 / 3)  // 2/3 szerokości minus spacing
-                        }
-                    }
-                    .frame(height: 80)
+                    //         NovoNordiskTextBox(
+                    //             placeholder: LocalizedStrings.userProfileCity,
+                    //             text: .constant(""),
+                    //             style: .withTitle(
+                    //                 LocalizedStrings.userProfileCity + ":", bold: true)
+                    //         )
+                    //         .frame(width: (geometry.size.width - 12) * 2 / 3)  // 2/3 szerokości minus spacing
+                    //     }
+                    // }
+                    // .frame(height: 80)
 
-                    NovoNordiskTextBox(
-                        placeholder: LocalizedStrings.userProfilePesel,
-                        text: .constant(""),
-                        style: .withTitle(LocalizedStrings.userProfilePesel + ":", bold: true)
-                    )
+                    // NovoNordiskTextBox(
+                    //     placeholder: LocalizedStrings.userProfilePesel,
+                    //     text: .constant(""),
+                    //     style: .withTitle(LocalizedStrings.userProfilePesel + ":", bold: true)
+                    // )
 
-                    NovoNordiskCheckbox(
-                        title: LocalizedStrings.userProfileHasCompany,
-                        isChecked: $hasBusiness,
-                        //style: .regular
-                    ) { isChecked in
-                        // Clear fields when unchecked
-                        if !isChecked {
-                            // nip = ""
-                            // companyName = ""
-                            // taxOffice = ""
-                        }
-                    }
+                    // NovoNordiskCheckbox(
+                    //     title: LocalizedStrings.userProfileHasCompany,
+                    //     isChecked: $hasBusiness,
+                    //     //style: .regular
+                    // ) { isChecked in
+                    //     // Clear fields when unchecked
+                    //     if !isChecked {
+                    //         // nip = ""
+                    //         // companyName = ""
+                    //         // taxOffice = ""
+                    //     }
+                    // }
 
-                    NovoNordiskTextBox(
-                        placeholder: LocalizedStrings.userProfileNip,
-                        text: .constant(""),
-                        style: .withTitle(LocalizedStrings.userProfileNip + ":", bold: true),
-                        isEnabled: hasBusiness
-                    )
+                    // NovoNordiskTextBox(
+                    //     placeholder: LocalizedStrings.userProfileNip,
+                    //     text: .constant(""),
+                    //     style: .withTitle(LocalizedStrings.userProfileNip + ":", bold: true),
+                    //     isEnabled: hasBusiness
+                    // )
 
-                    NovoNordiskTextBox(
-                        placeholder: LocalizedStrings.userProfileCompanyName,
-                        text: .constant(""),
-                        style: .withTitle(
-                            LocalizedStrings.userProfileCompanyName + ":", bold: true),
-                        isEnabled: hasBusiness
-                    )
+                    // NovoNordiskTextBox(
+                    //     placeholder: LocalizedStrings.userProfileCompanyName,
+                    //     text: .constant(""),
+                    //     style: .withTitle(
+                    //         LocalizedStrings.userProfileCompanyName + ":", bold: true),
+                    //     isEnabled: hasBusiness
+                    // )
 
-                    NovoNordiskTextBox(
-                        placeholder: LocalizedStrings.userProfileTaxOffice,
-                        text: .constant(""),
-                        style: .withTitle(LocalizedStrings.userProfileTaxOffice + ":", bold: true),
-                        isEnabled: hasBusiness
-                    )
+                    // NovoNordiskTextBox(
+                    //     placeholder: LocalizedStrings.userProfileTaxOffice,
+                    //     text: .constant(""),
+                    //     style: .withTitle(LocalizedStrings.userProfileTaxOffice + ":", bold: true),
+                    //     isEnabled: hasBusiness
+                    // )
 
-                    VStack(alignment: .leading, spacing: 0) {
-                        NovoNordiskCheckbox(
-                            title: LocalizedStrings.userProfilePolicy,
-                            isChecked: $hasBusiness,
-                            //style: .regular
-                        )
-                        NovoNordiskLinkButton(
-                            title: LocalizedStrings.userProfilePolicyLink, style: .small
-                        ) {
-                           showPrivacyPolicy = true
-                        }
-                        .padding(.leading, 30)
-                    }
+                    // VStack(alignment: .leading, spacing: 0) {
+                    //     NovoNordiskCheckbox(
+                    //         title: LocalizedStrings.userProfilePolicy,
+                    //         isChecked: $hasBusiness,
+                    //         //style: .regular
+                    //     )
+                    //     NovoNordiskLinkButton(
+                    //         title: LocalizedStrings.userProfilePolicyLink, style: .small
+                    //     ) {
+                    //        showPrivacyPolicy = true
+                    //     }
+                    //     .padding(.leading, 30)
+                    // }
 
-                    VStack(alignment: .leading, spacing: 0) {
-                        NovoNordiskCheckbox(
-                            title: LocalizedStrings.userProfileRodo,
-                            isChecked: $hasBusiness,
-                            //style: .regular
-                        )
+                    // VStack(alignment: .leading, spacing: 0) {
+                    //     NovoNordiskCheckbox(
+                    //         title: LocalizedStrings.userProfileRodo,
+                    //         isChecked: $hasBusiness,
+                    //         //style: .regular
+                    //     )
 
-                        NovoNordiskLinkButton(
-                            title: LocalizedStrings.userProfileRodoLink, style: .small
-                        ) {
-                            showTermsOfUse = true
-                            print("Regulamin aplikacji tapped")
-                        }
-                        .padding(.leading, 30)
-                    }
+                    //     NovoNordiskLinkButton(
+                    //         title: LocalizedStrings.userProfileRodoLink, style: .small
+                    //     ) {
+                    //         showTermsOfUse = true
+                    //         print("Regulamin aplikacji tapped")
+                    //     }
+                    //     .padding(.leading, 30)
+                    // }
 
-                    VStack(alignment: .leading, spacing: 0) {
-                        NovoNordiskCheckbox(
-                            title: LocalizedStrings.userProfileMarketing,
-                            isChecked: $hasBusiness,
-                            //style: .regular
-                        )
+                    // VStack(alignment: .leading, spacing: 0) {
+                    //     NovoNordiskCheckbox(
+                    //         title: LocalizedStrings.userProfileMarketing,
+                    //         isChecked: $hasBusiness,
+                    //         //style: .regular
+                    //     )
 
-                        NovoNordiskLinkButton(
-                            title: LocalizedStrings.userProfileMarketingLink, style: .small
-                        ) {
-                                print("Regulamin aplikacji tapped")
-                        }
-                        .padding(.leading, 30)
-                    }
+                    //     NovoNordiskLinkButton(
+                    //         title: LocalizedStrings.userProfileMarketingLink, style: .small
+                    //     ) {
+                    //             print("Regulamin aplikacji tapped")
+                    //     }
+                    //     .padding(.leading, 30)
+                    // }
                 }
+
+                Spacer()
             }
+
+            Spacer()
 
             NovoNordiskButton(title: LocalizedStrings.buttonSave, style: .primary) {
                 print("Primary tapped")
