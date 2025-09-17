@@ -474,6 +474,7 @@ struct NewsDetailCardView: View {
                         CommentsListForNews(comments: news.comments)
                         if isCommentsEnabled {
                             CreateCommentForNewsView(onSendTap: onCommentTap, onCancelTap: {})
+                            .padding(.top, 30)
                         }
                     }
 
