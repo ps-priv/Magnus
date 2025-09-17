@@ -91,12 +91,12 @@ struct EventCardView: View {
                             .foregroundColor(.novoNordiskTextGrey)
 
 
-                        HStack {
-                            EventSeatsInfoView(seats: event.seats)
-                                .padding(.trailing, 10)
-                            Spacer()
-                        }
-                        .padding(.top, 10)
+                        // HStack {
+                        //     EventSeatsInfoView(seats: event.seats)
+                        //         .padding(.trailing, 10)
+                        //     Spacer()
+                        // }
+                        // .padding(.top, 10)
                     }
                     .padding(.horizontal, 20)
                     .padding(.top, 20)
