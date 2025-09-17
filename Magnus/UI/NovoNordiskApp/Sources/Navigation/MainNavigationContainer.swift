@@ -10,6 +10,7 @@ struct MainNavigationContainer: View {
     private let authStorageService: AuthStorageService
 
     @State private var allowEdit: Bool = false
+    @State private var allowAddNews: Bool = false
 
     public init(
         authStorageService: AuthStorageService = DIContainer.shared.authStorageService
@@ -23,6 +24,7 @@ struct MainNavigationContainer: View {
             let userData = try authStorageService.getUserData()
             let role = userData?.role
             allowEdit = (role == .przedstawiciel)
+            allowAddNews = userData?.getUserPermissions().canAddNews() ?? false
         } catch {
             allowEdit = false
         }
@@ -249,7 +251,7 @@ struct MainNavigationContainer: View {
                 tabs.append(.newsBookmarks)
             }
 
-            if allowedFunctions.allowNewsCreate && allowEdit {
+            if allowedFunctions.allowNewsCreate && allowAddNews {
                 tabs.append(.newsCreate)
             }
 
