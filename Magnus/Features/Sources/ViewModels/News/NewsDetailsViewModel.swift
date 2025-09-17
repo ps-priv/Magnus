@@ -71,6 +71,7 @@ public class NewsDetailsViewModel: ObservableObject {
             errorMessage = error.localizedDescription 
             hasError = true
             SentryHelper.capture(error: error, action: "NewsDetailsViewModel.loadData")
+            print(error)
         }
     }
 

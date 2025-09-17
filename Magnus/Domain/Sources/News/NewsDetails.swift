@@ -12,7 +12,7 @@ public struct NewsDetails : Identifiable, Hashable, Decodable {
     public let author: Author
     public let tags: [String]
     public let groups: [NewsGroup]
-    public let isBookmarked: Bool
+    public let isBookmarked: Bool?
     public let read_count: Int
     public let reactions_count: Int
     public let comments_count: Int
