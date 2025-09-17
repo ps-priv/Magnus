@@ -64,6 +64,10 @@ public class BookmarksViewModel: ObservableObject {
     public func changeNewsBookmarkStatus(id: String) async {
         do {
             try await newsService.changeNewsBookmarkStatus(id: id)
+
+            Task {
+                await loadData()
+            }
         } catch let error {
             SentryHelper.capture(error: error, action: "BookmarksViewModel.changeNewsBookmarkStatus")
         }
