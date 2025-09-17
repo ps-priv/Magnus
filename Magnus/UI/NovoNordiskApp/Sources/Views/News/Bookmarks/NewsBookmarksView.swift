@@ -48,9 +48,29 @@ struct NewsBookmarksView: View {
         )
         .toast(isPresented: $showToast, message: toastMessage)    
     }
+
+    @ViewBuilder
+    private var searchSection: some View {
+        HStack {
+            NovoNordiskTextBox(
+                placeholder: LocalizedStrings.newsSearchPlaceholder,
+                text: $viewModel.searchText
+            )
+
+            NovoNordiskIconButton(icon: .search, title: LocalizedStrings.newsSearchButton, style: .primary) {
+                Task {
+                    await viewModel.searchNews()
+                }
+            }
+            .frame(width: 120)
+        }
+        .padding(.vertical, 8)
+        .padding(.horizontal, 16)
+    }
      
     @ViewBuilder
     private var newsList: some View {
+        searchSection
         if viewModel.news.isEmpty {
             emptyStateView
         } else {

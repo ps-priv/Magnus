@@ -4,7 +4,9 @@ import MagnusDomain
 
 @MainActor
 public class NewsListViewModel: ObservableObject {
+    @Published public var searchText: String = ""
     @Published public var news: [News] = []
+    @Published public var allNews: [News] = []
 
     @Published public var isLoading: Bool = false
     @Published public var errorMessage: String = ""
@@ -28,7 +30,6 @@ public class NewsListViewModel: ObservableObject {
             await self?.loadData()
         }
     }
-
     private func checkIfUserCanEdit() {
         do {
             let userData = try authStorageService.getUserData()
@@ -54,6 +55,7 @@ public class NewsListViewModel: ObservableObject {
 
             await MainActor.run {
                 news = data.news.sorted { $0.publish_date > $1.publish_date }
+                allNews = news
                 isLoading = false
             }
         } catch let error {
@@ -79,4 +81,22 @@ public class NewsListViewModel: ObservableObject {
             SentryHelper.capture(error: error, action: "NewsListViewModel.deleteNews")
         }
     }  
+
+    public func searchNews() async {
+        await MainActor.run {
+            isLoading = true
+            hasError = false
+            errorMessage = ""
+        }
+
+        if searchText.isEmpty {
+            news = allNews
+        } else {
+            news = allNews.filter { $0.title.lowercased().contains(searchText.lowercased()) }
+        }
+
+        await MainActor.run {
+            isLoading = false
+        }
+    }
 } 

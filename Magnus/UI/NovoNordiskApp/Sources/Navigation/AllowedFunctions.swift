@@ -8,7 +8,7 @@ public struct AllowedFunctions {
     public var allowAcademy = true
 
     //top bar
-    public var allowSearch = true    
+    public var allowSearch = false    
     public var allowNotification = true
     public var allowProfile = true
     public var allowSettings = true

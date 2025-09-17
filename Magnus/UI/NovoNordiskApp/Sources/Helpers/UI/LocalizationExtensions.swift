@@ -312,4 +312,7 @@ enum LocalizedStrings {
     //Material Preview
     static let materialPreviewScreenTitle = "MATERIAL_PREVIEW_SCREEN_TITLE".localized
     static let addCommentButton = "ADD_COMMENT_BUTTON".localized
+
+    static let newsSearchPlaceholder = "NEWS_SEARCH_PLACEHOLDER".localized
+    static let newsSearchButton = "NEWS_SEARCH_BUTTON".localized
 }

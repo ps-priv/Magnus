@@ -4,7 +4,9 @@ import MagnusDomain
 
 @MainActor
 public class BookmarksViewModel: ObservableObject {
+    @Published public var searchText: String = ""
     @Published public var news: [News] = []
+    @Published public var allNews: [News] = []
 
     @Published public var isLoading: Bool = false
     @Published public var errorMessage: String = ""
@@ -51,6 +53,7 @@ public class BookmarksViewModel: ObservableObject {
 
             await MainActor.run {
                 news = data.news
+                allNews = news
                 isLoading = false
             }
         } catch let error {
@@ -70,6 +73,25 @@ public class BookmarksViewModel: ObservableObject {
             }
         } catch let error {
             SentryHelper.capture(error: error, action: "BookmarksViewModel.changeNewsBookmarkStatus")
+        }
+    }
+
+
+    public func searchNews() async {
+        await MainActor.run {
+            isLoading = true
+            hasError = false
+            errorMessage = ""
+        }
+
+        if searchText.isEmpty {
+            news = allNews
+        } else {
+            news = allNews.filter { $0.title.lowercased().contains(searchText.lowercased()) }
+        }
+
+        await MainActor.run {
+            isLoading = false
         }
     }
 } 

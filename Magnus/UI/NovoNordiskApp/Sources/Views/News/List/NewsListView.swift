@@ -1,7 +1,7 @@
-import SwiftUI
-import MagnusFeatures
-import MagnusDomain
 import Kingfisher
+import MagnusDomain
+import MagnusFeatures
+import SwiftUI
 
 struct NewsListView: View {
 
@@ -12,7 +12,6 @@ struct NewsListView: View {
 
     @StateObject private var viewModel: NewsListViewModel = NewsListViewModel()
     @EnvironmentObject var navigationManager: NavigationManager
-    
 
     var body: some View {
         VStack(spacing: 0) {
@@ -46,16 +45,18 @@ struct NewsListView: View {
         )
         .toast(isPresented: $showToast, message: toastMessage)
     }
-     
+
     @ViewBuilder
     private var newsList: some View {
+        searchSection
         if viewModel.news.isEmpty {
             emptyStateView
         } else {
             ScrollView {
                 LazyVStack(spacing: 12) {
                     ForEach(viewModel.news) { newsItem in
-                        NewsListCardView(news: newsItem, 
+                        NewsListCardView(
+                            news: newsItem,
                             currentUserId: viewModel.currentUserId,
                             onTap: {
                                 navigationManager.navigateToNewsDetail(newsId: newsItem.id)
@@ -76,11 +77,30 @@ struct NewsListView: View {
                     }
                 }
                 .padding(.horizontal)
-                .padding(.vertical, 8)
             }
+            .padding(.vertical, 8)
         }
     }
-    
+
+    @ViewBuilder
+    private var searchSection: some View {
+        HStack {
+            NovoNordiskTextBox(
+                placeholder: LocalizedStrings.newsSearchPlaceholder,
+                text: $viewModel.searchText
+            )
+
+            NovoNordiskIconButton(icon: .search, title: LocalizedStrings.newsSearchButton, style: .primary) {
+                Task {
+                    await viewModel.searchNews()
+                }
+            }
+            .frame(width: 120)
+        }
+        .padding(.vertical, 8)
+        .padding(.horizontal, 16)
+    }
+
     @ViewBuilder
     private var emptyStateView: some View {
         VStack(spacing: 16) {
@@ -101,10 +121,10 @@ struct NewsListView: View {
 }
 
 #Preview {
-    VStack {    
+    VStack {
         NewsListView()
             .environmentObject(NavigationManager())
     }
     .padding(20)
-    .background(Color(.systemGray6))
-} 
+    .background(Color.novoNordiskBackgroundGrey)
+}
