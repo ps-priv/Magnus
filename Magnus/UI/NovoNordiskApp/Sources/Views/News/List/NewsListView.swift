@@ -73,6 +73,7 @@ struct NewsListView: View {
                                 showDeleteConfirmation = true
                                 selectedNewsId = newsItem.id
                             })
+                        .id(newsItem.id) // Ensure unique identity for LazyVStack
                     }
                 }
                 .padding(.horizontal)

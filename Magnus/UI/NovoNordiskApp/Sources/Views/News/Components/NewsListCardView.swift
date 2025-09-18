@@ -2,8 +2,8 @@ import Kingfisher
 import MagnusApplication
 import MagnusDomain
 import MagnusFeatures
-import SwiftUI
 import Pow
+import SwiftUI
 
 struct NewsListCardView: View {
     @EnvironmentObject private var navigationManager: NavigationManager
@@ -14,11 +14,15 @@ struct NewsListCardView: View {
     let onEditTap: () -> Void
     let onDeleteTap: () -> Void
 
-    @State var isBookmarked: Bool
+    @State var isBookmarked: Bool = false
     @State var allowEdit: Bool = false
     @State var userPermissions: UserPermissions
 
-    init(news: News, userPermissions: UserPermissions, onTap: @escaping () -> Void, onBookmarkTap: @escaping () -> Void, onEditTap: @escaping () -> Void, onDeleteTap: @escaping () -> Void) {
+    init(
+        news: News, userPermissions: UserPermissions, onTap: @escaping () -> Void,
+        onBookmarkTap: @escaping () -> Void, onEditTap: @escaping () -> Void,
+        onDeleteTap: @escaping () -> Void
+    ) {
         self.news = news
         self.onTap = onTap
         self.onBookmarkTap = onBookmarkTap
@@ -30,43 +34,45 @@ struct NewsListCardView: View {
     }
 
     var body: some View {
-        Button(action: onTap) {
-            VStack(alignment: .leading, spacing: 12) {
-                KFImage(URL(string: news.image)!)
-                    .placeholder {
-                        Rectangle().fill(Color.gray.opacity(0.3))
-                            .overlay(
-                                VStack {
-                                    ProgressView()
-                                        .scaleEffect(1.2)
-                                        .tint(.novoNordiskBlue)
-                                    FAIcon(.newspaper, type: .light, size: 40, color: Color.novoNordiskGrey)
-                                        .padding(.top, 8)
-                                }
-                            )
-                    }
-                    .resizable()
-                    .aspectRatio(contentMode: .fill)
-                    .frame(height: 190)
-                    .clipped()
-                    .cornerRadius(12)
-
-
-                VStack(alignment: .leading) {
-                    titleSection
-                    .padding(.bottom, 4)
-                    descriptionSection
-                    .padding(.bottom, 6)
-                    footerSection
+        VStack(alignment: .leading, spacing: 12) {
+            KFImage(URL(string: news.image)!)
+                .placeholder {
+                    Rectangle().fill(Color.gray.opacity(0.3))
+                        .overlay(
+                            VStack {
+                                ProgressView()
+                                    .scaleEffect(1.2)
+                                    .tint(.novoNordiskBlue)
+                                FAIcon(
+                                    .newspaper, type: .light, size: 40, color: Color.novoNordiskGrey
+                                )
+                                .padding(.top, 8)
+                            }
+                        )
                 }
-                .padding(.horizontal, 16)
-                .padding(.bottom, 16)
+                .resizable()
+                .aspectRatio(contentMode: .fill)
+                .frame(height: 190)
+                .clipped()
+                .cornerRadius(12)
+                .onTapGesture {
+                    onTap()
+                }
+
+            VStack(alignment: .leading) {
+                titleSection
+                    .padding(.bottom, 4)
+                descriptionSection
+                    .padding(.bottom, 6)
+                footerSection
             }
+            .padding(.horizontal, 16)
+            .padding(.bottom, 16)
         }
-        .buttonStyle(PlainButtonStyle())
         .background(Color.white)
-        .cornerRadius(12)
-        .shadow(color: .black.opacity(0.1), radius: 4, x: 0, y: 2)
+        .cornerRadius(16)
+        .shadow(color: Color.black.opacity(0.1), radius: 8, x: 0, y: 2)
+        .contentShape(Rectangle())
     }
 
     @ViewBuilder
@@ -92,66 +98,57 @@ struct NewsListCardView: View {
 
     @ViewBuilder
     var bookmarkedSection: some View {
-        Button(action: {
-            onBookmarkTap()
-            isBookmarked.toggle()
-        }) {
-            //if !news.is_bookmarked {
-            if !isBookmarked {
-                FAIcon(
-                    FontAwesome.Icon.bookmark,
-                    type: .light,
-                    size: 25,
-                    color: Color.novoNordiskTextGrey
-                )
-            } else {
-                FAIcon(
-                    FontAwesome.Icon.bookmark,
-                    type: .solid,
-                    size: 25,
-                    color: Color.novoNordiskLightBlue
-                )
-            }            
-        }
-        .changeEffect(
-            .spray(origin: UnitPoint(x: 0.25, y: 0.5)) {
-                if isBookmarked {
-                    FAIcon(
-                        FontAwesome.Icon.bookmark,
+        HStack {
+            FAIcon(
+                FontAwesome.Icon.bookmark,
+                type: isBookmarked ? .solid : .light,
+                size: 25,
+                color: isBookmarked ? Color.novoNordiskLightBlue : Color.novoNordiskTextGrey
+            )
+            .changeEffect(
+                .spray(origin: UnitPoint(x: 0.25, y: 0.5)) {
+                    if isBookmarked {
+                        FAIcon(
+                            FontAwesome.Icon.bookmark,
                         type: .solid,
-                        size: 25,
+                        size: 35,
                         color: Color.novoNordiskLightBlue
                     )
                 }
             }, value: isBookmarked)
+        }
+        .onTapGesture {
+            onBookmarkTap()
+            isBookmarked.toggle()
+        }
     }
 
     @ViewBuilder
     var editSection: some View {
         if allowEdit {
-        Menu {
-            Button {
-                onEditTap()
+            Menu {
+                Button {
+                    onEditTap()
+                } label: {
+                    Label(LocalizedStrings.newsListEditNews, systemImage: "pencil")
+                }
+
+                Button(role: .destructive) {
+                    onDeleteTap()
+                } label: {
+                    Label(LocalizedStrings.newsListDeleteNews, systemImage: "trash")
+                }
             } label: {
-                Label(LocalizedStrings.newsListEditNews, systemImage: "pencil")
+                FAIcon(
+                    FontAwesome.Icon.ellipsisVertical,
+                    type: .light,
+                    size: 18,
+                    color: Color.novoNordiskTextGrey
+                )
             }
-            
-            Button(role: .destructive) {
-                onDeleteTap()
-            } label: {
-                Label(LocalizedStrings.newsListDeleteNews, systemImage: "trash")
-            }
-        } label: {
-            FAIcon(
-                FontAwesome.Icon.ellipsisVertical,
-                type: .light,
-                size: 18,
-                color: Color.novoNordiskTextGrey
-            )
-        }
-        .menuStyle(BorderlessButtonMenuStyle())
-        .background(Color.white)
-        //.shadow(color: .black.opacity(0.9), radius: 12, x: 0, y: 0)
+            .menuStyle(BorderlessButtonMenuStyle())
+            .background(Color.white)
+            //.shadow(color: .black.opacity(0.9), radius: 12, x: 0, y: 0)
         }
     }
 
@@ -195,7 +192,7 @@ struct NewsListCardView: View {
     @ViewBuilder
     var newsStatsSection: some View {
         HStack {
-            HStack (spacing: 2) {    
+            HStack(spacing: 2) {
                 FAIcon(
                     FontAwesome.Icon.eye,
                     type: .light,
@@ -207,7 +204,7 @@ struct NewsListCardView: View {
                     .foregroundColor(Color.novoNordiskTextGrey)
             }
 
-            HStack (spacing: 2) {    
+            HStack(spacing: 2) {
                 FAIcon(
                     FontAwesome.Icon.comment,
                     type: .light,
@@ -219,7 +216,7 @@ struct NewsListCardView: View {
                     .foregroundColor(Color.novoNordiskTextGrey)
             }
 
-            HStack (spacing: 2) {    
+            HStack(spacing: 2) {
                 FAIcon(
                     FontAwesome.Icon.smile,
                     type: .light,
@@ -240,20 +237,21 @@ struct NewsListCardView: View {
     let userPermissions = UserPermissions(id: "1", admin: 1, news_editor: 1, photo_booths_editor: 1)
 
     VStack {
-        NewsListCardView(news: news, 
-        userPermissions: userPermissions,
-        onTap: {
-            print("Tapped")
-        },
-        onBookmarkTap: {
-            print("Tapped")
-        },
-        onEditTap: {
-            print("Tapped")
-        },
-        onDeleteTap: {
-            print("Tapped")
-        })
+        NewsListCardView(
+            news: news,
+            userPermissions: userPermissions,
+            onTap: {
+                print("Tapped")
+            },
+            onBookmarkTap: {
+                print("Tapped")
+            },
+            onEditTap: {
+                print("Tapped")
+            },
+            onDeleteTap: {
+                print("Tapped")
+            })
     }
     .padding(20)
     .background(Color(.systemGray6))
