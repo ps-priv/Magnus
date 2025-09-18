@@ -32,7 +32,7 @@ struct NewsListCardView: View {
     var body: some View {
         Button(action: onTap) {
             VStack(alignment: .leading, spacing: 12) {
-                KFImage(URL(string: news.image))
+                KFImage(URL(string: news.image)!)
                     .placeholder {
                         Rectangle().fill(Color.gray.opacity(0.3))
                             .overlay(
@@ -50,6 +50,7 @@ struct NewsListCardView: View {
                     .frame(height: 190)
                     .clipped()
                     .cornerRadius(12)
+
 
                 VStack(alignment: .leading) {
                     titleSection
