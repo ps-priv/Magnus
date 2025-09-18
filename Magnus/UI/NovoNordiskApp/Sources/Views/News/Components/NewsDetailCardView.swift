@@ -1,10 +1,10 @@
+import Foundation
 import Kingfisher
 import MagnusApplication
 import MagnusDomain
 import MagnusFeatures
 import PopupView
 import SwiftUI
-import Foundation
 
 struct NewsDetailCardView: View {
     @EnvironmentObject private var navigationManager: NavigationManager
@@ -27,7 +27,7 @@ struct NewsDetailCardView: View {
 
     private enum StatsTab: CaseIterable {
         case comments
-        case reactions  
+        case reactions
         case reads
 
         var title: String {
@@ -63,7 +63,8 @@ struct NewsDetailCardView: View {
         self.onCommentTap = onCommentTap
         self.userPermissions = userPermissions
 
-        selectedReaction = news.reactions.first(where: { $0.author.id == userPermissions.id })?.reaction ?? .SMILE
+        selectedReaction =
+            news.reactions.first(where: { $0.author.id == userPermissions.id })?.reaction ?? .SMILE
     }
 
     var body: some View {
@@ -104,7 +105,6 @@ struct NewsDetailCardView: View {
                         .padding(.bottom, 16)
                     }
 
-                    
                 }
                 .buttonStyle(PlainButtonStyle())
                 .background(Color.novoNordiskLightBlueBackground)
@@ -114,7 +114,6 @@ struct NewsDetailCardView: View {
                         .stroke(Color.novoNordiskLightBlue, lineWidth: 1)
                 )
                 .shadow(color: .black.opacity(0.1), radius: 4, x: 0, y: 2)
-
 
                 // Menu reakcji jako overlay
                 if showReactionsMenu {
@@ -148,7 +147,7 @@ struct NewsDetailCardView: View {
                             )
                         }
 
-                        // Clapping Hands   
+                        // Clapping Hands
                         Button(action: {
                             onReactionTap(.CLAPPING_HANDS)
                             showReactionsMenu = false
@@ -250,6 +249,23 @@ struct NewsDetailCardView: View {
                 .cornerRadius(8)
             }
         }
+        .onAppear {
+            if !news.allowComments() && !news.allowReactions() {
+                selectedStatsTab = .reads
+            }
+
+            if !news.allowComments() && news.allowReactions() {
+                selectedStatsTab = .reactions
+            }
+
+            if news.allowComments() {
+                selectedStatsTab = .comments
+            }
+
+            if news.allowReactions() && news.allowComments() {
+                selectedStatsTab = .reactions
+            }
+        }
         // .alert(isPresented: $showToast) {
         //     Alert(title: Text("Komunikat"), message: Text(toastMessage))
         // }
@@ -257,7 +273,7 @@ struct NewsDetailCardView: View {
         .onDisappear {
             showToast = false
             toastMessage = ""
-        } 
+        }
     }
 
     @ViewBuilder
@@ -405,16 +421,18 @@ struct NewsDetailCardView: View {
 
     @ViewBuilder
     var reactionsSection: some View {
-        Button(action: {
-            withAnimation(.easeInOut(duration: 0.2)) {
-                showReactionsMenu.toggle()
-            }
-        }) {
-            HStack(spacing: 2) {
-                RectionComponent(
-                    reactionsCount: news.reactions_count,
-                    selectedReaction: selectedReaction
-                )
+        if news.allowReactions() {
+            Button(action: {
+                withAnimation(.easeInOut(duration: 0.2)) {
+                    showReactionsMenu.toggle()
+                }
+            }) {
+                HStack(spacing: 2) {
+                    RectionComponent(
+                        reactionsCount: news.reactions_count,
+                        selectedReaction: selectedReaction
+                    )
+                }
             }
         }
     }
@@ -452,31 +470,70 @@ struct NewsDetailCardView: View {
     @ViewBuilder
     var tabSection: some View {
         VStack(alignment: .leading, spacing: 10) {
+            // HStack(spacing: 16) {
+            //     ForEach(StatsTab.allCases, id: \.self) { tab in
+            //         Button(action: { selectedStatsTab = tab }) {
+            //             Text(tab.title)
+            //                 .font(.system(size: 14))
+            //                 .fontWeight(selectedStatsTab == tab ? .bold : .regular)
+            //                 .foregroundColor(Color.novoNordiskBlue)
+            //         }
+            //         .buttonStyle(.plain)
+            //     }
+            // }
+
+            // case .comments: return LocalizedStrings.newsDetailsCommentsTab
+            // case .reactions: return LocalizedStrings.newsDetailsReactionsTab
+            // case .reads: return LocalizedStrings.newsDetailsReadsTab
+
             HStack(spacing: 16) {
-                ForEach(StatsTab.allCases, id: \.self) { tab in
-                    Button(action: { selectedStatsTab = tab }) {
-                        Text(tab.title)
+
+                if news.allowComments() {
+                    Button(action: { selectedStatsTab = .comments }) {
+                        Text(LocalizedStrings.newsDetailsCommentsTab)
                             .font(.system(size: 14))
-                            .fontWeight(selectedStatsTab == tab ? .bold : .regular)
+                            .fontWeight(selectedStatsTab == .comments ? .bold : .regular)
                             .foregroundColor(Color.novoNordiskBlue)
                     }
                     .buttonStyle(.plain)
                 }
+
+                if news.allowReactions() {
+                    Button(action: { selectedStatsTab = .reactions }) {
+                        Text(LocalizedStrings.newsDetailsReactionsTab)
+                            .font(.system(size: 14))
+                            .fontWeight(selectedStatsTab == .reactions ? .bold : .regular)
+                            .foregroundColor(Color.novoNordiskBlue)
+                    }
+                    .buttonStyle(.plain)
+                }
+
+                Button(action: { selectedStatsTab = .reads }) {
+                    Text(LocalizedStrings.newsDetailsReadsTab)
+                        .font(.system(size: 14))
+                        .fontWeight(selectedStatsTab == .reads ? .bold : .regular)
+                        .foregroundColor(Color.novoNordiskBlue)
+                }
+                .buttonStyle(.plain)
             }
 
             Group {
                 switch selectedStatsTab {
                 case .comments:
-                    VStack {
-                        CommentsListForNews(comments: news.comments)
-                        if isCommentsEnabled {
-                            CreateCommentForNewsView(onSendTap: onCommentTap, onCancelTap: {})
-                            .padding(.top, 30)
+                    if news.allowComments() {
+                        VStack {
+                            CommentsListForNews(comments: news.comments)
+                            if isCommentsEnabled {
+                                CreateCommentForNewsView(onSendTap: onCommentTap, onCancelTap: {})
+                                    .padding(.top, 30)
+                            }
                         }
                     }
 
                 case .reactions:
-                    ReactionListForNews(reactions: news.reactions)
+                    if news.allowReactions() {
+                        ReactionListForNews(reactions: news.reactions)
+                    }
 
                 case .reads:
                     ReadListForNews(read: news.read)
@@ -501,9 +558,10 @@ struct NewsDetailCardView: View {
     }
 }
 
-private extension View {
-    func hideKeyboard() {
-        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+extension View {
+    fileprivate func hideKeyboard() {
+        UIApplication.shared.sendAction(
+            #selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
     }
 }
 
@@ -532,7 +590,8 @@ private extension View {
             onCommentTap: { text in
                 print("Comment tapped: \(text)")
             },
-            userPermissions: UserPermissions(id: "1", admin: 1, news_editor: 1, photo_booths_editor: 1))
+            userPermissions: UserPermissions(
+                id: "1", admin: 1, news_editor: 1, photo_booths_editor: 1))
         Spacer()
     }
     .frame(maxWidth: .infinity, maxHeight: .infinity)

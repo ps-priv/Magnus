@@ -9,6 +9,7 @@ public struct NewsDetails : Identifiable, Hashable, Decodable {
     public let highlight_entry: Int
     public let block_comments: Int
     public let block_reactions: Int
+    public let allow_comments: Bool
     public let author: Author
     public let tags: [String]
     public let groups: [NewsGroup]
@@ -22,6 +23,7 @@ public struct NewsDetails : Identifiable, Hashable, Decodable {
     public let attachments: [NewsMaterial]
 
     public init(id: String, publish_date: String, title: String, description: String, image: String, highlight_entry: Int, block_comments: Int, 
+                allow_comments: Bool,
                 block_reactions: Int, author: Author, tags: [String], groups: [NewsGroup], isBookmarked: Bool, 
                 read_count: Int, reactions_count: Int, comments_count: Int, 
                 comments: [Comment], reactions: [Reaction], read: [ReadBy], attachments: [NewsMaterial]
@@ -34,6 +36,7 @@ public struct NewsDetails : Identifiable, Hashable, Decodable {
         self.highlight_entry = highlight_entry
         self.block_comments = block_comments
         self.block_reactions = block_reactions
+        self.allow_comments = allow_comments
         self.author = author
         self.tags = tags
         self.groups = groups
@@ -45,5 +48,13 @@ public struct NewsDetails : Identifiable, Hashable, Decodable {
         self.reactions = reactions
         self.read = read
         self.attachments = attachments
+    }
+
+    public func allowComments() -> Bool {
+        return block_comments == 0 || allow_comments
+    }
+
+    public func allowReactions() -> Bool {
+        return block_reactions == 0
     }
 }

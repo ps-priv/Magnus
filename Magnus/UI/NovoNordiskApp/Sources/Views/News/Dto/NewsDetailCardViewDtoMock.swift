@@ -19,7 +19,10 @@ public class NewsDetailCardViewDtoMock {
             comments: [],
             reactions: [],
             read: [],
-            attachments: []
+            attachments: [],
+            block_comments: 0,
+            block_reactions: 0,
+            allow_comments: true
         )
     }
 
@@ -33,8 +36,9 @@ public class NewsDetailCardViewDtoMock {
             "description": "Mamy przyjemność przedstawić Wam Zwycięzców nagród rocznych 2024 CDC Poland Simply The Best Awards, którzy zostali ogłoszeni podczas uroczystej gali na spotkaniu Mid Year Meeting CDC Poland w Janowie Podlaskim.   Nagrody CDC Poland Simply The Best są nie tylko symbolem uznania naszych liderów oraz Kolegów i Koleżanek, ale przede wszystkim świadectwem najwyższych standardów działania i doskonałych rezultatów osiąganych przez nasze Zespoły! GRATULUJEMY!",
             "image": "https://nncv2-dev.serwik.pl/images/1_Gratulujemy_Zwyciezcom_CDC_Poland.jpg",
             "highlight_entry": 0,
-            "block_comments": 0,
-            "block_reactions": 0,
+            "block_comments": 1,
+            "block_reactions": 1,
+            "allow_comments" : true,
             "author": {
                 "id": "eyJpZCI6MSwidG9rZW4iOiIzfGpwZ3gwRTFEdGh4RDA2cGdNRlJOeHJGdVNuTVdjTERzUWhjM0hYaVE0NzI4NzA3OCJ9",
                 "name": "Joanna Skarżyńska-Kotyńska",
@@ -123,6 +127,7 @@ public class NewsDetailCardViewDtoMock {
             let details = try decoder.decode(NewsDetails.self, from: data)
             return NewsDetailCardViewDto.fromNewsDetails(newsDetails: details)
         } catch {
+            print("Error decoding JSON: \(error)")
             // Fallback to existing mock on decode failure
             return getSingleNews()
         }
