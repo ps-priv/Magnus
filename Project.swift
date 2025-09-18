@@ -4,7 +4,7 @@ let packages: [Package] = [
     .package(url: "https://github.com/Alamofire/Alamofire.git", from: "5.8.0"),
     .package(url: "https://github.com/Swinject/Swinject.git", from: "2.9.1"),
     .package(url: "https://github.com/getsentry/sentry-cocoa", from: "8.53.2"),
-    .package(url: "https://github.com/EmergeTools/Pow", from: "1.0.0"),
+    .package(url: "https://github.com/EmergeTools/Pow", from: "1.0.5"),
     .package(url: "https://github.com/onevcat/Kingfisher.git", from: "8.5.0"),
     .package(url: "https://github.com/exyte/PopupView.git", from: "4.1.11"),
     .package(url: "https://github.com/OneSignal/OneSignal-iOS-SDK.git", from: "5.2.14")
