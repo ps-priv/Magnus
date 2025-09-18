@@ -105,7 +105,7 @@ public class NewsAddViewModel: ObservableObject {
         }
     }
 
-    public func canSendNews() -> Bool {  
+    public var canSendNews: Bool {  
         if (title.isEmpty || content.isEmpty) {
             return false
         }

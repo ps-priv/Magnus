@@ -10,20 +10,36 @@ struct PublishButton: View {
     }
     
     var body: some View {
-        Button(action: {
+        HStack {
+            Text(LocalizedStrings.publishButton)
+                .font(.novoNordiskMiddleText)
+                .foregroundColor(.white)
+                .padding(.horizontal, 15)
+                .padding(.vertical, 5)
+        }
+        .background(isDisabled ? Color.gray : Color.novoNordiskLightBlue)
+        .frame(height: 27)
+        .cornerRadius(4)
+        .onTapGesture {
             action()
-        }) {
-            HStack {
-                Text(LocalizedStrings.publishButton)
-                    .font(.novoNordiskMiddleText)
-                    .foregroundColor(.white)
-                    .padding(.horizontal, 15)
-                    .padding(.vertical, 5)
-            }
-            .background(isDisabled ? Color.gray : Color.novoNordiskLightBlue)
-            .frame(height: 27)
-            .cornerRadius(4)
         }
         .disabled(isDisabled)
+
+
+        // Button(action: {
+        //     action()
+        // }) {
+        //     HStack {
+        //         Text(LocalizedStrings.publishButton)
+        //             .font(.novoNordiskMiddleText)
+        //             .foregroundColor(.white)
+        //             .padding(.horizontal, 15)
+        //             .padding(.vertical, 5)
+        //     }
+        //     .background(isDisabled ? Color.gray : Color.novoNordiskLightBlue)
+        //     .frame(height: 27)
+        //     .cornerRadius(4)
+        // }
+        // .disabled(isDisabled)
     }
 }

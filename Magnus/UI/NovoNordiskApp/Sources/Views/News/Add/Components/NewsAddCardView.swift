@@ -20,7 +20,7 @@ struct NewsAddCardView: View {
     @FocusState private var isFocusedTitle: Bool
     @FocusState private var isFocusedContent: Bool
 
-    public var canSendNews: Bool = false
+    public var canSendNews: Bool
 
     let saveAction: () -> Void
     let cancelAction: () -> Void
@@ -41,7 +41,7 @@ struct NewsAddCardView: View {
         title: Binding<String>,
         content: Binding<String>,
         image: Binding<Data?>,
-        canSendNews: Bool = false
+        canSendNews: Bool
     ) {
         self.saveAction = saveAction
         self.cancelAction = cancelAction
@@ -59,23 +59,23 @@ struct NewsAddCardView: View {
 
     var body: some View {
         VStack(spacing: 20) {
-            // HStack {
-            //     PublishButton(
-            //         action: {
-            //             showSaveConfirmation = true
-            //         }, isDisabled: !canSendNews)
-            //     // WhiteButton(
-            //     //     title: LocalizedStrings.saveButton,
-            //     //     action: saveAction,
-            //     //     isDisabled: !canSendNews)
-            //     Spacer()
-            //     WhiteButton(
-            //         title: LocalizedStrings.cancelButton,
-            //         action: cancelAction,
-            //         isDisabled: !canSendNews)
+            HStack {
+                PublishButton(
+                    action: {
+                        showSaveConfirmation = true
+                    }, isDisabled: !canSendNews)
+                // WhiteButton(
+                //     title: LocalizedStrings.saveButton,
+                //     action: saveAction,
+                //     isDisabled: !canSendNews)
+                Spacer()
+                WhiteButton(
+                    title: LocalizedStrings.cancelButton,
+                    action: cancelAction,
+                    isDisabled: !canSendNews)
 
-            //     //DeleteButton(action: deleteAction)
-            // }
+                //DeleteButton(action: deleteAction)
+            }
         
             SelectAndDisplayImage(
                 imageData: $image,

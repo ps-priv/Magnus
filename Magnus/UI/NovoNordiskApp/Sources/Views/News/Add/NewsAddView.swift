@@ -45,7 +45,7 @@ struct NewsAddView: View {
                         title: $viewModel.title,
                         content: $viewModel.content,
                         image: $viewModel.image,
-                        canSendNews: viewModel.canSendNews())
+                        canSendNews: viewModel.canSendNews)
                 }
             }
         }

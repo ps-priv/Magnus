@@ -36,19 +36,32 @@ public struct SelectAndDisplayImage: View {
                     .clipShape(RoundedRectangle(cornerRadius: cornerRadius - 2))
                     .padding(8)
                 
-                Button {
-                    imageData = nil
-                    onImageSelectedState = nil
-                    pickerItem = nil
-                } label: {
+                // Button {
+                //     imageData = nil
+                //     onImageSelectedState = nil
+                //     pickerItem = nil
+                // } label: {
+                //     FAIcon(.delete, size: 16, color: Color.novoNordiskOrangeRed)
+                //         .frame(width: 25, height: 25)
+                //         .background(Circle().fill(Color.novoNordiskBackgroundGrey))
+                //         .clipShape(Circle())
+                // }
+                // .buttonStyle(.plain)
+                // .padding(.top, 18)
+                // .padding(.trailing, 18)
+                HStack {
                     FAIcon(.delete, size: 16, color: Color.novoNordiskOrangeRed)
                         .frame(width: 25, height: 25)
                         .background(Circle().fill(Color.novoNordiskBackgroundGrey))
                         .clipShape(Circle())
                 }
-                .buttonStyle(.plain)
                 .padding(.top, 18)
                 .padding(.trailing, 18)
+                .onTapGesture {
+                    imageData = nil
+                    onImageSelectedState = nil
+                    pickerItem = nil
+                }
             }
             .background(Color.novoNordiskBackgroundGrey)
 
