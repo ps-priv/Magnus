@@ -18,6 +18,7 @@ public class NewsEditViewModel: ObservableObject {
     @Published public var attachments: [NewsAttachment] = []
     @Published public var tags: [String] = []
     @Published public var groups: [NewsGroup] = []
+    @Published public var allowComments: Bool = false
 
     private let newsService: ApiNewsService
     private let storageService: MagnusStorageService
@@ -73,7 +74,7 @@ public class NewsEditViewModel: ObservableObject {
         }
 
         do {
-            try await newsService.updateNews(id: id, title: title, content: content, image: image, selectedGroups: selectedGroups, attachments: attachments, tags: tags)
+            try await newsService.updateNews(id: id, title: title, content: content, image: image, selectedGroups: selectedGroups, attachments: attachments, tags: tags, allow_comments: allowComments)
 
             await MainActor.run {
                 isLoading = false
@@ -102,7 +103,7 @@ public class NewsEditViewModel: ObservableObject {
         do {
             let imageString = image?.base64EncodedString() ?? ""
 
-            try await storageService.saveNewsRequest(news: AddNewsRequest(title: title, message: content, image: imageString, tags: tags, user_groups: selectedGroups.map { $0.id }, attachments: attachments))
+            try await storageService.saveNewsRequest(news: AddNewsRequest(title: title, message: content, image: imageString, tags: tags, user_groups: selectedGroups.map { $0.id }, attachments: attachments, allow_comments: allowComments))
 
             await MainActor.run {
                 isLoading = false

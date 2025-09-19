@@ -6,8 +6,9 @@ public struct UpdateNewsRequest: Hashable, Encodable, Decodable {
     public let tags: [String]
     public let user_groups: [String]
     public let attachments: [NewsAttachment]
+    public let allow_comments: Bool
 
-    public init(id: String, title: String, message: String, image: String, tags: [String], user_groups: [String], attachments: [NewsAttachment]) {
+    public init(id: String, title: String, message: String, image: String, tags: [String], user_groups: [String], attachments: [NewsAttachment], allow_comments: Bool) {
         self.id = id
         self.title = title
         self.message = message
@@ -15,6 +16,7 @@ public struct UpdateNewsRequest: Hashable, Encodable, Decodable {
         self.tags = tags
         self.user_groups = user_groups
         self.attachments = attachments
+        self.allow_comments = allow_comments
     }   
 }
 

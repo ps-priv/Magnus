@@ -7,7 +7,9 @@ let packages: [Package] = [
     .package(url: "https://github.com/EmergeTools/Pow", from: "1.0.5"),
     .package(url: "https://github.com/onevcat/Kingfisher.git", from: "8.5.0"),
     .package(url: "https://github.com/exyte/PopupView.git", from: "4.1.11"),
+    .package(url: "https://github.com/exyte/FloatingButton.git", from: "1.4.0"),
     .package(url: "https://github.com/OneSignal/OneSignal-iOS-SDK.git", from: "5.2.14")
+
 ]
 
 let project = Project(
@@ -176,6 +178,7 @@ let project = Project(
                 .package(product: "Pow"),
                 .package(product: "Kingfisher"),
                 .package(product: "PopupView"),
+                .package(product: "FloatingButton"),
                 .package(product: "OneSignalFramework"),
                 .target(name: "OneSignalNotificationServiceExtension"),
             ],

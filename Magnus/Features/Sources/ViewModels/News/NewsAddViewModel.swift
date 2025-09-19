@@ -17,6 +17,7 @@ public class NewsAddViewModel: ObservableObject {
     @Published public var attachments: [NewsAttachment] = []
     @Published public var tags: [String] = []
     @Published public var groups: [NewsGroup] = []
+    @Published public var allowComments: Bool = false
 
     private let newsService: ApiNewsService
     private let storageService: MagnusStorageService
@@ -61,7 +62,10 @@ public class NewsAddViewModel: ObservableObject {
         }
 
         do {
-            try await newsService.addNews(title: title, content: content, image: image, selectedGroups: selectedGroups, attachments: attachments, tags: tags)
+
+            print("Sending news")
+
+            try await newsService.addNews(title: title, content: content, image: image, selectedGroups: selectedGroups, attachments: attachments, tags: tags, allow_comments: allowComments)
 
             await MainActor.run {
                 isLoading = false
@@ -87,33 +91,26 @@ public class NewsAddViewModel: ObservableObject {
             errorMessage = ""
         }
 
-        do {
-            let imageString = image?.base64EncodedString() ?? ""
+        // do {
+        //     let imageString = image?.base64EncodedString() ?? ""
 
-            try await storageService.saveNewsRequest(news: AddNewsRequest(title: title, message: content, image: imageString, tags: tags, user_groups: selectedGroups.map { $0.id }, attachments: attachments))
+        //     try await storageService.saveNewsRequest(news: AddNewsRequest(title: title, message: content, image: imageString, tags: tags, user_groups: selectedGroups.map { $0.id }, attachments: attachments, allow_comments: true))
 
-            await MainActor.run {
-                isLoading = false
-                showToast = true
-                message = FeaturesLocalizedStrings.newsAddSaveToStorage
-            }
-        } catch let error {
-            isLoading = false
-            errorMessage = error.localizedDescription
-            hasError = true
-            SentryHelper.capture(error: error, action: "NewsAddViewModel.saveNewsRequest")
-        }
+        //     await MainActor.run {
+        //         isLoading = false
+        //         showToast = true
+        //         message = FeaturesLocalizedStrings.newsAddSaveToStorage
+        //     }
+        // } catch let error {
+        //     print(error)
+        //     isLoading = false
+        //     errorMessage = error.localizedDescription
+        //     hasError = true
+        //     SentryHelper.capture(error: error, action: "NewsAddViewModel.saveNewsRequest")
+        // }
     }
 
     public var canSendNews: Bool {  
-        if (title.isEmpty || content.isEmpty) {
-            return false
-        }
-
-        if image == nil || image?.isEmpty == true {
-            return false
-        }
-
-        return true
+        return !title.isEmpty && !content.isEmpty && image != nil && !(image?.isEmpty == true)
     }
 }

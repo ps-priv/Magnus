@@ -10,7 +10,7 @@ public protocol NewsServiceProtocol {
     func markNewsAsRead(id: String) async throws -> Void
     func addCommentToNews(id: String, comment: String) async throws -> Void
     func getGroups() async throws -> GetGroupsResponse
-    func addNews(title: String, content: String, image: Data?, selectedGroups: [NewsGroup], attachments: [NewsAttachment], tags: [String]) async throws -> Void
-    func updateNews(id: String, title: String, content: String, image: Data?, selectedGroups: [NewsGroup], attachments: [NewsAttachment], tags: [String]) async throws -> Void
+    func addNews(title: String, content: String, image: Data?, selectedGroups: [NewsGroup], attachments: [NewsAttachment], tags: [String], allow_comments: Bool) async throws -> Void
+    func updateNews(id: String, title: String, content: String, image: Data?, selectedGroups: [NewsGroup], attachments: [NewsAttachment], tags: [String], allow_comments: Bool) async throws -> Void
     func deleteNews(id: String) async throws -> Void
 }

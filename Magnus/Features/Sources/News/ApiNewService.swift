@@ -196,13 +196,13 @@ public class ApiNewsService: NewsServiceProtocol {
         return groups
     }
 
-    public func addNews(title: String, content: String, image: Data?, selectedGroups: [NewsGroup], attachments: [NewsAttachment], tags: [String]) async throws -> Void {
+    public func addNews(title: String, content: String, image: Data?, selectedGroups: [NewsGroup], attachments: [NewsAttachment], tags: [String], allow_comments: Bool) async throws -> Void {
         let token = try authStorageService.getAccessToken() ?? ""
 
         let imageString = ImageToBase64Converter.convert(imageData: image ?? Data()) ?? ""
 
         try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<Void, Error>) in
-            newsNetworkService.addNews(token: token, title: title, content: content, image: imageString, selectedGroups: selectedGroups, attachments: attachments, tags: tags)
+            newsNetworkService.addNews(token: token, title: title, content: content, image: imageString, selectedGroups: selectedGroups, attachments: attachments, tags: tags, allow_comments: allow_comments)
                 .sink(
                     receiveCompletion: { completion in
                         switch completion {
@@ -220,13 +220,13 @@ public class ApiNewsService: NewsServiceProtocol {
         }
     }
 
-    public func updateNews(id: String, title: String, content: String, image: Data?, selectedGroups: [NewsGroup], attachments: [NewsAttachment], tags: [String]) async throws -> Void { 
+    public func updateNews(id: String, title: String, content: String, image: Data?, selectedGroups: [NewsGroup], attachments: [NewsAttachment], tags: [String], allow_comments: Bool) async throws -> Void { 
         let token = try authStorageService.getAccessToken() ?? ""
 
         let imageString = ImageToBase64Converter.convert(imageData: image ?? Data()) ?? ""
 
         try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<Void, Error>) in
-            newsNetworkService.updateNews(token: token, id: id, title: title, content: content, image: imageString, selectedGroups: selectedGroups, attachments: attachments, tags: tags)
+            newsNetworkService.updateNews(token: token, id: id, title: title, content: content, image: imageString, selectedGroups: selectedGroups, attachments: attachments, tags: tags, allow_comments: allow_comments)
                 .sink(
                     receiveCompletion: { completion in
                         switch completion {

@@ -12,8 +12,8 @@ public protocol NewsNetworkServiceProtocol {
     func markNewsAsRead(token: String, id: String) -> AnyPublisher<Void, Error>
     func addCommentToNews(token: String, id: String, comment: String) -> AnyPublisher<Void, Error>
     func getGroups(token: String) -> AnyPublisher<GetGroupsResponse, Error>
-    func addNews(token: String, title: String, content: String, image: String, selectedGroups: [NewsGroup], attachments: [NewsAttachment], tags: [String]) -> AnyPublisher<Void, Error>
-    func updateNews(token: String, id: String, title: String, content: String, image: String, selectedGroups: [NewsGroup], attachments: [NewsAttachment], tags: [String]) -> AnyPublisher<Void, Error>
+    func addNews(token: String, title: String, content: String, image: String, selectedGroups: [NewsGroup], attachments: [NewsAttachment], tags: [String], allow_comments: Bool) -> AnyPublisher<Void, Error>
+    func updateNews(token: String, id: String, title: String, content: String, image: String, selectedGroups: [NewsGroup], attachments: [NewsAttachment], tags: [String], allow_comments: Bool) -> AnyPublisher<Void, Error>
     func deleteNews(token: String, id: String) -> AnyPublisher<Void, Error>
 }
 
@@ -104,14 +104,15 @@ public class NewsNetworkService: NewsNetworkServiceProtocol {
         )
     }
 
-    public func addNews(token: String, title: String, content: String, image: String, selectedGroups: [NewsGroup], attachments: [NewsAttachment], tags: [String]) -> AnyPublisher<Void, Error> {
+    public func addNews(token: String, title: String, content: String, image: String, selectedGroups: [NewsGroup], attachments: [NewsAttachment], tags: [String], allow_comments: Bool ) -> AnyPublisher<Void, Error> {
         let request = AddNewsRequest(
             title: title,
             message: content,
             image: image,
             tags: tags,
             user_groups: selectedGroups.map { $0.id },
-            attachments: attachments
+            attachments: attachments,
+            allow_comments: allow_comments
         )
 
         return networkService.requestWithBearerToken(
@@ -122,7 +123,7 @@ public class NewsNetworkService: NewsNetworkServiceProtocol {
         )
     }
 
-    public func updateNews(token: String, id: String, title: String, content: String, image: String, selectedGroups: [NewsGroup], attachments: [NewsAttachment], tags: [String]) -> AnyPublisher<Void, Error> {
+    public func updateNews(token: String, id: String, title: String, content: String, image: String, selectedGroups: [NewsGroup], attachments: [NewsAttachment], tags: [String], allow_comments: Bool) -> AnyPublisher<Void, Error> {
         let request = UpdateNewsRequest(
             id: id,
             title: title,
@@ -130,7 +131,8 @@ public class NewsNetworkService: NewsNetworkServiceProtocol {
             image: image,
             tags: tags,
             user_groups: selectedGroups.map { $0.id },
-            attachments: attachments
+            attachments: attachments,
+            allow_comments: allow_comments
         )
 
         return networkService.requestWithBearerToken(
