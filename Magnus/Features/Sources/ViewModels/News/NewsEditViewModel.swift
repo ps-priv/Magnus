@@ -121,15 +121,19 @@ public class NewsEditViewModel: ObservableObject {
         }
     }
 
-    public func canSendNews() -> Bool {  
-        if (title.isEmpty || content.isEmpty) {
-            return false
-        }
+    // public func canSendNews() -> Bool {  
+    //     if (title.isEmpty || content.isEmpty) {
+    //         return false
+    //     }
 
-        if image == nil || image?.isEmpty == true {
-            return false
-        }
+    //     if image == nil || image?.isEmpty == true {
+    //         return false
+    //     }
 
-        return true
+    //     return true
+    // }
+
+    public var canSendNews: Bool {  
+        return !title.isEmpty && !content.isEmpty && image != nil && !(image?.isEmpty == true)
     }
 }

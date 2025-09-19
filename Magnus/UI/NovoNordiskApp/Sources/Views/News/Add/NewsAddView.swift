@@ -31,7 +31,6 @@ struct NewsAddView: View {
                                 navigationManager.navigate(to: .newsList)
                             },
                             publishAction: {
-                                print("Publish action start")
                                 Task {
                                     await viewModel.sendNews()
                                     if !viewModel.hasError {
@@ -42,7 +41,6 @@ struct NewsAddView: View {
                                         }
                                     }
                                 }
-                                print("Publish action end")
                             },
                             availableGroups: viewModel.groups,
                             tags: $viewModel.tags,
@@ -65,7 +63,6 @@ struct NewsAddView: View {
             .padding(.horizontal, 16)
             .background(Color.novoNordiskBackgroundGrey)
 
-            // Floating button positioned outside ScrollView to maintain fixed position
             VStack {
                 Spacer()
                 HStack {
