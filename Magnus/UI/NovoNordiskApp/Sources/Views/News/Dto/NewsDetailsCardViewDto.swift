@@ -56,8 +56,6 @@ public struct NewsDetailCardViewDto: Identifiable, Hashable, Decodable {
 
         let tags = newsDetails.tags.joined(separator: ", ")
 
-        print("Allow comments: \(newsDetails.allow_comments)")
-
         return NewsDetailCardViewDto(
             id: newsDetails.id,
             publish_date: newsDetails.publish_date,
