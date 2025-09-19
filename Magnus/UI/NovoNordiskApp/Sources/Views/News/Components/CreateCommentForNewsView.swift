@@ -4,8 +4,6 @@ struct CreateCommentForNewsView: View {
     let onSendTap: (String) -> Void
     let onCancelTap: () -> Void
     @State private var commentText: String = ""
-
-    
     
     var body: some View {
         VStack {

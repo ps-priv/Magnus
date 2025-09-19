@@ -40,6 +40,7 @@ struct NewsDetailCardView: View {
     }
 
     @State private var selectedStatsTab: StatsTab = .comments
+    @State private var keyboardHeight: CGFloat = 0
 
     init(
         news: NewsDetailCardViewDto,
@@ -236,6 +237,16 @@ struct NewsDetailCardView: View {
                 // Cancel tapped
             }
         )
+        .offset(y: keyboardHeight > 0 ? -keyboardHeight / 2 : 0)
+        .animation(.easeInOut(duration: 0.3), value: keyboardHeight)
+        .onReceive(NotificationCenter.default.publisher(for: UIResponder.keyboardWillShowNotification)) { notification in
+            if let keyboardFrame = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect {
+                keyboardHeight = keyboardFrame.height
+            }
+        }
+        .onReceive(NotificationCenter.default.publisher(for: UIResponder.keyboardWillHideNotification)) { _ in
+            keyboardHeight = 0
+        }
         .toolbar {
             ToolbarItemGroup(placement: .keyboard) {
                 Spacer()
