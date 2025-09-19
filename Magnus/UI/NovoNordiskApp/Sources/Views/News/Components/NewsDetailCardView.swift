@@ -250,21 +250,24 @@ struct NewsDetailCardView: View {
             }
         }
         .onAppear {
-            if !news.allowComments() && !news.allowReactions() {
-                selectedStatsTab = .reads
-            }
 
-            if !news.allowComments() && news.allowReactions() {
-                selectedStatsTab = .reactions
-            }
 
-            if news.allowComments() {
-                selectedStatsTab = .comments
-            }
 
-            if news.allowReactions() && news.allowComments() {
-                selectedStatsTab = .reactions
-            }
+            // if !news.allowComments() && !news.allowReactions() {
+            //     selectedStatsTab = .reads
+            // }
+
+            // if !news.allowComments() && news.allowReactions() {
+            //     selectedStatsTab = .reactions
+            // }
+
+            // if news.allowComments() {
+            //     selectedStatsTab = .comments
+            // }
+
+            // if news.allowReactions() && news.allowComments() {
+            //     selectedStatsTab = .reactions
+            // }
         }
         // .alert(isPresented: $showToast) {
         //     Alert(title: Text("Komunikat"), message: Text(toastMessage))
@@ -515,6 +518,15 @@ struct NewsDetailCardView: View {
                         .foregroundColor(Color.novoNordiskBlue)
                 }
                 .buttonStyle(.plain)
+            }
+            .onAppear(){
+                if (news.allowComments()) {
+                    selectedStatsTab = .comments
+                } else if ( news.allowComments() == false && news.allowReactions()) {
+                    selectedStatsTab = .reactions
+                } else {
+                    selectedStatsTab = .reads
+                }
             }
 
             Group {

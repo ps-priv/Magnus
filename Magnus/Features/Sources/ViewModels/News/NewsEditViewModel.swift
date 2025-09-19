@@ -75,7 +75,6 @@ public class NewsEditViewModel: ObservableObject {
         }
 
         do {
-            print("Update allow comments: \(allowComments)")
 
             try await newsService.updateNews(id: id, title: title, content: content, image: image, selectedGroups: selectedGroups, attachments: attachments, tags: tags, allow_comments: allowComments)
 
@@ -129,18 +128,6 @@ public class NewsEditViewModel: ObservableObject {
             SentryHelper.capture(error: error, action: "NewsEditViewModel.deleteNews")
         }
     }  
-
-    // public func canSendNews() -> Bool {  
-    //     if (title.isEmpty || content.isEmpty) {
-    //         return false
-    //     }
-
-    //     if image == nil || image?.isEmpty == true {
-    //         return false
-    //     }
-
-    //     return true
-    // }
 
     public var canSendNews: Bool {  
         return !title.isEmpty && !content.isEmpty && image != nil && !(image?.isEmpty == true)
