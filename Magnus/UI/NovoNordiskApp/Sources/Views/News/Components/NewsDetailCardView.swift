@@ -249,34 +249,6 @@ struct NewsDetailCardView: View {
                 .cornerRadius(8)
             }
         }
-        .onAppear {
-
-
-
-            // if !news.allowComments() && !news.allowReactions() {
-            //     selectedStatsTab = .reads
-            // }
-
-            // if !news.allowComments() && news.allowReactions() {
-            //     selectedStatsTab = .reactions
-            // }
-
-            // if news.allowComments() {
-            //     selectedStatsTab = .comments
-            // }
-
-            // if news.allowReactions() && news.allowComments() {
-            //     selectedStatsTab = .reactions
-            // }
-        }
-        // .alert(isPresented: $showToast) {
-        //     Alert(title: Text("Komunikat"), message: Text(toastMessage))
-        // }
-        //.toast(isPresented: $showToast, message: toastMessage)
-        .onDisappear {
-            showToast = false
-            toastMessage = ""
-        }
     }
 
     @ViewBuilder
@@ -473,22 +445,6 @@ struct NewsDetailCardView: View {
     @ViewBuilder
     var tabSection: some View {
         VStack(alignment: .leading, spacing: 10) {
-            // HStack(spacing: 16) {
-            //     ForEach(StatsTab.allCases, id: \.self) { tab in
-            //         Button(action: { selectedStatsTab = tab }) {
-            //             Text(tab.title)
-            //                 .font(.system(size: 14))
-            //                 .fontWeight(selectedStatsTab == tab ? .bold : .regular)
-            //                 .foregroundColor(Color.novoNordiskBlue)
-            //         }
-            //         .buttonStyle(.plain)
-            //     }
-            // }
-
-            // case .comments: return LocalizedStrings.newsDetailsCommentsTab
-            // case .reactions: return LocalizedStrings.newsDetailsReactionsTab
-            // case .reads: return LocalizedStrings.newsDetailsReadsTab
-
             HStack(spacing: 16) {
 
                 if news.allowComments() {
