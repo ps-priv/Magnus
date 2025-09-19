@@ -121,6 +121,15 @@ public class NewsEditViewModel: ObservableObject {
         }
     }
 
+    public func deleteNews() async {
+        do {
+            try await newsService.deleteNews(id: id)
+        } catch let error {
+            print(error)
+            SentryHelper.capture(error: error, action: "NewsEditViewModel.deleteNews")
+        }
+    }  
+
     // public func canSendNews() -> Bool {  
     //     if (title.isEmpty || content.isEmpty) {
     //         return false

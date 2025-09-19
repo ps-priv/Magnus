@@ -34,16 +34,7 @@ struct NewsEditView: View {
                             },
                             publishAction: {
                                 showSaveConfirmation = true
-                                // Task {
-                                //     await viewModel.saveChanges()
-                                //     if !viewModel.hasError {
-                                //         // Wait 5 seconds before redirecting to news list
-                                //         try? await Task.sleep(nanoseconds: 3_000_000_000)
-                                //         await MainActor.run {
-                                //             navigationManager.navigate(to: .newsList)
-                                //         }
-                                //     }
-                                // }
+
                             },
                             availableGroups: viewModel.groups,
                             tags: $viewModel.tags,
@@ -65,6 +56,30 @@ struct NewsEditView: View {
                         primaryAction: {
                             Task {
                                 await viewModel.saveChanges()
+                                if !viewModel.hasError {
+                                    try? await Task.sleep(nanoseconds: 2_000_000_000)
+                                    await MainActor.run {
+                                        navigationManager.navigate(to: .newsList)
+                                    }
+                                }
+                            }
+                        },
+                        secondaryTitle: LocalizedStrings.cancelButton,
+                        secondaryStyle: .cancel,
+                        secondaryAction: {
+                            // Cancel tapped
+                        }
+                    )
+                    .novoNordiskAlert(
+                        isPresented: $showDeleteConfirmation,
+                        title: LocalizedStrings.newsDeleteConfirmationMessage,
+                        message: nil,
+                        icon: .delete,
+                        primaryTitle: LocalizedStrings.deleteButton,
+                        primaryStyle: .destructive,
+                        primaryAction: {
+                            Task {
+                                await viewModel.deleteNews()
                                 if !viewModel.hasError {
                                     try? await Task.sleep(nanoseconds: 2_000_000_000)
                                     await MainActor.run {
