@@ -16,6 +16,7 @@ struct NewsEditCardView: View {
     @Binding public var title: String
     @Binding public var content: String
     @Binding public var image: Data?
+    @Binding public var allowComments: Bool
 
     @FocusState private var isFocusedTitle: Bool
     @FocusState private var isFocusedContent: Bool
@@ -41,6 +42,7 @@ struct NewsEditCardView: View {
         title: Binding<String>,
         content: Binding<String>,
         image: Binding<Data?>,
+        allowComments: Binding<Bool>,
         canSendNews: Bool = false
     ) {
         self.saveAction = saveAction
@@ -54,6 +56,7 @@ struct NewsEditCardView: View {
         self._title = title
         self._content = content
         self._image = image
+        self._allowComments = allowComments
         self.canSendNews = canSendNews
     }
 
@@ -127,6 +130,12 @@ struct NewsEditCardView: View {
                 .focused($isFocusedContent)
             }
             .frame(maxWidth: .infinity, alignment: .leading)
+
+            NovoNordiskCheckbox(
+                title: LocalizedStrings.allowComments,
+                isChecked: $allowComments,
+                //style: .regular
+            )
 
             VStack(alignment: .leading) {
                 Text(LocalizedStrings.newsAddTags)
@@ -236,6 +245,7 @@ struct NewsEditCardView: View {
             title: .constant(""),
             content: .constant(""),
             image: .constant(nil),
+            allowComments: .constant(true),
             canSendNews: false)
     }
     .padding()

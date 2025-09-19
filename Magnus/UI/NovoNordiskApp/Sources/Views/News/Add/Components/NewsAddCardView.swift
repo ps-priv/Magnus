@@ -128,6 +128,14 @@ struct NewsAddCardView: View {
             }
             .frame(maxWidth: .infinity, alignment: .leading)
 
+
+            NovoNordiskCheckbox(
+                title: LocalizedStrings.allowComments,
+                isChecked: $allowComments,
+                //style: .regular
+            )
+
+
             VStack(alignment: .leading) {
                 Text(LocalizedStrings.newsAddTags)
                     .font(.novoNordiskRegularText)
@@ -135,6 +143,8 @@ struct NewsAddCardView: View {
                     .foregroundColor(Color.novoNordiskTextGrey)
             }
             .frame(maxWidth: .infinity, alignment: .leading)
+
+
 
             ChipView(chips: $tags, placeholder: "#Tag")
 

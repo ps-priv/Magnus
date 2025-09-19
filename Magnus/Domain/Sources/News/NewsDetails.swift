@@ -51,7 +51,8 @@ public struct NewsDetails : Identifiable, Hashable, Decodable {
     }
 
     public func allowComments() -> Bool {
-        return block_comments == 0 || allow_comments
+        //return block_comments == 0 || allow_comments
+        return allow_comments
     }
 
     public func allowReactions() -> Bool {

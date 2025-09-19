@@ -44,7 +44,8 @@ public struct NewsDetailCardViewDto: Identifiable, Hashable, Decodable {
     }
 
     public func allowComments() -> Bool {
-        return block_comments == 0 || allow_comments
+        //return block_comments == 0 || allow_comments
+        return allow_comments
     }
 
     public func allowReactions() -> Bool {
@@ -54,6 +55,8 @@ public struct NewsDetailCardViewDto: Identifiable, Hashable, Decodable {
     public static func fromNewsDetails(newsDetails: NewsDetails) -> NewsDetailCardViewDto {
 
         let tags = newsDetails.tags.joined(separator: ", ")
+
+        print("Allow comments: \(newsDetails.allow_comments)")
 
         return NewsDetailCardViewDto(
             id: newsDetails.id,

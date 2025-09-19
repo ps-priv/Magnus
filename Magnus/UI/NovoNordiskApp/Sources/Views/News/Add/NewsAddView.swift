@@ -84,15 +84,6 @@ struct NewsAddView: View {
             primaryTitle: LocalizedStrings.saveButton,
             primaryStyle: .destructive,
             primaryAction: {
-                // Task {
-                //     await viewModel.saveNewsRequest()
-                // }
-                // showToast = true
-                // toastMessage = LocalizedStrings.newsSaveMessage
-                // DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                //     navigationManager.navigateToTabRoot(.news)
-                // }
-                print("Publish action start")
                 Task {
                     await viewModel.sendNews()
                     if !viewModel.hasError {
@@ -103,7 +94,6 @@ struct NewsAddView: View {
                         }
                     }
                 }
-                print("Publish action end")
             },
             secondaryTitle: LocalizedStrings.cancelButton,
             secondaryStyle: .cancel,

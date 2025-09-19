@@ -62,9 +62,6 @@ public class NewsAddViewModel: ObservableObject {
         }
 
         do {
-
-            print("Sending news")
-
             try await newsService.addNews(title: title, content: content, image: image, selectedGroups: selectedGroups, attachments: attachments, tags: tags, allow_comments: allowComments)
 
             await MainActor.run {

@@ -48,6 +48,7 @@ struct NewsEditView: View {
                         title: $viewModel.title,
                         content: $viewModel.content,
                         image: $viewModel.image,
+                        allowComments: $viewModel.allowComments,
                         canSendNews: viewModel.canSendNews())
                 }
             }

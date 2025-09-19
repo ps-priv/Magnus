@@ -315,4 +315,6 @@ enum LocalizedStrings {
 
     static let newsSearchPlaceholder = "NEWS_SEARCH_PLACEHOLDER".localized
     static let newsSearchButton = "NEWS_SEARCH_BUTTON".localized
+
+    static let allowComments = "ALLOW_COMMENTS".localized
 }

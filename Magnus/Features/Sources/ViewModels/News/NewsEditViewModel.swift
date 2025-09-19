@@ -56,6 +56,7 @@ public class NewsEditViewModel: ObservableObject {
                 selectedGroups = newsData.groups
                 attachments = NewsMaterialToNewsAttachmentConverter.convert(newsMaterials: newsData.attachments)
                 tags = newsData.tags
+                allowComments = newsData.allow_comments
                 isLoading = false
             }
         } catch let error {
@@ -74,6 +75,8 @@ public class NewsEditViewModel: ObservableObject {
         }
 
         do {
+            print("Update allow comments: \(allowComments)")
+
             try await newsService.updateNews(id: id, title: title, content: content, image: image, selectedGroups: selectedGroups, attachments: attachments, tags: tags, allow_comments: allowComments)
 
             await MainActor.run {
@@ -103,7 +106,7 @@ public class NewsEditViewModel: ObservableObject {
         do {
             let imageString = image?.base64EncodedString() ?? ""
 
-            try await storageService.saveNewsRequest(news: AddNewsRequest(title: title, message: content, image: imageString, tags: tags, user_groups: selectedGroups.map { $0.id }, attachments: attachments, allow_comments: allowComments))
+            try storageService.saveNewsRequest(news: AddNewsRequest(title: title, message: content, image: imageString, tags: tags, user_groups: selectedGroups.map { $0.id }, attachments: attachments, allow_comments: allowComments))
 
             await MainActor.run {
                 isLoading = false
