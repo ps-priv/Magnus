@@ -3,6 +3,7 @@ import SwiftUI
 
 struct EventSurveyView: View {
 
+    @EnvironmentObject var navigationManager: NavigationManager
     @StateObject private var viewModel: EventSurveyViewModel
     let eventId: String
 
@@ -58,22 +59,37 @@ struct EventSurveyView: View {
     @ViewBuilder
     private var surveyContent: some View {
         VStack(alignment: .leading) {
-            switch viewModel.currentQuestionNumber {
-            case 0:
-                EventSurveyStart()
-            default:
-                EmptyView()
-            }
-            Spacer()
-            NovoNordiskButton(
-                title: viewModel.buttonTitle,
-                style: .primary,
-            ) {
-                Task {
-                    await viewModel.nextQuestion()
+            if viewModel.isSurveyCompleted {
+                EventSurveySummary()
+            } else {
+                switch viewModel.currentQuestionNumber {
+                case 0:
+                    EventSurveyStart()
+                default:
+                    if let questionDetails = viewModel.currentQuestionDetails {
+                        EventSurveyQuestion(questionDetails: questionDetails)
+                    }
                 }
             }
-            //.disabled(!viewModel.canLogin)
+            Spacer()
+            
+            if !viewModel.isSurveyCompleted {
+                NovoNordiskButton(
+                    title: viewModel.buttonTitle,
+                    style: .primary,
+                ) {
+                    Task {
+                        await viewModel.nextQuestion()
+                    }
+                }
+            }else {
+                NovoNordiskButton(
+                    title: LocalizedStrings.surveyCompleteButton,
+                    style: .primary,
+                ) {
+                    navigationManager.navigateToEventDetail(eventId: viewModel.eventId) 
+                }
+            }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
         .padding(.horizontal, 20)

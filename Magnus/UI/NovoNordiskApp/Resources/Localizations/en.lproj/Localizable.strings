@@ -310,6 +310,19 @@
 
 "SURVEY_START_BUTTON" = "OK, let's go";
 "SURVEY_NEXT_BUTTON" = "Save and show next question";
+"SURVEY_COMPLETE_BUTTON" = "Complete";
+
+"SURVEY_THANK_YOU_TITLE" = "Thank you!";
+"SURVEY_THANK_YOU_MESSAGE" = "That’s all.";
+"SURVEY_COMPLETION_INFO" = "Thank you for your time and contribution to improving future events";
+
+"SURVEY_OPEN_ANSWER_PLACEHOLDER" = "Enter your answer...";
+"SURVEY_SELECT_ONE_OPTION" = "Select one option:";
+"SURVEY_MULTIPLE_CHOICE_PLACEHOLDER" = "Select one or more options:";
+
+
+
+
 
 
 

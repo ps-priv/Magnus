@@ -326,4 +326,14 @@ enum LocalizedStrings {
     // Survey
     static let surveyStartButton = "SURVEY_START_BUTTON".localized
     static let surveyNextButton = "SURVEY_NEXT_BUTTON".localized
+    static let surveyCompleteButton = "SURVEY_COMPLETE_BUTTON".localized
+    static let surveyThankYouTitle = "SURVEY_THANK_YOU_TITLE".localized
+    static let surveyThankYouMessage = "SURVEY_THANK_YOU_MESSAGE".localized
+    static let surveyCompletionInfo = "SURVEY_COMPLETION_INFO".localized
+
+    static let surveyOpenAnswerPlaceholder = "SURVEY_OPEN_ANSWER_PLACEHOLDER".localized
+    static let surveySelectOneOption = "SURVEY_SELECT_ONE_OPTION".localized
+    static let surveyMultipleChoicePlaceholder = "SURVEY_MULTIPLE_CHOICE_PLACEHOLDER".localized
+
+    
 }

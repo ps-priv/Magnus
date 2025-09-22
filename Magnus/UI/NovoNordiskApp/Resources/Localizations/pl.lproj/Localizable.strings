@@ -313,6 +313,18 @@
 "SURVEY_START_BUTTON" = "OK, zaczynamy";
 "SURVEY_NEXT_BUTTON" = "Zapisz i pokaż kolejne pytanie";
 
+"SURVEY_COMPLETE_BUTTON" = "Zakończ";
+
+"SURVEY_THANK_YOU_TITLE" = "Dziękujemy!";
+"SURVEY_THANK_YOU_MESSAGE" = "To już wszystko.";
+"SURVEY_COMPLETION_INFO" = "Dziękujemy za Twoją czas i wkład w ulepszenie kolejnych spotkań";
+"SURVEY_OPEN_ANSWER_PLACEHOLDER" = "Wpisz swoją odpowiedź...";
+"SURVEY_SELECT_ONE_OPTION" = "Wybierz jedną opcję:";
+"SURVEY_MULTIPLE_CHOICE_PLACEHOLDER" = "Wybierz jedną lub więcej opcji:";
+
+
+
+
 
 
 

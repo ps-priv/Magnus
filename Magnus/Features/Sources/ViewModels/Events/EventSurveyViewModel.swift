@@ -12,6 +12,7 @@ public class EventSurveyViewModel: ObservableObject {
     @Published public var survey: SurveyForEvent?
     @Published public var currentQuestionDetails: SurveyQueryDetails?
     @Published public var currentQuestionNumber: Int = 0
+    @Published public var isSurveyCompleted: Bool = false
 
     @Published public var buttonTitle: String = FeaturesLocalizedStrings.surveyStartButton
 
@@ -28,8 +29,27 @@ public class EventSurveyViewModel: ObservableObject {
     }
 
     public func nextQuestion() async {
+        guard let survey = survey else { return }
+        
         currentQuestionNumber += 1
-        await loadQuestionDetails(queryId: survey?.queries[currentQuestionNumber - 1].id ?? "")
+        
+        // Check if we've completed all questions
+        if currentQuestionNumber > survey.queries.count {
+            await MainActor.run {
+                isSurveyCompleted = true
+            }
+        } else {
+            await loadQuestionDetails(queryId: survey.queries[currentQuestionNumber - 1].id)
+            
+            // Update button title
+            await MainActor.run {
+                if currentQuestionNumber == survey.queries.count {
+                    buttonTitle = FeaturesLocalizedStrings.surveyCompleteButton
+                } else {
+                    buttonTitle = FeaturesLocalizedStrings.surveyNextButton
+                }
+            }
+        }
     }
 
     // public func firstQuestion() async {
@@ -106,5 +126,9 @@ public class EventSurveyViewModel: ObservableObject {
                 errorMessage = "No cached survey details found."
             }
         }
+    }
+
+    public func backToEvent() {
+        // TODO: Implement back to event logic
     }
 }
