@@ -324,6 +324,11 @@
 "SURVEY_VALIDATION_EMPTY_ANSWER" = "Please enter your answer.";
 "SURVEY_VALIDATION_NO_SELECTION" = "Please select at least one option.";
 
+"SURVEY_ERROR_TITLE" = "An error occurred.";
+"SURVEY_ERROR_INFO" = "An error occurred while presenting the survey. Please try again. If the problem persists, contact us.";
+
+"TRY_AGAIN_BUTTON" = "Try Again";
+
 
 
 

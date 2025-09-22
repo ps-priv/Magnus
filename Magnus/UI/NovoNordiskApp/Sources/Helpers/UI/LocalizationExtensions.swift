@@ -340,5 +340,7 @@ enum LocalizedStrings {
     static let surveyValidationEmptyAnswer = "SURVEY_VALIDATION_EMPTY_ANSWER".localized
     static let surveyValidationNoSelection = "SURVEY_VALIDATION_NO_SELECTION".localized
 
-    
+    static let surveyErrorTitle = "SURVEY_ERROR_TITLE".localized
+    static let surveyErrorInfo = "SURVEY_ERROR_INFO".localized
+    static let tryAgainButton = "TRY_AGAIN_BUTTON".localized
 }

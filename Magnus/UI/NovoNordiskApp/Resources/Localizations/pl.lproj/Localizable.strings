@@ -326,6 +326,11 @@
 "SURVEY_VALIDATION_EMPTY_ANSWER" = "Proszę wpisać swoją odpowiedź.";
 "SURVEY_VALIDATION_NO_SELECTION" = "Proszę wybrać co najmniej jedną opcję.";
 
+"SURVEY_ERROR_TITLE" = "Wystąpił błąd.";
+"SURVEY_ERROR_INFO" = "Wystąpił błąd podczas prezentowania ankiety. Proszę spróbować ponownie. Jeśli problem będzie się powtarzać, skontaktuj się z nami.";
+
+"TRY_AGAIN_BUTTON" = "Spróbuj ponownie";
+
 
 
 

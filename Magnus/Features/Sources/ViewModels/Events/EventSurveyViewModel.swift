@@ -101,6 +101,8 @@ public class EventSurveyViewModel: ObservableObject {
             }
         } catch {
             await MainActor.run {
+                isLoading = false
+                hasError = true
                 errorMessage = "No cached event details found."
             }
         }

@@ -90,7 +90,9 @@ struct EventSurveyView: View {
     @ViewBuilder
     private var surveyContent: some View {
         VStack(alignment: .leading) {
-            if viewModel.isSurveyCompleted {
+            if viewModel.hasError {
+                EventSurveyError()
+            } else if viewModel.isSurveyCompleted {
                 EventSurveySummary()
             } else {
                 switch viewModel.currentQuestionNumber {
@@ -120,7 +122,16 @@ struct EventSurveyView: View {
             
             Spacer()
             
-            if !viewModel.isSurveyCompleted {
+            if viewModel.hasError {
+                NovoNordiskButton(
+                    title: LocalizedStrings.tryAgainButton,
+                    style: .primary,
+                ) {
+                    Task {
+                        await viewModel.loadData()
+                    }
+                }
+            } else if !viewModel.isSurveyCompleted {
                 NovoNordiskButton(
                     title: viewModel.buttonTitle,
                     style: .primary,
@@ -149,7 +160,7 @@ struct EventSurveyView: View {
                         }
                     }
                 }
-            }else {
+            } else {
                 NovoNordiskButton(
                     title: LocalizedStrings.surveyCompleteButton,
                     style: .primary,
