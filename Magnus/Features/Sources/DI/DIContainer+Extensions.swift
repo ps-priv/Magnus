@@ -76,6 +76,14 @@ public extension DIContainer {
         }
         return service
     }
+
+    /// Returns registered SurveyService instance
+    var surveyService: SurveyService {
+        guard let service = resolve(SurveyService.self) else {
+            fatalError("SurveyService not registered in DI container")
+        }
+        return service
+    }
     
     // MARK: - Convenience Methods
     
