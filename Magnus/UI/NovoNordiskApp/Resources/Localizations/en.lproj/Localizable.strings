@@ -329,6 +329,15 @@
 
 "TRY_AGAIN_BUTTON" = "Try Again";
 
+"SURVEY_BEFORE_TITLE" = "Survey is not active yet";
+"SURVEY_AFTER_TITLE" = "Survey is no longer active";
+
+"SURVEY_AFTER_DESCRIPTION" = "Survey is no longer active. Thank you for your opinion.";
+"SURVEY_BEFORE_DESCRIPTION" = "Survey is not active yet. Please wait for the survey to start.";
+
+"SURVEY_BACK_TO_EVENT_BUTTON" = "Back to event";
+
+
 
 
 

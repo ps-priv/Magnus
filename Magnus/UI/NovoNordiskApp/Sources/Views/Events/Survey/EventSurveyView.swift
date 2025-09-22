@@ -97,7 +97,7 @@ struct EventSurveyView: View {
             } else {
                 switch viewModel.currentQuestionNumber {
                 case 0:
-                    EventSurveyStart()
+                    EventSurveyStart(surveyStatus: viewModel.getSurveyStatus())
                 default:
                     if let questionDetails = viewModel.currentQuestionDetails {
                         EventSurveyQuestion(questionDetails: questionDetails) { answerData in
@@ -121,7 +121,22 @@ struct EventSurveyView: View {
             }
             
             Spacer()
-            
+
+            if viewModel.getSurveyStatus() == .before {
+                NovoNordiskButton(
+                    title: LocalizedStrings.surveyBackToEventButton,
+                    style: .primary,
+                ) {
+                    navigationManager.navigateToEventDetail(eventId: viewModel.eventId) 
+                }
+            } else if viewModel.getSurveyStatus() == .after {
+                NovoNordiskButton(
+                    title: LocalizedStrings.surveyBackToEventButton,
+                    style: .primary,
+                ) {
+                    navigationManager.navigateToEventDetail(eventId: viewModel.eventId) 
+                }
+            } else
             if viewModel.hasError {
                 NovoNordiskButton(
                     title: LocalizedStrings.tryAgainButton,

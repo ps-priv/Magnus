@@ -343,4 +343,12 @@ enum LocalizedStrings {
     static let surveyErrorTitle = "SURVEY_ERROR_TITLE".localized
     static let surveyErrorInfo = "SURVEY_ERROR_INFO".localized
     static let tryAgainButton = "TRY_AGAIN_BUTTON".localized
+
+    static let surveyBeforeTitle = "SURVEY_BEFORE_TITLE".localized
+    static let surveyAfterTitle = "SURVEY_AFTER_TITLE".localized
+    static let surveyAfterDescription = "SURVEY_AFTER_DESCRIPTION".localized
+    static let surveyBeforeDescription = "SURVEY_BEFORE_DESCRIPTION".localized
+
+    static let surveyBackToEventButton = "SURVEY_BACK_TO_EVENT_BUTTON".localized
 }
+

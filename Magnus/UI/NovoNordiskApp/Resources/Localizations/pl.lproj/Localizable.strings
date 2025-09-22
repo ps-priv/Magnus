@@ -331,7 +331,13 @@
 
 "TRY_AGAIN_BUTTON" = "Spróbuj ponownie";
 
+"SURVEY_BEFORE_TITLE" = "Ankieta jest jeszcze nieaktywna";
+"SURVEY_AFTER_TITLE" = "Ankieta jest już nieaktywna";
 
+"SURVEY_AFTER_DESCRIPTION" = "Ankieta jest już nieaktywna. Dziękujemy za Twoją opinię.";
+"SURVEY_BEFORE_DESCRIPTION" = "Ankieta jest jeszcze nieaktywna. Proszę czekać na rozpoczęcie ankiety.";
+
+"SURVEY_BACK_TO_EVENT_BUTTON" = "Powrót do wydarzenia";
 
 
 

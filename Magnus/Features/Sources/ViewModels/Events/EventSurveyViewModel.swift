@@ -108,6 +108,10 @@ public class EventSurveyViewModel: ObservableObject {
         }
     }
 
+    public func getSurveyStatus() -> SurveyStatusEnum {
+        return survey?.survey_status ?? .before
+    }
+
     public func loadQuestionDetails(queryId: String) async {
 
         await MainActor.run {
