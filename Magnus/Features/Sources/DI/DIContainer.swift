@@ -77,6 +77,11 @@ public class DIContainer {
             return AcademyNetworkService(networkService: networkService)
         }.inObjectScope(.container)
 
+        container.register(SurveyNetworkServiceProtocol.self) { resolver in
+            let networkService = resolver.resolve(NetworkServiceProtocol.self)!
+            return SurveyNetworkService(networkService: networkService)
+        }.inObjectScope(.container)
+
         // Register AuthService based on application type
         switch applicationType {
         case .novonordisk:
@@ -141,6 +146,14 @@ public class DIContainer {
                 let authStorageService = resolver.resolve(AuthStorageService.self)!    
                 return ApiAcademyService(
                     academyNetworkService: academyNetworkService,
+                    authStorageService: authStorageService)
+            }.inObjectScope(.container)
+
+            container.register(ApiSurveyService.self) { resolver in
+                let surveyNetworkService = resolver.resolve(SurveyNetworkServiceProtocol.self)!    
+                let authStorageService = resolver.resolve(AuthStorageService.self)!    
+                return ApiSurveyService(
+                    surveyNetworkService: surveyNetworkService,
                     authStorageService: authStorageService)
             }.inObjectScope(.container)
 
