@@ -317,4 +317,13 @@ enum LocalizedStrings {
     static let newsSearchButton = "NEWS_SEARCH_BUTTON".localized
 
     static let allowComments = "ALLOW_COMMENTS".localized
+
+    static let surveyStartTitle = "SURVEY_START_TITLE".localized
+    static let surveyStartDescription = "SURVEY_START_DESCRIPTION".localized
+    static let surveyTimeInfo = "SURVEY_TIME_INFO".localized
+    static let surveyTime = "SURVEY_TIME".localized
+
+    // Survey
+    static let surveyStartButton = "SURVEY_START_BUTTON".localized
+    static let surveyNextButton = "SURVEY_NEXT_BUTTON".localized
 }

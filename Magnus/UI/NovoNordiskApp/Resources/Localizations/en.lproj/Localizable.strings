@@ -303,6 +303,18 @@
 
 "ALLOW_COMMENTS"="Allow comments in news";
 
+"SURVEY_START_TITLE" = "Your opinion is important.";
+"SURVEY_START_DESCRIPTION" = "Please answer a few questions related to the conference.";
+"SURVEY_TIME_INFO" = "Time needed to fill out:";
+"SURVEY_TIME" = "about 2 min.";
+
+"SURVEY_START_BUTTON" = "OK, let's go";
+"SURVEY_NEXT_BUTTON" = "Save and show next question";
+
+
+
+
+
 
 
 

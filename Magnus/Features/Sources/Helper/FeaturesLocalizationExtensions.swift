@@ -90,4 +90,7 @@ class FeaturesLocalizedStrings {
     static let newsAddSuccessMessage = "NEWS_ADD_SUCCESS_MESSAGE".localized
     static let newsAddErrorMessage = "NEWS_ADD_ERROR_MESSAGE".localized
     static let newsAddSaveToStorage = "NEWS_ADD_SAVE_TO_STORAGE".localized
+
+    static let surveyStartButton = "SURVEY_START_BUTTON".localized
+    static let surveyNextButton = "SURVEY_NEXT_BUTTON".localized
 } 

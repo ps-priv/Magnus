@@ -11,7 +11,9 @@ public class EventSurveyViewModel: ObservableObject {
 
     @Published public var survey: SurveyForEvent?
     @Published public var currentQuestionDetails: SurveyQueryDetails?
-    @Published public var currentQuestionNumber: Int = 1
+    @Published public var currentQuestionNumber: Int = 0
+
+    @Published public var buttonTitle: String = FeaturesLocalizedStrings.surveyStartButton
 
     private let surveyService: SurveyService
 
@@ -30,9 +32,9 @@ public class EventSurveyViewModel: ObservableObject {
         await loadQuestionDetails(queryId: survey?.queries[currentQuestionNumber - 1].id ?? "")
     }
 
-    public func firstQuestion() async {
-        await loadQuestionDetails(queryId: survey?.queries[0].id ?? "")
-    }
+    // public func firstQuestion() async {
+    //     await loadQuestionDetails(queryId: survey?.queries[0].id ?? "")
+    // }
         
     public func loadData() async {
         await MainActor.run {
@@ -43,8 +45,6 @@ public class EventSurveyViewModel: ObservableObject {
 
         do {
             let data = try await surveyService.getSurveyForEvent(eventId: eventId)
-
-            await firstQuestion()
 
             await MainActor.run {
                 survey = data
@@ -58,6 +58,10 @@ public class EventSurveyViewModel: ObservableObject {
     }
 
     public func loadQuestionDetails(queryId: String) async {
+
+        print("Loading question details for queryId: \(queryId)")
+        print("Current question number: \(currentQuestionNumber)")
+
         await MainActor.run {
             self.isLoading = true
             hasError = false
@@ -67,12 +71,17 @@ public class EventSurveyViewModel: ObservableObject {
         do {
             let data = try await surveyService.getSurveyQueryDetails(queryId: queryId)
 
+            print("Loaded question details: \(data)")
+
             await MainActor.run {
                 currentQuestionDetails = data
                 isLoading = false
             }
         } catch {
             await MainActor.run {
+                print("Error loading question details: \(error)")
+                hasError = true
+                isLoading = false
                 errorMessage = "No cached event details found."
             }
         }

@@ -79,8 +79,8 @@ public extension DIContainer {
 
     /// Returns registered SurveyService instance
     var surveyService: SurveyService {
-        guard let service = resolve(SurveyService.self) else {
-            fatalError("SurveyService not registered in DI container")
+        guard let service = resolve(ApiSurveyService.self) else {
+            fatalError("ApiSurveyService not registered in DI container")
         }
         return service
     }

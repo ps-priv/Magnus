@@ -305,11 +305,13 @@
 
 "ALLOW_COMMENTS"="Zezwalaj na komentarze";
 
+"SURVEY_START_TITLE" = "Twoja opinia jest ważna.";
+"SURVEY_START_DESCRIPTION" = "Prosimy Cię o odpowiedź na kilka pytań związanych z konferencją.";
+"SURVEY_TIME_INFO" = "Czas potrzebny na wypełnienie:";
+"SURVEY_TIME" = "około 2 min.";
 
-
-
-
-
+"SURVEY_START_BUTTON" = "OK, zaczynamy";
+"SURVEY_NEXT_BUTTON" = "Zapisz i pokaż kolejne pytanie";
 
 
 
