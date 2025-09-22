@@ -24,6 +24,7 @@ struct EventSurveyQuestion: View {
             selectedAnswers: Array(selectedAnswers),
             openAnswer: openAnswer.isEmpty ? nil : openAnswer
         )
+
         onAnswerChanged(answerData)
     }
     
@@ -56,6 +57,11 @@ struct EventSurveyQuestion: View {
                 .textFieldStyle(RoundedBorderTextFieldStyle())
                 .lineLimit(3...20)
                 .onChange(of: openAnswer) {
+                    // For open questions, add the answer_id to selectedAnswers when there's text
+                    selectedAnswers.removeAll()
+                    if !openAnswer.isEmpty, let firstAnswer = questionDetails.answers.first, let answerId = firstAnswer.answer_id {
+                        selectedAnswers.insert(answerId)
+                    }
                     notifyAnswerChanged()
                 }
         }

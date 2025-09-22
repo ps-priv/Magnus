@@ -17,7 +17,7 @@ public struct SurveyAnswerData {
 
     public func getSurveyAnswer() -> SurveyAnswer {
         if questionType == .open {
-            return SurveyAnswer.createOpen(query_id: questionId, answer_text: openAnswer!)
+            return SurveyAnswer.createOpen(query_id: questionId, answer_text: openAnswer!, answer_id: selectedAnswers[0])
         } else {
             return SurveyAnswer.createChoice(query_id: questionId, answers_id: selectedAnswers)
         }
@@ -58,7 +58,7 @@ public class EventSurveyViewModel: ObservableObject {
 
             do {
                 try await surveyService.submitAnswers(answers: answer)
-                print("Collected answer: \(answer)")
+                //print("Collected answer: \(answer)")
             } catch {
                 print("Error submitting answer: \(error)")
             }
@@ -119,7 +119,7 @@ public class EventSurveyViewModel: ObservableObject {
         do {
             let data = try await surveyService.getSurveyQueryDetails(queryId: queryId)
 
-            print("Loaded question details: \(data)")
+            //print("Loaded question details: \(data)")
 
             await MainActor.run {
                 currentQuestionDetails = data

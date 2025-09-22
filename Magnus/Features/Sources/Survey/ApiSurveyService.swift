@@ -58,6 +58,16 @@ public class ApiSurveyService: SurveyService {
 
     public func submitAnswers(answers: SurveyAnswer) async throws {
         let token = try authStorageService.getAccessToken() ?? ""
+        
+        // Log SurveyAnswer as JSON
+        do {
+            let jsonData = try JSONEncoder().encode(answers)
+            if let jsonString = String(data: jsonData, encoding: .utf8) {
+                print("SurveyAnswer JSON: \(jsonString)")
+            }
+        } catch {
+            print("Failed to encode SurveyAnswer to JSON: \(error)")
+        }
 
         try await withCheckedThrowingContinuation { continuation in
             surveyNetworkService.submitAnswers(token: token, answers: answers)
