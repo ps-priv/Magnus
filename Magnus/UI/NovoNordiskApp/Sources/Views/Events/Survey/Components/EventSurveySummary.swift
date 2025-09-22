@@ -17,7 +17,7 @@ struct EventSurveySummary: View {
                 .multilineTextAlignment(.center)
                 .padding(.horizontal, 20)
 
-            FAIcon(.circle_check, type: .light, size: 220, color: .novoNordiskBlue)
+            FAIcon(.circle_check, type: .light, size: 140, color: .novoNordiskBlue)
             
             Text(LocalizedStrings.surveyCompletionInfo)
                 .font(.novoNordiskCaption)

@@ -1,10 +1,12 @@
 import MagnusFeatures
+import MagnusDomain
 import SwiftUI
 
 struct EventSurveyView: View {
 
     @EnvironmentObject var navigationManager: NavigationManager
     @StateObject private var viewModel: EventSurveyViewModel
+    @State private var currentAnswer: SurveyAnswerData?
     let eventId: String
 
     init(eventId: String) {
@@ -67,7 +69,9 @@ struct EventSurveyView: View {
                     EventSurveyStart()
                 default:
                     if let questionDetails = viewModel.currentQuestionDetails {
-                        EventSurveyQuestion(questionDetails: questionDetails)
+                        EventSurveyQuestion(questionDetails: questionDetails) { answerData in
+                            currentAnswer = answerData
+                        }
                     }
                 }
             }
@@ -79,7 +83,16 @@ struct EventSurveyView: View {
                     style: .primary,
                 ) {
                     Task {
-                        await viewModel.nextQuestion()
+                        let featuresAnswerData = currentAnswer.map { answer in
+                            MagnusFeatures.SurveyAnswerData(
+                                questionId: answer.questionId,
+                                questionType: answer.questionType,
+                                selectedAnswers: answer.selectedAnswers,
+                                openAnswer: answer.openAnswer
+                            )
+                        }
+                        await viewModel.nextQuestion(with: featuresAnswerData)
+                        currentAnswer = nil // Clear the answer for the next question
                     }
                 }
             }else {

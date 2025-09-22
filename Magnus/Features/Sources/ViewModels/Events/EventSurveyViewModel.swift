@@ -2,6 +2,28 @@ import MagnusDomain
 import Foundation   
 import Combine
 
+public struct SurveyAnswerData {
+    public let questionId: String
+    public let questionType: QueryTypeEnum
+    public let selectedAnswers: [String]
+    public let openAnswer: String?
+    
+    public init(questionId: String, questionType: QueryTypeEnum, selectedAnswers: [String], openAnswer: String?) {
+        self.questionId = questionId
+        self.questionType = questionType
+        self.selectedAnswers = selectedAnswers
+        self.openAnswer = openAnswer
+    }
+
+    public func getSurveyAnswer() -> SurveyAnswer {
+        if questionType == .open {
+            return SurveyAnswer.createOpen(query_id: questionId, answer_text: openAnswer!)
+        } else {
+            return SurveyAnswer.createChoice(query_id: questionId, answers_id: selectedAnswers)
+        }
+    }
+}
+
 @MainActor
 public class EventSurveyViewModel: ObservableObject {
     @Published public var eventId: String
@@ -13,7 +35,7 @@ public class EventSurveyViewModel: ObservableObject {
     @Published public var currentQuestionDetails: SurveyQueryDetails?
     @Published public var currentQuestionNumber: Int = 0
     @Published public var isSurveyCompleted: Bool = false
-
+    
     @Published public var buttonTitle: String = FeaturesLocalizedStrings.surveyStartButton
 
     private let surveyService: SurveyService
@@ -27,9 +49,19 @@ public class EventSurveyViewModel: ObservableObject {
             await loadData()
         }
     }
-
-    public func nextQuestion() async {
+    public func nextQuestion(with answerData: SurveyAnswerData? = nil) async {
         guard let survey = survey else { return }
+        
+        // Store the answer if provided
+        if let answerData = answerData {
+            await MainActor.run {
+
+                let answer = answerData.getSurveyAnswer()
+                // await surveyService.submitAnswers(answers: answer)
+
+                print("Collected answer: \(answer)")
+            }
+        }
         
         currentQuestionNumber += 1
         
@@ -52,10 +84,6 @@ public class EventSurveyViewModel: ObservableObject {
         }
     }
 
-    // public func firstQuestion() async {
-    //     await loadQuestionDetails(queryId: survey?.queries[0].id ?? "")
-    // }
-        
     public func loadData() async {
         await MainActor.run {
             self.isLoading = true
@@ -79,9 +107,6 @@ public class EventSurveyViewModel: ObservableObject {
 
     public func loadQuestionDetails(queryId: String) async {
 
-        print("Loading question details for queryId: \(queryId)")
-        print("Current question number: \(currentQuestionNumber)")
-
         await MainActor.run {
             self.isLoading = true
             hasError = false
@@ -90,8 +115,6 @@ public class EventSurveyViewModel: ObservableObject {
 
         do {
             let data = try await surveyService.getSurveyQueryDetails(queryId: queryId)
-
-            print("Loaded question details: \(data)")
 
             await MainActor.run {
                 currentQuestionDetails = data
@@ -126,9 +149,5 @@ public class EventSurveyViewModel: ObservableObject {
                 errorMessage = "No cached survey details found."
             }
         }
-    }
-
-    public func backToEvent() {
-        // TODO: Implement back to event logic
     }
 }

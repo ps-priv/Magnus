@@ -1,11 +1,31 @@
 import MagnusApplication
 import MagnusDomain
+import MagnusFeatures
 import SwiftUI
+
+struct SurveyAnswerData {
+    let questionId: String
+    let questionType: QueryTypeEnum
+    let selectedAnswers: [String]
+    let openAnswer: String?
+}
 
 struct EventSurveyQuestion: View {
     let questionDetails: SurveyQueryDetails
+    let onAnswerChanged: (SurveyAnswerData) -> Void
+    
     @State private var selectedAnswers: Set<String> = []
     @State private var openAnswer: String = ""
+    
+    private func notifyAnswerChanged() {
+        let answerData = SurveyAnswerData(
+            questionId: questionDetails.query_id,
+            questionType: questionDetails.query_type,
+            selectedAnswers: Array(selectedAnswers),
+            openAnswer: openAnswer.isEmpty ? nil : openAnswer
+        )
+        onAnswerChanged(answerData)
+    }
     
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {
@@ -35,6 +55,9 @@ struct EventSurveyQuestion: View {
             TextField(LocalizedStrings.surveyOpenAnswerPlaceholder, text: $openAnswer, axis: .vertical)
                 .textFieldStyle(RoundedBorderTextFieldStyle())
                 .lineLimit(3...20)
+                .onChange(of: openAnswer) {
+                    notifyAnswerChanged()
+                }
         }
     }
     
@@ -49,6 +72,7 @@ struct EventSurveyQuestion: View {
                 Button(action: {
                     selectedAnswers.removeAll()
                     selectedAnswers.insert(answer.answer)
+                    notifyAnswerChanged()
                 }) {
                     HStack {
                         Image(systemName: selectedAnswers.contains(answer.answer) ? "largecircle.fill.circle" : "circle")
@@ -82,6 +106,7 @@ struct EventSurveyQuestion: View {
                     } else {
                         selectedAnswers.insert(answer.answer)
                     }
+                    notifyAnswerChanged()
                 }) {
                     HStack {
                         Image(systemName: selectedAnswers.contains(answer.answer) ? "checkmark.square.fill" : "square")
@@ -117,7 +142,9 @@ struct EventSurveyQuestion: View {
     )
     
     VStack(alignment: .leading) {
-        EventSurveyQuestion(questionDetails: sampleQuestion)
+        EventSurveyQuestion(questionDetails: sampleQuestion) { answerData in
+            print("Answer changed: \(answerData)")
+        }
     }
     .frame(maxWidth: .infinity, maxHeight: .infinity)
     .background(Color.novoNordiskBackgroundGrey)

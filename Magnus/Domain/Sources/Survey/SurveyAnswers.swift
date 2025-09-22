@@ -8,6 +8,14 @@ public struct SurveyAnswer : Hashable, Decodable, Encodable {
         self.answer_text = answer_text
         self.answers_id = answers_id
     }
+
+    public static func createOpen(query_id: String, answer_text: String) -> SurveyAnswer {
+        return SurveyAnswer(query_id: query_id, answer_text: answer_text)
+    }
+
+    public static func createChoice(query_id: String, answers_id: [String]) -> SurveyAnswer {
+        return SurveyAnswer(query_id: query_id, answers_id: answers_id)
+    }
 }
 
 public struct SurveyAnswersOpen : Hashable, Decodable, Encodable {
