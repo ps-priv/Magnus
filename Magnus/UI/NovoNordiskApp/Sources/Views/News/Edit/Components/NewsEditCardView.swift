@@ -149,25 +149,25 @@ struct NewsEditCardView: View {
 
             AudienceSettings(selectedGroups: $selectedGroups, availableGroups: availableGroups)
 
-            HStack {
-                PublishButton(
-                    action: {
-                        showSaveConfirmation = true
-                    }, isDisabled: !canSendNews)
-                // WhiteButton(
-                //     title: LocalizedStrings.saveButton,
-                //     action: saveAction,
-                //     isDisabled: !canSendNews)
-                WhiteButton(
-                    title: LocalizedStrings.cancelButton,
-                    action: cancelAction,
-                    isDisabled: !canSendNews)
-                Spacer()
-                DeleteButton(action: {
-                    showDeleteConfirmation = true
-                })
-            }
-            .padding(.top, 20)
+            // HStack {
+            //     PublishButton(
+            //         action: {
+            //             showSaveConfirmation = true
+            //         }, isDisabled: !canSendNews)
+            //     // WhiteButton(
+            //     //     title: LocalizedStrings.saveButton,
+            //     //     action: saveAction,
+            //     //     isDisabled: !canSendNews)
+            //     WhiteButton(
+            //         title: LocalizedStrings.cancelButton,
+            //         action: cancelAction,
+            //         isDisabled: !canSendNews)
+            //     Spacer()
+            //     DeleteButton(action: {
+            //         showDeleteConfirmation = true
+            //     })
+            // }
+            // .padding(.top, 20)
 
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
