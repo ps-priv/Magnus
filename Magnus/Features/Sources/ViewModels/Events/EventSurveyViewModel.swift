@@ -54,12 +54,13 @@ public class EventSurveyViewModel: ObservableObject {
         
         // Store the answer if provided
         if let answerData = answerData {
-            await MainActor.run {
+            let answer = answerData.getSurveyAnswer()
 
-                let answer = answerData.getSurveyAnswer()
-                // await surveyService.submitAnswers(answers: answer)
-
+            do {
+                try await surveyService.submitAnswers(answers: answer)
                 print("Collected answer: \(answer)")
+            } catch {
+                print("Error submitting answer: \(error)")
             }
         }
         
@@ -115,6 +116,8 @@ public class EventSurveyViewModel: ObservableObject {
 
         do {
             let data = try await surveyService.getSurveyQueryDetails(queryId: queryId)
+
+            print("Loaded question details: \(data)")
 
             await MainActor.run {
                 currentQuestionDetails = data

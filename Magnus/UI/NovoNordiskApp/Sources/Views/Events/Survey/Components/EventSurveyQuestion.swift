@@ -71,12 +71,15 @@ struct EventSurveyQuestion: View {
             ForEach(questionDetails.answers, id: \.answer) { answer in
                 Button(action: {
                     selectedAnswers.removeAll()
-                    selectedAnswers.insert(answer.answer)
+                    if let answerId = answer.answer_id {
+                        selectedAnswers.insert(answerId)
+                    }
                     notifyAnswerChanged()
                 }) {
                     HStack {
-                        Image(systemName: selectedAnswers.contains(answer.answer) ? "largecircle.fill.circle" : "circle")
-                            .foregroundColor(selectedAnswers.contains(answer.answer) ? Color.novoNordiskBlue : Color.gray)
+                        let isSelected = answer.answer_id.map { selectedAnswers.contains($0) } ?? false
+                        Image(systemName: isSelected ? "largecircle.fill.circle" : "circle")
+                            .foregroundColor(isSelected ? Color.novoNordiskBlue : Color.gray)
                         
                         Text(answer.answer)
                             .font(.novoNordiskBody)
@@ -101,16 +104,19 @@ struct EventSurveyQuestion: View {
             
             ForEach(questionDetails.answers, id: \.answer) { answer in
                 Button(action: {
-                    if selectedAnswers.contains(answer.answer) {
-                        selectedAnswers.remove(answer.answer)
-                    } else {
-                        selectedAnswers.insert(answer.answer)
+                    if let answerId = answer.answer_id {
+                        if selectedAnswers.contains(answerId) {
+                            selectedAnswers.remove(answerId)
+                        } else {
+                            selectedAnswers.insert(answerId)
+                        }
                     }
                     notifyAnswerChanged()
                 }) {
                     HStack {
-                        Image(systemName: selectedAnswers.contains(answer.answer) ? "checkmark.square.fill" : "square")
-                            .foregroundColor(selectedAnswers.contains(answer.answer) ? Color.novoNordiskBlue : Color.gray)
+                        let isSelected = answer.answer_id.map { selectedAnswers.contains($0) } ?? false
+                        Image(systemName: isSelected ? "checkmark.square.fill" : "square")
+                            .foregroundColor(isSelected ? Color.novoNordiskBlue : Color.gray)
                         
                         Text(answer.answer)
                             .font(.novoNordiskBody)
@@ -134,10 +140,10 @@ struct EventSurveyQuestion: View {
         query_type: .single_choice,
         query_text: "How would you rate this event?",
         answers: [
-            SurveyQueryAnswer(answer: "Excellent", number_of_points: 5),
-            SurveyQueryAnswer(answer: "Good", number_of_points: 4),
-            SurveyQueryAnswer(answer: "Average", number_of_points: 3),
-            SurveyQueryAnswer(answer: "Poor", number_of_points: 2)
+            SurveyQueryAnswer(answer_id: "1", answer: "Excellent", number_of_points: 5),
+            SurveyQueryAnswer(answer_id: "2", answer: "Good", number_of_points: 4),
+            SurveyQueryAnswer(answer_id: "3", answer: "Average", number_of_points: 3),
+            SurveyQueryAnswer(answer_id: "4", answer: "Poor", number_of_points: 2)
         ]
     )
     
