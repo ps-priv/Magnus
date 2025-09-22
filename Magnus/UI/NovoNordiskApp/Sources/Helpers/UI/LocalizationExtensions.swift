@@ -334,6 +334,11 @@ enum LocalizedStrings {
     static let surveyOpenAnswerPlaceholder = "SURVEY_OPEN_ANSWER_PLACEHOLDER".localized
     static let surveySelectOneOption = "SURVEY_SELECT_ONE_OPTION".localized
     static let surveyMultipleChoicePlaceholder = "SURVEY_MULTIPLE_CHOICE_PLACEHOLDER".localized
+    
+    // Survey validation
+    static let surveyValidationNoAnswer = "SURVEY_VALIDATION_NO_ANSWER".localized
+    static let surveyValidationEmptyAnswer = "SURVEY_VALIDATION_EMPTY_ANSWER".localized
+    static let surveyValidationNoSelection = "SURVEY_VALIDATION_NO_SELECTION".localized
 
     
 }

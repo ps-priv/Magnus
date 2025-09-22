@@ -320,6 +320,10 @@
 "SURVEY_SELECT_ONE_OPTION" = "Select one option:";
 "SURVEY_MULTIPLE_CHOICE_PLACEHOLDER" = "Select one or more options:";
 
+"SURVEY_VALIDATION_NO_ANSWER" = "Please provide an answer to continue.";
+"SURVEY_VALIDATION_EMPTY_ANSWER" = "Please enter your answer.";
+"SURVEY_VALIDATION_NO_SELECTION" = "Please select at least one option.";
+
 
 
 
