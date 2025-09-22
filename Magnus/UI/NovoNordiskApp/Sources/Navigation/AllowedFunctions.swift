@@ -15,5 +15,5 @@ public struct AllowedFunctions {
     public var allowMessages = true
 
     //events
-    public var allowSurvey = false
+    public var allowSurvey = true
 }
