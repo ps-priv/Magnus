@@ -136,7 +136,16 @@ struct EventSurveyView: View {
                 ) {
                     navigationManager.navigateToEventDetail(eventId: viewModel.eventId) 
                 }
-            } else
+            } 
+            else if viewModel.getSurveyStatus() == .completed {
+                NovoNordiskButton(
+                    title: LocalizedStrings.surveyBackToEventButton,
+                    style: .primary,
+                ) {
+                    navigationManager.navigateToEventDetail(eventId: viewModel.eventId) 
+                }
+            } 
+            else
             if viewModel.hasError {
                 NovoNordiskButton(
                     title: LocalizedStrings.tryAgainButton,

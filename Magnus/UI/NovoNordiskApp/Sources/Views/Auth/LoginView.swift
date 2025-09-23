@@ -3,6 +3,7 @@ import MagnusFeatures
 import Pow
 import Sentry
 import SwiftUI
+import OneSignalFramework
 
 struct LoginView: View {
     let onAuthenticationSuccess: () -> Void
@@ -107,8 +108,14 @@ struct LoginView: View {
                             ) {
                                 Task {
                                     await viewModel.login()
+
+                                    if viewModel.isLoggedIn && !viewModel.userId.isEmpty {
+                                        OneSignal.login(viewModel.userId)
+                                        OneSignal.User.addTag(key: "user_id", value: viewModel.userId)
+                                        OneSignal.User.addTag(key: "user_id_int", value: String(viewModel.userIdInt))
+                                    }
                                 }
-                            }
+                            }   
                             .disabled(!viewModel.canLogin)
 
                             // Register button

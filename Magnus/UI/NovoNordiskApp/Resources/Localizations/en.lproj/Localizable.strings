@@ -337,6 +337,9 @@
 
 "SURVEY_BACK_TO_EVENT_BUTTON" = "Back to event";
 
+"SURVEY_ALREADY_COMPLETED_TITLE" = "The survey has already been completed";
+"SURVEY_ALREADY_COMPLETED_DESCRIPTION" = "The survey has already been completed. Thank you for your feedback.";
+
 
 
 

@@ -339,6 +339,10 @@
 
 "SURVEY_BACK_TO_EVENT_BUTTON" = "Powrót do wydarzenia";
 
+"SURVEY_ALREADY_COMPLETED_TITLE" = "Ankieta została już wypełniona";
+"SURVEY_ALREADY_COMPLETED_DESCRIPTION" = "Ankieta została już wypełniona. Dziękujemy za Twoją opinię.";
+
+
 
 
 

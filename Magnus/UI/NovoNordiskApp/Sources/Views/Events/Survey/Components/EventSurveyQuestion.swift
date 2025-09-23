@@ -16,6 +16,7 @@ struct EventSurveyQuestion: View {
     
     @State private var selectedAnswers: Set<String> = []
     @State private var openAnswer: String = ""
+    @FocusState private var isTextFieldFocused: Bool
     
     private func notifyAnswerChanged() {
         let answerData = SurveyAnswerData(
@@ -53,9 +54,37 @@ struct EventSurveyQuestion: View {
     @ViewBuilder
     private var openQuestionView: some View {
         VStack(alignment: .leading, spacing: 8) {
-            TextField(LocalizedStrings.surveyOpenAnswerPlaceholder, text: $openAnswer, axis: .vertical)
-                .textFieldStyle(RoundedBorderTextFieldStyle())
-                .lineLimit(3...20)
+            ZStack(alignment: .topLeading) {
+                if openAnswer.isEmpty {
+                    Text(LocalizedStrings.surveyOpenAnswerPlaceholder)
+                        .foregroundColor(Color.gray.opacity(0.6))
+                        .padding(.horizontal, 16)
+                        .padding(.vertical, 16)
+                        .allowsHitTesting(false)
+                }
+                
+                TextField("", text: $openAnswer, axis: .vertical)
+                    .foregroundColor(Color.novoNordiskTextGrey)
+                    .padding(12)
+                    .background(Color.white)
+                    .cornerRadius(8)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 8)
+                            .stroke(Color.gray.opacity(0.3), lineWidth: 1)
+                    )
+                    .lineLimit(3...20)
+                    .focused($isTextFieldFocused)
+            }
+                .toolbar {
+                    ToolbarItemGroup(placement: .keyboard) {
+                        Spacer()
+                        Button(LocalizedStrings.close) {
+                            isTextFieldFocused = false
+                        }
+                        .foregroundColor(Color.novoNordiskBlue)
+                        .fontWeight(.semibold)
+                    }
+                }
                 .onChange(of: openAnswer) {
                     // For open questions, add the answer_id to selectedAnswers when there's text
                     selectedAnswers.removeAll()
@@ -64,7 +93,14 @@ struct EventSurveyQuestion: View {
                     }
                     notifyAnswerChanged()
                 }
+            
+            // Add spacer when keyboard is visible to push content up
+            if isTextFieldFocused {
+                Spacer()
+                    .frame(height: 250) // Adjust height as needed for keyboard
+            }
         }
+        .animation(.easeInOut(duration: 0.3), value: isTextFieldFocused)
     }
     
     @ViewBuilder

@@ -350,5 +350,8 @@ enum LocalizedStrings {
     static let surveyBeforeDescription = "SURVEY_BEFORE_DESCRIPTION".localized
 
     static let surveyBackToEventButton = "SURVEY_BACK_TO_EVENT_BUTTON".localized
+
+    static let surveyAlreadyCompletedTitle = "SURVEY_ALREADY_COMPLETED_TITLE".localized
+    static let surveyAlreadyCompletedDescription = "SURVEY_ALREADY_COMPLETED_DESCRIPTION".localized
 }
 

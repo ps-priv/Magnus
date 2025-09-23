@@ -36,7 +36,11 @@ struct EventSurveyStart: View {
             } 
             else if surveyStatus == .before {
                 EventSurveyBefore()
-            } else {
+            } 
+            else if surveyStatus == .completed {
+                EventSurveyAlreadyCompleted()
+            }
+            else {
                 EventSurveyAfter()
             }
         }

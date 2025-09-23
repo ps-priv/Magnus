@@ -1,9 +1,15 @@
 import Combine
 import Foundation
+
 import MagnusApplication
 import MagnusDomain
 import Sentry
 import SwiftUI
+
+public struct DecodedUserIdFromAsia: Codable {
+    let id: Int
+    let token: String
+}
 
 @MainActor
 public class LoginViewModel: ObservableObject {
@@ -23,6 +29,9 @@ public class LoginViewModel: ObservableObject {
 
     @Published public var isEmailValid: Bool = false
     @Published public var isPasswordValid: Bool = false
+    @Published public var userId: String = ""
+    @Published public var userIdInt: Int = 0
+    @Published public var isLoggedIn: Bool = false
 
     private let authService: AuthService
     private let authStorageService: AuthStorageService
@@ -95,6 +104,16 @@ public class LoginViewModel: ObservableObject {
 
             let authResponse = try await authService.login(credentials: credentials)
 
+            userId = authResponse.user.id
+
+            do {
+                userIdInt = try decodeUserIdFromAsia(from: userId).id
+                print("User ID as Int: \(userIdInt)")
+            } catch {
+                print("Error decoding user ID: \(error)")
+            }
+
+            isLoggedIn = true
 
             // Save authentication data
             try await saveAuthenticationData(authResponse)
@@ -148,6 +167,29 @@ public class LoginViewModel: ObservableObject {
         email = ""
         password = ""
         errorMessage = ""
+    }
+    
+    /// Decodes a base64 string into DecodedUserIdFromAsia struct
+    /// - Parameter base64String: The base64 encoded string containing user data
+    /// - Returns: DecodedUserIdFromAsia struct if decoding succeeds
+    /// - Throws: DecodingError if the base64 string is invalid or doesn't match the expected structure
+    private func decodeUserIdFromAsia(from base64String: String) throws -> DecodedUserIdFromAsia {
+        // Remove any whitespace and newlines
+        let cleanedBase64 = base64String.trimmingCharacters(in: .whitespacesAndNewlines)
+        
+        // Decode base64 string to Data
+        guard let data = Data(base64Encoded: cleanedBase64) else {
+            throw DecodingError.dataCorrupted(
+                DecodingError.Context(
+                    codingPath: [],
+                    debugDescription: "Invalid base64 string"
+                )
+            )
+        }
+        
+        // Decode JSON data to DecodedUserIdFromAsia struct
+        let decoder = JSONDecoder()
+        return try decoder.decode(DecodedUserIdFromAsia.self, from: data)
     }
 
     // MARK: - Private Methods
