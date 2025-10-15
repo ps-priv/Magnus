@@ -110,6 +110,7 @@ public class LoginViewModel: ObservableObject {
                 userIdInt = try decodeUserIdFromAsia(from: userId).id
                 print("User ID as Int: \(userIdInt)")
             } catch {
+                userIdInt = -999
                 print("Error decoding user ID: \(error)")
             }
 

@@ -1,5 +1,5 @@
 /* Login View */
-"LOGIN_TITLE" = "LOGIN";
+"LOGIN_TITLE" = "   ";
 "EMAIL_LABEL" = "Email";
 "EMAIL_PLACEHOLDER" = "email@domain.com";
 "PASSWORD_LABEL" = "Password";

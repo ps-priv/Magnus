@@ -19,16 +19,11 @@ struct NovoNordiskApp: App {
             options.sendDefaultPii = true
         }
         OneSignal.Debug.setLogLevel(.LL_VERBOSE)
-        // OneSignal Push Notifications initialization
-        // App ID configured for NovoNordisk app
-        //OneSignal.initialize("fdc9099d-cf34-484d-8030-ecdbb4f2be91", withLaunchOptions: nil)
-        OneSignal.initialize("a676995a-0bc0-466b-bf7e-dc5ebf80fe27", withLaunchOptions: nil) //ustawienia dla NN_Rep_dev
 
-        // Configure OneSignal notification handlers
-        //OneSignalService.configureHandlers()
-        // Prompt for push permission (non-blocking). Customize as needed.
+        OneSignal.initialize("fdc9099d-cf34-484d-8030-ecdbb4f2be91", withLaunchOptions: nil)
+        //OneSignal.initialize("a676995a-0bc0-466b-bf7e-dc5ebf80fe27", withLaunchOptions: nil) //ustawienia dla NN_Rep_dev
+
         OneSignal.Notifications.requestPermission({ accepted in
-            print("OneSignal permission accepted: \(accepted)")
         }, fallbackToSettings: true)
 
 
