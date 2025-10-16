@@ -25,6 +25,11 @@ struct UserProfileView: View {
     @State private var showPrivacyPolicy = false
     @State private var showTermsOfUse = false
     @State private var showGdprPolicy = false
+    
+    // Editable user profile fields
+    @State private var firstName: String = ""
+    @State private var lastName: String = ""
+    @State private var email: String = ""
 
 
     var body: some View {
@@ -123,23 +128,23 @@ struct UserProfileView: View {
                 Spacer()
             }
 
-            if let user: UserProfileResponse = userProfileViewModel.user {
+            if userProfileViewModel.user != nil {
                 VStack(alignment: .leading, spacing: 12) {
                     NovoNordiskTextBox(
                         placeholder: LocalizedStrings.userProfileFirstname,
-                        text: .constant(user.firstName),
+                        text: $firstName,
                         style: .withTitle(LocalizedStrings.userProfileFirstname + ":", bold: true)
                     )
 
                     NovoNordiskTextBox(
                         placeholder: LocalizedStrings.userProfileLastname,
-                        text: .constant(user.lasName),
+                        text: $lastName,
                         style: .withTitle(LocalizedStrings.userProfileLastname + ":", bold: true)
                     )
 
                     NovoNordiskTextBox(
                         placeholder: LocalizedStrings.userProfileEmail,
-                        text: .constant(user.email),
+                        text: $email,
                         style: .withTitle(LocalizedStrings.userProfileEmail + ":", bold: true),
                         isEnabled: false
                     )
@@ -153,6 +158,17 @@ struct UserProfileView: View {
 
             NovoNordiskButton(title: LocalizedStrings.buttonSave, style: .primary) {
                 Task {
+                    // Update ViewModel with edited values
+                    if let user = userProfileViewModel.user {
+                        userProfileViewModel.user = UserProfileResponse(
+                            id: user.id,
+                            email: email,
+                            firstName: firstName,
+                            lasName: lastName,
+                            role: user.role,
+                            groups: user.groups
+                        )
+                    }
                     await userProfileViewModel.updateUser()
                 }
             }
@@ -291,6 +307,13 @@ struct UserProfileView: View {
         private func loadUserData() {
         Task {
                 await userProfileViewModel.getUserProfile()
+                
+                // Initialize local state with user data
+                if let user = userProfileViewModel.user {
+                    firstName = user.firstName
+                    lastName = user.lasName
+                    email = user.email
+                }
         }
     }
 }
