@@ -186,4 +186,13 @@ public protocol AuthService {
     /// Gets current authenticated user
     /// - Returns: Current user if authenticated
     func getCurrentUser() -> AuthUser?
+
+    /// Gets current authenticated user profile
+    /// - Returns: Current user profile if authenticated
+    func getUserProfile() async throws -> UserProfileResponse
+
+    /// Updates current authenticated user profile
+    /// - Parameter request: User profile update request
+    /// - Throws: AuthError if update fails
+    func updateUserProfile(request: UserProfileUpdateRequest) async throws
 }

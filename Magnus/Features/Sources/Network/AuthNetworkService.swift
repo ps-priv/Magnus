@@ -47,6 +47,11 @@ public struct UserDto: Codable {
 
 public protocol AuthNetworkServiceProtocol {
     func login(request: LoginRequest) -> AnyPublisher<LoginResponse, Error>
+
+    func getUserProfile(token: String) -> AnyPublisher<UserProfileResponse, Error>
+
+    func updateUserProfile(token: String, request: UserProfileUpdateRequest) -> AnyPublisher<Void, Error>
+    
     // func logout() -> AnyPublisher<Void, Error>
     // func refreshToken(refreshToken: String) -> AnyPublisher<LoginResponse, Error>
 }
@@ -80,14 +85,24 @@ public class AuthNetworkService: AuthNetworkServiceProtocol {
         )
     }
 
-    // public func logout() -> AnyPublisher<Void, Error> {
-    //     return networkService.request(
-    //         endpoint: "/api/auth/logout",
-    //         method: .post,
-    //         parameters: nil,
-    //         encoding: URLEncoding.default
-    //     )
-    // }
+    public func getUserProfile(token: String) -> AnyPublisher<UserProfileResponse, Error> {
+        return networkService.requestWithBearerToken(
+            endpoint: "/api/user",
+            method: .get,
+            responseType: UserProfileResponse.self,
+            bearerToken: token
+        )
+    }
+
+    public func updateUserProfile(token: String, request: UserProfileUpdateRequest) -> AnyPublisher<Void, Error> {
+        return networkService.requestWithBearerToken(
+            endpoint: "/api/user",
+            method: .put,
+            headers: nil,
+            body: request,
+            bearerToken: token
+        )
+    }
 
     // public func refreshToken(refreshToken: String) -> AnyPublisher<LoginResponse, Error> {
     //     return networkService.request(

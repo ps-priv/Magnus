@@ -88,7 +88,9 @@ public class DIContainer {
             // Register mock AuthService for NovoNordisk app
             container.register(AuthService.self) { resolver in
                 let networkService = resolver.resolve(AuthNetworkServiceProtocol.self)!
-                return ApiAuthService(authNetworkService: networkService)
+                let authStorageService = resolver.resolve(AuthStorageService.self)!
+                return ApiAuthService(authNetworkService: networkService,
+                                      authStorageService: authStorageService)
             }.inObjectScope(.container)
 
             // Register real AuthStorageService for iOS

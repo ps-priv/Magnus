@@ -16,7 +16,6 @@ enum UserProfilePanel {
 struct UserProfileView: View {
     @EnvironmentObject var navigationManager: NavigationManager
     @EnvironmentObject var userProfileViewModel: UserProfileViewModel
-    @State private var user: AuthUser? = nil
     @State private var selectedPanel: UserProfilePanel? = .informacje
     @State private var newPassword: String = ""
     @State private var confirmPassword: String = ""
@@ -124,7 +123,7 @@ struct UserProfileView: View {
                 Spacer()
             }
 
-            if let user = user {
+            if let user: UserProfileResponse = userProfileViewModel.user {
                 VStack(alignment: .leading, spacing: 12) {
                     NovoNordiskTextBox(
                         placeholder: LocalizedStrings.userProfileFirstname,
@@ -134,14 +133,8 @@ struct UserProfileView: View {
 
                     NovoNordiskTextBox(
                         placeholder: LocalizedStrings.userProfileLastname,
-                        text: .constant(user.lastName),
+                        text: .constant(user.lasName),
                         style: .withTitle(LocalizedStrings.userProfileLastname + ":", bold: true)
-                    )
-
-                    NovoNordiskTextBox(
-                        placeholder: LocalizedStrings.userProfileDepartment,
-                        text: .constant(""),
-                        style: .withTitle(LocalizedStrings.userProfileDepartment + ":", bold: true)
                     )
 
                     NovoNordiskTextBox(
@@ -151,124 +144,6 @@ struct UserProfileView: View {
                         isEnabled: false
                     )
 
-                    // NovoNordiskTextBox(
-                    //     placeholder: LocalizedStrings.userProfileNpwz,
-                    //     text: .constant(""),
-                    //     style: .withTitle(LocalizedStrings.userProfileNpwz + ":", bold: true)
-                    // )
-
-                    // NovoNordiskTextBox(
-                    //     placeholder: LocalizedStrings.userProfileAddress,
-                    //     text: .constant(""),
-                    //     style: .withTitle(LocalizedStrings.userProfileAddress + ":", bold: true)
-                    // )
-
-                    // GeometryReader { geometry in
-                    //     HStack(spacing: 12) {
-                    //         NovoNordiskTextBox(
-                    //             placeholder: LocalizedStrings.userProfilePostalcode,
-                    //             text: .constant(""),
-                    //             style: .withTitle(
-                    //                 LocalizedStrings.userProfilePostalcode + ":", bold: true)
-                    //         )
-                    //         .frame(width: (geometry.size.width - 12) / 3)  // 1/3 szerokości minus spacing
-
-                    //         NovoNordiskTextBox(
-                    //             placeholder: LocalizedStrings.userProfileCity,
-                    //             text: .constant(""),
-                    //             style: .withTitle(
-                    //                 LocalizedStrings.userProfileCity + ":", bold: true)
-                    //         )
-                    //         .frame(width: (geometry.size.width - 12) * 2 / 3)  // 2/3 szerokości minus spacing
-                    //     }
-                    // }
-                    // .frame(height: 80)
-
-                    // NovoNordiskTextBox(
-                    //     placeholder: LocalizedStrings.userProfilePesel,
-                    //     text: .constant(""),
-                    //     style: .withTitle(LocalizedStrings.userProfilePesel + ":", bold: true)
-                    // )
-
-                    // NovoNordiskCheckbox(
-                    //     title: LocalizedStrings.userProfileHasCompany,
-                    //     isChecked: $hasBusiness,
-                    //     //style: .regular
-                    // ) { isChecked in
-                    //     // Clear fields when unchecked
-                    //     if !isChecked {
-                    //         // nip = ""
-                    //         // companyName = ""
-                    //         // taxOffice = ""
-                    //     }
-                    // }
-
-                    // NovoNordiskTextBox(
-                    //     placeholder: LocalizedStrings.userProfileNip,
-                    //     text: .constant(""),
-                    //     style: .withTitle(LocalizedStrings.userProfileNip + ":", bold: true),
-                    //     isEnabled: hasBusiness
-                    // )
-
-                    // NovoNordiskTextBox(
-                    //     placeholder: LocalizedStrings.userProfileCompanyName,
-                    //     text: .constant(""),
-                    //     style: .withTitle(
-                    //         LocalizedStrings.userProfileCompanyName + ":", bold: true),
-                    //     isEnabled: hasBusiness
-                    // )
-
-                    // NovoNordiskTextBox(
-                    //     placeholder: LocalizedStrings.userProfileTaxOffice,
-                    //     text: .constant(""),
-                    //     style: .withTitle(LocalizedStrings.userProfileTaxOffice + ":", bold: true),
-                    //     isEnabled: hasBusiness
-                    // )
-
-                    // VStack(alignment: .leading, spacing: 0) {
-                    //     NovoNordiskCheckbox(
-                    //         title: LocalizedStrings.userProfilePolicy,
-                    //         isChecked: $hasBusiness,
-                    //         //style: .regular
-                    //     )
-                    //     NovoNordiskLinkButton(
-                    //         title: LocalizedStrings.userProfilePolicyLink, style: .small
-                    //     ) {
-                    //        showPrivacyPolicy = true
-                    //     }
-                    //     .padding(.leading, 30)
-                    // }
-
-                    // VStack(alignment: .leading, spacing: 0) {
-                    //     NovoNordiskCheckbox(
-                    //         title: LocalizedStrings.userProfileRodo,
-                    //         isChecked: $hasBusiness,
-                    //         //style: .regular
-                    //     )
-
-                    //     NovoNordiskLinkButton(
-                    //         title: LocalizedStrings.userProfileRodoLink, style: .small
-                    //     ) {
-                    //         showTermsOfUse = true
-                    //         print("Regulamin aplikacji tapped")
-                    //     }
-                    //     .padding(.leading, 30)
-                    // }
-
-                    // VStack(alignment: .leading, spacing: 0) {
-                    //     NovoNordiskCheckbox(
-                    //         title: LocalizedStrings.userProfileMarketing,
-                    //         isChecked: $hasBusiness,
-                    //         //style: .regular
-                    //     )
-
-                    //     NovoNordiskLinkButton(
-                    //         title: LocalizedStrings.userProfileMarketingLink, style: .small
-                    //     ) {
-                    //             print("Regulamin aplikacji tapped")
-                    //     }
-                    //     .padding(.leading, 30)
-                    // }
                 }
 
                 Spacer()
@@ -277,12 +152,13 @@ struct UserProfileView: View {
             Spacer()
 
             NovoNordiskButton(title: LocalizedStrings.buttonSave, style: .primary) {
-                print("Primary tapped")
+                Task {
+                    await userProfileViewModel.updateUser()
+                }
             }
             .padding(.top, 16)
 
             NovoNordiskButton(title: LocalizedStrings.buttonLogout, style: .outline) {
-                print("Logout tapped")
                 userProfileViewModel.logout()
             }
         }
@@ -291,7 +167,7 @@ struct UserProfileView: View {
     @ViewBuilder
     private func identyfikatorPanel() -> some View {
         VStack(alignment: .center, spacing: 16) {
-            if let user = user {
+            if let user = userProfileViewModel.user {
                 Text(LocalizedStrings.userProfileQrcodeId)
                     .font(.headline)
                     .foregroundColor(Color.novoNordiskTextGrey)
@@ -326,13 +202,12 @@ struct UserProfileView: View {
         .padding()
     }
 
-    // MARK: - QR Code Generation
-    private func generateQRCodeText(user: AuthUser) -> String {
+    private func generateQRCodeText(user: UserProfileResponse) -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd.MM.yyyy HH:mm:ss"
         let currentDateTime = dateFormatter.string(from: Date())
 
-        return "\(user.firstName) \(user.lastName)\n\(currentDateTime)"
+        return "\(user.firstName) \(user.lasName)\n\(currentDateTime)"
     }
 
     private func generateQRCode(from string: String) -> UIImage? {
@@ -413,11 +288,9 @@ struct UserProfileView: View {
         showSuccessAlert = true
     }
 
-    private func loadUserData() {
-        do {
-            user = try DIContainer.shared.authStorageService.getUserData()
-        } catch {
-            print("Failed to load user data: \(error)")
+        private func loadUserData() {
+        Task {
+                await userProfileViewModel.getUserProfile()
         }
     }
 }

@@ -10,9 +10,12 @@ public class ApiAuthService: AuthService {
     private var cancellables = Set<AnyCancellable>()
 
     private let authNetworkService: AuthNetworkServiceProtocol
+    private let authStorageService: AuthStorageService
 
-    public init(authNetworkService: AuthNetworkServiceProtocol) {
+    public init(authNetworkService: AuthNetworkServiceProtocol,
+                authStorageService: AuthStorageService) {
         self.authNetworkService = authNetworkService
+        self.authStorageService = authStorageService
     }
 
     public func login(credentials: LoginCredentials) async throws -> AuthResponse {
@@ -118,5 +121,54 @@ public class ApiAuthService: AuthService {
 
     public func getCurrentUser() -> AuthUser? {
         return currentUser
+    }
+
+
+
+    public func getUserProfile() async throws -> UserProfileResponse {
+        
+        let token = try authStorageService.getAccessToken() ?? ""
+        
+        let userProfile = try await withCheckedThrowingContinuation { continuation in
+            authNetworkService.getUserProfile(token: token)
+                .sink(
+                    receiveCompletion: { completion in
+                        switch completion {
+                        case .finished:
+                            break
+                        case .failure(let error):
+                            continuation.resume(throwing: error)
+                        }
+                    },
+                    receiveValue: { value in
+                        continuation.resume(returning: value)
+                    }
+                )
+                .store(in: &cancellables)
+        }
+        return userProfile
+
+    }
+
+    public func updateUserProfile(request: UserProfileUpdateRequest) async throws {
+        let token = try authStorageService.getAccessToken() ?? ""
+
+        let updatedProfile = try await withCheckedThrowingContinuation { continuation in
+            authNetworkService.updateUserProfile(token: token, request: request)
+                .sink(
+                    receiveCompletion: { completion in
+                        switch completion {
+                        case .finished:
+                            break
+                        case .failure(let error):
+                            continuation.resume(throwing: error)
+                        }
+                    },
+                    receiveValue: { response in
+                        continuation.resume(returning: response)
+                    }
+                )
+                .store(in: &self.cancellables)
+        }
     }
 }

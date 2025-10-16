@@ -9,9 +9,10 @@ extension Notification.Name {
 
 @MainActor
 public class UserProfileViewModel: ObservableObject {
-    @Published public var user: UserDto?
+    @Published public var user: UserProfileResponse?
     @Published public var errorMessage: String = ""
     @Published public var isLoading: Bool = false
+    @Published public var hasError: Bool = false
     @Published public var isAuthenticated: Bool = false
     @Published public var shouldLogout: Bool = false
 
@@ -21,6 +22,7 @@ public class UserProfileViewModel: ObservableObject {
 
     private let authService: AuthService
     private let authStorageService: AuthStorageService
+    private var cancellables = Set<AnyCancellable>()
 
     public init(
         authService: AuthService = DIContainer.shared.authService,
@@ -28,6 +30,39 @@ public class UserProfileViewModel: ObservableObject {
     ) {
         self.authService = authService
         self.authStorageService = authStorageService
+    }
+
+    public func getUserProfile() async {
+
+        await MainActor.run {
+            isLoading = true
+            hasError = false
+            errorMessage = ""
+            shouldLogout = false
+            user = nil
+        }
+
+        do {
+            let userProfile = try await authService.getUserProfile()
+
+            self.user = userProfile
+
+            await MainActor.run {
+                isLoading = false
+                hasError = false
+                errorMessage = ""
+            }
+
+        } catch let error {
+            SentryHelper.capture(error: error, action: "UserProfileViewModel.getUserProfile")
+            //await handleError(error)
+
+            await MainActor.run {
+                hasError = true
+                isLoading = false
+                errorMessage = error.localizedDescription
+            }
+        }
     }
 
     public func logout() {
@@ -41,7 +76,43 @@ public class UserProfileViewModel: ObservableObject {
         }
     }
 
-    public func updateUser() {
-        isLoading = true
+    public func updateUser() async {
+        
+        await MainActor.run {
+            isLoading = true
+            hasError = false
+            errorMessage = ""
+        }
+        
+        do {
+            let request = UserProfileUpdateRequest(
+                email: user?.email ?? "",
+                firstName: user?.firstName ?? "",
+                lastName: user?.lasName ?? ""
+            )
+            
+            print("Request: \(request)")
+            
+            try await authService.updateUserProfile(request: request)
+            
+            // Refresh user profile after successful update
+            await getUserProfile()
+            
+            await MainActor.run {
+                isLoading = false
+                hasError = false
+                errorMessage = ""
+            }
+            
+        } catch let error {
+            print("Update user error: \(error)")
+            SentryHelper.capture(error: error, action: "UserProfileViewModel.updateUser")
+            
+            await MainActor.run {
+                hasError = true
+                isLoading = false
+                errorMessage = error.localizedDescription
+            }
+        }
     }
 }

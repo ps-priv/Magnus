@@ -121,6 +121,27 @@ public class AuthServiceMock: AuthService {
         return currentUser
     }
 
+    public func getUserProfile() async throws -> UserProfileResponse {
+        return UserProfileResponse(
+            id: "3F7A9B2E-8C45-4D91-B6E3-7F2A5C8E9D14",
+            email: "user1@test.pl",
+            firstName: "Jan",
+            lasName: "Kowalski",
+            role: CurrentUserTypeEnum.uczestnik,
+            groups: "Kardiologia"
+        )
+    }
+
+    public func updateUserProfile(request: UserProfileUpdateRequest) async throws {
+
+        let user = getCurrentUser()
+        guard let user = user else {
+            throw AuthError.userNotFound
+        }
+
+        currentUser = user
+    }
+
     // MARK: - Private Helpers
 
     private func createMockUser(for email: String) -> AuthUser {
