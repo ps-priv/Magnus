@@ -11,6 +11,7 @@ public class AgendaQuizViewModel: ObservableObject {
     @Published public var isLoading: Bool = false
     @Published public var errorMessage: String = ""
     @Published public var hasError: Bool = false
+    @Published public var quiz: QuizForEvent?
 
     // @Published public var survey: SurveyForEvent?
     // @Published public var currentQuestionDetails: SurveyQueryDetails?
@@ -24,8 +25,32 @@ public class AgendaQuizViewModel: ObservableObject {
         self.agendaId = agendaId
         self.quizService = quizService
 
-        // Task {
-        //     await loadData()
-        // }
+        Task {
+            await loadData()
+        }
+    }
+    public func loadData() async {
+        await MainActor.run {
+            self.isLoading = true
+            hasError = false
+            errorMessage = ""
+        }
+
+        do {
+            let data = try await quizService.getQuizForAgenda(agendaId: agendaId)
+
+            print("Quiz data: \(data)")
+
+            await MainActor.run {
+                quiz = data
+                isLoading = false
+            }
+        } catch let error {
+            await MainActor.run {
+                errorMessage = error.localizedDescription
+                hasError = true
+                isLoading = false
+            }
+        }
     }
 }
