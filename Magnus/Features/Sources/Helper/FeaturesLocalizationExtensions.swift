@@ -94,4 +94,8 @@ class FeaturesLocalizedStrings {
     static let surveyStartButton = "SURVEY_START_BUTTON".localized
     static let surveyNextButton = "SURVEY_NEXT_BUTTON".localized
     static let surveyCompleteButton = "SURVEY_COMPLETE_BUTTON".localized
+
+    static let quizStartButton = "QUIZ_START_BUTTON".localized
+    static let quizNextButton = "QUIZ_NEXT_BUTTON".localized
+    static let quizCompleteButton = "QUIZ_COMPLETE_BUTTON".localized
 } 

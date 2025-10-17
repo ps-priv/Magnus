@@ -356,5 +356,13 @@ enum LocalizedStrings {
 
     //Quiz
     static let eventQuizScreenTitle = "EVENT_QUIZ_SCREEN_TITLE".localized
+    static let quizWelcomeTitle = "QUIZ_WELCOME_TITLE".localized
+    static let quizWelcomeMessage = "QUIZ_WELCOME_MESSAGE".localized
+    static let quizQuestionsCount = "QUIZ_QUESTIONS_COUNT".localized
+    static let quizQuestion = "QUIZ_QUESTION".localized
+    static let quizYourAnswer = "QUIZ_YOUR_ANSWER".localized
+    static let quizThankYouTitle = "QUIZ_THANK_YOU_TITLE".localized
+    static let quizThankYouMessage = "QUIZ_THANK_YOU_MESSAGE".localized
+    static let quizCompletionInfo = "QUIZ_COMPLETION_INFO".localized
 }
 

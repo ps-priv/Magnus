@@ -344,9 +344,13 @@
 
 /* Quiz */
 "EVENT_QUIZ_SCREEN_TITLE" = "Quiz";
+"QUIZ_WELCOME_TITLE" = "Witaj w Quizie";
+"QUIZ_WELCOME_MESSAGE" = "Odpowiedz na kilka pytań, sprawdź swoją wiedzę";
+"QUIZ_QUESTIONS_COUNT" = "Ilość pytań:";
 
-
-
+"QUIZ_START_BUTTON" = "OK, zaczynamy";
+"QUIZ_NEXT_BUTTON" = "Zapisz i pokaż następne";
+"QUIZ_COMPLETE_BUTTON" = "Zakończ";
 
 
 

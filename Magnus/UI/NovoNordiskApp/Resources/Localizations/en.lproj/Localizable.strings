@@ -342,7 +342,13 @@
 
 /* Quiz */
 "EVENT_QUIZ_SCREEN_TITLE" = "Quiz";
+"QUIZ_WELCOME_TITLE" = "Welcome to the Quiz";
+"QUIZ_WELCOME_MESSAGE" = "Answer a few questions to check your knowledge";
+"QUIZ_QUESTIONS_COUNT" = "Number of questions:";
 
+"QUIZ_START_BUTTON" = "OK, let's start";
+"QUIZ_NEXT_BUTTON" = "Next question";
+"QUIZ_COMPLETE_BUTTON" = "Complete";
 
 
 
