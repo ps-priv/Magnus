@@ -75,7 +75,7 @@ struct EventAgendaCardView: View {
             VStack {
                 ForEach(agendaItems.indices, id: \.self) { index in
                     let agendaItem = agendaItems[index]
-                    EventAgendaItem(agendaItem: agendaItem)
+                    EventAgendaItem(agendaItem: agendaItem, date: event.agenda[selectedDayIndex].date)
                 }
             }
             .transition(.asymmetric(

@@ -6,13 +6,16 @@ import SwiftUI
 struct EventAgendaItem: View {
     let agendaItem: ConferenceEventAgendaContent
     let storageService: MagnusStorageService
+    let date: String
 
     init(
         agendaItem: ConferenceEventAgendaContent,
-        storageService: MagnusStorageService = DIContainer.shared.storageService
+        storageService: MagnusStorageService = DIContainer.shared.storageService,
+        date: String
     ) {
         self.agendaItem = agendaItem
         self.storageService = storageService
+        self.date = date
     }
 
     var body: some View {
@@ -85,9 +88,9 @@ struct EventAgendaItem: View {
             HStack {
                 // EventAgendaJoinOnlineButton(
                 //     isOnline: agendaItem.is_online, action: { print("AgendaItemButtonTapped") })
-                // if agendaItem.is_quiz == 1 {
-                //     EventAgendaQuizButton(action: { print("AgendaItemButtonTapped") })
-                // }
+                if QuizLaunchHelper.enableQuizLaunch(is_quiz: agendaItem.is_quiz, agendaDate: date, timeFrom: agendaItem.time_from, timeTo: agendaItem.time_to) {
+                    EventAgendaQuizButton(action: { print("AgendaItemButtonTapped") })
+                }
                 Spacer()
                 Button(action: {
                     navigateToAgendaItem()
@@ -138,7 +141,7 @@ struct EventAgendaItem: View {
     let agendaItem = EventAgendaMock.getEventAgendaContent(
         hasQuiz: true, hasOnline: true, timeFrom: "18:00:00", timeTo: "19:7:00")
     VStack {
-        EventAgendaItem(agendaItem: agendaItem)
+        EventAgendaItem(agendaItem: agendaItem, date: "")
     }
     .padding(20)
     .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -148,7 +151,7 @@ struct EventAgendaItem: View {
 #Preview("EventAgendaItem") {
     let agendaItem = EventAgendaMock.getEventAgendaContent(hasQuiz: false, hasOnline: false)
     VStack {
-        EventAgendaItem(agendaItem: agendaItem)
+        EventAgendaItem(agendaItem: agendaItem, date: "")
     }
     .padding(20)
     .frame(maxWidth: .infinity, maxHeight: .infinity)
