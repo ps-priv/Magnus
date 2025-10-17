@@ -84,6 +84,14 @@ public extension DIContainer {
         }
         return service
     }
+
+    /// Returns registered QuizService instance
+    var quizService: QuizService {
+        guard let service = resolve(ApiQuizService.self) else {
+            fatalError("ApiQuizService not registered in DI container")
+        }
+        return service
+    }
     
     // MARK: - Convenience Methods
     
