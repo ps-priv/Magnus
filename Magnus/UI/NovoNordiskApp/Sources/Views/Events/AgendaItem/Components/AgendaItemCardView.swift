@@ -8,14 +8,16 @@ struct AgendaItemCardView: View {
     let agendaItem: ConferenceEventAgendaContent
     let location: ConferenceEventLocation
     let action: () -> Void
+    let date: String
 
     init(
         agendaItem: ConferenceEventAgendaContent, location: ConferenceEventLocation,
-        action: @escaping () -> Void
+        action: @escaping () -> Void, date: String
     ) {
         self.agendaItem = agendaItem
         self.location = location
         self.action = action
+        self.date = date
     }
 
     var body: some View {
@@ -30,8 +32,9 @@ struct AgendaItemCardView: View {
                         .padding(.bottom, 10)
                     speakersSection
                         .padding(.bottom, 10)
-
                     descriptionSection
+                        .padding(.bottom, 10)
+                    quizSection
                 }
                 .padding(.horizontal, 15)
                 .padding(.vertical, 15)
@@ -136,11 +139,19 @@ struct AgendaItemCardView: View {
             .font(.novoNordiskBody)
             .foregroundColor(Color.novoNordiskTextGrey)
     }   
+
+    @ViewBuilder
+    var quizSection: some View {
+        if QuizLaunchHelper.enableQuizLaunch(is_quiz: agendaItem.is_quiz, agendaDate: date, timeFrom: agendaItem.time_from, timeTo: agendaItem.time_to) {
+                    EventAgendaQuizButton(action: { print("AgendaItemButtonTapped") })
+            }
+    }
 }
 
 #Preview("AgendaItemCardView") {
 
     var agenda = ConferenceEventAgendaContent(
+        id: "1",
         time_from: "10:00:00",
         time_to: "10:45:00",
         place: "Sala niebieska",
@@ -170,7 +181,7 @@ struct AgendaItemCardView: View {
     )
 
     VStack {
-        AgendaItemCardView(agendaItem: agenda, location: location, action: {})
+        AgendaItemCardView(agendaItem: agenda, location: location, action: {}, date: "")
     }
     .frame(maxWidth: .infinity, maxHeight: .infinity)
     .padding(20)

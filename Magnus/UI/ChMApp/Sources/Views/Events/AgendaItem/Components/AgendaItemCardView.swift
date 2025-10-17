@@ -8,6 +8,7 @@ struct AgendaItemCardView: View {
     let agendaItem: ConferenceEventAgendaContent
     let location: ConferenceEventLocation
     let action: () -> Void
+    let date: String
 
     init(
         agendaItem: ConferenceEventAgendaContent, location: ConferenceEventLocation,

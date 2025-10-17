@@ -46,6 +46,7 @@ struct EventAgendaItem: View {
                     .fontWeight(.bold)
                     .foregroundColor(Color.novoNordiskBlue)
                 Spacer()
+
             }
             .padding(.bottom, 6)
 
@@ -83,6 +84,7 @@ struct EventAgendaItem: View {
                 .padding(.bottom, 4)
 
             HStack {
+                
                 // EventAgendaJoinOnlineButton(
                 //     isOnline: agendaItem.is_online, action: { print("AgendaItemButtonTapped") })
                 // if agendaItem.is_quiz == 1 {

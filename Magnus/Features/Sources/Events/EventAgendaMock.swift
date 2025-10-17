@@ -5,6 +5,7 @@ public class EventAgendaMock {
 
     public static func getEventAgendaContent(hasQuiz: Bool = true, hasOnline: Bool = true, timeFrom: String = "10:00:00", timeTo: String = "10:45:00") -> ConferenceEventAgendaContent {
         let eventAgenda = ConferenceEventAgendaContent(
+            id: "1",
             time_from: timeFrom,
             time_to: timeTo,
             place: "Sala niebieska",

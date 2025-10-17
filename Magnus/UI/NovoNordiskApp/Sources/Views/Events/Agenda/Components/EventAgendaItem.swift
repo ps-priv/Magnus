@@ -89,7 +89,10 @@ struct EventAgendaItem: View {
                 // EventAgendaJoinOnlineButton(
                 //     isOnline: agendaItem.is_online, action: { print("AgendaItemButtonTapped") })
                 if QuizLaunchHelper.enableQuizLaunch(is_quiz: agendaItem.is_quiz, agendaDate: date, timeFrom: agendaItem.time_from, timeTo: agendaItem.time_to) {
-                    EventAgendaQuizButton(action: { print("AgendaItemButtonTapped") })
+                    EventAgendaQuizButton(action: { 
+                        print("AgendaItemButtonTapped") 
+                        navigateToQuiz()
+                        })
                 }
                 Spacer()
                 Button(action: {
@@ -127,14 +130,16 @@ struct EventAgendaItem: View {
     }
 
     private func navigateToAgendaItem() {
-
         do {
             try storageService.saveAgendaItem(agendaItem: agendaItem)
-            NavigationManager.shared.navigate(to: .eventAgendaItem(eventId: ""))
+            NavigationManager.shared.navigate(to: .eventAgendaItem(eventId: agendaItem.id))
         } catch {
             print("Error saving agenda item: \(error)")
         }
     }
+    private func navigateToQuiz() {
+        NavigationManager.shared.navigateToEventQuiz(agendaId: agendaItem.id)
+    }   
 }
 
 #Preview("EventAgendaItem - Quiz, online") {

@@ -1,4 +1,5 @@
 public struct ConferenceEventAgendaContent : Hashable, Decodable, Encodable {
+    public let id: String
     public let time_from: String //HH:mm:ss
     public let time_to: String //HH:mm:ss
     public let place: String
@@ -10,9 +11,10 @@ public struct ConferenceEventAgendaContent : Hashable, Decodable, Encodable {
     public let is_online: Int
 
     public init(
-        time_from: String, time_to: String, place: String, title: String, speakers: String, presenters: String,
+        id: String, time_from: String, time_to: String, place: String, title: String, speakers: String, presenters: String,
         description: String, is_quiz: Int, is_online: Int
     ) {
+        self.id = id
         self.time_from = time_from
         self.time_to = time_to
         self.place = place
