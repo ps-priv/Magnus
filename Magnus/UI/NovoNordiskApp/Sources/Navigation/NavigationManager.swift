@@ -78,6 +78,10 @@ class NavigationManager: ObservableObject {
         navigate(to: .materialPreview(materialUrl: materialUrl, fileType: fileType))
     }
 
+    func navigateToEventQuiz(agendaId: String) {
+        navigate(to: .eventQuiz(agendaId: agendaId))
+    }
+
     // func navigateToMaterials() {
     //     navigate(to: .materialsList)
     // }

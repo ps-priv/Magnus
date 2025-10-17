@@ -340,7 +340,8 @@
 "SURVEY_ALREADY_COMPLETED_TITLE" = "The survey has already been completed";
 "SURVEY_ALREADY_COMPLETED_DESCRIPTION" = "The survey has already been completed. Thank you for your feedback.";
 
-
+/* Quiz */
+"EVENT_QUIZ_SCREEN_TITLE" = "Quiz";
 
 
 

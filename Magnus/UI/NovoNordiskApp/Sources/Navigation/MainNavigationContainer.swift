@@ -173,6 +173,8 @@ struct MainNavigationContainer: View {
             AgendaItemView(eventId: eventId)
         case let .materialPreview(materialUrl, fileType):
             MaterialPreview(materialUrl: materialUrl, fileType: fileType)
+        case let .eventQuiz(agendaId):
+            AgendaQuizView(agendaId: agendaId)
         }
     }
 

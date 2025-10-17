@@ -353,5 +353,8 @@ enum LocalizedStrings {
 
     static let surveyAlreadyCompletedTitle = "SURVEY_ALREADY_COMPLETED_TITLE".localized
     static let surveyAlreadyCompletedDescription = "SURVEY_ALREADY_COMPLETED_DESCRIPTION".localized
+
+    //Quiz
+    static let eventQuizScreenTitle = "EVENT_QUIZ_SCREEN_TITLE".localized
 }
 

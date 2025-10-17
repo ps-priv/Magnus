@@ -342,6 +342,9 @@
 "SURVEY_ALREADY_COMPLETED_TITLE" = "Ankieta została już wypełniona";
 "SURVEY_ALREADY_COMPLETED_DESCRIPTION" = "Ankieta została już wypełniona. Dziękujemy za Twoją opinię.";
 
+/* Quiz */
+"EVENT_QUIZ_SCREEN_TITLE" = "Quiz";
+
 
 
 
