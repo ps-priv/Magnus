@@ -49,4 +49,20 @@ public struct ConferenceEventLocation : Hashable, Decodable, Encodable {
         return host
         //return host.hasPrefix("www.") ? String(host.dropFirst(4)) : host
     }
+
+    public func hasName() -> Bool {
+        return !name.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+    }
+    
+    public func hasEmail() -> Bool {
+        return !email.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+    }
+    
+    public func hasPhone() -> Bool {
+        return !phone.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+    }
+    
+    public func hasWww() -> Bool {
+        return !www.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+    }
 }

@@ -77,7 +77,9 @@ struct EventDetailCardView: View {
             .padding(.horizontal, 16)
             .padding(.bottom, 16)
         }
-        .background(Color.white)
+        .background(Color.novoNordiskLighGreyForPanelBackground)
+        .padding(.vertical, 8)
+        .padding(.horizontal, 8)
         .cornerRadius(20)
         .shadow(color: Color.black.opacity(0.1), radius: 4, x: 0, y: 2)
     }
@@ -141,27 +143,45 @@ struct EventDetailCardView: View {
                 .foregroundColor(Color.novoNordiskBlue)
 
             ForEach(event.guardians, id: \.email) { guardian in
-                VStack(alignment: .leading, spacing: 4) {
-                    Text(guardian.name)
-                        .font(.novoNordiskMiddleText)
-                        .fontWeight(.bold)
-                        .foregroundColor(Color.novoNordiskTextGrey)
-
-                    HStack {
-                        FAIcon(FontAwesome.Icon.email, type: .light, size: 16, color: .novoNordiskBlue)
-                        Text(guardian.email)
+                if guardian.hasName() {
+                    VStack(alignment: .leading, spacing: 4) {
+                        Text(guardian.name)
                             .font(.novoNordiskMiddleText)
+                            .fontWeight(.bold)
                             .foregroundColor(Color.novoNordiskTextGrey)
-                    }
 
-                    HStack {
-                        FAIcon(FontAwesome.Icon.phone, type: .light, size: 16, color: .novoNordiskBlue)
-                        Text(guardian.phone)
-                            .font(.novoNordiskMiddleText)
-                            .foregroundColor(Color.novoNordiskTextGrey)
+                        if guardian.hasEmail() {
+                            Button {
+                                if let url = URL(string: "mailto:\(guardian.email)") {
+                                    UIApplication.shared.open(url)
+                                }
+                            } label: {
+                                HStack {
+                                    FAIcon(FontAwesome.Icon.email, type: .light, size: 16, color: .novoNordiskBlue)
+                                    Text(guardian.email)
+                                        .font(.novoNordiskMiddleText)
+                                        .foregroundColor(Color.novoNordiskTextGrey)
+                                }
+                            }
+                        }
+
+                        if guardian.hasPhone() {
+                            Button {
+                                if let url = URL(string: "tel:\(guardian.phone)") {
+                                    UIApplication.shared.open(url)
+                                }
+                            } label: {
+                                HStack {
+                                    FAIcon(FontAwesome.Icon.phone, type: .light, size: 16, color: .novoNordiskBlue)
+                                    Text(guardian.phone)
+                                        .font(.novoNordiskMiddleText)
+                                        .foregroundColor(Color.novoNordiskTextGrey)
+                                }
+                            }
+                        }
                     }
+                    .padding(.bottom, 8)
                 }
-                .padding(.bottom, 8)
             }
         }
     }   
@@ -186,31 +206,49 @@ struct EventDetailCardView: View {
                     .foregroundColor(Color.novoNordiskTextGrey)
             }
 
-            HStack {
-                FAIcon(FontAwesome.Icon.email, type: .light, size: 16, color: .novoNordiskBlue)
-                Text(event.location.email)
-                    .font(.novoNordiskMiddleText)
-                    .foregroundColor(Color.novoNordiskTextGrey)
-            }
-
-            HStack {
-                FAIcon(FontAwesome.Icon.phone, type: .light, size: 16, color: .novoNordiskBlue)
-                Text(event.location.phone)
-                    .font(.novoNordiskMiddleText)
-                    .foregroundColor(Color.novoNordiskTextGrey)
-            }
-
-            HStack {
-                FAIcon(FontAwesome.Icon.fileUrl, type: .light, size: 18, color: .novoNordiskBlue)
+            if event.location.hasEmail() {
                 Button {
-                    if let url = URL(string: event.location.www) {
+                    if let url = URL(string: "mailto:\(event.location.email)") {
                         UIApplication.shared.open(url)
                     }
                 } label: {
-                    Text(event.location.getDomainAddressFromWww())
-                        .font(.novoNordiskMiddleText)
-                        .underline()
-                        .foregroundColor(Color.novoNordiskBlue)
+                    HStack {
+                        FAIcon(FontAwesome.Icon.email, type: .light, size: 16, color: .novoNordiskBlue)
+                        Text(event.location.email)
+                            .font(.novoNordiskMiddleText)
+                            .foregroundColor(Color.novoNordiskTextGrey)
+                    }
+                }
+            }
+
+            if event.location.hasPhone() {
+                Button {
+                    if let url = URL(string: "tel:\(event.location.phone)") {
+                        UIApplication.shared.open(url)
+                    }
+                } label: {
+                    HStack {
+                        FAIcon(FontAwesome.Icon.phone, type: .light, size: 16, color: .novoNordiskBlue)
+                        Text(event.location.phone)
+                            .font(.novoNordiskMiddleText)
+                            .foregroundColor(Color.novoNordiskTextGrey)
+                    }
+                }
+            }
+
+            if event.location.hasWww() {
+                HStack {
+                    FAIcon(FontAwesome.Icon.fileUrl, type: .light, size: 18, color: .novoNordiskBlue)
+                    Button {
+                        if let url = URL(string: event.location.www) {
+                            UIApplication.shared.open(url)
+                        }
+                    } label: {
+                        Text(event.location.getDomainAddressFromWww())
+                            .font(.novoNordiskMiddleText)
+                            .underline()
+                            .foregroundColor(Color.novoNordiskBlue)
+                    }
                 }
             }
         }

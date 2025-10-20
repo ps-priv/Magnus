@@ -8,4 +8,16 @@ public struct ConferenceEventGuardians : Hashable, Decodable, Encodable {
         self.email = email
         self.phone = phone
     }
+    
+    public func hasName() -> Bool {
+        return !name.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+    }
+    
+    public func hasEmail() -> Bool {
+        return !email.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+    }
+    
+    public func hasPhone() -> Bool {
+        return !phone.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+    }
 }
