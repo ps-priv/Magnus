@@ -10,15 +10,15 @@ struct QuizSummaryView: View {
         VStack(spacing: 24) {
             // Title
             Text(LocalizedStrings.quizThankYouTitle)
-                .font(.novoNordiskSectionTitle)
-                .fontWeight(.bold)
+                .font(.system(size: 32, weight: .bold))
                 .foregroundColor(Color.novoNordiskBlue)
                 .multilineTextAlignment(.center)
                 .padding(.horizontal, 20)
+                .padding(.top, 20)
             
             // Subtitle
             Text(LocalizedStrings.quizResultSubtitle)
-                .font(.novoNordiskBody)
+                .font(.system(size: 24, weight: .semibold))
                 .foregroundColor(Color.novoNordiskTextGrey)
                 .multilineTextAlignment(.center)
                 .padding(.horizontal, 20)
