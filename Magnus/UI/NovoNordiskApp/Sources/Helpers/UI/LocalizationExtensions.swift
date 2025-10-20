@@ -59,6 +59,7 @@ enum LocalizedStrings {
     static let fieldRequired = "FIELD_REQUIRED".localized
     static let invalidEmail = "INVALID_EMAIL".localized
     static let passwordTooShort = "PASSWORD_TOO_SHORT".localized
+    static let invalidCurrentPassword = "INVALID_CURRENT_PASSWORD".localized
 
     // Main App
     static let appTitle = "APP_TITLE".localized

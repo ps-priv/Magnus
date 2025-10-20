@@ -139,11 +139,43 @@ public class UserProfileViewModel: ObservableObject {
             print("Change password error: \(error)")
             SentryHelper.capture(error: error, action: "UserProfileViewModel.changePassword")
             
+            // Parse error message for specific cases
+            let customErrorMessage = parsePasswordChangeError(error)
+            
             await MainActor.run {
                 hasError = true
                 isLoading = false
-                errorMessage = error.localizedDescription
+                errorMessage = customErrorMessage
             }
         }
+    }
+    
+    private func parsePasswordChangeError(_ error: Error) -> String {
+        let errorString = error.localizedDescription
+        
+        // Check if error message contains specific API error messages
+        if errorString.contains("Current Password is Invalid") {
+            return "Aktualne hasło jest nieprawidłowe"
+        }
+        
+        if errorString.contains("New Password cannot be same as your current password") {
+            return "Nowe hasło nie może być takie samo jak aktualne hasło"
+        }
+        
+        // Check for other common password change errors
+        if errorString.contains("password") && errorString.contains("invalid") {
+            return "Aktualne hasło jest nieprawidłowe"
+        }
+        
+        if errorString.contains("400") && errorString.contains("Current Password") {
+            return "Aktualne hasło jest nieprawidłowe"
+        }
+        
+        if errorString.contains("same") && errorString.contains("current") && errorString.contains("password") {
+            return "Nowe hasło nie może być takie samo jak aktualne hasło"
+        }
+        
+        // Return original error message if no specific case matches
+        return errorString
     }
 }

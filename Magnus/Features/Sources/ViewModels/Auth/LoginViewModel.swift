@@ -219,6 +219,8 @@ public class LoginViewModel: ObservableObject {
             message = FeaturesLocalizedStrings.invalidEmail
         case .passwordTooShort:
             message = FeaturesLocalizedStrings.passwordTooShort
+        case .invalidCurrentPassword:
+            message = "Aktualne hasło jest nieprawidłowe"
         case .networkError(let details):
             message = FeaturesLocalizedStrings.networkError(details)
         case .userNotFound:

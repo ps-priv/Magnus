@@ -291,7 +291,7 @@ enum AppScreen: Equatable, Identifiable {
     var shouldShowSettingsButton: Bool {
         switch self {
         case .profile:
-            return true // Show settings button on profile screen
+            return false // Show settings button on profile screen
         case .settings:
             return false // Don't show settings button on settings screen
         default:

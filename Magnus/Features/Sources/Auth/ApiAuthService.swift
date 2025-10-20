@@ -1,3 +1,4 @@
+import Alamofire
 import Combine
 import Foundation
 import MagnusApplication

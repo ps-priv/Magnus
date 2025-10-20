@@ -122,6 +122,7 @@ public enum AuthError: Error, LocalizedError {
     case networkError(String)
     case invalidEmail
     case passwordTooShort
+    case invalidCurrentPassword
     case userNotFound
     case serverError(Int)
     case unknown
@@ -131,17 +132,19 @@ public enum AuthError: Error, LocalizedError {
         case .invalidCredentials:
             return "Invalid email or password"
         case .networkError(let message):
-            return "Network error: \(message)"
+            return NSLocalizedString("Network error: \(message)", comment: "")
         case .invalidEmail:
-            return "Invalid email format"
+            return NSLocalizedString("Invalid email format", comment: "")
         case .passwordTooShort:
-            return "Password must be at least 6 characters"
+            return NSLocalizedString("Password must be at least 6 characters", comment: "")
+        case .invalidCurrentPassword:
+            return NSLocalizedString("Aktualne hasło jest nieprawidłowe", comment: "")
         case .userNotFound:
-            return "User not found"
+            return NSLocalizedString("User not found", comment: "")
         case .serverError(let code):
-            return "Server error: \(code)"
+            return NSLocalizedString("Server error: \(code)", comment: "")
         case .unknown:
-            return "An unknown error occurred"
+            return NSLocalizedString("An unknown error occurred", comment: "")
         }
     }
 }

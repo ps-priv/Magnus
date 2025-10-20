@@ -63,6 +63,14 @@ public struct PasswordChangeRequest: Codable {
     }
 }
 
+public struct APIErrorResponse: Codable {
+    public let message: String
+    
+    public init(message: String) {
+        self.message = message
+    }
+}
+
 public protocol AuthNetworkServiceProtocol {
     func login(request: LoginRequest) -> AnyPublisher<LoginResponse, Error>
 
