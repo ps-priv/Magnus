@@ -210,4 +210,13 @@ public protocol AuthService {
     /// - Parameter email: User's email address
     /// - Throws: AuthError if request fails
     func forgetPassword(email: String) async throws
+    
+    /// Resets user password with verification code
+    /// - Parameters:
+    ///   - email: User's email address
+    ///   - code: Verification code received via email
+    ///   - password: New password
+    ///   - passwordConfirmation: Password confirmation
+    /// - Throws: AuthError if reset fails
+    func resetPassword(email: String, code: String, password: String, passwordConfirmation: String) async throws
 }

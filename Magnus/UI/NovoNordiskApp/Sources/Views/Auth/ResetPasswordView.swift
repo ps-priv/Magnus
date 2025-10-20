@@ -107,7 +107,7 @@ struct ResetPasswordView: View {
                                         isEnabled: viewModel.canResetPassword
                                     ) {
                                         Task {
-                                            //await viewModel.sendResetPasswordEmail()
+                                            await viewModel.resetPassword()
                                         }
                                     }
                                     .disabled(!viewModel.canResetPassword)
@@ -146,18 +146,17 @@ struct ResetPasswordView: View {
                 .ignoresSafeArea(.keyboard, edges: .bottom)
                 .navigationBarTitleDisplayMode(.inline)
                 .navigationBarBackButtonHidden(true)
-                // .onChange(of: viewModel.emailSentSuccessfully) { _, success in
-                //     if success {
-                //         showConfirmation = true
-                //     }
-                // }
+                .onChange(of: viewModel.passwordResetSuccessfully) { oldValue, newValue in
+                    if newValue {
+                        showConfirmation = true
+                    }
+                }
                 .fullScreenCover(isPresented: $showConfirmation) {
-                    //            PasswordResetConfirmationView() {
-                    //                // When user taps "Go to password reset"
-                    //                showConfirmation = false
-                    //                // TODO: Navigate to password reset screen or back to login
-                    //                onCancel() // For now, go back to login
-                    //            }
+                    PasswordChangedConfirmationView {
+                        // When user taps "Go to login"
+                        showConfirmation = false
+                        onCancel() // Go back to login
+                    }
                 }
             }
         }

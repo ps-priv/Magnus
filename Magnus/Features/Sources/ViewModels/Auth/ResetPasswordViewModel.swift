@@ -18,6 +18,7 @@ public class ResetPasswordViewModel: ObservableObject {
     @Published public var isPasswordValid: Bool = false
     @Published public var isConfirmPasswordValid: Bool = false
     @Published public var canResetPasswordFlag: Bool = false
+    @Published public var passwordResetSuccessfully: Bool = false
 
     private var cancellables = Set<AnyCancellable>()
 
@@ -85,29 +86,42 @@ public class ResetPasswordViewModel: ObservableObject {
         await MainActor.run {
             isLoading = true
             errorMessage = ""
+            passwordResetSuccessfully = false
         }
         
         do {
-            // TODO: Implement actual password reset API call
-            // For now, simulate API call
-            try await Task.sleep(nanoseconds: 1_000_000_000) // 1 second delay
+            // Call the reset password API
+            try await authService.resetPassword(
+                email: email,
+                code: verificationCode,
+                password: password,
+                passwordConfirmation: confirmPassword
+            )
             
-            // Simulate success or error based on email format
-            if email.contains("@") && email.contains(".") {
-                await MainActor.run {
-
-                    isLoading = false
-                }
-            } else {
-                await MainActor.run {
-                    errorMessage = FeaturesLocalizedStrings.invalidEmail
-                    isLoading = false
-                }
+            await MainActor.run {
+                passwordResetSuccessfully = true
+                isLoading = false
             }
             
+        } catch let error as AuthError {
+            await MainActor.run {
+                switch error {
+                case .invalidEmail:
+                    errorMessage = FeaturesLocalizedStrings.invalidEmail
+                case .passwordTooShort:
+                    errorMessage = "Hasło jest za krótkie"
+                case .networkError(let message):
+                    errorMessage = "Błąd sieci: \(message)"
+                case .invalidCredentials:
+                    errorMessage = "Nieprawidłowy kod weryfikacyjny"
+                default:
+                    errorMessage = "Wystąpił błąd podczas resetowania hasła"
+                }
+                isLoading = false
+            }
         } catch {
             await MainActor.run {
-                errorMessage = "Wystąpił błąd podczas wysyłania emaila"
+                errorMessage = "Wystąpił błąd podczas resetowania hasła"
                 isLoading = false
             }
         }

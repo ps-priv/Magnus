@@ -71,6 +71,27 @@ public struct ForgetPasswordRequest: Codable {
     }
 }
 
+public struct ResetPasswordRequest: Codable {
+    public let email: String
+    public let code: String
+    public let password: String
+    public let passwordConfirmation: String
+
+    public init(email: String, code: String, password: String, passwordConfirmation: String) {
+        self.email = email
+        self.code = code
+        self.password = password
+        self.passwordConfirmation = passwordConfirmation
+    }
+    
+    enum CodingKeys: String, CodingKey {
+        case email = "email"
+        case code = "code"
+        case password = "password"
+        case passwordConfirmation = "password_confirmation"
+    }
+}
+
 public struct APIErrorResponse: Codable {
     public let message: String
     
@@ -89,6 +110,8 @@ public protocol AuthNetworkServiceProtocol {
     func changePassword(token: String, request: PasswordChangeRequest) -> AnyPublisher<Void, Error>
     
     func forgetPassword(request: ForgetPasswordRequest) -> AnyPublisher<Void, Error>
+    
+    func resetPassword(request: ResetPasswordRequest) -> AnyPublisher<Void, Error>
     
     // func logout() -> AnyPublisher<Void, Error>
     // func refreshToken(refreshToken: String) -> AnyPublisher<LoginResponse, Error>
@@ -164,6 +187,26 @@ public class AuthNetworkService: AuthNetworkServiceProtocol {
 
         return networkService.request(
             endpoint: "/api/auth/forget_password",
+            method: .post,
+            headers: nil,
+            parameters: json,
+            encoding: JSONEncoding.default,
+            bearerToken: nil
+        )
+    }
+    
+    public func resetPassword(request: ResetPasswordRequest) -> AnyPublisher<Void, Error> {
+        // Convert to Dictionary
+        let encoder = JSONEncoder()
+        guard let data = try? encoder.encode(request),
+            let json = try? JSONSerialization.jsonObject(with: data) as? [String: Any]
+        else {
+            return Fail(error: NSError(domain: "EncodingError", code: -1, userInfo: nil))
+                .eraseToAnyPublisher()
+        }
+
+        return networkService.request(
+            endpoint: "/api/auth/reset_password",
             method: .post,
             headers: nil,
             parameters: json,

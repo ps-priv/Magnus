@@ -169,6 +169,29 @@ public class AuthServiceMock: AuthService {
         // For mock purposes, just simulate success
         // In a real implementation, this would send a password reset email
     }
+    
+    public func resetPassword(email: String, code: String, password: String, passwordConfirmation: String) async throws {
+        // Simulate network delay
+        try await Task.sleep(nanoseconds: 1_000_000_000) // 1 second
+        
+        // Validate email format
+        guard isValidEmail(email) else {
+            throw AuthError.invalidEmail
+        }
+        
+        // Validate password
+        guard isValidPassword(password) else {
+            throw AuthError.passwordTooShort
+        }
+        
+        // Validate password confirmation matches
+        guard password == passwordConfirmation else {
+            throw AuthError.passwordTooShort // Could create a new error type for mismatch
+        }
+        
+        // For mock purposes, accept any verification code
+        // In a real implementation, this would verify the code
+    }
 
     // MARK: - Private Helpers
 

@@ -138,9 +138,9 @@ struct ForgotPasswordView: View {
             }
             .fullScreenCover(isPresented: $showConfirmation) {
                 PasswordResetConfirmationView {
-                    // When user taps "Go to password reset"
+                    // When user taps "Go to login"
                     showConfirmation = false
-                    showResetPassword = true
+                    onCancel() // Go back to login
                 }
             }
             .fullScreenCover(isPresented: $showResetPassword) {

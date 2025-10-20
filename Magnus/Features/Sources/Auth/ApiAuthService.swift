@@ -222,4 +222,31 @@ public class ApiAuthService: AuthService {
                 .store(in: &self.cancellables)
         }
     }
+    
+    public func resetPassword(email: String, code: String, password: String, passwordConfirmation: String) async throws {
+        let request = ResetPasswordRequest(
+            email: email,
+            code: code,
+            password: password,
+            passwordConfirmation: passwordConfirmation
+        )
+        
+        try await withCheckedThrowingContinuation { continuation in
+            authNetworkService.resetPassword(request: request)
+                .sink(
+                    receiveCompletion: { completion in
+                        switch completion {
+                        case .finished:
+                            continuation.resume(returning: ())
+                        case .failure(let error):
+                            continuation.resume(throwing: error)
+                        }
+                    },
+                    receiveValue: { _ in
+                        // No value expected
+                    }
+                )
+                .store(in: &self.cancellables)
+        }
+    }
 }

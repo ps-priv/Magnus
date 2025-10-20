@@ -1,10 +1,10 @@
 import SwiftUI
 
 struct PasswordResetConfirmationView: View {
-    let onGoToPasswordReset: () -> Void
+    let onGoToLogin: () -> Void
     
-    init(onGoToPasswordReset: @escaping () -> Void = {}) {
-        self.onGoToPasswordReset = onGoToPasswordReset
+    init(onGoToLogin: @escaping () -> Void = {}) {
+        self.onGoToLogin = onGoToLogin
     }
     
     var body: some View {
@@ -56,12 +56,12 @@ struct PasswordResetConfirmationView: View {
                         // Bottom section
                         VStack(spacing: 32) {
                             
-                            // Go to password reset button
+                            // Go to login button
                             NovoNordiskButton(
-                                title: LocalizedStrings.goToPasswordReset,
+                                title: LocalizedStrings.goToLogin,
                                 style: .primary
                             ) {
-                                onGoToPasswordReset()
+                                onGoToLogin()
                             }
                             .padding(.horizontal, 24)
                         }
