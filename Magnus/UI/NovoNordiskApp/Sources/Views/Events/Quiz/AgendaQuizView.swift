@@ -164,6 +164,7 @@ struct AgendaQuizView: View {
     @State private var validationErrorMessage: String = ""
     @State private var remainingTime: Int = 0
     @State private var timer: Timer?
+    @State private var showSummary: Bool = false
     let agendaId: String
 
     init(agendaId: String) {
@@ -172,7 +173,7 @@ struct AgendaQuizView: View {
     }
 
     var body: some View {
-        let _ = print("[AgendaQuizView] body - currentQuestion: \(viewModel.currentQuestionNumber), questionId: \(viewModel.currentQuestionDetails?.query_id ?? "nil"), isLoading: \(viewModel.isLoading)")
+        let _ = print("[AgendaQuizView] body - currentQuestion: \(viewModel.currentQuestionNumber), questionId: \(viewModel.currentQuestionDetails?.query_id ?? "nil"), isLoading: \(viewModel.isLoading), isQuizCompleted: \(viewModel.isQuizCompleted)")
         
         VStack(spacing: 0) {
             if viewModel.isLoading {
@@ -191,7 +192,7 @@ struct AgendaQuizView: View {
         }
         .onChange(of: viewModel.currentQuestionDetails?.query_id) { _ in
             // Start timer when question changes
-            if viewModel.currentQuestionNumber > 0 && !viewModel.isQuizCompleted {
+            if viewModel.currentQuestionNumber > 0 && !showSummary {
                 startTimer()
             }
         }
@@ -208,13 +209,19 @@ struct AgendaQuizView: View {
                 
                 ScrollView {
                     VStack(alignment: .leading, spacing: 20) {
-                        if viewModel.currentQuestionNumber == 0 {
+                        if showSummary {
+                            let _ = print("[QuizView] Rendering SUMMARY screen - percentage: \(viewModel.quizPercentage)")
+                            // Show completion screen
+                            QuizSummaryView(
+                                percentage: viewModel.quizPercentage,
+                                questionsWithAnswers: viewModel.getAllQuestionsWithAnswers()
+                            )
+                        } else if viewModel.currentQuestionNumber == 0 {
+                            let _ = print("[QuizView] Rendering START screen")
                             // Show start screen
                             QuizStartView(totalQuestions: viewModel.totalQuestions)
-                        } else if viewModel.isQuizCompleted {
-                            // Show completion screen
-                            QuizSummaryView()
                         } else if let questionDetails = viewModel.currentQuestionDetails {
+                            let _ = print("[QuizView] Rendering QUESTION screen - question \(viewModel.currentQuestionNumber)")
                             // Show current question
                             QuizQuestionView(
                                 questionDetails: questionDetails,
@@ -224,12 +231,14 @@ struct AgendaQuizView: View {
                                 textAnswer: $textAnswer
                             )
                             .id(viewModel.currentQuestionNumber)
+                        } else {
+                            let _ = print("[QuizView] Rendering NOTHING - no condition matched")
                         }
                     }
                     .padding(.vertical, 20)
                 }
                 
-                if !viewModel.isQuizCompleted {
+                if !showSummary {
                     // Question counter (only show when on a question, not on start screen)
                     if viewModel.currentQuestionNumber > 0 {
                         questionCounter
@@ -412,6 +421,8 @@ struct AgendaQuizView: View {
                         await viewModel.handleNextButton()
                     } else {
                         print("[QuizView] Quiz completed - showing summary")
+                        showSummary = true
+                        print("[QuizView] showSummary set to true")
                     }
                 } else {
                     print("[QuizView] Answer submission failed")

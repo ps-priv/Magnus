@@ -365,5 +365,6 @@ enum LocalizedStrings {
     static let quizThankYouTitle = "QUIZ_THANK_YOU_TITLE".localized
     static let quizThankYouMessage = "QUIZ_THANK_YOU_MESSAGE".localized
     static let quizCompletionInfo = "QUIZ_COMPLETION_INFO".localized
+    static let quizResultSubtitle = "QUIZ_RESULT_SUBTITLE".localized
 }
 

@@ -359,6 +359,7 @@
 "QUIZ_THANK_YOU_MESSAGE" = "Twoje odpowiedzi zostały zapisane";
 "QUIZ_COMPLETION_INFO" = "Możesz teraz zamknąć quiz";
 "QUIZ_QUESTION" = "Pytanie";
+"QUIZ_RESULT_SUBTITLE" = "Twój wynik to:";
 
 
 

@@ -70,18 +70,29 @@ public class ApiQuizService: QuizService {
         let token = try authStorageService.getAccessToken() ?? ""
         try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<Void, Error>) in
             var cancellable: AnyCancellable?
+            var resumed = false
             cancellable = quizNetworkService.submitAnswers(token: token, answer: answers)
                 .sink(
                     receiveCompletion: { completion in
                         switch completion {
                         case .finished:
-                            continuation.resume()
+                            if !resumed {
+                                continuation.resume()
+                                resumed = true
+                            }
                         case .failure(let error):
-                            continuation.resume(throwing: error)
+                            if !resumed {
+                                continuation.resume(throwing: error)
+                                resumed = true
+                            }
                         }
                         cancellable?.cancel()
                     },
                     receiveValue: { value in
+                        if !resumed {
+                            continuation.resume()
+                            resumed = true
+                        }
                         cancellable?.cancel()
                     }
                 )

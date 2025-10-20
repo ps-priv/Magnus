@@ -357,6 +357,7 @@
 "QUIZ_THANK_YOU_MESSAGE" = "Your answers have been saved";
 "QUIZ_COMPLETION_INFO" = "You can now close this quiz";
 "QUIZ_QUESTION" = "Question";
+"QUIZ_RESULT_SUBTITLE" = "Your result is:";
 
 
 

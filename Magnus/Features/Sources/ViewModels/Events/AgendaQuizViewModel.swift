@@ -23,6 +23,11 @@ public class AgendaQuizViewModel: ObservableObject {
     
     // Store user answers: [queryId: [answerIds]]
     private var userAnswers: [String: [String]] = [:]
+    
+    // Quiz statistics
+    @Published public var totalCorrectAnswers: Int = 0
+    @Published public var userCorrectAnswers: Int = 0
+    @Published public var quizPercentage: Double = 0.0
 
     public init(agendaId: String, 
         quizService: QuizService = DIContainer.shared.quizService) {
@@ -204,13 +209,7 @@ public class AgendaQuizViewModel: ObservableObject {
         if currentQuestionNumber == totalQuestions {
             print("[ViewModel] This is the last question - submitting all answers")
             let success = await submitAllAnswers()
-            if success {
-                print("[ViewModel] All answers submitted successfully - setting isQuizCompleted = true")
-                await MainActor.run {
-                    isQuizCompleted = true
-                    print("[ViewModel] isQuizCompleted set to true")
-                }
-            } else {
+            if !success {
                 print("[ViewModel] Failed to submit all answers")
             }
             return success
@@ -221,29 +220,108 @@ public class AgendaQuizViewModel: ObservableObject {
     }
     
     private func submitAllAnswers() async -> Bool {
-        guard let quiz = quiz else { return false }
+        guard let quiz = quiz else {
+            print("[ViewModel] submitAllAnswers - quiz is nil")
+            return false
+        }
+        
+        print("[ViewModel] submitAllAnswers - starting to submit \(quiz.queries.count) questions")
+        print("[ViewModel] submitAllAnswers - userAnswers count: \(userAnswers.count)")
+        
+        var hasErrors = false
+        var lastError: String = ""
         
         // Create submission request for each question
-        for query in quiz.queries {
-            if let answerIds = userAnswers[query.id] {
-                let request = QuizUserAnswerRequest(
-                    query_id: query.id,
-                    query_time_left: 0, // You may want to track time
-                    answers_id: answerIds
-                )
+        for (index, query) in quiz.queries.enumerated() {
+            print("[ViewModel] Processing question \(index + 1)/\(quiz.queries.count), queryId: \(query.id)")
+            
+            // Get answers for this query (empty array if none)
+            let answerIds = userAnswers[query.id] ?? []
+            print("[ViewModel] Found \(answerIds.count) answers for query \(query.id): \(answerIds)")
+            
+            let request = QuizUserAnswerRequest(
+                query_id: query.id,
+                query_time_left: 0, // You may want to track time
+                answers_id: answerIds
+            )
+            
+            do {
+                print("[ViewModel] Submitting answers for query \(query.id)")
+                try await quizService.submitAnswers(answers: request)
+                print("[ViewModel] Successfully submitted answers for query \(query.id)")
+            } catch {
+                print("[ViewModel] ERROR submitting answers for query \(query.id): \(error.localizedDescription)")
+                print("[ViewModel] Error details: \(error)")
+                print("[ViewModel] Continuing despite error to show summary...")
+                hasErrors = true
+                lastError = error.localizedDescription
+                // Don't return false - continue to show summary
+            }
+        }
+        
+        if hasErrors {
+            print("[ViewModel] Some answers failed to submit, but continuing to show summary")
+            await MainActor.run {
+                errorMessage = lastError
+                hasError = true
+            }
+        }
+        
+        print("[ViewModel] All answers processed, calculating statistics...")
+        
+        // Calculate statistics after all answers are submitted
+        await calculateQuizStatistics()
+        
+        print("[ViewModel] Statistics calculated, setting isQuizCompleted...")
+        
+        // Set quiz as completed after everything is done
+        await MainActor.run {
+            isQuizCompleted = true
+            print("[ViewModel] Quiz completed - isQuizCompleted set to true")
+        }
+        
+        return true
+    }
+    
+    private func calculateQuizStatistics() async {
+        var totalCorrect = 0
+        var userCorrect = 0
+        
+        // Count all correct answers (number_of_points = 1)
+        for (queryId, details) in allQuestionDetails {
+            if let answers = details.answers {
+                let correctAnswers = answers.filter { $0.number_of_points == 1 }
+                totalCorrect += correctAnswers.count
                 
-                do {
-                    try await quizService.submitAnswers(answers: request)
-                } catch {
-                    await MainActor.run {
-                        errorMessage = error.localizedDescription
-                        hasError = true
-                    }
-                    return false
+                // Count user's correct answers
+                if let userAnswerIds = userAnswers[queryId] {
+                    let userCorrectCount = correctAnswers.filter { correctAnswer in
+                        userAnswerIds.contains(correctAnswer.id)
+                    }.count
+                    userCorrect += userCorrectCount
                 }
             }
         }
         
-        return true
+        let percentage = totalCorrect > 0 ? (Double(userCorrect) / Double(totalCorrect)) * 100.0 : 0.0
+        
+        await MainActor.run {
+            totalCorrectAnswers = totalCorrect
+            userCorrectAnswers = userCorrect
+            quizPercentage = percentage
+            
+            print("[Quiz] Statistics - Total correct: \(totalCorrect), User correct: \(userCorrect), Percentage: \(percentage)%")
+        }
+    }
+    
+    // Get all questions with details for summary view
+    public func getAllQuestionsWithAnswers() -> [(question: QuizQueryAnswerResponse, userAnswers: [String])] {
+        guard let quiz = quiz else { return [] }
+        
+        return quiz.queries.compactMap { query in
+            guard let details = allQuestionDetails[query.id] else { return nil }
+            let answers = userAnswers[query.id] ?? []
+            return (question: details, userAnswers: answers)
+        }
     }
 }
