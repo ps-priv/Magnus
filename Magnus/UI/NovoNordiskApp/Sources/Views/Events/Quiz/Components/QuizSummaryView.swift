@@ -4,7 +4,7 @@ import MagnusDomain
 // MARK: - Quiz Summary Component
 struct QuizSummaryView: View {
     let percentage: Double
-    let questionsWithAnswers: [(question: QuizQueryAnswerResponse, userAnswers: [String])]
+    let questionsWithAnswers: [(question: QuizQueryAnswerResponse, userAnswers: [String], textAnswer: String)]
     
     var body: some View {
         VStack(spacing: 24) {
@@ -33,7 +33,8 @@ struct QuizSummaryView: View {
                     QuizQuestionSummaryView(
                         questionNumber: index + 1,
                         question: item.question,
-                        userAnswers: item.userAnswers
+                        userAnswers: item.userAnswers,
+                        textAnswer: item.textAnswer
                     )
                 }
             }
@@ -48,6 +49,7 @@ private struct QuizQuestionSummaryView: View {
     let questionNumber: Int
     let question: QuizQueryAnswerResponse
     let userAnswers: [String]
+    let textAnswer: String
     
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
@@ -71,6 +73,24 @@ private struct QuizQuestionSummaryView: View {
                         }
                     }
                 }
+            }
+            
+            // Text answer (for text, radio_text, checkbox_text types)
+            if !textAnswer.isEmpty {
+                VStack(alignment: .leading, spacing: 8) {
+                    Text(LocalizedStrings.quizYourAnswer)
+                        .font(.novoNordiskCaption)
+                        .foregroundColor(Color.novoNordiskTextGrey)
+                    
+                    Text(textAnswer)
+                        .font(.novoNordiskBody)
+                        .foregroundColor(Color.novoNordiskTextGrey)
+                        .padding(12)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .background(Color.gray.opacity(0.1))
+                        .cornerRadius(8)
+                }
+                .padding(.top, 4)
             }
         }
         .padding(16)

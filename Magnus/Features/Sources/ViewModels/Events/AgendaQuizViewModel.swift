@@ -23,6 +23,8 @@ public class AgendaQuizViewModel: ObservableObject {
     
     // Store user answers: [queryId: [answerIds]]
     private var userAnswers: [String: [String]] = [:]
+    // Store text answers: [queryId: textAnswer]
+    private var userTextAnswers: [String: String] = [:]
     
     // Quiz statistics
     @Published public var totalCorrectAnswers: Int = 0
@@ -166,8 +168,11 @@ public class AgendaQuizViewModel: ObservableObject {
         return quiz?.queries.count ?? 0
     }
     
-    public func saveAnswer(queryId: String, answerIds: [String]) {
+    public func saveAnswer(queryId: String, answerIds: [String], textAnswer: String = "") {
         userAnswers[queryId] = answerIds
+        if !textAnswer.isEmpty {
+            userTextAnswers[queryId] = textAnswer
+        }
     }
     
     public func canProceedToNext(selectedAnswers: Set<String>, textAnswer: String) -> Bool {
@@ -203,7 +208,7 @@ public class AgendaQuizViewModel: ObservableObject {
         
         // Save the answer
         let answerIds = Array(selectedAnswers)
-        saveAnswer(queryId: questionDetails.query_id, answerIds: answerIds)
+        saveAnswer(queryId: questionDetails.query_id, answerIds: answerIds, textAnswer: textAnswer)
         
         // If this is the last question, submit all answers
         if currentQuestionNumber == totalQuestions {
@@ -315,13 +320,14 @@ public class AgendaQuizViewModel: ObservableObject {
     }
     
     // Get all questions with details for summary view
-    public func getAllQuestionsWithAnswers() -> [(question: QuizQueryAnswerResponse, userAnswers: [String])] {
+    public func getAllQuestionsWithAnswers() -> [(question: QuizQueryAnswerResponse, userAnswers: [String], textAnswer: String)] {
         guard let quiz = quiz else { return [] }
         
         return quiz.queries.compactMap { query in
             guard let details = allQuestionDetails[query.id] else { return nil }
             let answers = userAnswers[query.id] ?? []
-            return (question: details, userAnswers: answers)
+            let textAnswer = userTextAnswers[query.id] ?? ""
+            return (question: details, userAnswers: answers, textAnswer: textAnswer)
         }
     }
 }
