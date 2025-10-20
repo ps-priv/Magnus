@@ -15,6 +15,9 @@ public class AgendaQuizViewModel: ObservableObject {
     
     @Published public var currentQuestionDetails: QuizQueryAnswerResponse?
     @Published public var currentQuestionNumber: Int = 0
+    
+    // Store all question details
+    private var allQuestionDetails: [String: QuizQueryAnswerResponse] = [:] // [queryId: details]
     @Published public var isQuizCompleted: Bool = false
     @Published public var buttonTitle: String = FeaturesLocalizedStrings.quizStartButton
     
@@ -42,6 +45,13 @@ public class AgendaQuizViewModel: ObservableObject {
 
             await MainActor.run {
                 quiz = data
+            }
+            
+            // Load all question details
+            print("[Quiz] Loading details for \(data.queries.count) questions")
+            await loadAllQuestionDetails(queries: data.queries)
+            
+            await MainActor.run {
                 isLoading = false
             }
         } catch let error {
@@ -53,7 +63,22 @@ public class AgendaQuizViewModel: ObservableObject {
         }
     }
     
-    public func loadQuestionDetails(queryId: String) async {
+    private func loadAllQuestionDetails(queries: [QuizQuery]) async {
+        for query in queries {
+            do {
+                let details = try await quizService.getQuizQueryDetails(queryId: query.id)
+                print("[Quiz] Loaded details for question \(query.query_no): \(details.query_text)")
+                print("[Quiz] Question type: \(details.query_type), answers count: \(details.answers?.count ?? 0)")
+                allQuestionDetails[query.id] = details
+            } catch {
+                print("[Quiz] Failed to load details for question \(query.query_no): \(error.localizedDescription)")
+                // Continue loading other questions even if one fails
+            }
+        }
+        print("[Quiz] Loaded \(allQuestionDetails.count) out of \(queries.count) questions")
+    }
+    
+    public func loadQuestionDetails(queryId: String) async throws {
         print("[Quiz] loadQuestionDetails called for queryId: \(queryId)")
         await MainActor.run {
             self.isLoading = true
@@ -66,15 +91,19 @@ public class AgendaQuizViewModel: ObservableObject {
             print("[Quiz] Loaded details for query: \(queryId), text: \(details.query_text)")
             
             await MainActor.run {
+                print("[Quiz] About to update currentQuestionDetails to: \(details.query_id)")
                 currentQuestionDetails = details
                 isLoading = false
+                print("[Quiz] currentQuestionDetails updated to: \(details.query_id), text: \(details.query_text), isLoading: \(isLoading)")
             }
         } catch let error {
+            print("[Quiz] ERROR loading question details: \(error.localizedDescription)")
             await MainActor.run {
                 errorMessage = error.localizedDescription
                 hasError = true
                 isLoading = false
             }
+            throw error
         }
     }
     
@@ -84,33 +113,40 @@ public class AgendaQuizViewModel: ObservableObject {
         
         if currentQuestionNumber == 0 {
             // Start quiz
-            if let firstQuery = quiz.queries.first {
+            if let firstQuery = quiz.queries.first,
+               let details = allQuestionDetails[firstQuery.id] {
                 print("[Quiz] Starting quiz with first question: \(firstQuery.id)")
-                await loadQuestionDetails(queryId: firstQuery.id)
                 await MainActor.run {
+                    currentQuestionDetails = details
                     currentQuestionNumber = 1
                     buttonTitle = FeaturesLocalizedStrings.quizNextButton
                     print("[Quiz] Started - now at question \(currentQuestionNumber)")
                 }
+            } else {
+                print("[Quiz] Failed to start quiz - no details available for first question")
             }
         } else if currentQuestionNumber <= quiz.queries.count {
             // Move to next question or complete
             let nextQuestionNumber = currentQuestionNumber + 1
             
             if nextQuestionNumber <= quiz.queries.count {
-                // Load next question
+                // Load next question from cache
                 let queryIndex = nextQuestionNumber - 1
                 let query = quiz.queries[queryIndex]
                 print("[Quiz] Moving to question \(nextQuestionNumber), queryId: \(query.id)")
-                await loadQuestionDetails(queryId: query.id)
                 
-                await MainActor.run {
-                    currentQuestionNumber = nextQuestionNumber
-                    print("[Quiz] Moved to question \(currentQuestionNumber)")
-                    
-                    if currentQuestionNumber == quiz.queries.count {
-                        buttonTitle = FeaturesLocalizedStrings.quizCompleteButton
+                if let details = allQuestionDetails[query.id] {
+                    await MainActor.run {
+                        currentQuestionDetails = details
+                        currentQuestionNumber = nextQuestionNumber
+                        print("[Quiz] Moved to question \(currentQuestionNumber)")
+                        
+                        if currentQuestionNumber == quiz.queries.count {
+                            buttonTitle = FeaturesLocalizedStrings.quizCompleteButton
+                        }
                     }
+                } else {
+                    print("[Quiz] ⚠️ No details available for question \(nextQuestionNumber)")
                 }
             } else {
                 // Complete quiz
@@ -132,13 +168,27 @@ public class AgendaQuizViewModel: ObservableObject {
     public func canProceedToNext(selectedAnswers: Set<String>, textAnswer: String) -> Bool {
         guard let questionDetails = currentQuestionDetails else { return false }
         
-        // For text questions, check if there's text input
-        if questionDetails.query_type == .text {
-            return !textAnswer.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
-        }
+        let hasText = !textAnswer.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+        let hasValidAnswers = questionDetails.answers?.contains(where: { $0.answer != nil && !($0.answer?.isEmpty ?? true) }) ?? false
         
-        // For choice questions, check if at least one answer is selected
-        return !selectedAnswers.isEmpty
+        switch questionDetails.query_type {
+        case .text:
+            // For text questions, only text is required
+            return hasText
+            
+        case .radio_text, .checkbox_text:
+            // If there are valid answers, both selection and text are required
+            // If no valid answers (all null), only text is required
+            if hasValidAnswers {
+                return !selectedAnswers.isEmpty && hasText
+            } else {
+                return hasText
+            }
+            
+        case .radio, .checkbox:
+            // For regular choice questions, only selection is required
+            return !selectedAnswers.isEmpty
+        }
     }
     
     public func submitAnswer(selectedAnswers: Set<String>, textAnswer: String) async -> Bool {

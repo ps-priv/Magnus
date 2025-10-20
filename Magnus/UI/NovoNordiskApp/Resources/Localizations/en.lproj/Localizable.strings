@@ -350,6 +350,14 @@
 "QUIZ_NEXT_BUTTON" = "Next question";
 "QUIZ_COMPLETE_BUTTON" = "Complete";
 
+"QUIZ_YOUR_ANSWER" = "Your answer";
+"QUIZ_JUSTIFICATION_REQUIRED" = "Justification (required)";
+
+"QUIZ_THANK_YOU_TITLE" = "Thank you!";
+"QUIZ_THANK_YOU_MESSAGE" = "Your answers have been saved";
+"QUIZ_COMPLETION_INFO" = "You can now close this quiz";
+"QUIZ_QUESTION" = "Question";
+
 
 
 

@@ -25,8 +25,10 @@ public class QuizNetworkService: QuizNetworkServiceProtocol {
     }
 
     public func getQuizQueryDetails(token: String, queryId: String) -> AnyPublisher<QuizQueryAnswerResponse, Error> {
+        let encodedQueryId = queryId.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? queryId
+        print("[QuizNetworkService] getQuizQueryDetails - original: \(queryId), encoded: \(encodedQueryId)")
         return networkService.requestWithBearerToken(
-            endpoint: "/api/quiz/query/\(queryId)",
+            endpoint: "/api/quiz/query/\(encodedQueryId)",
             method: .get,
             responseType: QuizQueryAnswerResponse.self,
             bearerToken: token

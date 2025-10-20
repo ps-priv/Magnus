@@ -10,7 +10,16 @@ private struct QuizQuestionView: View {
     @Binding var selectedAnswers: Set<String>
     @Binding var textAnswer: String
     
+    private var validAnswers: [QuizAnswer] {
+        (questionDetails.answers ?? []).filter { 
+            $0.answer != nil && !($0.answer?.isEmpty ?? true)
+        }
+    }
+    
     var body: some View {
+        let _ = print("[QuizQuestionView] Rendering question: \(questionDetails.query_id), text: \(questionDetails.query_text)")
+        let _ = print("[QuizQuestionView] Question type: \(questionDetails.query_type), answers count: \(questionDetails.answers?.count ?? 0)")
+        
         VStack(alignment: .leading, spacing: 20) {            
             // Question text
             Text(questionDetails.query_text)
@@ -39,30 +48,32 @@ private struct QuizQuestionView: View {
     
     @ViewBuilder
     private var radioAnswers: some View {
-        ForEach(questionDetails.answers, id: \.id) { answer in
-            Button(action: {
-                selectedAnswers = [answer.id]
-            }) {
-                HStack {
-                    Image(systemName: selectedAnswers.contains(answer.id) ? "circle.fill" : "circle")
-                        .foregroundColor(Color.novoNordiskBlue)
-                    
-                    Text(answer.answer)
-                        .font(.novoNordiskBody)
-                        .foregroundColor(Color.novoNordiskTextGrey)
-                        .multilineTextAlignment(.leading)
-                    
-                    Spacer()
+        if !validAnswers.isEmpty {
+            ForEach(validAnswers, id: \.id) { answer in
+                Button(action: {
+                    selectedAnswers = [answer.id]
+                }) {
+                    HStack {
+                        Image(systemName: selectedAnswers.contains(answer.id) ? "circle.fill" : "circle")
+                            .foregroundColor(Color.novoNordiskBlue)
+                        
+                        Text(answer.answer ?? "")
+                            .font(.novoNordiskBody)
+                            .foregroundColor(Color.novoNordiskTextGrey)
+                            .multilineTextAlignment(.leading)
+                        
+                        Spacer()
+                    }
+                    .padding(16)
+                    .background(
+                        RoundedRectangle(cornerRadius: 12)
+                            .fill(selectedAnswers.contains(answer.id) ? Color.novoNordiskBlue.opacity(0.1) : Color.white)
+                    )
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 12)
+                            .stroke(selectedAnswers.contains(answer.id) ? Color.novoNordiskBlue : Color.gray.opacity(0.3), lineWidth: 1)
+                    )
                 }
-                .padding(16)
-                .background(
-                    RoundedRectangle(cornerRadius: 12)
-                        .fill(selectedAnswers.contains(answer.id) ? Color.novoNordiskBlue.opacity(0.1) : Color.white)
-                )
-                .overlay(
-                    RoundedRectangle(cornerRadius: 12)
-                        .stroke(selectedAnswers.contains(answer.id) ? Color.novoNordiskBlue : Color.gray.opacity(0.3), lineWidth: 1)
-                )
             }
         }
         
@@ -73,34 +84,36 @@ private struct QuizQuestionView: View {
     
     @ViewBuilder
     private var checkboxAnswers: some View {
-        ForEach(questionDetails.answers, id: \.id) { answer in
-            Button(action: {
-                if selectedAnswers.contains(answer.id) {
-                    selectedAnswers.remove(answer.id)
-                } else {
-                    selectedAnswers.insert(answer.id)
+        if !validAnswers.isEmpty {
+            ForEach(validAnswers, id: \.id) { answer in
+                Button(action: {
+                    if selectedAnswers.contains(answer.id) {
+                        selectedAnswers.remove(answer.id)
+                    } else {
+                        selectedAnswers.insert(answer.id)
+                    }
+                }) {
+                    HStack {
+                        Image(systemName: selectedAnswers.contains(answer.id) ? "checkmark.square.fill" : "square")
+                            .foregroundColor(Color.novoNordiskBlue)
+                        
+                        Text(answer.answer ?? "")
+                            .font(.novoNordiskBody)
+                            .foregroundColor(Color.novoNordiskTextGrey)
+                            .multilineTextAlignment(.leading)
+                        
+                        Spacer()
+                    }
+                    .padding(16)
+                    .background(
+                        RoundedRectangle(cornerRadius: 12)
+                            .fill(selectedAnswers.contains(answer.id) ? Color.novoNordiskBlue.opacity(0.1) : Color.white)
+                    )
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 12)
+                            .stroke(selectedAnswers.contains(answer.id) ? Color.novoNordiskBlue : Color.gray.opacity(0.3), lineWidth: 1)
+                    )
                 }
-            }) {
-                HStack {
-                    Image(systemName: selectedAnswers.contains(answer.id) ? "checkmark.square.fill" : "square")
-                        .foregroundColor(Color.novoNordiskBlue)
-                    
-                    Text(answer.answer)
-                        .font(.novoNordiskBody)
-                        .foregroundColor(Color.novoNordiskTextGrey)
-                        .multilineTextAlignment(.leading)
-                    
-                    Spacer()
-                }
-                .padding(16)
-                .background(
-                    RoundedRectangle(cornerRadius: 12)
-                        .fill(selectedAnswers.contains(answer.id) ? Color.novoNordiskBlue.opacity(0.1) : Color.white)
-                )
-                .overlay(
-                    RoundedRectangle(cornerRadius: 12)
-                        .stroke(selectedAnswers.contains(answer.id) ? Color.novoNordiskBlue : Color.gray.opacity(0.3), lineWidth: 1)
-                )
             }
         }
         
@@ -112,7 +125,7 @@ private struct QuizQuestionView: View {
     @ViewBuilder
     private var textAnswerField: some View {
         VStack(alignment: .leading, spacing: 8) {
-            Text(LocalizedStrings.quizYourAnswer)
+            Text(textFieldLabel)
                 .font(.novoNordiskCaption)
                 .foregroundColor(Color.novoNordiskTextGrey)
             
@@ -125,6 +138,17 @@ private struct QuizQuestionView: View {
                     RoundedRectangle(cornerRadius: 12)
                         .stroke(Color.gray.opacity(0.3), lineWidth: 1)
                 )
+        }
+    }
+    
+    private var textFieldLabel: String {
+        switch questionDetails.query_type {
+        case .radio_text, .checkbox_text:
+            return LocalizedStrings.quizJustificationRequired
+        case .text:
+            return LocalizedStrings.quizYourAnswer
+        default:
+            return LocalizedStrings.quizYourAnswer
         }
     }
 }
@@ -146,6 +170,8 @@ struct AgendaQuizView: View {
     }
 
     var body: some View {
+        let _ = print("[AgendaQuizView] body - currentQuestion: \(viewModel.currentQuestionNumber), questionId: \(viewModel.currentQuestionDetails?.query_id ?? "nil"), isLoading: \(viewModel.isLoading)")
+        
         VStack(spacing: 0) {
             if viewModel.isLoading {
                 ProgressView()
@@ -186,6 +212,7 @@ struct AgendaQuizView: View {
                                 selectedAnswers: $selectedAnswers,
                                 textAnswer: $textAnswer
                             )
+                            .id(viewModel.currentQuestionNumber)
                         }
                     }
                     .padding(.vertical, 20)
@@ -222,6 +249,8 @@ struct AgendaQuizView: View {
     
     @ViewBuilder
     private var actionButton: some View {
+        let isButtonDisabled = viewModel.isLoading || !isValidToSubmit
+        
         Button(action: {
             handleNextButtonTap()
         }) {
@@ -231,11 +260,22 @@ struct AgendaQuizView: View {
                 .foregroundColor(.white)
                 .frame(maxWidth: .infinity)
                 .padding(.vertical, 16)
-                .background(Color.novoNordiskBlue)
+                .background(isButtonDisabled ? Color.gray : Color.novoNordiskBlue)
                 .cornerRadius(12)
         }
+        .disabled(isButtonDisabled)
         .padding(.horizontal, 20)
         .padding(.vertical, 16)
+    }
+    
+    private var isValidToSubmit: Bool {
+        // For start screen (question 0), always allow
+        if viewModel.currentQuestionNumber == 0 {
+            return true
+        }
+        
+        // For questions, check validation
+        return viewModel.canProceedToNext(selectedAnswers: selectedAnswers, textAnswer: textAnswer)
     }
     
     private func handleNextButtonTap() {
@@ -258,12 +298,13 @@ struct AgendaQuizView: View {
                 
                 if success {
                     print("[QuizView] Answer submitted successfully")
-                    // Clear current answers for next question
-                    selectedAnswers.removeAll()
-                    textAnswer = ""
                     
                     // Move to next question
                     await viewModel.handleNextButton()
+                    
+                    // Clear current answers after moving to next question
+                    selectedAnswers.removeAll()
+                    textAnswer = ""
                 } else {
                     print("[QuizView] Answer submission failed")
                     showValidationError = true

@@ -352,6 +352,14 @@
 "QUIZ_NEXT_BUTTON" = "Zapisz i pokaż następne";
 "QUIZ_COMPLETE_BUTTON" = "Zakończ";
 
+"QUIZ_YOUR_ANSWER" = "Twoja odpowiedź";
+"QUIZ_JUSTIFICATION_REQUIRED" = "Uzasadnienie (wymagane)";
+
+"QUIZ_THANK_YOU_TITLE" = "Dziękujemy!";
+"QUIZ_THANK_YOU_MESSAGE" = "Twoje odpowiedzi zostały zapisane";
+"QUIZ_COMPLETION_INFO" = "Możesz teraz zamknąć quiz";
+"QUIZ_QUESTION" = "Pytanie";
+
 
 
 
