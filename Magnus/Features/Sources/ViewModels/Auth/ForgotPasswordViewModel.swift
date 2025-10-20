@@ -62,23 +62,28 @@ public class ForgotPasswordViewModel: ObservableObject {
         }
         
         do {
-            // TODO: Implement actual password reset API call
-            // For now, simulate API call
-            try await Task.sleep(nanoseconds: 1_000_000_000) // 1 second delay
+            // Call the forget password API
+            try await authService.forgetPassword(email: email)
             
-            // Simulate success or error based on email format
-            if email.contains("@") && email.contains(".") {
-                await MainActor.run {
-                    emailSentSuccessfully = true
-                    isLoading = false
-                }
-            } else {
-                await MainActor.run {
-                    errorMessage = FeaturesLocalizedStrings.invalidEmail
-                    isLoading = false
-                }
+            await MainActor.run {
+                emailSentSuccessfully = true
+                isLoading = false
             }
             
+        } catch let error as AuthError {
+            await MainActor.run {
+                switch error {
+                case .invalidEmail:
+                    errorMessage = FeaturesLocalizedStrings.invalidEmail
+                case .networkError(let message):
+                    errorMessage = "Błąd sieci: \(message)"
+                case .userNotFound:
+                    errorMessage = "Nie znaleziono użytkownika z tym adresem email"
+                default:
+                    errorMessage = "Wystąpił błąd podczas wysyłania emaila"
+                }
+                isLoading = false
+            }
         } catch {
             await MainActor.run {
                 errorMessage = "Wystąpił błąd podczas wysyłania emaila"

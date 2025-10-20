@@ -205,4 +205,9 @@ public protocol AuthService {
     ///   - newPassword: New password
     /// - Throws: AuthError if password change fails
     func changePassword(currentPassword: String, newPassword: String) async throws
+    
+    /// Sends forget password request
+    /// - Parameter email: User's email address
+    /// - Throws: AuthError if request fails
+    func forgetPassword(email: String) async throws
 }

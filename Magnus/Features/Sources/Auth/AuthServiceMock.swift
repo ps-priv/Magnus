@@ -156,6 +156,19 @@ public class AuthServiceMock: AuthService {
             throw AuthError.passwordTooShort
         }
     }
+    
+    public func forgetPassword(email: String) async throws {
+        // Simulate network delay
+        try await Task.sleep(nanoseconds: 1_000_000_000) // 1 second
+        
+        // Validate email format
+        guard isValidEmail(email) else {
+            throw AuthError.invalidEmail
+        }
+        
+        // For mock purposes, just simulate success
+        // In a real implementation, this would send a password reset email
+    }
 
     // MARK: - Private Helpers
 

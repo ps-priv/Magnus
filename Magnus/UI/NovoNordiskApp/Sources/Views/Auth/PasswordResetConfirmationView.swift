@@ -1,6 +1,12 @@
 import SwiftUI
 
 struct PasswordResetConfirmationView: View {
+    let onGoToPasswordReset: () -> Void
+    
+    init(onGoToPasswordReset: @escaping () -> Void = {}) {
+        self.onGoToPasswordReset = onGoToPasswordReset
+    }
+    
     var body: some View {
         NavigationView {
             GeometryReader { geometry in
@@ -55,7 +61,7 @@ struct PasswordResetConfirmationView: View {
                                 title: LocalizedStrings.goToPasswordReset,
                                 style: .primary
                             ) {
-  
+                                onGoToPasswordReset()
                             }
                             .padding(.horizontal, 24)
                         }

@@ -63,6 +63,14 @@ public struct PasswordChangeRequest: Codable {
     }
 }
 
+public struct ForgetPasswordRequest: Codable {
+    public let email: String
+
+    public init(email: String) {
+        self.email = email
+    }
+}
+
 public struct APIErrorResponse: Codable {
     public let message: String
     
@@ -79,6 +87,8 @@ public protocol AuthNetworkServiceProtocol {
     func updateUserProfile(token: String, request: UserProfileUpdateRequest) -> AnyPublisher<Void, Error>
     
     func changePassword(token: String, request: PasswordChangeRequest) -> AnyPublisher<Void, Error>
+    
+    func forgetPassword(request: ForgetPasswordRequest) -> AnyPublisher<Void, Error>
     
     // func logout() -> AnyPublisher<Void, Error>
     // func refreshToken(refreshToken: String) -> AnyPublisher<LoginResponse, Error>
@@ -139,6 +149,26 @@ public class AuthNetworkService: AuthNetworkServiceProtocol {
             headers: nil,
             body: request,
             bearerToken: token
+        )
+    }
+    
+    public func forgetPassword(request: ForgetPasswordRequest) -> AnyPublisher<Void, Error> {
+        // Convert to Dictionary
+        let encoder = JSONEncoder()
+        guard let data = try? encoder.encode(request),
+            let json = try? JSONSerialization.jsonObject(with: data) as? [String: Any]
+        else {
+            return Fail(error: NSError(domain: "EncodingError", code: -1, userInfo: nil))
+                .eraseToAnyPublisher()
+        }
+
+        return networkService.request(
+            endpoint: "/api/auth/forget_password",
+            method: .post,
+            headers: nil,
+            parameters: json,
+            encoding: JSONEncoding.default,
+            bearerToken: nil
         )
     }
 

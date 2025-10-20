@@ -200,4 +200,26 @@ public class ApiAuthService: AuthService {
                 .store(in: &self.cancellables)
         }
     }
+    
+    public func forgetPassword(email: String) async throws {
+        let request = ForgetPasswordRequest(email: email)
+        
+        try await withCheckedThrowingContinuation { continuation in
+            authNetworkService.forgetPassword(request: request)
+                .sink(
+                    receiveCompletion: { completion in
+                        switch completion {
+                        case .finished:
+                            continuation.resume(returning: ())
+                        case .failure(let error):
+                            continuation.resume(throwing: error)
+                        }
+                    },
+                    receiveValue: { _ in
+                        // No value expected
+                    }
+                )
+                .store(in: &self.cancellables)
+        }
+    }
 }
