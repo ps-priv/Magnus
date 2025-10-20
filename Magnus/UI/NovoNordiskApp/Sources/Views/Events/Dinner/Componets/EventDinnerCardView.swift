@@ -92,25 +92,6 @@ struct EventDinnerCardView: View {
                         .foregroundColor(Color.novoNordiskLightBlue)
                 }
 
-            // KFImage(URL(string: dinner.image))
-            //     .placeholder {
-            //         Rectangle().fill(Color.gray.opacity(0.3))
-            //             .overlay(
-            //                 VStack {
-            //                     ProgressView()
-            //                         .scaleEffect(1.2)
-            //                         .tint(.novoNordiskBlue)
-            //                     FAIcon(.image, type: .light, size: 40, color: .gray)
-            //                         .padding(.top, 8)
-            //                 }
-            //             )
-            //     }
-            //     .resizable()
-            //     .aspectRatio(contentMode: .fill)
-            //     .frame(height: 190)
-            //     .clipped()
-            //     .cornerRadius(12)
-
             KFImage(URL(string: dinner.image))
                 .placeholder {
                     ZStack {

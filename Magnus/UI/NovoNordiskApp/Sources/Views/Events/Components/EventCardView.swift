@@ -98,9 +98,11 @@ struct EventCardView: View {
                         // }
                         // .padding(.top, 10)
                     }
+                    .frame(maxHeight: .infinity, alignment: .top)
                     .padding(.horizontal, 20)
                     .padding(.top, 20)
                 }
+                .background(Color.novoNordiskBackgroundGrey)
             }
         }
         .buttonStyle(PlainButtonStyle())
