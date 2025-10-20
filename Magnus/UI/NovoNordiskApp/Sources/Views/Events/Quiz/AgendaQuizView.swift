@@ -393,19 +393,26 @@ struct AgendaQuizView: View {
             }
             
             print("[QuizView] Submitting answer and moving to next")
+            print("[QuizView] Current question: \(viewModel.currentQuestionNumber)/\(viewModel.totalQuestions)")
             // Save answer and proceed
             Task {
                 let success = await viewModel.submitAnswer(selectedAnswers: selectedAnswers, textAnswer: textAnswer)
                 
                 if success {
                     print("[QuizView] Answer submitted successfully")
+                    print("[QuizView] isQuizCompleted: \(viewModel.isQuizCompleted)")
                     
-                    // Move to next question
-                    await viewModel.handleNextButton()
-                    
-                    // Clear current answers after moving to next question
+                    // Clear current answers
                     selectedAnswers.removeAll()
                     textAnswer = ""
+                    
+                    // If not completed (not last question), move to next question
+                    if !viewModel.isQuizCompleted {
+                        print("[QuizView] Moving to next question")
+                        await viewModel.handleNextButton()
+                    } else {
+                        print("[QuizView] Quiz completed - showing summary")
+                    }
                 } else {
                     print("[QuizView] Answer submission failed")
                     showValidationError = true

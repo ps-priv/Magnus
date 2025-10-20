@@ -194,21 +194,29 @@ public class AgendaQuizViewModel: ObservableObject {
     public func submitAnswer(selectedAnswers: Set<String>, textAnswer: String) async -> Bool {
         guard let questionDetails = currentQuestionDetails else { return false }
         
+        print("[ViewModel] submitAnswer - current: \(currentQuestionNumber), total: \(totalQuestions)")
+        
         // Save the answer
         let answerIds = Array(selectedAnswers)
         saveAnswer(queryId: questionDetails.query_id, answerIds: answerIds)
         
         // If this is the last question, submit all answers
         if currentQuestionNumber == totalQuestions {
+            print("[ViewModel] This is the last question - submitting all answers")
             let success = await submitAllAnswers()
             if success {
+                print("[ViewModel] All answers submitted successfully - setting isQuizCompleted = true")
                 await MainActor.run {
                     isQuizCompleted = true
+                    print("[ViewModel] isQuizCompleted set to true")
                 }
+            } else {
+                print("[ViewModel] Failed to submit all answers")
             }
             return success
         }
         
+        print("[ViewModel] Not the last question - returning true")
         return true
     }
     
