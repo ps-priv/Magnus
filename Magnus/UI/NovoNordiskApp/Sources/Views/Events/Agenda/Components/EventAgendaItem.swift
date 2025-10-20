@@ -28,7 +28,7 @@ struct EventAgendaItem: View {
                     .font(.novoNordiskSectionTitle)
                     .foregroundColor(Color.novoNordiskBlue)
 
-                if !agendaItem.place.isEmpty {
+                if !agendaItem.place.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
                     Text("|")
                         .font(.novoNordiskSectionTitle)
                         .foregroundColor(Color.novoNordiskTextGrey)
@@ -52,7 +52,7 @@ struct EventAgendaItem: View {
             }
             .padding(.bottom, 6)
 
-            if !agendaItem.speakers.isEmpty {
+            if !agendaItem.speakers.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
                 HStack {
                     Text("\(LocalizedStrings.eventAgendaSpeaker): ")
                         .font(.novoNordiskMiddleText)
@@ -65,7 +65,7 @@ struct EventAgendaItem: View {
                 }
             }
             
-            if !agendaItem.presenters.isEmpty {
+            if !agendaItem.presenters.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
                 HStack {
                     Text("\(LocalizedStrings.eventAgendaPresenter): ")
                         .font(.novoNordiskMiddleText)

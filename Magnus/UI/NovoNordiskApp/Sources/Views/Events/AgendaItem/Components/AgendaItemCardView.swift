@@ -112,23 +112,27 @@ struct AgendaItemCardView: View {
     @ViewBuilder
     var speakersSection: some View {
         VStack(alignment: .leading) {
-            HStack {
-                Text(LocalizedStrings.eventAgendaSpeaker)
-                    .font(.novoNordiskMiddleText)
-                    .fontWeight(.bold)
-                    .foregroundColor(Color.novoNordiskTextGrey)
-                Text(agendaItem.speakers)
-                    .font(.novoNordiskMiddleText)
-                    .foregroundColor(Color.novoNordiskTextGrey)
+            if !agendaItem.speakers.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+                HStack {
+                    Text(LocalizedStrings.eventAgendaSpeaker)
+                        .font(.novoNordiskMiddleText)
+                        .fontWeight(.bold)
+                        .foregroundColor(Color.novoNordiskTextGrey)
+                    Text(agendaItem.speakers)
+                        .font(.novoNordiskMiddleText)
+                        .foregroundColor(Color.novoNordiskTextGrey)
+                }
             }
-            HStack {
-                Text(LocalizedStrings.eventAgendaPresenter)
-                    .font(.novoNordiskMiddleText)
-                    .fontWeight(.bold)
-                    .foregroundColor(Color.novoNordiskTextGrey)
-                Text(agendaItem.presenters)
-                    .font(.novoNordiskMiddleText)
-                    .foregroundColor(Color.novoNordiskTextGrey)
+            if !agendaItem.presenters.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+                HStack {
+                    Text(LocalizedStrings.eventAgendaPresenter)
+                        .font(.novoNordiskMiddleText)
+                        .fontWeight(.bold)
+                        .foregroundColor(Color.novoNordiskTextGrey)
+                    Text(agendaItem.presenters)
+                        .font(.novoNordiskMiddleText)
+                        .foregroundColor(Color.novoNordiskTextGrey)
+                }
             }
         }
     }
