@@ -3,7 +3,6 @@ import CoreImage.CIFilterBuiltins
 import MagnusDomain
 import MagnusFeatures
 import SwiftUI
-import PopupView
 
 
 enum UserProfilePanel {
@@ -17,9 +16,11 @@ struct UserProfileView: View {
     @EnvironmentObject var navigationManager: NavigationManager
     @EnvironmentObject var userProfileViewModel: UserProfileViewModel
     @State private var selectedPanel: UserProfilePanel? = .informacje
+    @State private var currentPassword: String = ""
     @State private var newPassword: String = ""
     @State private var confirmPassword: String = ""
     @State private var showSuccessAlert = false
+    @State private var showErrorAlert = false
     @State private var hasBusiness = false
 
     @State private var showPrivacyPolicy = false
@@ -67,8 +68,6 @@ struct UserProfileView: View {
                 // Panel Content
                 if let panel = selectedPanel {
                     panelContent(for: panel)
-                        .transition(.opacity.combined(with: .scale))
-                        .animation(.easeInOut(duration: 0.3), value: selectedPanel)
                 }
 
                 Spacer()
@@ -83,7 +82,12 @@ struct UserProfileView: View {
         .alert("Sukces", isPresented: $showSuccessAlert) {
             Button("OK") {}
         } message: {
-            Text("Hasło zostało pomyślnie zmienione")
+            Text(LocalizedStrings.passwordChangedMessage)
+        }
+        .alert("Błąd", isPresented: $showErrorAlert) {
+            Button("OK") {}
+        } message: {
+            Text(userProfileViewModel.errorMessage)
         }
         .sheet(isPresented: $showPrivacyPolicy) {
             VStack() {
@@ -261,15 +265,22 @@ struct UserProfileView: View {
             VStack(spacing: 16) {
 
                 NovoNordiskTextBox(
+                    placeholder: LocalizedStrings.passwordLabel,
+                    text: $currentPassword,
+                    style: .withTitle(LocalizedStrings.passwordLabel, bold: true),
+                    isSecure: true
+                )
+
+                NovoNordiskTextBox(
                     placeholder: LocalizedStrings.userProfileNewPassword,
-                    text: .constant(""),
+                    text: $newPassword,
                     style: .withTitle(LocalizedStrings.userProfileNewPassword, bold: true),
                     isSecure: true
                 )
 
                 NovoNordiskTextBox(
                     placeholder: LocalizedStrings.userProfileRetypeNewPassword,
-                    text: .constant(""),
+                    text: $confirmPassword,
                     style: .withTitle(LocalizedStrings.userProfileRetypeNewPassword, bold: true),
                     isSecure: true
                 )
@@ -292,16 +303,27 @@ struct UserProfileView: View {
     }
 
     private var canChangePassword: Bool {
-        !newPassword.isEmpty && !confirmPassword.isEmpty && newPassword == confirmPassword
+        !currentPassword.isEmpty && !newPassword.isEmpty && !confirmPassword.isEmpty && newPassword == confirmPassword
             && newPassword.count >= 6
     }
 
     private func changePassword() {
-        // Symulacja zmiany hasła
-        newPassword = ""
-        confirmPassword = ""
-        selectedPanel = nil
-        showSuccessAlert = true
+        Task {
+            await userProfileViewModel.changePassword(
+                currentPassword: currentPassword,
+                newPassword: newPassword
+            )
+            
+            if userProfileViewModel.hasError {
+                showErrorAlert = true
+            } else {
+                // Clear all form state
+                currentPassword = ""
+                newPassword = ""
+                confirmPassword = ""
+                showSuccessAlert = true
+            }
+        }
     }
 
         private func loadUserData() {

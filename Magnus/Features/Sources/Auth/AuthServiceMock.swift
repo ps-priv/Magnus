@@ -141,6 +141,21 @@ public class AuthServiceMock: AuthService {
 
         currentUser = user
     }
+    
+    public func changePassword(currentPassword: String, newPassword: String) async throws {
+        // Simulate network delay
+        try await Task.sleep(nanoseconds: 1_000_000_000) // 1 second
+        
+        guard isAuthenticated() else {
+            throw AuthError.userNotFound
+        }
+        
+        // In a real implementation, we would validate the current password
+        // For mock purposes, we just simulate success
+        guard isValidPassword(newPassword) else {
+            throw AuthError.passwordTooShort
+        }
+    }
 
     // MARK: - Private Helpers
 

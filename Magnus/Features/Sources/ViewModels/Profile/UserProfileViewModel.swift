@@ -115,4 +115,35 @@ public class UserProfileViewModel: ObservableObject {
             }
         }
     }
+    
+    public func changePassword(currentPassword: String, newPassword: String) async {
+        await MainActor.run {
+            isLoading = true
+            hasError = false
+            errorMessage = ""
+        }
+        
+        do {
+            try await authService.changePassword(
+                currentPassword: currentPassword,
+                newPassword: newPassword
+            )
+            
+            await MainActor.run {
+                isLoading = false
+                hasError = false
+                errorMessage = ""
+            }
+            
+        } catch let error {
+            print("Change password error: \(error)")
+            SentryHelper.capture(error: error, action: "UserProfileViewModel.changePassword")
+            
+            await MainActor.run {
+                hasError = true
+                isLoading = false
+                errorMessage = error.localizedDescription
+            }
+        }
+    }
 }

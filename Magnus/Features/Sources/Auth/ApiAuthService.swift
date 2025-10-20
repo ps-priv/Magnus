@@ -171,4 +171,32 @@ public class ApiAuthService: AuthService {
                 .store(in: &self.cancellables)
         }
     }
+    
+    public func changePassword(currentPassword: String, newPassword: String) async throws {
+        let token = try authStorageService.getAccessToken() ?? ""
+        
+        let request = PasswordChangeRequest(
+            currentPassword: currentPassword,
+            password: newPassword,
+            passwordConfirmation: newPassword
+        )
+        
+        try await withCheckedThrowingContinuation { continuation in
+            authNetworkService.changePassword(token: token, request: request)
+                .sink(
+                    receiveCompletion: { completion in
+                        switch completion {
+                        case .finished:
+                            continuation.resume(returning: ())
+                        case .failure(let error):
+                            continuation.resume(throwing: error)
+                        }
+                    },
+                    receiveValue: { _ in
+                        // No value expected
+                    }
+                )
+                .store(in: &self.cancellables)
+        }
+    }
 }

@@ -45,12 +45,32 @@ public struct UserDto: Codable {
     }
 }
 
+public struct PasswordChangeRequest: Codable {
+    public let currentPassword: String
+    public let password: String
+    public let passwordConfirmation: String
+
+    public init(currentPassword: String, password: String, passwordConfirmation: String) {
+        self.currentPassword = currentPassword
+        self.password = password
+        self.passwordConfirmation = passwordConfirmation
+    }
+    
+    enum CodingKeys: String, CodingKey {
+        case currentPassword = "current_password"
+        case password = "password"
+        case passwordConfirmation = "password_confirmation"
+    }
+}
+
 public protocol AuthNetworkServiceProtocol {
     func login(request: LoginRequest) -> AnyPublisher<LoginResponse, Error>
 
     func getUserProfile(token: String) -> AnyPublisher<UserProfileResponse, Error>
 
     func updateUserProfile(token: String, request: UserProfileUpdateRequest) -> AnyPublisher<Void, Error>
+    
+    func changePassword(token: String, request: PasswordChangeRequest) -> AnyPublisher<Void, Error>
     
     // func logout() -> AnyPublisher<Void, Error>
     // func refreshToken(refreshToken: String) -> AnyPublisher<LoginResponse, Error>
@@ -97,6 +117,16 @@ public class AuthNetworkService: AuthNetworkServiceProtocol {
     public func updateUserProfile(token: String, request: UserProfileUpdateRequest) -> AnyPublisher<Void, Error> {
         return networkService.requestWithBearerToken(
             endpoint: "/api/user",
+            method: .put,
+            headers: nil,
+            body: request,
+            bearerToken: token
+        )
+    }
+    
+    public func changePassword(token: String, request: PasswordChangeRequest) -> AnyPublisher<Void, Error> {
+        return networkService.requestWithBearerToken(
+            endpoint: "/api/user/change_password",
             method: .put,
             headers: nil,
             body: request,

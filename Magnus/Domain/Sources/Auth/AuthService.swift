@@ -195,4 +195,11 @@ public protocol AuthService {
     /// - Parameter request: User profile update request
     /// - Throws: AuthError if update fails
     func updateUserProfile(request: UserProfileUpdateRequest) async throws
+    
+    /// Changes user password
+    /// - Parameters:
+    ///   - currentPassword: Current password
+    ///   - newPassword: New password
+    /// - Throws: AuthError if password change fails
+    func changePassword(currentPassword: String, newPassword: String) async throws
 }
