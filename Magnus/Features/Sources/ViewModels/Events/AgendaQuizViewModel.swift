@@ -200,7 +200,13 @@ public class AgendaQuizViewModel: ObservableObject {
         
         // If this is the last question, submit all answers
         if currentQuestionNumber == totalQuestions {
-            return await submitAllAnswers()
+            let success = await submitAllAnswers()
+            if success {
+                await MainActor.run {
+                    isQuizCompleted = true
+                }
+            }
+            return success
         }
         
         return true

@@ -162,6 +162,8 @@ struct AgendaQuizView: View {
     @State private var textAnswer: String = ""
     @State private var showValidationError: Bool = false
     @State private var validationErrorMessage: String = ""
+    @State private var remainingTime: Int = 0
+    @State private var timer: Timer?
     let agendaId: String
 
     init(agendaId: String) {
@@ -186,6 +188,15 @@ struct AgendaQuizView: View {
                 message: Text(validationErrorMessage),
                 dismissButton: .default(Text(LocalizedStrings.ok))
             )
+        }
+        .onChange(of: viewModel.currentQuestionDetails?.query_id) { _ in
+            // Start timer when question changes
+            if viewModel.currentQuestionNumber > 0 && !viewModel.isQuizCompleted {
+                startTimer()
+            }
+        }
+        .onDisappear {
+            stopTimer()
         }
     }
 
@@ -219,6 +230,11 @@ struct AgendaQuizView: View {
                 }
                 
                 if !viewModel.isQuizCompleted {
+                    // Question counter (only show when on a question, not on start screen)
+                    if viewModel.currentQuestionNumber > 0 {
+                        questionCounter
+                    }
+                    
                     actionButton
                 }
             }
@@ -234,17 +250,48 @@ struct AgendaQuizView: View {
     @ViewBuilder
     private var quizTitle: some View {
         HStack {
-            HStack {
-                Text(LocalizedStrings.eventQuizScreenTitle)
-                    .font(.novoNordiskSectionTitle)
-                    .fontWeight(.bold)
-                    .foregroundColor(Color.novoNordiskBlue)
+            Text(LocalizedStrings.eventQuizScreenTitle)
+                .font(.novoNordiskSectionTitle)
+                .fontWeight(.bold)
+                .foregroundColor(Color.novoNordiskBlue)
+            
+            Spacer()
+            
+            // Show timer only when on a question (not start screen or completion)
+            if viewModel.currentQuestionNumber > 0 && !viewModel.isQuizCompleted {
+                HStack(spacing: 4) {
+                    Image(systemName: "clock.fill")
+                        .foregroundColor(remainingTime <= 10 ? .red : Color.novoNordiskBlue)
+                    Text(formatTime(remainingTime))
+                        .font(.novoNordiskBody)
+                        .fontWeight(.semibold)
+                        .foregroundColor(remainingTime <= 10 ? .red : Color.novoNordiskBlue)
+                }
             }
-            .padding(.horizontal, 20)
-            .padding(.vertical, 16)
+        }
+        .padding(.horizontal, 20)
+        .padding(.vertical, 16)
+        .background(Color.novoNordiskLighGreyForPanelBackground)
+    }
+    
+    private func formatTime(_ seconds: Int) -> String {
+        let minutes = seconds / 60
+        let remainingSeconds = seconds % 60
+        return String(format: "%d:%02d", minutes, remainingSeconds)
+    }
+    
+    @ViewBuilder
+    private var questionCounter: some View {
+        HStack {
+            Spacer()
+            Text("\(viewModel.currentQuestionNumber)/\(viewModel.totalQuestions)")
+                .font(.novoNordiskBody)
+                .fontWeight(.semibold)
+                .foregroundColor(Color.novoNordiskTextGrey)
             Spacer()
         }
-        .background(Color.novoNordiskLighGreyForPanelBackground)
+        .padding(.horizontal, 20)
+        .padding(.top, 8)
     }
     
     @ViewBuilder
@@ -278,8 +325,61 @@ struct AgendaQuizView: View {
         return viewModel.canProceedToNext(selectedAnswers: selectedAnswers, textAnswer: textAnswer)
     }
     
+    private func startTimer() {
+        stopTimer()
+        
+        guard let questionDetails = viewModel.currentQuestionDetails,
+              let timeString = questionDetails.query_time else {
+            return
+        }
+        
+        // Parse time string (format: "HH:MM:SS" or "MM:SS" or "SS")
+        let components = timeString.split(separator: ":").compactMap { Int($0) }
+        
+        if components.count == 3 {
+            // HH:MM:SS
+            remainingTime = components[0] * 3600 + components[1] * 60 + components[2]
+        } else if components.count == 2 {
+            // MM:SS
+            remainingTime = components[0] * 60 + components[1]
+        } else if components.count == 1 {
+            // SS
+            remainingTime = components[0]
+        } else {
+            remainingTime = 0
+        }
+        
+        print("[QuizView] Starting timer with \(remainingTime) seconds")
+        
+        timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { _ in
+            if remainingTime > 0 {
+                remainingTime -= 1
+            } else {
+                print("[QuizView] Timer expired - auto-advancing to next question")
+                stopTimer()
+                handleTimeExpired()
+            }
+        }
+    }
+    
+    private func stopTimer() {
+        timer?.invalidate()
+        timer = nil
+    }
+    
+    private func handleTimeExpired() {
+        // Auto-submit empty answer and move to next question
+        Task {
+            await viewModel.handleNextButton()
+            selectedAnswers.removeAll()
+            textAnswer = ""
+        }
+    }
+    
     private func handleNextButtonTap() {
         print("[QuizView] handleNextButtonTap - currentQuestion: \(viewModel.currentQuestionNumber)")
+        
+        stopTimer()
         
         // If we're on a question (not start screen), validate and save answer
         if viewModel.currentQuestionNumber > 0 {
@@ -288,6 +388,7 @@ struct AgendaQuizView: View {
                 print("[QuizView] Validation failed - no answer selected")
                 showValidationError = true
                 validationErrorMessage = LocalizedStrings.surveyValidationNoAnswer
+                startTimer() // Restart timer if validation fails
                 return
             }
             
@@ -309,6 +410,7 @@ struct AgendaQuizView: View {
                     print("[QuizView] Answer submission failed")
                     showValidationError = true
                     validationErrorMessage = viewModel.errorMessage
+                    startTimer() // Restart timer if submission fails
                 }
             }
         } else {
