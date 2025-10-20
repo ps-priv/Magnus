@@ -49,6 +49,7 @@ enum LocalizedStrings {
     // Common
     static let loading = "LOADING".localized
     static let error = "ERROR".localized
+    static let warning = "WARNING".localized
     static let ok = "OK".localized
     static let cancel = "CANCEL".localized
     static let load_more = "LOAD_MORE".localized

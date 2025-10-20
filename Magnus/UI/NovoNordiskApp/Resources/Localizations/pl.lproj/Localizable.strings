@@ -27,6 +27,7 @@
 /* Common */
 "LOADING" = "Pobieranie danych...";
 "ERROR" = "Błąd";
+"WARNING" = "Uwaga";
 "OK" = "OK";
 "CANCEL" = "Anuluj";
 "LOAD_MORE" = "Więcej";

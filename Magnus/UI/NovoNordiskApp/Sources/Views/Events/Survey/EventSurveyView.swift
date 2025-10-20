@@ -74,7 +74,7 @@ struct EventSurveyView: View {
     private var surveyTitle: some View {
         HStack {
             HStack {
-                Text(LocalizedStrings.eventSurveyScreenTitle)
+                Text(viewModel.hasError ? LocalizedStrings.warning : LocalizedStrings.eventSurveyScreenTitle)
                     .font(.novoNordiskSectionTitle)
                     .fontWeight(.bold)
                     .foregroundColor(Color.novoNordiskBlue)
