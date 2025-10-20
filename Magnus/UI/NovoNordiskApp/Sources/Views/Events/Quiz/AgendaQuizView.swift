@@ -214,7 +214,10 @@ struct AgendaQuizView: View {
                             // Show completion screen
                             QuizSummaryView(
                                 percentage: viewModel.quizPercentage,
-                                questionsWithAnswers: viewModel.getAllQuestionsWithAnswers()
+                                questionsWithAnswers: viewModel.getAllQuestionsWithAnswers(),
+                                onClose: {
+                                    navigationManager.goBack()
+                                }
                             )
                         } else if viewModel.currentQuestionNumber == 0 {
                             let _ = print("[QuizView] Rendering START screen")

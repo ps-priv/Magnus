@@ -5,6 +5,7 @@ import MagnusDomain
 struct QuizSummaryView: View {
     let percentage: Double
     let questionsWithAnswers: [(question: QuizQueryAnswerResponse, userAnswers: [String], textAnswer: String)]
+    let onClose: () -> Void
     
     var body: some View {
         VStack(spacing: 24) {
@@ -37,6 +38,23 @@ struct QuizSummaryView: View {
                         textAnswer: item.textAnswer
                     )
                 }
+                
+                // Legend
+                QuizLegendView()
+                    .padding(.top, 8)
+                
+                // Close button
+                Button(action: onClose) {
+                    Text(LocalizedStrings.quizCloseButton)
+                        .font(.novoNordiskBody)
+                        .fontWeight(.semibold)
+                        .foregroundColor(.white)
+                        .frame(maxWidth: .infinity)
+                        .padding(.vertical, 16)
+                        .background(Color.novoNordiskBlue)
+                        .cornerRadius(12)
+                }
+                .padding(.top, 16)
             }
             .padding(.horizontal, 20)
         }
@@ -163,5 +181,72 @@ private struct AnswerItemView: View {
             Spacer()
         }
         .padding(.leading, 8)
+    }
+}
+
+// MARK: - Legend
+private struct QuizLegendView: View {
+    var body: some View {
+        VStack(alignment: .leading, spacing: 12) {
+            Text(LocalizedStrings.quizLegendTitle)
+                .font(.novoNordiskBody)
+                .fontWeight(.semibold)
+                .foregroundColor(Color.novoNordiskBlue)
+            
+            VStack(alignment: .leading, spacing: 8) {
+                LegendItemView(
+                    color: .green,
+                    icon: "checkmark.circle.fill",
+                    text: LocalizedStrings.quizLegendCorrectSelected
+                )
+                
+                LegendItemView(
+                    color: .yellow,
+                    icon: "exclamationmark.circle.fill",
+                    text: LocalizedStrings.quizLegendCorrectNotSelected
+                )
+                
+                LegendItemView(
+                    color: .red,
+                    icon: "xmark.circle.fill",
+                    text: LocalizedStrings.quizLegendIncorrectSelected
+                )
+                
+                LegendItemView(
+                    color: Color.novoNordiskTextGrey,
+                    icon: "circle",
+                    text: LocalizedStrings.quizLegendIncorrectNotSelected
+                )
+            }
+        }
+        .padding(16)
+        .background(Color.gray.opacity(0.05))
+        .cornerRadius(12)
+        .overlay(
+            RoundedRectangle(cornerRadius: 12)
+                .stroke(Color.gray.opacity(0.2), lineWidth: 1)
+        )
+    }
+}
+
+// MARK: - Legend Item
+private struct LegendItemView: View {
+    let color: Color
+    let icon: String
+    let text: String
+    
+    var body: some View {
+        HStack(spacing: 12) {
+            Image(systemName: icon)
+                .foregroundColor(color)
+                .font(.system(size: 18))
+                .frame(width: 24)
+            
+            Text(text)
+                .font(.novoNordiskCaption)
+                .foregroundColor(Color.novoNordiskTextGrey)
+            
+            Spacer()
+        }
     }
 }

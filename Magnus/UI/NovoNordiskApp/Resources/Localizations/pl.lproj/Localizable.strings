@@ -360,6 +360,12 @@
 "QUIZ_COMPLETION_INFO" = "Możesz teraz zamknąć quiz";
 "QUIZ_QUESTION" = "Pytanie";
 "QUIZ_RESULT_SUBTITLE" = "Twój wynik to:";
+"QUIZ_LEGEND_TITLE" = "Legenda:";
+"QUIZ_LEGEND_CORRECT_SELECTED" = "Poprawna odpowiedź wybrana przez Ciebie";
+"QUIZ_LEGEND_CORRECT_NOT_SELECTED" = "Poprawna odpowiedź, której nie wybrałeś";
+"QUIZ_LEGEND_INCORRECT_SELECTED" = "Niepoprawna odpowiedź wybrana przez Ciebie";
+"QUIZ_LEGEND_INCORRECT_NOT_SELECTED" = "Niepoprawna odpowiedź nie wybrana";
+"QUIZ_CLOSE_BUTTON" = "Zamknij";
 
 
 

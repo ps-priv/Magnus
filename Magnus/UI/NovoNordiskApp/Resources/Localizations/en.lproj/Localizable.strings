@@ -358,6 +358,12 @@
 "QUIZ_COMPLETION_INFO" = "You can now close this quiz";
 "QUIZ_QUESTION" = "Question";
 "QUIZ_RESULT_SUBTITLE" = "Your result is:";
+"QUIZ_LEGEND_TITLE" = "Legend:";
+"QUIZ_LEGEND_CORRECT_SELECTED" = "Correct answer selected by you";
+"QUIZ_LEGEND_CORRECT_NOT_SELECTED" = "Correct answer you didn't select";
+"QUIZ_LEGEND_INCORRECT_SELECTED" = "Incorrect answer selected by you";
+"QUIZ_LEGEND_INCORRECT_NOT_SELECTED" = "Incorrect answer not selected";
+"QUIZ_CLOSE_BUTTON" = "Close";
 
 
 
