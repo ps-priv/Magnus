@@ -89,21 +89,6 @@ struct NewsDetailView: View {
             secondaryAction: {
                 // Cancel tapped
             }
-        )
-        // .popup(isPresented: $viewModel.showPopup) {
-        //     ToastView.createToast(message: viewModel.popupMessage, type: .success)
-        // } customize: {  
-        //     $0
-        //         // .type(.floater(
-        //         //     verticalPadding: 30,
-        //         //     horizontalPadding: 16,
-        //         //     useSafeAreaInset: true
-        //         // ))
-        //         .type(.toast)
-        //         .closeOnTap(true)
-        //         .closeOnTapOutside(true)
-        //         .position(.bottom)
-        //         .autohideIn(5)
-        // }   
+        )  
     }
 }

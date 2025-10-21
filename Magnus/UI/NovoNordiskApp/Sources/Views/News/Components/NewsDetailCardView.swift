@@ -377,9 +377,11 @@ struct NewsDetailCardView: View {
                 Text(news.author.name)
                     .font(.novoNordiskAuthorName)
                     .foregroundColor(Color.novoNordiskTextGrey)
-                Text(news.author.groups)
-                    .font(.novoNordiskAuthorGroups)
-                    .foregroundColor(Color.novoNordiskBlue)
+                if (news.author.groups.trimmingCharacters(in: .whitespacesAndNewlines)   != "") {
+                    Text(news.author.groups)
+                        .font(.novoNordiskAuthorGroups)
+                        .foregroundColor(Color.novoNordiskBlue)
+                }
             }
         }
     }
