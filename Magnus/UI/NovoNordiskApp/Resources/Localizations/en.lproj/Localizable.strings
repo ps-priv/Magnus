@@ -8,6 +8,7 @@
 "LOGIN_BUTTON" = "Login";
 "REGISTER_BUTTON" = "Register";
 "LOGIN_ERROR" = "Login Error";
+"ENTER_PASSWORD_RESET_CODE" = "Enter password reset code";
 
 /* Forgot Password View */
 "FORGOT_PASSWORD_TITLE" = "PASSWORD RESET";

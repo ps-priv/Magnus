@@ -24,6 +24,7 @@ enum LocalizedStrings {
     static let loginButton = "LOGIN_BUTTON".localized
     static let registerButton = "REGISTER_BUTTON".localized
     static let loginError = "LOGIN_ERROR".localized
+    static let enterPasswordResetCode = "ENTER_PASSWORD_RESET_CODE".localized
 
     // Forgot Password View
     static let forgotPasswordTitle = "FORGOT_PASSWORD_TITLE".localized

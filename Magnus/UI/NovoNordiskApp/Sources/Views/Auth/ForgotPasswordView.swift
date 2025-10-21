@@ -137,11 +137,18 @@ struct ForgotPasswordView: View {
                 }
             }
             .fullScreenCover(isPresented: $showConfirmation) {
-                PasswordResetConfirmationView {
-                    // When user taps "Go to login"
-                    showConfirmation = false
-                    onCancel() // Go back to login
-                }
+                PasswordResetConfirmationView(
+                    onGoToLogin: {
+                        // When user taps "Go to login"
+                        showConfirmation = false
+                        onCancel() // Go back to login
+                    },
+                    onEnterPasswordResetCode: {
+                        // When user taps "Enter password reset code"
+                        showConfirmation = false
+                        showResetPassword = true
+                    }
+                )
             }
             .fullScreenCover(isPresented: $showResetPassword) {
                 ResetPasswordView {
