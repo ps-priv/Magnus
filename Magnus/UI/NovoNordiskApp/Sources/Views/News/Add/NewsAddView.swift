@@ -34,8 +34,6 @@ struct NewsAddView: View {
                                 Task {
                                     await viewModel.sendNews()
                                     if !viewModel.hasError {
-                                        // Wait 5 seconds before redirecting to news list
-                                        try? await Task.sleep(nanoseconds: 3_000_000_000)
                                         await MainActor.run {
                                             navigationManager.navigate(to: .newsList)
                                         }
@@ -76,6 +74,13 @@ struct NewsAddView: View {
                 .padding(.bottom, 20)
             }
         }
+        .alert(isPresented: $showToast) {
+            Alert(
+                title: Text(LocalizedStrings.error),
+                message: Text(toastMessage),
+                dismissButton: .default(Text(LocalizedStrings.ok))
+            )
+        }
         .novoNordiskAlert(
             isPresented: $showSaveConfirmation,
             title: LocalizedStrings.newsSaveConfirmationMessage,
@@ -86,9 +91,8 @@ struct NewsAddView: View {
             primaryAction: {
                 Task {
                     await viewModel.sendNews()
+
                     if !viewModel.hasError {
-                        // Wait 5 seconds before redirecting to news list
-                        try? await Task.sleep(nanoseconds: 3_000_000_000)
                         await MainActor.run {
                             navigationManager.navigate(to: .newsList)
                         }

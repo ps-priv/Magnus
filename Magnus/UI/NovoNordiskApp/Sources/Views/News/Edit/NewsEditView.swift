@@ -57,7 +57,6 @@ struct NewsEditView: View {
                             Task {
                                 await viewModel.saveChanges()
                                 if !viewModel.hasError {
-                                    try? await Task.sleep(nanoseconds: 2_000_000_000)
                                     await MainActor.run {
                                         navigationManager.navigate(to: .newsList)
                                     }
@@ -81,7 +80,6 @@ struct NewsEditView: View {
                             Task {
                                 await viewModel.deleteNews()
                                 if !viewModel.hasError {
-                                    try? await Task.sleep(nanoseconds: 2_000_000_000)
                                     await MainActor.run {
                                         navigationManager.navigate(to: .newsList)
                                     }
