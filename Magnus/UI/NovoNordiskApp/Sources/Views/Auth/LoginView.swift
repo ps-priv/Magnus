@@ -13,6 +13,12 @@ struct LoginView: View {
     @State private var showForgotPassword = false
     @State private var showRegister = false
     @State private var showRegisterConfirmation = false
+    @State private var keyboardHeight: CGFloat = 0
+    @FocusState private var focusedField: Field?
+    
+    enum Field {
+        case email, password
+    }
 
     init(onAuthenticationSuccess: @escaping () -> Void = {}) {
         self.onAuthenticationSuccess = onAuthenticationSuccess
@@ -20,122 +26,162 @@ struct LoginView: View {
 
     var body: some View {
         GeometryReader { geometry in
-            ScrollView(.vertical, showsIndicators: false) {
-                VStack(spacing: 0) {
-                    Spacer(minLength: 40)
+            ScrollViewReader { proxy in
+                ScrollView(.vertical, showsIndicators: false) {
+                    VStack(spacing: 0) {
+                        Spacer(minLength: 40)
 
-                    // Bottom logo
-                    VStack(spacing: 16) {
-                        Image("NovoNordiskLogo")
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .frame(height: 120)
-                            .opacity(0.8)
-                    }
-
-                    // Top section with logo and title
-                    VStack(spacing: 24) {
-                        // Title
-                        Text(LocalizedStrings.loginTitle)
-                            .font(.novoNordiskTitle)
-                            .foregroundColor(Color("NovoNordiskBlue"))
-                            .tracking(2)
-                    }
-                    .padding(.bottom, 20)
-                    .padding(.top, geometry.safeAreaInsets.top + 24)
-
-                    // Login form
-                    VStack(spacing: 10) {
-                        if !viewModel.errorMessage.isEmpty {
-                            NovoNordiskErrorView.error(
-                                viewModel.errorMessage,
-                                title: LocalizedStrings.loginError,
-                                style: .animated
-                            ) {
-                                viewModel.clearError()
-                            }
-                            .padding(.top, 8)
-                        }
-
-                        VStack(alignment: .leading, spacing: 8) {
-                            NovoNordiskTextBox(
-                                placeholder: LocalizedStrings.emailPlaceholder,
-                                text: $viewModel.email,
-                                style: .withTitle(LocalizedStrings.emailLabel, bold: true),
-                            )
-                            .keyboardType(.emailAddress)
-                            .textInputAutocapitalization(.never)
-                            .changeEffect(.shake(rate: .fast), value: viewModel.LoginAttempts)
-                        }
-
-                        VStack(alignment: .leading, spacing: 8) {
-                            NovoNordiskTextBox(
-                                placeholder: LocalizedStrings.passwordPlaceholder,
-                                text: $viewModel.password,
-                                style: .withTitle(LocalizedStrings.passwordLabel, bold: true),
-                                isSecure: true,
-                            )
-                            .changeEffect(.shake(rate: .fast), value: viewModel.LoginAttempts)
-                        }
-
-                        // Forgot password link
-                        HStack {
-                            NovoNordiskLinkButton(
-                                title: LocalizedStrings.forgotPassword,
-                                style: .underlined
-                            ) {
-                                showForgotPassword = true
-                            }
-
-                            Spacer()
-                        }
-                        // .padding(.top, 8)
-                        Spacer(minLength: 20)
-
-                        // Loading indicator
-                        if viewModel.isLoading {
-                            LoadingIndicator()
-                        }
-
-                        // Buttons
+                        // Bottom logo
                         VStack(spacing: 16) {
-                            // Login button
-                            NovoNordiskButton(
-                                title: viewModel.isLoading
-                                    ? LocalizedStrings.loading : LocalizedStrings.loginButton,
-                                style: .primary,
-                                isEnabled: viewModel.canLogin
-                            ) {
-                                Task {
-                                    await viewModel.login()
-
-                                    if viewModel.isLoggedIn && !viewModel.userId.isEmpty {
-                                        OneSignal.login(viewModel.userId)
-                                        OneSignal.User.addTag(key: "user_id", value: viewModel.userId)
-                                        OneSignal.User.addTag(key: "user_id_int", value: String(viewModel.userIdInt))
-                                    }
-                                }
-                            }   
-                            .disabled(!viewModel.canLogin)
-
-                            // Register button
-                            // NovoNordiskButton(
-                            //     title: LocalizedStrings.registerButton,
-                            //     style: .outline
-                            // ) {
-                            //     showRegister = true
-                            // }
-                            // .disabled(viewModel.isLoading)
+                            Image("NovoNordiskLogo")
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                                .frame(height: 120)
+                                .opacity(0.8)
                         }
-                    }
-                    .padding(.horizontal, 24)
+
+                        // Top section with logo and title
+                        VStack(spacing: 24) {
+                            // Title
+                            Text(LocalizedStrings.loginTitle)
+                                .font(.novoNordiskTitle)
+                                .foregroundColor(Color("NovoNordiskBlue"))
+                                .tracking(2)
+                        }
+                        .padding(.bottom, 20)
+                        .padding(.top, geometry.safeAreaInsets.top + 24)
+
+                        // Login form
+                        VStack(spacing: 10) {
+                            if !viewModel.errorMessage.isEmpty {
+                                NovoNordiskErrorView.error(
+                                    viewModel.errorMessage,
+                                    title: LocalizedStrings.loginError,
+                                    style: .animated
+                                ) {
+                                    viewModel.clearError()
+                                }
+                                .padding(.top, 8)
+                            }
+
+                            VStack(alignment: .leading, spacing: 8) {
+                                NovoNordiskTextBox(
+                                    placeholder: LocalizedStrings.emailPlaceholder,
+                                    text: $viewModel.email,
+                                    style: .withTitle(LocalizedStrings.emailLabel, bold: true),
+                                )
+                                .keyboardType(.emailAddress)
+                                .textInputAutocapitalization(.never)
+                                .changeEffect(.shake(rate: .fast), value: viewModel.LoginAttempts)
+                                .focused($focusedField, equals: .email)
+                            }
+                            .id("emailField")
+
+                            VStack(alignment: .leading, spacing: 8) {
+                                NovoNordiskTextBox(
+                                    placeholder: LocalizedStrings.passwordPlaceholder,
+                                    text: $viewModel.password,
+                                    style: .withTitle(LocalizedStrings.passwordLabel, bold: true),
+                                    isSecure: true,
+                                )
+                                .changeEffect(.shake(rate: .fast), value: viewModel.LoginAttempts)
+                                .focused($focusedField, equals: .password)
+                            }
+                            .id("passwordField")
+
+                            // Forgot password link
+                            HStack {
+                                NovoNordiskLinkButton(
+                                    title: LocalizedStrings.forgotPassword,
+                                    style: .underlined
+                                ) {
+                                    showForgotPassword = true
+                                }
+
+                                Spacer()
+                            }
+                            // .padding(.top, 8)
+                            Spacer(minLength: 20)
+
+                            // Loading indicator
+                            if viewModel.isLoading {
+                                LoadingIndicator()
+                            }
+
+                            // Buttons
+                            VStack(spacing: 16) {
+                                // Login button
+                                NovoNordiskButton(
+                                    title: viewModel.isLoading
+                                        ? LocalizedStrings.loading : LocalizedStrings.loginButton,
+                                    style: .primary,
+                                    isEnabled: viewModel.canLogin
+                                ) {
+                                    Task {
+                                        await viewModel.login()
+
+                                        if viewModel.isLoggedIn && !viewModel.userId.isEmpty {
+                                            OneSignal.login(viewModel.userId)
+                                            OneSignal.User.addTag(key: "user_id", value: viewModel.userId)
+                                            OneSignal.User.addTag(key: "user_id_int", value: String(viewModel.userIdInt))
+                                        }
+                                    }
+                                }   
+                                .disabled(!viewModel.canLogin)
+
+                                // Register button
+                                // NovoNordiskButton(
+                                //     title: LocalizedStrings.registerButton,
+                                //     style: .outline
+                                // ) {
+                                //     showRegister = true
+                                // }
+                                // .disabled(viewModel.isLoading)
+                            }
+                        }
+                        .padding(.horizontal, 24)
                 }
                 .frame(minHeight: geometry.size.height)
-                .padding(.bottom, 16)
+                .padding(.bottom, keyboardHeight + 16)
                 .scrollDismissesKeyboard(.interactively)
+            }
+            .onChange(of: focusedField) { _, newValue in
+                if newValue != nil {
+                    withAnimation {
+                        if let field = newValue {
+                            proxy.scrollTo(field == .email ? "emailField" : "passwordField", anchor: .center)
+                        }
+                    }
+                }
             }
         }
         .background(Color.white)
+        .onTapGesture {
+            focusedField = nil
+        }
+        .onAppear {
+            NotificationCenter.default.addObserver(
+                forName: UIResponder.keyboardWillShowNotification,
+                object: nil,
+                queue: .main
+            ) { notification in
+                if let keyboardFrame = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect {
+                    withAnimation(.easeOut(duration: 0.25)) {
+                        keyboardHeight = keyboardFrame.height
+                    }
+                }
+            }
+            
+            NotificationCenter.default.addObserver(
+                forName: UIResponder.keyboardWillHideNotification,
+                object: nil,
+                queue: .main
+            ) { _ in
+                withAnimation(.easeOut(duration: 0.25)) {
+                    keyboardHeight = 0
+                }
+            }
+        }
         .onChange(of: viewModel.isAuthenticated) { _, isAuthenticated in
             if isAuthenticated {
                 onAuthenticationSuccess()
@@ -162,6 +208,7 @@ struct LoginView: View {
                 showRegister = false
                 showRegisterConfirmation = false
             })
+        }
         }
     }
 }
