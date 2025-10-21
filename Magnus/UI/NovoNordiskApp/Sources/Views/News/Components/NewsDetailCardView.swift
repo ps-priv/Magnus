@@ -339,13 +339,13 @@ struct NewsDetailCardView: View {
                     FontAwesome.Icon.ellipsisVertical,
                     type: .light,
                     size: 25,
-                    color: Color.novoNordiskTextGrey
+                    color: Color.novoNordiskTextGrey,
+                    backgroundColor: Color.novoNordiskLightBlueBackground
                 )
             }
             .menuStyle(BorderlessButtonMenuStyle())
             .background(Color.white)
         }
-        //.shadow(color: .black.opacity(0.9), radius: 12, x: 0, y: 0)
     }
 
     @ViewBuilder
