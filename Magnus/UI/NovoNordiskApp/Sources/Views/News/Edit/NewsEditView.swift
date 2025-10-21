@@ -96,12 +96,13 @@ struct NewsEditView: View {
                     )
                 }
             }
-            .contentShape(Rectangle())
-            .onTapGesture { hideKeyboard() }
             .scrollDismissesKeyboard(.interactively)
             .padding(.vertical, 20)
             .padding(.horizontal, 16)
             .background(Color.novoNordiskBackgroundGrey)
+            .ignoresSafeArea(.keyboard)
+            .keyboardAdaptiveMedium()
+            .dismissKeyboardOnTap()
 
             VStack {
                 Spacer()
@@ -195,13 +196,5 @@ struct NewsEditView: View {
         .animation(.spring())
 
         menu1
-    }
-}
-
-// MARK: - Keyboard helpers
-extension View {
-    fileprivate func hideKeyboard() {
-        UIApplication.shared.sendAction(
-            #selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
     }
 }

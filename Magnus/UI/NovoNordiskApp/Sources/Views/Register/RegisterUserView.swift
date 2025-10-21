@@ -19,5 +19,6 @@ struct RegisterUserView: View {
             .padding(.vertical, 10)
         }
         .background(Color.novoNordiskBackgroundGrey)
+        .keyboardResponsive()
     }
 }   

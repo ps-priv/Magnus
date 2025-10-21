@@ -40,7 +40,6 @@ struct NewsDetailCardView: View {
     }
 
     @State private var selectedStatsTab: StatsTab = .comments
-    @State private var keyboardHeight: CGFloat = 0
 
     init(
         news: NewsDetailCardViewDto,
@@ -71,151 +70,153 @@ struct NewsDetailCardView: View {
     var body: some View {
         ScrollView(.vertical, showsIndicators: true) {
             ZStack {
-                Button(action: onTap) {
-                    VStack(alignment: .leading, spacing: 12) {
-                        KFImage(URL(string: news.image))
-                            .placeholder {
-                                Rectangle().fill(Color.gray.opacity(0.3))
-                                    .overlay(
-                                        VStack {
-                                            ProgressView()
-                                                .scaleEffect(1.2)
-                                                .tint(.novoNordiskBlue)
-                                            FAIcon(.newspaper, type: .light, size: 40, color: .gray)
-                                                .padding(.top, 8)
-                                        }
-                                    )
+                    Button(action: onTap) {
+                        VStack(alignment: .leading, spacing: 12) {
+                            KFImage(URL(string: news.image))
+                                .placeholder {
+                                    Rectangle().fill(Color.gray.opacity(0.3))
+                                        .overlay(
+                                            VStack {
+                                                ProgressView()
+                                                    .scaleEffect(1.2)
+                                                    .tint(.novoNordiskBlue)
+                                                FAIcon(.newspaper, type: .light, size: 40, color: .gray)
+                                                    .padding(.top, 8)
+                                            }
+                                        )
+                                }
+                                .resizable()
+                                .aspectRatio(contentMode: .fill)
+                                .frame(height: 190)
+                                .clipped()
+                                .cornerRadius(12)
+
+                            VStack(alignment: .leading) {
+                                titleSection
+                                    .padding(.bottom, 4)
+                                descriptionSection
+                                    .padding(.bottom, 3)
+                                tagsSection
+                                    .padding(.bottom, 3)
+                                footerSection
+                                attachmentsSection
                             }
-                            .resizable()
-                            .aspectRatio(contentMode: .fill)
-                            .frame(height: 190)
-                            .clipped()
-                            .cornerRadius(12)
-
-                        VStack(alignment: .leading) {
-                            titleSection
-                                .padding(.bottom, 4)
-                            descriptionSection
-                                .padding(.bottom, 3)
-                            tagsSection
-                                .padding(.bottom, 3)
-                            footerSection
-                            attachmentsSection
+                            .padding(.horizontal, 16)
+                            .padding(.bottom, 16)
                         }
-                        .padding(.horizontal, 16)
-                        .padding(.bottom, 16)
+
                     }
-
-                }
-                .buttonStyle(PlainButtonStyle())
-                .background(Color.novoNordiskLightBlueBackground)
-                .cornerRadius(12)
-                .overlay(
-                    RoundedRectangle(cornerRadius: 12)
-                        .stroke(Color.novoNordiskLightBlue, lineWidth: 1)
-                )
-                .shadow(color: .black.opacity(0.1), radius: 4, x: 0, y: 2)
-
-                // Menu reakcji jako overlay
-                if showReactionsMenu {
-                    VStack(spacing: 20) {
-                        // Thumbs Up
-                        Button(action: {
-                            onReactionTap(.THUMBS_UP)
-                            selectedReaction = .THUMBS_UP
-                            showReactionsMenu = false
-                        }) {
-                            FAIcon(
-                                FontAwesome.Icon.thumbsUp,
-                                type: .thin,
-                                size: 25,
-                                color: Color.novoNordiskBlue
-                            )
-                        }
-
-                        // Heart
-                        Button(action: {
-                            onReactionTap(.HEART)
-                            selectedReaction = .HEART
-                            showReactionsMenu = false
-
-                        }) {
-                            FAIcon(
-                                FontAwesome.Icon.heart,
-                                type: .thin,
-                                size: 25,
-                                color: Color.novoNordiskBlue
-                            )
-                        }
-
-                        // Clapping Hands
-                        Button(action: {
-                            onReactionTap(.CLAPPING_HANDS)
-                            showReactionsMenu = false
-                        }) {
-                            FAIcon(
-                                FontAwesome.Icon.clappingHands,
-                                type: .thin,
-                                size: 20,
-                                color: Color.novoNordiskBlue
-                            )
-                        }
-
-                        // Lightbulb
-                        Button(action: {
-                            onReactionTap(.LIGHT_BULB)
-                            selectedReaction = .LIGHT_BULB
-                            showReactionsMenu = false
-                        }) {
-                            FAIcon(
-                                FontAwesome.Icon.lightBulb,
-                                type: .thin,
-                                size: 25,
-                                color: Color.novoNordiskBlue
-                            )
-                        }
-
-                        // Hand with Heart
-                        Button(action: {
-                            onReactionTap(.HAND_HOLDING_HEART)
-                            selectedReaction = .HAND_HOLDING_HEART
-                            showReactionsMenu = false
-                        }) {
-                            FAIcon(
-                                FontAwesome.Icon.handHoldingHeart,
-                                type: .thin,
-                                size: 25,
-                                color: Color.novoNordiskBlue
-                            )
-                        }
-
-                        // Thumbs Down
-                        Button(action: {
-                            onReactionTap(.THUMBS_DOWN)
-                            selectedReaction = .THUMBS_DOWN
-                            showReactionsMenu = false
-                        }) {
-                            FAIcon(
-                                FontAwesome.Icon.thumbsDown,
-                                type: .thin,
-                                size: 25,
-                                color: Color.novoNordiskBlue
-                            )
-                        }
-                    }
-                    .padding(.vertical, 12)
-                    .padding(.horizontal, 8)
-                    .background(Color.white)
-                    .cornerRadius(20)
+                    .buttonStyle(PlainButtonStyle())
+                    .background(Color.novoNordiskLightBlueBackground)
+                    .cornerRadius(12)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 12)
+                            .stroke(Color.novoNordiskLightBlue, lineWidth: 1)
+                    )
                     .shadow(color: .black.opacity(0.1), radius: 4, x: 0, y: 2)
-                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottomTrailing)
-                    .offset(x: -10, y: -20)
-                    .zIndex(1000)
-                    .transition(.opacity.combined(with: .scale))
-                }
+
+                    // Menu reakcji jako overlay
+                    if showReactionsMenu {
+                        VStack(spacing: 20) {
+                            // Thumbs Up
+                            Button(action: {
+                                onReactionTap(.THUMBS_UP)
+                                selectedReaction = .THUMBS_UP
+                                showReactionsMenu = false
+                            }) {
+                                FAIcon(
+                                    FontAwesome.Icon.thumbsUp,
+                                    type: .thin,
+                                    size: 25,
+                                    color: Color.novoNordiskBlue
+                                )
+                            }
+
+                            // Heart
+                            Button(action: {
+                                onReactionTap(.HEART)
+                                selectedReaction = .HEART
+                                showReactionsMenu = false
+
+                            }) {
+                                FAIcon(
+                                    FontAwesome.Icon.heart,
+                                    type: .thin,
+                                    size: 25,
+                                    color: Color.novoNordiskBlue
+                                )
+                            }
+
+                            // Clapping Hands
+                            Button(action: {
+                                onReactionTap(.CLAPPING_HANDS)
+                                showReactionsMenu = false
+                            }) {
+                                FAIcon(
+                                    FontAwesome.Icon.clappingHands,
+                                    type: .thin,
+                                    size: 20,
+                                    color: Color.novoNordiskBlue
+                                )
+                            }
+
+                            // Lightbulb
+                            Button(action: {
+                                onReactionTap(.LIGHT_BULB)
+                                selectedReaction = .LIGHT_BULB
+                                showReactionsMenu = false
+                            }) {
+                                FAIcon(
+                                    FontAwesome.Icon.lightBulb,
+                                    type: .thin,
+                                    size: 25,
+                                    color: Color.novoNordiskBlue
+                                )
+                            }
+
+                            // Hand with Heart
+                            Button(action: {
+                                onReactionTap(.HAND_HOLDING_HEART)
+                                selectedReaction = .HAND_HOLDING_HEART
+                                showReactionsMenu = false
+                            }) {
+                                FAIcon(
+                                    FontAwesome.Icon.handHoldingHeart,
+                                    type: .thin,
+                                    size: 25,
+                                    color: Color.novoNordiskBlue
+                                )
+                            }
+
+                            // Thumbs Down
+                            Button(action: {
+                                onReactionTap(.THUMBS_DOWN)
+                                selectedReaction = .THUMBS_DOWN
+                                showReactionsMenu = false
+                            }) {
+                                FAIcon(
+                                    FontAwesome.Icon.thumbsDown,
+                                    type: .thin,
+                                    size: 25,
+                                    color: Color.novoNordiskBlue
+                                )
+                            }
+                        }
+                        .padding(.vertical, 12)
+                        .padding(.horizontal, 8)
+                        .background(Color.white)
+                        .cornerRadius(20)
+                        .shadow(color: .black.opacity(0.1), radius: 4, x: 0, y: 2)
+                        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottomTrailing)
+                        .offset(x: -10, y: -20)
+                        .zIndex(1000)
+                        .transition(.opacity.combined(with: .scale))
+                    }
             }
             tabSection
         }
+        .keyboardAdaptiveMedium()
+        .dismissKeyboardOnTap()
         .novoNordiskAlert(
             isPresented: $showDeleteConfirmation,
             title: LocalizedStrings.newsDeleteConfirmationMessage,
@@ -237,29 +238,6 @@ struct NewsDetailCardView: View {
                 // Cancel tapped
             }
         )
-        .offset(y: keyboardHeight > 0 ? -keyboardHeight / 2 : 0)
-        .animation(.easeInOut(duration: 0.3), value: keyboardHeight)
-        .onReceive(NotificationCenter.default.publisher(for: UIResponder.keyboardWillShowNotification)) { notification in
-            if let keyboardFrame = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect {
-                keyboardHeight = keyboardFrame.height
-            }
-        }
-        .onReceive(NotificationCenter.default.publisher(for: UIResponder.keyboardWillHideNotification)) { _ in
-            keyboardHeight = 0
-        }
-        .toolbar {
-            ToolbarItemGroup(placement: .keyboard) {
-                Spacer()
-                Button(LocalizedStrings.endEditingButton) {
-                    hideKeyboard()
-                }
-                .foregroundColor(.white)
-                .padding(.horizontal, 12)
-                .padding(.vertical, 8)
-                .background(Color.novoNordiskBlue)
-                .cornerRadius(8)
-            }
-        }
     }
 
     @ViewBuilder
@@ -536,13 +514,6 @@ struct NewsDetailCardView: View {
             }
             .padding(.top, 16)
         }
-    }
-}
-
-extension View {
-    fileprivate func hideKeyboard() {
-        UIApplication.shared.sendAction(
-            #selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
     }
 }
 

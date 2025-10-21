@@ -28,6 +28,7 @@ struct CreateCommentForNewsView: View {
             //.disabled(commentText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
         }
         .frame(maxHeight: 150)
+        .keyboardResponsive()
     }
     
     var body1: some View {

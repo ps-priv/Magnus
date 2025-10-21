@@ -128,7 +128,7 @@ struct ForgotPasswordView: View {
                 }
             }
             .background(Color.white)
-            .ignoresSafeArea(.keyboard, edges: .bottom)
+            .dismissKeyboardOnTap()
             .navigationBarTitleDisplayMode(.inline)
             .navigationBarBackButtonHidden(true)
             .onChange(of: viewModel.emailSentSuccessfully) { _, success in

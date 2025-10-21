@@ -125,6 +125,10 @@ struct ResetPasswordView: View {
                             }
                             .padding(.horizontal, 24)
 
+                            // Extra space for keyboard
+                            Spacer()
+                                .frame(height: 100)
+
                             // Bottom anchor for programmatic scrolling
                             Color.clear
                                 .frame(height: 1)
@@ -143,7 +147,7 @@ struct ResetPasswordView: View {
                     }
                 }
                 .background(Color.white)
-                .ignoresSafeArea(.keyboard, edges: .bottom)
+                .dismissKeyboardOnTap()
                 .navigationBarTitleDisplayMode(.inline)
                 .navigationBarBackButtonHidden(true)
                 .onChange(of: viewModel.passwordResetSuccessfully) { oldValue, newValue in

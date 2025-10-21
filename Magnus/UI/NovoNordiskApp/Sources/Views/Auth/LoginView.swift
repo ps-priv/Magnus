@@ -13,7 +13,6 @@ struct LoginView: View {
     @State private var showForgotPassword = false
     @State private var showRegister = false
     @State private var showRegisterConfirmation = false
-    @State private var keyboardHeight: CGFloat = 0
     @FocusState private var focusedField: Field?
     
     enum Field {
@@ -142,7 +141,7 @@ struct LoginView: View {
                         .padding(.horizontal, 24)
                 }
                 .frame(minHeight: geometry.size.height)
-                .padding(.bottom, keyboardHeight + 16)
+                .padding(.bottom, 16)
                 .scrollDismissesKeyboard(.interactively)
             }
             .onChange(of: focusedField) { _, newValue in
@@ -156,32 +155,7 @@ struct LoginView: View {
             }
         }
         .background(Color.white)
-        .onTapGesture {
-            focusedField = nil
-        }
-        .onAppear {
-            NotificationCenter.default.addObserver(
-                forName: UIResponder.keyboardWillShowNotification,
-                object: nil,
-                queue: .main
-            ) { notification in
-                if let keyboardFrame = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect {
-                    withAnimation(.easeOut(duration: 0.25)) {
-                        keyboardHeight = keyboardFrame.height
-                    }
-                }
-            }
-            
-            NotificationCenter.default.addObserver(
-                forName: UIResponder.keyboardWillHideNotification,
-                object: nil,
-                queue: .main
-            ) { _ in
-                withAnimation(.easeOut(duration: 0.25)) {
-                    keyboardHeight = 0
-                }
-            }
-        }
+        .dismissKeyboardOnTap()
         .onChange(of: viewModel.isAuthenticated) { _, isAuthenticated in
             if isAuthenticated {
                 onAuthenticationSuccess()

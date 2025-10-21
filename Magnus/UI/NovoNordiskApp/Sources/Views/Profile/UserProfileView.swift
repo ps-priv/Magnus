@@ -76,6 +76,7 @@ struct UserProfileView: View {
             .padding(.horizontal, 16)  
         }
         .background(Color.novoNordiskBackgroundGrey)
+        .keyboardResponsive()
         .onAppear {
             loadUserData()
         }
