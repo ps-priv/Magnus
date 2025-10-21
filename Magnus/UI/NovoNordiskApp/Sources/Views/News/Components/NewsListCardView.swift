@@ -55,9 +55,7 @@ struct NewsListCardView: View {
                 .frame(height: 190)
                 .clipped()
                 .cornerRadius(12)
-                .onTapGesture {
-                    onTap()
-                }
+
 
             VStack(alignment: .leading) {
                 titleSection
@@ -68,6 +66,9 @@ struct NewsListCardView: View {
             }
             .padding(.horizontal, 16)
             .padding(.bottom, 16)
+        }
+        .onTapGesture {
+            onTap()
         }
         .background(Color.white)
         .cornerRadius(16)

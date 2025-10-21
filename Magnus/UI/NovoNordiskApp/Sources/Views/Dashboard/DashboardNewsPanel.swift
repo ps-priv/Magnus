@@ -118,9 +118,7 @@ struct NewsItemCard2: View {
                         .font(.system(size: 12))
                         .foregroundColor(Color.novoNordiskBlue)
                     Spacer()
-                    Button(action: { navigationManager.navigateToNewsDetail(newsId: item.id) }) {
-                        FAIcon(.circle_arrow_right, type: .light, size: 21, color: .novoNordiskBlue)
-                    }
+                    FAIcon(.circle_arrow_right, type: .light, size: 21, color: .novoNordiskBlue)
                 }
             }
             .padding(10)
@@ -130,16 +128,8 @@ struct NewsItemCard2: View {
         .cornerRadius(20)
         .shadow(color: Color.black.opacity(0.1), radius: 4, x: 0, y: 2)
         .padding(.horizontal, 4)
+        .onTapGesture {
+            navigationManager.navigateToNewsDetail(newsId: item.id)
+        }
     }
 }
-
-// #Preview("DashboardNewsPanel") {
-//     struct PreviewWrapper: View {
-//         @State var items = NewsItemMockGenerator.createMany(count: 3)
-//         var body: some View {
-//             DashboardNewsPanel(items: $items)
-//         }
-//     }
-//     return PreviewWrapper()
-//         .environmentObject(NavigationManager())
-// }
