@@ -368,6 +368,9 @@
 "QUIZ_LEGEND_INCORRECT_SELECTED" = "Niepoprawna odpowiedź wybrana przez Ciebie";
 "QUIZ_LEGEND_INCORRECT_NOT_SELECTED" = "Niepoprawna odpowiedź nie wybrana";
 "QUIZ_CLOSE_BUTTON" = "Zamknij";
+"QUIZ_WAIT_FOR_ANSWER_TITLE" = "Czekamy na pytanie";
+"QUIZ_WAIT_FOR_ANSWER_MESSAGE" = "Czekamy, aż nowe pytanie zostanie udostępnione.";
+
 
 
 
