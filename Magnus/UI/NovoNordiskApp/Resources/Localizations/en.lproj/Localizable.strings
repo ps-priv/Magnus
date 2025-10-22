@@ -369,6 +369,10 @@
 "QUIZ_WAIT_FOR_ANSWER_TITLE" = "Waiting for the question";
 "QUIZ_WAIT_FOR_ANSWER_MESSAGE" = "We are waiting for the new question to be published.";
 
+"QUIZ_ALREADY_ANSWERED_TITLE" = "The quiz has already been completed";
+"QUIZ_ALREADY_ANSWERED_MESSAGE" = "The quiz has already been completed. Thank you for your feedback.";
+
+
 
 
 

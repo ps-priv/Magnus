@@ -371,6 +371,10 @@
 "QUIZ_WAIT_FOR_ANSWER_TITLE" = "Czekamy na pytanie";
 "QUIZ_WAIT_FOR_ANSWER_MESSAGE" = "Czekamy, aż nowe pytanie zostanie udostępnione.";
 
+"QUIZ_ALREADY_ANSWERED_TITLE" = "Quiz został już wypełniony";
+"QUIZ_ALREADY_ANSWERED_MESSAGE" = "Quiz został już przez Ciebie wypełniony. Dziękujemy!";
+
+
 
 
 

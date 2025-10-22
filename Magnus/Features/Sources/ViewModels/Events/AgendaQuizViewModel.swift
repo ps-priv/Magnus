@@ -33,6 +33,7 @@ public class AgendaQuizViewModel: ObservableObject {
     
     // Sequential quiz support
     @Published public var isWaitingForQuestion: Bool = false
+    @Published public var isAllQuestionsAnswered: Bool = false
     private var pollingTimer: Timer?
     private var currentPollingQueryId: String?
     
@@ -69,12 +70,40 @@ public class AgendaQuizViewModel: ObservableObject {
                 quiz = data
                 isLoading = false
             }
+            
+            // Check if all questions are already answered
+            await checkIfAllQuestionsAnswered()
         } catch let error {
             await MainActor.run {
                 errorMessage = error.localizedDescription
                 hasError = true
                 isLoading = false
             }
+        }
+    }
+    
+    private func checkIfAllQuestionsAnswered() async {
+        guard let quiz = quiz else { return }
+        
+        print("[Quiz] Checking if all questions are answered...")
+        
+        // Load details for all questions
+        var allAnswered = true
+        for query in quiz.queries {
+            if let details = await loadQuestionDetailsIfNeeded(queryId: query.id, forceReload: true) {
+                print("[Quiz] Question \(query.id) status: \(details.status)")
+                if details.status != .answered {
+                    allAnswered = false
+                }
+            } else {
+                // If we can't load details, assume not answered
+                allAnswered = false
+            }
+        }
+        
+        await MainActor.run {
+            isAllQuestionsAnswered = allAnswered
+            print("[Quiz] All questions answered: \(allAnswered)")
         }
     }
     

@@ -250,6 +250,12 @@ struct AgendaQuizView: View {
                                     navigationManager.goBack()
                                 }
                             )
+                        } else if viewModel.isAllQuestionsAnswered {
+                            let _ = print("[QuizView] Rendering ALREADY ANSWERED screen")
+                            // Show already answered screen
+                            QuizAlreadyAnsweredView(totalQuestions: viewModel.totalQuestions, onClose: {
+                                navigationManager.goBack()
+                            })
                         } else if viewModel.currentQuestionNumber == 0 {
                             let _ = print("[QuizView] Rendering START screen")
                             // Show start screen
@@ -276,13 +282,13 @@ struct AgendaQuizView: View {
                     .padding(.vertical, 20)
                 }
                 
-                if !showSummary {
+                if !showSummary && !viewModel.isAllQuestionsAnswered {
                     // Question counter (only show when on a question, not on start screen or waiting screen)
                     if viewModel.currentQuestionNumber > 0 && !viewModel.isWaitingForQuestion {
                         questionCounter
                     }
                     
-                    // Action button (hide when waiting for question in sequential quiz)
+                    // Action button (hide when waiting for question in sequential quiz or all questions answered)
                     if !viewModel.isWaitingForQuestion {
                         actionButton
                     }

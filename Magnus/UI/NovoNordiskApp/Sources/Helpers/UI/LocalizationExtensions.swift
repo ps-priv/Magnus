@@ -377,5 +377,8 @@ enum LocalizedStrings {
     static let quizCloseButton = "QUIZ_CLOSE_BUTTON".localized
     static let quizWaitForAnswerTitle = "QUIZ_WAIT_FOR_ANSWER_TITLE".localized
     static let quizWaitForAnswerMessage = "QUIZ_WAIT_FOR_ANSWER_MESSAGE".localized
+
+    static let quizAlreadyAnsweredTitle = "QUIZ_ALREADY_ANSWERED_TITLE".localized
+    static let quizAlreadyAnsweredMessage = "QUIZ_ALREADY_ANSWERED_MESSAGE".localized
 }
 
