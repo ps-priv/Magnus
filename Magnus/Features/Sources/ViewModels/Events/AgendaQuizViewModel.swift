@@ -220,7 +220,15 @@ public class AgendaQuizViewModel: ObservableObject {
         print("[Quiz] Time spent on question: \(timeSpent) seconds")
         
         // Save and submit the answer
-        let answerIds = Array(currentSelectedAnswers)
+        var answerIds = Array(currentSelectedAnswers)
+        
+        // For text-only questions (type = 5), add first answer ID
+        if questionDetails.query_type == .text,
+           let firstAnswerId = questionDetails.answers?.first?.id {
+            answerIds = [firstAnswerId]
+            print("[Quiz] Text question - using first answer ID: \(firstAnswerId)")
+        }
+        
         saveAnswer(queryId: questionDetails.query_id, answerIds: answerIds, textAnswer: currentTextAnswer)
         
         let request = QuizUserAnswerRequest(
@@ -404,7 +412,15 @@ public class AgendaQuizViewModel: ObservableObject {
         print("[ViewModel] Time spent on question: \(timeSpent) seconds")
         
         // Save the answer locally
-        let answerIds = Array(selectedAnswers)
+        var answerIds = Array(selectedAnswers)
+        
+        // For text-only questions (type = 5), add first answer ID
+        if questionDetails.query_type == .text,
+           let firstAnswerId = questionDetails.answers?.first?.id {
+            answerIds = [firstAnswerId]
+            print("[ViewModel] Text question - using first answer ID: \(firstAnswerId)")
+        }
+        
         saveAnswer(queryId: questionDetails.query_id, answerIds: answerIds, textAnswer: textAnswer)
         
         // Submit answer to server immediately
