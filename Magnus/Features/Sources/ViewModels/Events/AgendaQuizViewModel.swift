@@ -226,7 +226,8 @@ public class AgendaQuizViewModel: ObservableObject {
         let request = QuizUserAnswerRequest(
             query_id: questionDetails.query_id,
             query_time_left: timeSpent,
-            answers_id: answerIds
+            answers_id: answerIds,
+            answer_text: currentTextAnswer.isEmpty ? nil : currentTextAnswer
         )
         
         do {
@@ -410,7 +411,8 @@ public class AgendaQuizViewModel: ObservableObject {
         let request = QuizUserAnswerRequest(
             query_id: questionDetails.query_id,
             query_time_left: timeSpent,
-            answers_id: answerIds
+            answers_id: answerIds,
+            answer_text: textAnswer.isEmpty ? nil : textAnswer
         )
         
         do {
