@@ -132,12 +132,13 @@ private struct QuizQuestionView: View {
             TextEditor(text: $textAnswer)
                 .frame(minHeight: 100)
                 .padding(12)
-                .background(Color(uiColor: .white))
+                .background(Color.white)
                 .cornerRadius(12)
                 .overlay(
                     RoundedRectangle(cornerRadius: 12)
                         .stroke(Color.gray.opacity(0.3), lineWidth: 1)
                 )
+                .colorScheme(.light)
         }
     }
     

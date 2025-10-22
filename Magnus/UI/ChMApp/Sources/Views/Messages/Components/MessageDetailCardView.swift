@@ -13,24 +13,27 @@ struct MessageDetailCardView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {
             VStack(alignment: .leading) {
-                KFImage(URL(string: message.picture))
-                .placeholder {
-                    Rectangle().fill(Color.gray.opacity(0.3))
-                        .overlay(
-                            VStack {
-                                ProgressView()
-                                    .scaleEffect(1.2)
-                                    .tint(.novoNordiskBlue)
-                                FAIcon(.newspaper, type: .light, size: 40, color: .gray)
-                                    .padding(.top, 8)
-                            }
-                        )
+                // Only show image if picture is not nil
+                if let pictureUrl = message.picture, !pictureUrl.isEmpty {
+                    KFImage(URL(string: pictureUrl))
+                    .placeholder {
+                        Rectangle().fill(Color.gray.opacity(0.3))
+                            .overlay(
+                                VStack {
+                                    ProgressView()
+                                        .scaleEffect(1.2)
+                                        .tint(.novoNordiskBlue)
+                                    FAIcon(.newspaper, type: .light, size: 40, color: .gray)
+                                        .padding(.top, 8)
+                                }
+                            )
+                    }
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+                    .frame(height: 190)
+                    .clipped()
+                    .cornerRadius(12)
                 }
-                .resizable()
-                .aspectRatio(contentMode: .fill)
-                .frame(height: 190)
-                .clipped()
-                .cornerRadius(12)
 
                 VStack(alignment: .leading) {
                     Text(message.title)
