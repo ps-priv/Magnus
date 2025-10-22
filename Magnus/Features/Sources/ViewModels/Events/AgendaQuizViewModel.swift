@@ -52,13 +52,6 @@ public class AgendaQuizViewModel: ObservableObject {
 
             await MainActor.run {
                 quiz = data
-            }
-            
-            // Load all question details
-            print("[Quiz] Loading details for \(data.queries.count) questions")
-            await loadAllQuestionDetails(queries: data.queries)
-            
-            await MainActor.run {
                 isLoading = false
             }
         } catch let error {
@@ -70,47 +63,24 @@ public class AgendaQuizViewModel: ObservableObject {
         }
     }
     
-    private func loadAllQuestionDetails(queries: [QuizQuery]) async {
-        for query in queries {
-            do {
-                let details = try await quizService.getQuizQueryDetails(queryId: query.id)
-                print("[Quiz] Loaded details for question \(query.query_no): \(details.query_text)")
-                print("[Quiz] Question type: \(details.query_type), answers count: \(details.answers?.count ?? 0)")
-                allQuestionDetails[query.id] = details
-            } catch {
-                print("[Quiz] Failed to load details for question \(query.query_no): \(error.localizedDescription)")
-                // Continue loading other questions even if one fails
-            }
-        }
-        print("[Quiz] Loaded \(allQuestionDetails.count) out of \(queries.count) questions")
-    }
-    
-    public func loadQuestionDetails(queryId: String) async throws {
-        print("[Quiz] loadQuestionDetails called for queryId: \(queryId)")
-        await MainActor.run {
-            self.isLoading = true
-            hasError = false
-            errorMessage = ""
+    private func loadQuestionDetailsIfNeeded(queryId: String) async -> QuizQueryAnswerResponse? {
+        // Check if already loaded
+        if let cached = allQuestionDetails[queryId] {
+            print("[Quiz] Using cached details for query: \(queryId)")
+            return cached
         }
         
+        // Load from service
         do {
+            print("[Quiz] Loading details for query: \(queryId)")
             let details = try await quizService.getQuizQueryDetails(queryId: queryId)
-            print("[Quiz] Loaded details for query: \(queryId), text: \(details.query_text)")
-            
-            await MainActor.run {
-                print("[Quiz] About to update currentQuestionDetails to: \(details.query_id)")
-                currentQuestionDetails = details
-                isLoading = false
-                print("[Quiz] currentQuestionDetails updated to: \(details.query_id), text: \(details.query_text), isLoading: \(isLoading)")
-            }
-        } catch let error {
-            print("[Quiz] ERROR loading question details: \(error.localizedDescription)")
-            await MainActor.run {
-                errorMessage = error.localizedDescription
-                hasError = true
-                isLoading = false
-            }
-            throw error
+            print("[Quiz] Loaded details: \(details.query_text)")
+            print("[Quiz] Question type: \(details.query_type), answers count: \(details.answers?.count ?? 0)")
+            allQuestionDetails[queryId] = details
+            return details
+        } catch {
+            print("[Quiz] Failed to load details for query \(queryId): \(error.localizedDescription)")
+            return nil
         }
     }
     
@@ -119,33 +89,52 @@ public class AgendaQuizViewModel: ObservableObject {
         print("[Quiz] handleNextButton - current: \(currentQuestionNumber), total: \(quiz.queries.count)")
         
         if currentQuestionNumber == 0 {
-            // Start quiz
-            if let firstQuery = quiz.queries.first,
-               let details = allQuestionDetails[firstQuery.id] {
-                print("[Quiz] Starting quiz with first question: \(firstQuery.id)")
+            // Start quiz - load first question
+            if let firstQuery = quiz.queries.first {
+                print("[Quiz] Starting quiz, loading first question: \(firstQuery.id)")
+                
                 await MainActor.run {
-                    currentQuestionDetails = details
-                    currentQuestionNumber = 1
-                    buttonTitle = FeaturesLocalizedStrings.quizNextButton
-                    print("[Quiz] Started - now at question \(currentQuestionNumber)")
+                    isLoading = true
+                }
+                
+                if let details = await loadQuestionDetailsIfNeeded(queryId: firstQuery.id) {
+                    await MainActor.run {
+                        currentQuestionDetails = details
+                        currentQuestionNumber = 1
+                        buttonTitle = FeaturesLocalizedStrings.quizNextButton
+                        isLoading = false
+                        print("[Quiz] Started - now at question \(currentQuestionNumber)")
+                    }
+                } else {
+                    await MainActor.run {
+                        errorMessage = "Failed to load question details"
+                        hasError = true
+                        isLoading = false
+                    }
+                    print("[Quiz] Failed to start quiz - could not load first question")
                 }
             } else {
-                print("[Quiz] Failed to start quiz - no details available for first question")
+                print("[Quiz] Failed to start quiz - no questions available")
             }
         } else if currentQuestionNumber <= quiz.queries.count {
             // Move to next question or complete
             let nextQuestionNumber = currentQuestionNumber + 1
             
             if nextQuestionNumber <= quiz.queries.count {
-                // Load next question from cache
+                // Load next question
                 let queryIndex = nextQuestionNumber - 1
                 let query = quiz.queries[queryIndex]
                 print("[Quiz] Moving to question \(nextQuestionNumber), queryId: \(query.id)")
                 
-                if let details = allQuestionDetails[query.id] {
+                await MainActor.run {
+                    isLoading = true
+                }
+                
+                if let details = await loadQuestionDetailsIfNeeded(queryId: query.id) {
                     await MainActor.run {
                         currentQuestionDetails = details
                         currentQuestionNumber = nextQuestionNumber
+                        isLoading = false
                         print("[Quiz] Moved to question \(currentQuestionNumber)")
                         
                         if currentQuestionNumber == quiz.queries.count {
@@ -153,7 +142,12 @@ public class AgendaQuizViewModel: ObservableObject {
                         }
                     }
                 } else {
-                    print("[Quiz] ⚠️ No details available for question \(nextQuestionNumber)")
+                    await MainActor.run {
+                        errorMessage = "Failed to load question details"
+                        hasError = true
+                        isLoading = false
+                    }
+                    print("[Quiz] ⚠️ Failed to load details for question \(nextQuestionNumber)")
                 }
             } else {
                 // Complete quiz
