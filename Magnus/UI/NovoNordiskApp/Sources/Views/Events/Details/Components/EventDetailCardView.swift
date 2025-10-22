@@ -15,14 +15,18 @@ struct EventDetailCardView: View {
     }
 
     var body: some View {
-        ScrollView(.vertical, showsIndicators: true) {
-            VStack(alignment: .leading) {
-                EventNavigationBar
+        VStack(spacing: 0) {
+            EventNavigationBar
+                .padding(.horizontal, 16)
+                .padding(.top, 16)
+                .padding(.bottom, 8)
+            
+            ScrollView(.vertical, showsIndicators: true) {
                 EventDetailsSection
             }
+            .padding(.horizontal, 16)
+            .padding(.bottom, 16)
         }
-        .padding(.vertical, 16)
-        .padding(.horizontal, 16)
     }
 
     @ViewBuilder
@@ -265,33 +269,50 @@ struct EventDetailCardView: View {
 
     @ViewBuilder
     var EventNavigationBar: some View {
-        HStack(spacing: 15) {
-            Button(action: {
-                //navigationManager.popToRoot()
-            }) {
-                FAIcon(FontAwesome.Icon.calendar, type: .light, size: 16, color: .novoNordiskBlue)
-                Text(LocalizedStrings.eventTabEvent)
-                    .font(.novoNordiskMiddleText)
-                    .fontWeight(.bold)
-                    .foregroundColor(Color.novoNordiskBlue)
+        HStack(spacing: 10) {
+            Button {
+                print("Event button tapped")
+            } label: {
+                HStack(spacing: 4) {
+                    FAIcon(FontAwesome.Icon.calendar, type: .light, size: 16, color: .novoNordiskBlue)
+                    Text(LocalizedStrings.eventTabEvent)
+                        .font(.novoNordiskMiddleText)
+                        .fontWeight(.bold)
+                        .foregroundColor(Color.novoNordiskBlue)
+                }
+                .padding(.vertical, 8)
+                .padding(.horizontal, 4)
+                .contentShape(Rectangle())
             }
 
-            Button(action: {
+            Button {
+                print("Materials button tapped - eventId: \(eventId)")
                 navigationManager.navigateToEventMaterials(eventId: eventId)
-            }) {
-                FAIcon(FontAwesome.Icon.file, type: .light, size: 16, color: .novoNordiskBlue)
-                Text(LocalizedStrings.eventTabMaterials)
-                    .font(.novoNordiskMiddleText)
-                    .foregroundColor(Color.novoNordiskBlue)
+            } label: {
+                HStack(spacing: 4) {
+                    FAIcon(FontAwesome.Icon.file, type: .light, size: 16, color: .novoNordiskBlue)
+                    Text(LocalizedStrings.eventTabMaterials)
+                        .font(.novoNordiskMiddleText)
+                        .foregroundColor(Color.novoNordiskBlue)
+                }
+                .padding(.vertical, 8)
+                .padding(.horizontal, 4)
+                .contentShape(Rectangle())
             }
 
-            Button(action: {
+            Button {
+                print("Gallery button tapped - eventId: \(eventId)")
                 navigationManager.navigateToEventGallery(eventId: eventId)
-            }) {
-                FAIcon(FontAwesome.Icon.image, type: .light, size: 16, color: .novoNordiskBlue)
-                Text(LocalizedStrings.eventTabPhotobooth)
-                    .font(.novoNordiskMiddleText)
-                    .foregroundColor(Color.novoNordiskBlue)
+            } label: {
+                HStack(spacing: 4) {
+                    FAIcon(FontAwesome.Icon.image, type: .light, size: 16, color: .novoNordiskBlue)
+                    Text(LocalizedStrings.eventTabPhotobooth)
+                        .font(.novoNordiskMiddleText)
+                        .foregroundColor(Color.novoNordiskBlue)
+                }
+                .padding(.vertical, 8)
+                .padding(.horizontal, 4)
+                .contentShape(Rectangle())
             }
 
             Spacer()

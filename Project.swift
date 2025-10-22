@@ -39,7 +39,7 @@ let project = Project(
             infoPlist: .extendingDefault(
                 with: [
                     "CFBundleDisplayName": "NovoNordiskApp",
-                    "CFBundleVersion": "21",
+                    "CFBundleVersion": "22",
                     "NSExtension": [
                         "NSExtensionPointIdentifier": "com.apple.usernotifications.service",
                         "NSExtensionPrincipalClass": "$(PRODUCT_MODULE_NAME).NotificationService",
@@ -138,7 +138,7 @@ let project = Project(
             infoPlist: .extendingDefault(
                 with: [
                     "CFBundleShortVersionString": "1.0",
-                    "CFBundleVersion": "21",
+                    "CFBundleVersion": "22",
                     "UILaunchScreen": [
                         "UIColorName": "",
                         "UIImageName": "",
