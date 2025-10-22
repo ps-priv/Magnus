@@ -1,4 +1,5 @@
 import SwiftUI
+import MagnusDomain
 
 struct QuizWaitForAnswerView: View {
     let totalQuestions: Int
@@ -29,4 +30,4 @@ struct QuizWaitForAnswerView: View {
         .frame(maxWidth: .infinity, alignment: .center)
         .padding(32)
     }
-} 
+}

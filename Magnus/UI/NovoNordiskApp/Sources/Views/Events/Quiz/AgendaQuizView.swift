@@ -165,6 +165,7 @@ struct AgendaQuizView: View {
     @State private var remainingTime: Int = 0
     @State private var timer: Timer?
     @State private var showSummary: Bool = false
+    @State private var isViewActive: Bool = true
     let agendaId: String
 
     init(agendaId: String) {
@@ -193,13 +194,40 @@ struct AgendaQuizView: View {
             )
         }
         .onChange(of: viewModel.currentQuestionDetails?.query_id) { _ in
-            // Start timer when question changes
-            if viewModel.currentQuestionNumber > 0 && !showSummary {
+            // Start timer when question changes (but not when waiting for question)
+            if viewModel.currentQuestionNumber > 0 && !showSummary && !viewModel.isWaitingForQuestion {
                 startTimer()
             }
         }
+        .onChange(of: viewModel.isWaitingForQuestion) { _, isWaiting in
+            // Stop timer when entering waiting state, start when leaving it
+            if isWaiting {
+                stopTimer()
+            } else if viewModel.currentQuestionNumber > 0 && !showSummary {
+                startTimer()
+            }
+        }
+        .onChange(of: viewModel.isQuizCompleted) { _, isCompleted in
+            // Show summary when quiz is completed (e.g., last question has status after/answered)
+            if isCompleted {
+                showSummary = true
+            }
+        }
+        .onChange(of: selectedAnswers) { _, newAnswers in
+            // Update ViewModel with current answers for auto-submit on question change
+            viewModel.updateCurrentAnswers(selectedAnswers: newAnswers, textAnswer: textAnswer)
+        }
+        .onChange(of: textAnswer) { _, newText in
+            // Update ViewModel with current text answer for auto-submit on question change
+            viewModel.updateCurrentAnswers(selectedAnswers: selectedAnswers, textAnswer: newText)
+        }
         .onDisappear {
             stopTimer()
+            Task {
+                await MainActor.run {
+                    viewModel.cleanup()
+                }
+            }
         }
     }
 
@@ -225,6 +253,10 @@ struct AgendaQuizView: View {
                             let _ = print("[QuizView] Rendering START screen")
                             // Show start screen
                             QuizStartView(totalQuestions: viewModel.totalQuestions)
+                        } else if viewModel.isWaitingForQuestion {
+                            let _ = print("[QuizView] Rendering WAIT screen")
+                            // Show waiting screen for sequential quiz
+                            QuizWaitForAnswerView(totalQuestions: viewModel.totalQuestions)
                         } else if let questionDetails = viewModel.currentQuestionDetails {
                             let _ = print("[QuizView] Rendering QUESTION screen - question \(viewModel.currentQuestionNumber)")
                             // Show current question
@@ -244,12 +276,15 @@ struct AgendaQuizView: View {
                 }
                 
                 if !showSummary {
-                    // Question counter (only show when on a question, not on start screen)
-                    if viewModel.currentQuestionNumber > 0 {
+                    // Question counter (only show when on a question, not on start screen or waiting screen)
+                    if viewModel.currentQuestionNumber > 0 && !viewModel.isWaitingForQuestion {
                         questionCounter
                     }
                     
-                    actionButton
+                    // Action button (hide when waiting for question in sequential quiz)
+                    if !viewModel.isWaitingForQuestion {
+                        actionButton
+                    }
                 }
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
@@ -271,8 +306,8 @@ struct AgendaQuizView: View {
             
             Spacer()
             
-            // Show timer only when on a question (not start screen or completion)
-            if viewModel.currentQuestionNumber > 0 && !viewModel.isQuizCompleted {
+            // Show timer only when on a question (not start screen, completion, or waiting screen)
+            if viewModel.currentQuestionNumber > 0 && !viewModel.isQuizCompleted && !viewModel.isWaitingForQuestion {
                 HStack(spacing: 4) {
                     Image(systemName: "clock.fill")
                         .foregroundColor(remainingTime <= 10 ? .red : Color.novoNordiskBlue)
@@ -382,11 +417,27 @@ struct AgendaQuizView: View {
     }
     
     private func handleTimeExpired() {
-        // Auto-submit empty answer and move to next question
+        print("[QuizView] ⏰ Timer expired!")
         Task {
-            await viewModel.handleNextButton()
-            selectedAnswers.removeAll()
-            textAnswer = ""
+            // Clear answers first (so empty answer is submitted)
+            await MainActor.run {
+                print("[QuizView] Clearing answers - selectedAnswers: \(selectedAnswers.count), textAnswer: '\(textAnswer)'")
+                selectedAnswers.removeAll()
+                textAnswer = ""
+                print("[QuizView] Calling updateCurrentAnswers with empty values")
+                viewModel.updateCurrentAnswers(selectedAnswers: [], textAnswer: "")
+                print("[QuizView] updateCurrentAnswers completed")
+            }
+            
+            // Submit empty answer before moving to next question
+            print("[QuizView] About to call submitCurrentAnswerIfNeeded")
+            await viewModel.submitCurrentAnswerIfNeeded()
+            print("[QuizView] submitCurrentAnswerIfNeeded completed")
+            
+            // Move to next question
+            print("[QuizView] About to call moveToNextQuestionAfterSubmit")
+            await viewModel.moveToNextQuestionAfterSubmit()
+            print("[QuizView] moveToNextQuestionAfterSubmit completed")
         }
     }
     

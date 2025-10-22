@@ -30,6 +30,16 @@ public class AgendaQuizViewModel: ObservableObject {
     @Published public var totalCorrectAnswers: Int = 0
     @Published public var userCorrectAnswers: Int = 0
     @Published public var quizPercentage: Double = 0.0
+    
+    // Sequential quiz support
+    @Published public var isWaitingForQuestion: Bool = false
+    private var pollingTimer: Timer?
+    private var currentPollingQueryId: String?
+    
+    // Current answer tracking (for auto-submit on question change)
+    private var currentSelectedAnswers: Set<String> = []
+    private var currentTextAnswer: String = ""
+    private var questionStartTime: Date?
 
     public init(agendaId: String, 
         quizService: QuizService = DIContainer.shared.quizService) {
@@ -40,6 +50,11 @@ public class AgendaQuizViewModel: ObservableObject {
             await loadData()
         }
     }
+    
+    public func cleanup() {
+        stopPolling()
+    }
+    
     public func loadData() async {
         await MainActor.run {
             self.isLoading = true
@@ -63,9 +78,9 @@ public class AgendaQuizViewModel: ObservableObject {
         }
     }
     
-    private func loadQuestionDetailsIfNeeded(queryId: String) async -> QuizQueryAnswerResponse? {
-        // Check if already loaded
-        if let cached = allQuestionDetails[queryId] {
+    private func loadQuestionDetailsIfNeeded(queryId: String, forceReload: Bool = false) async -> QuizQueryAnswerResponse? {
+        // Check if already loaded (skip cache for sequential quiz polling)
+        if !forceReload, let cached = allQuestionDetails[queryId] {
             print("[Quiz] Using cached details for query: \(queryId)")
             return cached
         }
@@ -74,7 +89,7 @@ public class AgendaQuizViewModel: ObservableObject {
         do {
             print("[Quiz] Loading details for query: \(queryId)")
             let details = try await quizService.getQuizQueryDetails(queryId: queryId)
-            print("[Quiz] Loaded details: \(details.query_text)")
+            print("[Quiz] Loaded details: \(details.query_text), status: \(details.status)")
             print("[Quiz] Question type: \(details.query_type), answers count: \(details.answers?.count ?? 0)")
             allQuestionDetails[queryId] = details
             return details
@@ -82,6 +97,215 @@ public class AgendaQuizViewModel: ObservableObject {
             print("[Quiz] Failed to load details for query \(queryId): \(error.localizedDescription)")
             return nil
         }
+    }
+    
+    private func startPolling(queryId: String) {
+        print("[Quiz] Starting polling for query: \(queryId)")
+        stopPolling()
+        currentPollingQueryId = queryId
+        
+        pollingTimer = Timer.scheduledTimer(withTimeInterval: 2.0, repeats: true) { [weak self] _ in
+            guard let self = self else { return }
+            Task { @MainActor in
+                await self.pollQuestionStatus()
+            }
+        }
+    }
+    
+    private func stopPolling() {
+        print("[Quiz] Stopping polling")
+        pollingTimer?.invalidate()
+        pollingTimer = nil
+        currentPollingQueryId = nil
+    }
+    
+    private func pollQuestionStatus() async {
+        guard let queryId = currentPollingQueryId else { return }
+        print("[Quiz] Polling status for query: \(queryId)")
+        
+        if let details = await loadQuestionDetailsIfNeeded(queryId: queryId, forceReload: true) {
+            await handleQuestionStatus(details: details)
+        }
+    }
+    
+    private func handleQuestionStatus(details: QuizQueryAnswerResponse) async {
+        print("[Quiz] Handling question status: \(details.status) for query: \(details.query_id)")
+        
+        switch details.status {
+        case .before:
+            // Status = 1: Wait for question
+            await MainActor.run {
+                isWaitingForQuestion = true
+                currentQuestionDetails = details
+            }
+            // Continue polling
+            
+        case .active:
+            // Status = 2: Show question and allow answering
+            stopPolling()
+            await MainActor.run {
+                isWaitingForQuestion = false
+                currentQuestionDetails = details
+            }
+            // Start timer when question becomes active
+            startQuestionTimer()
+            
+        case .after, .answered:
+            // Status = 3 or 4: Move to next question
+            stopPolling()
+            await MainActor.run {
+                isWaitingForQuestion = false
+            }
+            await moveToNextQuestion()
+        }
+    }
+    
+    public func moveToNextQuestionAfterSubmit() async {
+        // Move to next question without submitting (answer already submitted)
+        await moveToNextQuestionInternal()
+    }
+    
+    private func moveToNextQuestion() async {
+        // Submit current answer before moving to next question
+        await submitCurrentAnswerIfNeeded()
+        await moveToNextQuestionInternal()
+    }
+    
+    private func moveToNextQuestionInternal() async {
+        
+        guard let quiz = quiz else { return }
+        let nextQuestionNumber = currentQuestionNumber + 1
+        
+        if nextQuestionNumber <= quiz.queries.count {
+            let queryIndex = nextQuestionNumber - 1
+            let query = quiz.queries[queryIndex]
+            print("[Quiz] Moving to next question \(nextQuestionNumber), queryId: \(query.id)")
+            
+            await MainActor.run {
+                currentQuestionNumber = nextQuestionNumber
+                if currentQuestionNumber == quiz.queries.count {
+                    buttonTitle = FeaturesLocalizedStrings.quizCompleteButton
+                }
+            }
+            
+            // Load next question and check its status
+            await loadAndHandleQuestion(queryId: query.id)
+        } else {
+            // Complete quiz
+            await MainActor.run {
+                isQuizCompleted = true
+            }
+        }
+    }
+    
+    public func submitCurrentAnswerIfNeeded() async {
+        print("[Quiz] submitCurrentAnswerIfNeeded called")
+        print("[Quiz] - currentQuestionDetails: \(currentQuestionDetails?.query_id ?? "nil")")
+        print("[Quiz] - currentQuestionNumber: \(currentQuestionNumber)")
+        print("[Quiz] - currentSelectedAnswers: \(currentSelectedAnswers)")
+        print("[Quiz] - currentTextAnswer: '\(currentTextAnswer)'")
+        
+        // Only submit if we have a current question
+        guard let questionDetails = currentQuestionDetails,
+              currentQuestionNumber > 0 else {
+            print("[Quiz] ❌ No current question to submit answer for")
+            return
+        }
+        
+        let hasAnswer = !currentSelectedAnswers.isEmpty || !currentTextAnswer.isEmpty
+        print("[Quiz] ✅ Auto-submitting answer for question \(currentQuestionNumber) before moving to next (hasAnswer: \(hasAnswer))")
+        
+        // Calculate time spent on this question
+        let timeSpent = calculateTimeSpent()
+        print("[Quiz] Time spent on question: \(timeSpent) seconds")
+        
+        // Save and submit the answer
+        let answerIds = Array(currentSelectedAnswers)
+        saveAnswer(queryId: questionDetails.query_id, answerIds: answerIds, textAnswer: currentTextAnswer)
+        
+        let request = QuizUserAnswerRequest(
+            query_id: questionDetails.query_id,
+            query_time_left: timeSpent,
+            answers_id: answerIds
+        )
+        
+        do {
+            try await quizService.submitAnswers(answers: request)
+            print("[Quiz] Successfully auto-submitted answer for query \(questionDetails.query_id)")
+        } catch {
+            print("[Quiz] ERROR auto-submitting answer: \(error.localizedDescription)")
+            // Don't block progression on error
+        }
+        
+        // Clear current answers and reset timer
+        currentSelectedAnswers.removeAll()
+        currentTextAnswer = ""
+        questionStartTime = nil
+    }
+    
+    // Update current answers (called from view)
+    public func updateCurrentAnswers(selectedAnswers: Set<String>, textAnswer: String) {
+        print("[ViewModel] updateCurrentAnswers called")
+        print("[ViewModel] - selectedAnswers: \(selectedAnswers)")
+        print("[ViewModel] - textAnswer: '\(textAnswer)'")
+        currentSelectedAnswers = selectedAnswers
+        currentTextAnswer = textAnswer
+        print("[ViewModel] - currentSelectedAnswers updated to: \(currentSelectedAnswers)")
+        print("[ViewModel] - currentTextAnswer updated to: '\(currentTextAnswer)'")
+    }
+    
+    // Start timing for current question
+    public func startQuestionTimer() {
+        questionStartTime = Date()
+        print("[Quiz] Started timer for question \(currentQuestionNumber)")
+    }
+    
+    // Calculate time spent on current question (in seconds)
+    private func calculateTimeSpent() -> Int {
+        guard let startTime = questionStartTime else {
+            return 0
+        }
+        let timeSpent = Int(Date().timeIntervalSince(startTime))
+        return timeSpent
+    }
+    
+    private func loadAndHandleQuestion(queryId: String) async {
+        await MainActor.run {
+            isLoading = true
+        }
+        
+        if let details = await loadQuestionDetailsIfNeeded(queryId: queryId, forceReload: isSequentialQuiz) {
+            await MainActor.run {
+                isLoading = false
+            }
+            
+            if isSequentialQuiz {
+                await handleQuestionStatus(details: details)
+                if details.status == .before {
+                    startPolling(queryId: queryId)
+                } else if details.status == .active {
+                    // Start timer for active question
+                    startQuestionTimer()
+                }
+            } else {
+                // Regular quiz - just show the question
+                await MainActor.run {
+                    currentQuestionDetails = details
+                }
+                // Start timer for regular quiz
+                startQuestionTimer()
+            }
+        } else {
+            await MainActor.run {
+                errorMessage = "Failed to load question details"
+                hasError = true
+                isLoading = false
+            }
+        }
+    }
+    
+    private var isSequentialQuiz: Bool {
+        return quiz?.sequential == .sequential
     }
     
     public func handleNextButton() async {
@@ -94,29 +318,18 @@ public class AgendaQuizViewModel: ObservableObject {
                 print("[Quiz] Starting quiz, loading first question: \(firstQuery.id)")
                 
                 await MainActor.run {
-                    isLoading = true
+                    currentQuestionNumber = 1
+                    buttonTitle = FeaturesLocalizedStrings.quizNextButton
                 }
                 
-                if let details = await loadQuestionDetailsIfNeeded(queryId: firstQuery.id) {
-                    await MainActor.run {
-                        currentQuestionDetails = details
-                        currentQuestionNumber = 1
-                        buttonTitle = FeaturesLocalizedStrings.quizNextButton
-                        isLoading = false
-                        print("[Quiz] Started - now at question \(currentQuestionNumber)")
-                    }
-                } else {
-                    await MainActor.run {
-                        errorMessage = "Failed to load question details"
-                        hasError = true
-                        isLoading = false
-                    }
-                    print("[Quiz] Failed to start quiz - could not load first question")
-                }
+                await loadAndHandleQuestion(queryId: firstQuery.id)
             } else {
                 print("[Quiz] Failed to start quiz - no questions available")
             }
         } else if currentQuestionNumber <= quiz.queries.count {
+            // Submit current answer before moving
+            await submitCurrentAnswerIfNeeded()
+            
             // Move to next question or complete
             let nextQuestionNumber = currentQuestionNumber + 1
             
@@ -127,28 +340,13 @@ public class AgendaQuizViewModel: ObservableObject {
                 print("[Quiz] Moving to question \(nextQuestionNumber), queryId: \(query.id)")
                 
                 await MainActor.run {
-                    isLoading = true
+                    currentQuestionNumber = nextQuestionNumber
+                    if currentQuestionNumber == quiz.queries.count {
+                        buttonTitle = FeaturesLocalizedStrings.quizCompleteButton
+                    }
                 }
                 
-                if let details = await loadQuestionDetailsIfNeeded(queryId: query.id) {
-                    await MainActor.run {
-                        currentQuestionDetails = details
-                        currentQuestionNumber = nextQuestionNumber
-                        isLoading = false
-                        print("[Quiz] Moved to question \(currentQuestionNumber)")
-                        
-                        if currentQuestionNumber == quiz.queries.count {
-                            buttonTitle = FeaturesLocalizedStrings.quizCompleteButton
-                        }
-                    }
-                } else {
-                    await MainActor.run {
-                        errorMessage = "Failed to load question details"
-                        hasError = true
-                        isLoading = false
-                    }
-                    print("[Quiz] ⚠️ Failed to load details for question \(nextQuestionNumber)")
-                }
+                await loadAndHandleQuestion(queryId: query.id)
             } else {
                 // Complete quiz
                 await MainActor.run {
@@ -200,86 +398,44 @@ public class AgendaQuizViewModel: ObservableObject {
         
         print("[ViewModel] submitAnswer - current: \(currentQuestionNumber), total: \(totalQuestions)")
         
-        // Save the answer
+        // Calculate time spent on this question
+        let timeSpent = calculateTimeSpent()
+        print("[ViewModel] Time spent on question: \(timeSpent) seconds")
+        
+        // Save the answer locally
         let answerIds = Array(selectedAnswers)
         saveAnswer(queryId: questionDetails.query_id, answerIds: answerIds, textAnswer: textAnswer)
         
-        // If this is the last question, submit all answers
-        if currentQuestionNumber == totalQuestions {
-            print("[ViewModel] This is the last question - submitting all answers")
-            let success = await submitAllAnswers()
-            if !success {
-                print("[ViewModel] Failed to submit all answers")
+        // Submit answer to server immediately
+        let request = QuizUserAnswerRequest(
+            query_id: questionDetails.query_id,
+            query_time_left: timeSpent,
+            answers_id: answerIds
+        )
+        
+        do {
+            print("[ViewModel] Submitting answer for query \(questionDetails.query_id)")
+            try await quizService.submitAnswers(answers: request)
+            print("[ViewModel] Successfully submitted answer for query \(questionDetails.query_id)")
+            
+            // If this is the last question, calculate statistics
+            if currentQuestionNumber == totalQuestions {
+                print("[ViewModel] This is the last question - calculating statistics")
+                await calculateQuizStatistics()
+                await MainActor.run {
+                    isQuizCompleted = true
+                }
             }
-            return success
-        }
-        
-        print("[ViewModel] Not the last question - returning true")
-        return true
-    }
-    
-    private func submitAllAnswers() async -> Bool {
-        guard let quiz = quiz else {
-            print("[ViewModel] submitAllAnswers - quiz is nil")
-            return false
-        }
-        
-        print("[ViewModel] submitAllAnswers - starting to submit \(quiz.queries.count) questions")
-        print("[ViewModel] submitAllAnswers - userAnswers count: \(userAnswers.count)")
-        
-        var hasErrors = false
-        var lastError: String = ""
-        
-        // Create submission request for each question
-        for (index, query) in quiz.queries.enumerated() {
-            print("[ViewModel] Processing question \(index + 1)/\(quiz.queries.count), queryId: \(query.id)")
             
-            // Get answers for this query (empty array if none)
-            let answerIds = userAnswers[query.id] ?? []
-            print("[ViewModel] Found \(answerIds.count) answers for query \(query.id): \(answerIds)")
-            
-            let request = QuizUserAnswerRequest(
-                query_id: query.id,
-                query_time_left: 0, // You may want to track time
-                answers_id: answerIds
-            )
-            
-            do {
-                print("[ViewModel] Submitting answers for query \(query.id)")
-                try await quizService.submitAnswers(answers: request)
-                print("[ViewModel] Successfully submitted answers for query \(query.id)")
-            } catch {
-                print("[ViewModel] ERROR submitting answers for query \(query.id): \(error.localizedDescription)")
-                print("[ViewModel] Error details: \(error)")
-                print("[ViewModel] Continuing despite error to show summary...")
-                hasErrors = true
-                lastError = error.localizedDescription
-                // Don't return false - continue to show summary
-            }
-        }
-        
-        if hasErrors {
-            print("[ViewModel] Some answers failed to submit, but continuing to show summary")
+            return true
+        } catch {
+            print("[ViewModel] ERROR submitting answer for query \(questionDetails.query_id): \(error.localizedDescription)")
             await MainActor.run {
-                errorMessage = lastError
+                errorMessage = error.localizedDescription
                 hasError = true
             }
+            return false
         }
-        
-        print("[ViewModel] All answers processed, calculating statistics...")
-        
-        // Calculate statistics after all answers are submitted
-        await calculateQuizStatistics()
-        
-        print("[ViewModel] Statistics calculated, setting isQuizCompleted...")
-        
-        // Set quiz as completed after everything is done
-        await MainActor.run {
-            isQuizCompleted = true
-            print("[ViewModel] Quiz completed - isQuizCompleted set to true")
-        }
-        
-        return true
     }
     
     private func calculateQuizStatistics() async {
