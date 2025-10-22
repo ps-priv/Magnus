@@ -183,6 +183,8 @@ struct AgendaQuizView: View {
             }
         }
         .background(Color.novoNordiskBackgroundGrey)
+        .keyboardAdaptiveMedium()
+        .dismissKeyboardOnTap()
         .alert(isPresented: $showValidationError) {
             Alert(
                 title: Text(LocalizedStrings.error),
