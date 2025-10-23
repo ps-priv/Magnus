@@ -152,7 +152,6 @@ struct AgendaItemCardView: View {
         Text(makeLinksClickable(agendaItem.description))
             .font(.novoNordiskBody)
             .foregroundColor(Color.novoNordiskTextGrey)
-            .lineLimit(4)
     }
 
             func makeLinksClickable(_ text: String) -> AttributedString {
