@@ -317,7 +317,7 @@ struct EventDetailCardView: View {
 
             Spacer()
 
-            giftsSection
+            // giftsSection
         }
         .frame(maxWidth: .infinity, alignment: .leading)
     }
