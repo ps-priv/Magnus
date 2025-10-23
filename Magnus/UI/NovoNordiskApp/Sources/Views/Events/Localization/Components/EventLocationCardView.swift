@@ -81,10 +81,6 @@ struct EventLocationCardView: View {
                 Spacer()
             }
 
-            Text(location.name)
-                .font(.novoNordiskMiddleText)
-                .fontWeight(.bold)
-                .foregroundColor(Color.novoNordiskTextGrey)
             
                 Button {
                     if let url = URL(string: location.www) {
