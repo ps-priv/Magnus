@@ -320,6 +320,8 @@ struct NewsDetailCardView: View {
                     color: Color.novoNordiskTextGrey,
                     backgroundColor: Color.novoNordiskLightBlueBackground
                 )
+                .frame(width: 20, height: 25)
+                .background(Color.novoNordiskLightBlueBackground)
             }
             .menuStyle(BorderlessButtonMenuStyle())
             .background(Color.white)
