@@ -155,11 +155,29 @@ struct NewsListCardView: View {
 
     @ViewBuilder
     var descriptionSection: some View {
-        ClickableTextView(text: news.description)
+        // ClickableTextView(text: news.description)
+        //     .font(.novoNordiskBody)
+        //     .foregroundColor(Color.novoNordiskTextGrey)
+        //     .lineLimit(4)
+
+        Text(makeLinksClickable(news.description))
             .font(.novoNordiskBody)
             .foregroundColor(Color.novoNordiskTextGrey)
             .lineLimit(4)
     }
+
+            func makeLinksClickable(_ text: String) -> AttributedString {
+            var attributedString = AttributedString(text)
+            let detector = try? NSDataDetector(types: NSTextCheckingResult.CheckingType.link.rawValue)
+            let matches = detector?.matches(in: text, options: [], range: NSRange(location: 0, length: text.utf16.count))
+            matches?.forEach { match in
+                if let url = match.url,
+                   let range = Range(match.range, in: attributedString) {
+                    attributedString[range].link = url
+                }
+            }
+            return attributedString
+        }   
 
     @ViewBuilder
     var footerSection: some View {

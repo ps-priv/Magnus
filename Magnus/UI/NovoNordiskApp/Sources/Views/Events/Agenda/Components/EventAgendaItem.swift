@@ -88,13 +88,20 @@ struct EventAgendaItem: View {
             //     .padding(.top, 4)
             //     .padding(.bottom, 4)
 
-            ClickableTextView(text: agendaItem.description)
+            // ClickableTextView(text: agendaItem.description)
+            //     .font(.novoNordiskBody)
+            //     .foregroundColor(Color.novoNordiskTextGrey)
+            //     .lineLimit(3)
+            //     .padding(.top, 4)
+            //     .padding(.bottom, 4)
+
+            Text(makeLinksClickable(agendaItem.description))
                 .font(.novoNordiskBody)
                 .foregroundColor(Color.novoNordiskTextGrey)
                 .lineLimit(3)
                 .padding(.top, 4)
                 .padding(.bottom, 4)
-
+    
 
             HStack {
                 // EventAgendaJoinOnlineButton(
@@ -150,7 +157,20 @@ struct EventAgendaItem: View {
     }
     private func navigateToQuiz() {
         NavigationManager.shared.navigateToEventQuiz(agendaId: agendaItem.id)
-    }   
+    }  
+
+                func makeLinksClickable(_ text: String) -> AttributedString {
+                var attributedString = AttributedString(text)
+                let detector = try? NSDataDetector(types: NSTextCheckingResult.CheckingType.link.rawValue)
+                let matches = detector?.matches(in: text, options: [], range: NSRange(location: 0, length: text.utf16.count))
+                matches?.forEach { match in
+                    if let url = match.url,
+                    let range = Range(match.range, in: attributedString) {
+                        attributedString[range].link = url
+                    }
+                }
+                return attributedString
+            } 
 }
 
 #Preview("EventAgendaItem - Quiz, online") {
