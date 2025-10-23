@@ -40,7 +40,6 @@ struct EventAgendaCardView: View {
             eventAgendaSection
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
-        .padding(16)
         .background(Color.novoNordiskBackgroundGrey)
         .onAppear {
             loadDays()

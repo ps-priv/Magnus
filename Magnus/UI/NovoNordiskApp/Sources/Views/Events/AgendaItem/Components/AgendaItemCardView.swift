@@ -44,6 +44,8 @@ struct AgendaItemCardView: View {
         .background(Color.white)
         .cornerRadius(20)
         .shadow(color: Color.black.opacity(0.1), radius: 4, x: 0, y: 2)
+        .padding(.horizontal, 15)
+        .padding(.vertical, 15)
     }
 
     @ViewBuilder
@@ -139,7 +141,11 @@ struct AgendaItemCardView: View {
 
     @ViewBuilder
     var descriptionSection: some View {
-        Text(agendaItem.description)
+        // Text(agendaItem.description)
+        //     .font(.novoNordiskBody)
+        //     .foregroundColor(Color.novoNordiskTextGrey)
+
+        ClickableTextView(text: agendaItem.description)
             .font(.novoNordiskBody)
             .foregroundColor(Color.novoNordiskTextGrey)
     }   

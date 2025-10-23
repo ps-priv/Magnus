@@ -81,12 +81,20 @@ struct EventAgendaItem: View {
                 }
             }
 
-            Text(agendaItem.description)
-                .font(.novoNordiskMiddleText)
+            // Text(agendaItem.description)
+            //     .font(.novoNordiskMiddleText)
+            //     .foregroundColor(Color.novoNordiskTextGrey)
+            //     .lineLimit(3)
+            //     .padding(.top, 4)
+            //     .padding(.bottom, 4)
+
+            ClickableTextView(text: agendaItem.description)
+                .font(.novoNordiskBody)
                 .foregroundColor(Color.novoNordiskTextGrey)
                 .lineLimit(3)
                 .padding(.top, 4)
                 .padding(.bottom, 4)
+
 
             HStack {
                 // EventAgendaJoinOnlineButton(

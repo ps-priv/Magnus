@@ -16,11 +16,11 @@ public class LoginViewModel: ObservableObject {
 
     // MARK: - Published Properties
 
-    @Published public var email: String = "pawel.salek@multizoneit.pl"
-    @Published public var password: String = "zaq1XSW@"
+    // @Published public var email: String = "pawel.salek@multizoneit.pl"
+    // @Published public var password: String = "zaq1XSW@"
 
-    // @Published public var email: String = ""
-    // @Published public var password: String = ""
+    @Published public var email: String = ""
+    @Published public var password: String = ""
 
     @Published public var isLoading: Bool = false
     @Published public var errorMessage: String = ""
