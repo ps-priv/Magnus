@@ -1,6 +1,7 @@
 import Foundation
 import Combine
 import MagnusDomain
+import CryptoKit
 
 @MainActor
 public class NewsEditViewModel: ObservableObject {
@@ -75,6 +76,7 @@ public class NewsEditViewModel: ObservableObject {
         }
 
         do {
+            //checkAttachments(attachments: attachments)
 
             try await newsService.updateNews(id: id, title: title, content: content, image: image, selectedGroups: selectedGroups, attachments: attachments, tags: tags, allow_comments: allowComments)
 
@@ -105,6 +107,8 @@ public class NewsEditViewModel: ObservableObject {
         do {
             let imageString = image?.base64EncodedString() ?? ""
 
+            //checkAttachments(attachments: attachments)
+
             try storageService.saveNewsRequest(news: AddNewsRequest(title: title, message: content, image: imageString, tags: tags, user_groups: selectedGroups.map { $0.id }, attachments: attachments, allow_comments: allowComments))
 
             await MainActor.run {
@@ -131,5 +135,25 @@ public class NewsEditViewModel: ObservableObject {
 
     public var canSendNews: Bool {  
         return !title.isEmpty && !content.isEmpty && image != nil && !(image?.isEmpty == true)
+    }
+
+    private func checkAttachments( attachments: [NewsAttachment]) {
+        print("attachments count: \(attachments.count)")
+
+        for attachment in attachments {
+            print("title: \(attachment.title)")
+            print("type: \(attachment.type)")
+            
+            // Obliczanie SHA256 hash z contentu
+            if !attachment.content.isEmpty {
+                let contentData = Data(attachment.content.utf8)
+                let hash = SHA256.hash(data: contentData)
+                let hashString = hash.compactMap { String(format: "%02x", $0) }.joined()
+                print("content SHA256: \(hashString)")
+            }
+            
+            print("url: \(attachment.url)")
+            print("----------------\n")
+        }
     }
 }

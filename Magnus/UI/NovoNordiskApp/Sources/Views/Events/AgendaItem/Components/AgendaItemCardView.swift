@@ -152,9 +152,15 @@ struct AgendaItemCardView: View {
 
     @ViewBuilder
     var quizSection: some View {
+        // if QuizLaunchHelper.enableQuizLaunch(is_quiz: agendaItem.is_quiz, agendaDate: date, timeFrom: agendaItem.time_from, timeTo: agendaItem.time_to) {
+        //             EventAgendaQuizButton(action: { print("AgendaItemButtonTapped") })
+        //     }
+
         if QuizLaunchHelper.enableQuizLaunch(is_quiz: agendaItem.is_quiz, agendaDate: date, timeFrom: agendaItem.time_from, timeTo: agendaItem.time_to) {
-                    EventAgendaQuizButton(action: { print("AgendaItemButtonTapped") })
-            }
+                EventAgendaQuizButton(action: { 
+                    NavigationManager.shared.navigateToEventQuiz(agendaId: agendaItem.id)
+                    })
+        }
     }
 }
 
