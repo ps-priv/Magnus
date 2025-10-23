@@ -8,7 +8,10 @@ struct DeviceAttachmentSheet: View {
     @State private var pickedURL: URL? = nil
     @State private var fileTypeText: String = ""
     @State private var showImporter: Bool = false
+    @State private var showFileSizeAlert: Bool = false
     @Environment(\.dismiss) private var dismiss
+    
+    private let maxFileSizeInBytes: Int = 5 * 1024 * 1024 // 5 MB
 
     private var allowedTypes: [UTType] {
         var types: [UTType] = [.pdf]
@@ -83,11 +86,31 @@ struct DeviceAttachmentSheet: View {
             switch result {
             case .success(let urls):
                 guard let url = urls.first else { return }
+                
+                // Check file size
+                if url.startAccessingSecurityScopedResource() {
+                    defer { url.stopAccessingSecurityScopedResource() }
+                    do {
+                        let fileAttributes = try FileManager.default.attributesOfItem(atPath: url.path)
+                        if let fileSize = fileAttributes[.size] as? Int, fileSize > maxFileSizeInBytes {
+                            showFileSizeAlert = true
+                            return
+                        }
+                    } catch {
+                        // If we can't get file size, proceed anyway
+                    }
+                }
+                
                 pickedURL = url
                 updateTypeText(for: url)
             case .failure:
                 break
             }
+        }
+        .alert(LocalizedStrings.attachmentFileSizeErrorTitle, isPresented: $showFileSizeAlert) {
+            Button(LocalizedStrings.ok, role: .cancel) { }
+        } message: {
+            Text(LocalizedStrings.attachmentFileSizeErrorMessage)
         }
     }
 

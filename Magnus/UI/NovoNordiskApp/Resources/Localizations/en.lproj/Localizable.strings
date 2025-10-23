@@ -243,6 +243,8 @@
 
 "ATTACHMENT_LINK"="Link";
 "ATTACHMENT_LINK_PLACEHOLDER"="Enter link";
+"ATTACHMENT_FILE_SIZE_ERROR_TITLE"="File is too large";
+"ATTACHMENT_FILE_SIZE_ERROR_MESSAGE"="The selected file exceeds the maximum size of 5 MB. Please select a smaller file.";
 
 "NEWS_ADD_SUCCESS_MESSAGE"="News sent successfully";
 "NEWS_ADD_ERROR_MESSAGE"="News not added";

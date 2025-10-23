@@ -243,6 +243,8 @@
 
 "ATTACHMENT_LINK"="Link";
 "ATTACHMENT_LINK_PLACEHOLDER"="Wprowadź link";
+"ATTACHMENT_FILE_SIZE_ERROR_TITLE"="Plik jest za duży";
+"ATTACHMENT_FILE_SIZE_ERROR_MESSAGE"="Wybrany plik przekracza maksymalny rozmiar 5 MB. Proszę wybrać mniejszy plik.";
 
 "NEWS_ADD_SUCCESS_MESSAGE"="Aktualność została wysłana";
 "NEWS_ADD_ERROR_MESSAGE"="Aktualność nie została wysłana";
