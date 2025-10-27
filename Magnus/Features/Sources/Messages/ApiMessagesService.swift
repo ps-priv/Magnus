@@ -58,4 +58,27 @@ public class ApiMessagesService: MessagesServiceProtocol {
         return messageDetails
     }   
 
+    public func getUnreadMessagesCount() async throws -> GetUnreadMessagesResponse {
+        let token = try authStorageService.getAccessToken() ?? ""
+        let unreadMessagesCount = try await withCheckedThrowingContinuation { continuation in
+            messagesNetworkService.getUnreadMessagesCount(token: token)
+                .sink(
+                    receiveCompletion: { completion in
+                        switch completion {
+                        case .finished:
+                            break
+                        case .failure(let error):
+                            continuation.resume(throwing: error)
+                        }
+                    },
+                    receiveValue: { value in
+                        continuation.resume(returning: value)
+                    }
+                )
+                .store(in: &cancellables)
+        }
+
+        return unreadMessagesCount
+    }
+
 }
