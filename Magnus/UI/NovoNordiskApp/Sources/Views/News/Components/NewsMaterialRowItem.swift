@@ -16,8 +16,13 @@ struct NewsMaterialRowItem: View {
     var body: some View {
         Button(action: {
             if !material.link.isEmpty {
-                navigationManager.navigateToMaterialPreview(
-                    materialUrl: material.link, fileType: material.file_type)
+                // navigationManager.navigateToMaterialPreview(
+                //     materialUrl: material.link, fileType: material.file_type)
+                if material.file_type == FileTypeEnum.link || material.file_type == FileTypeEnum.sharepoint {
+                    if let url = URL(string: material.link) {
+                        UIApplication.shared.open(url)
+                    }
+                }
             }
         }) {
             HStack(alignment: .top) {
