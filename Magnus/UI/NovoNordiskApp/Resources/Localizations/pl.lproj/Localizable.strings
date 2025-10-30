@@ -177,7 +177,7 @@
 "NEWS_DETAILS_REACTIONS_TAB"="Reakcje";
 "NEWS_DETAILS_READS_TAB"="Wyświetlenia";
 
-"CREATE_COMMENT_FOR_NEWS"="Napisz coś od siebie";
+"CREATE_COMMENT_FOR_NEWS"="Czy chcesz skomentować tę wiadomość?";
 "NEWS_DETAILS_NOT_FOUND_TITLE"="Nie znaleziono artykułu";
 "NEWS_DETAILS_NOT_FOUND_MESSAGE"="Sprobuj ponownie później lub poproś administratora o pomoc.";
 
