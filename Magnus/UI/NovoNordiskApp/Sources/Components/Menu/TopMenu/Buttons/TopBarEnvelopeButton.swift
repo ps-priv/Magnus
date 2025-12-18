@@ -3,6 +3,7 @@ import MagnusFeatures
 
 struct TopBarEnvelopeButton: View {
     @StateObject private var viewModel: TopBarEnvelopeButtonViewModel
+    @State private var loadTask: Task<Void, Never>?
     let action: () -> Void
     let isActive: Bool
     
@@ -40,9 +41,14 @@ struct TopBarEnvelopeButton: View {
             }
         }
         .onAppear {
-            Task {
+            loadTask?.cancel()
+            loadTask = Task { @MainActor in
                 await viewModel.getUnreadMessagesCount()
             }
+        }
+        .onDisappear {
+            loadTask?.cancel()
+            loadTask = nil
         }
     }
 }

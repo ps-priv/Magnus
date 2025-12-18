@@ -197,7 +197,10 @@ public class LoginViewModel: ObservableObject {
 
     private func saveAuthenticationData(_ authResponse: AuthResponse) async throws {
         // Calculate token expiration (assume 1 hour if not provided)
-        let expirationDate = Calendar.current.date(byAdding: .hour, value: 10, to: Date())
+        //pierwotne ustawienie
+        //let expirationDate = Calendar.current.date(byAdding: .hour, value: 10, to: Date())
+        //ustawienie na 6 miesiecy
+        let expirationDate = Calendar.current.date(byAdding: .month, value: 6, to: Date())
 
         try authStorageService.saveAuthSession(
             token: authResponse.token,

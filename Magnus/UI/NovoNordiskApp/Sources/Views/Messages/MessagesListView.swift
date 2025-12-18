@@ -3,12 +3,9 @@ import MagnusFeatures
 import MagnusDomain
 
 struct MessagesListView: View {
-    @StateObject private var viewModel: MessagesListViewModel
+    @StateObject private var viewModel = MessagesListViewModel()
+    @State private var loadTask: Task<Void, Never>?
     @EnvironmentObject var navigationManager: NavigationManager
-
-    init() {
-        _viewModel = StateObject(wrappedValue: MessagesListViewModel())
-    }
     
     var body: some View {
         Group {
@@ -22,6 +19,16 @@ struct MessagesListView: View {
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
         .background(Color.novoNordiskBackgroundGrey)
+        .onAppear {
+            loadTask?.cancel()
+            loadTask = Task { @MainActor in
+                viewModel.loadData()
+            }
+        }
+        .onDisappear {
+            loadTask?.cancel()
+            loadTask = nil
+        }
         // .toast(isPresented: $viewModel.showToast, message: viewModel.errorMessage)
     }
 }

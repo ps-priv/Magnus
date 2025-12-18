@@ -5,7 +5,6 @@ import MagnusDomain
 public class ApiMessagesService: MessagesServiceProtocol {
     private let messagesNetworkService: MessagesNetworkServiceProtocol
     private let authStorageService: AuthStorageService
-    private var cancellables = Set<AnyCancellable>()
 
     public init(messagesNetworkService: MessagesNetworkServiceProtocol, authStorageService: AuthStorageService) {
         self.messagesNetworkService = messagesNetworkService
@@ -14,8 +13,9 @@ public class ApiMessagesService: MessagesServiceProtocol {
 
     public func getMessagesList() async throws -> GetMessagesListResponse {
         let token = try authStorageService.getAccessToken() ?? ""
-        let messagesList = try await withCheckedThrowingContinuation { continuation in
-            messagesNetworkService.getMessagesList(token: token)
+        var cancellable: AnyCancellable?
+        let messagesList = try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<GetMessagesListResponse, Error>) in
+            cancellable = messagesNetworkService.getMessagesList(token: token)
                 .sink(
                     receiveCompletion: { completion in
                         switch completion {
@@ -24,21 +24,25 @@ public class ApiMessagesService: MessagesServiceProtocol {
                         case .failure(let error):
                             continuation.resume(throwing: error)
                         }
+                        cancellable?.cancel()
+                        cancellable = nil
                     },
                     receiveValue: { value in
                         continuation.resume(returning: value)
+                        cancellable?.cancel()
+                        cancellable = nil
                     }
                 )
-                .store(in: &cancellables)
         }
 
         return messagesList
     }
 
     public func getMessageDetails(id: String) async throws -> ConferenceMessageDetails {        
-        let token = try authStorageService.getAccessToken() ?? ""   
-        let messageDetails = try await withCheckedThrowingContinuation { continuation in    
-            messagesNetworkService.getMessageDetails(token: token, id: id)
+        let token = try authStorageService.getAccessToken() ?? ""
+        var cancellable: AnyCancellable?
+        let messageDetails = try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<ConferenceMessageDetails, Error>) in
+            cancellable = messagesNetworkService.getMessageDetails(token: token, id: id)
                 .sink(
                     receiveCompletion: { completion in
                         switch completion {
@@ -47,12 +51,15 @@ public class ApiMessagesService: MessagesServiceProtocol {
                         case .failure(let error):
                             continuation.resume(throwing: error)
                         }
+                        cancellable?.cancel()
+                        cancellable = nil
                     },
                     receiveValue: { value in
                         continuation.resume(returning: value)
+                        cancellable?.cancel()
+                        cancellable = nil
                     }
                 )
-                .store(in: &cancellables)
         }
 
         return messageDetails
@@ -60,8 +67,9 @@ public class ApiMessagesService: MessagesServiceProtocol {
 
     public func getUnreadMessagesCount() async throws -> GetUnreadMessagesResponse {
         let token = try authStorageService.getAccessToken() ?? ""
-        let unreadMessagesCount = try await withCheckedThrowingContinuation { continuation in
-            messagesNetworkService.getUnreadMessagesCount(token: token)
+        var cancellable: AnyCancellable?
+        let unreadMessagesCount = try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<GetUnreadMessagesResponse, Error>) in
+            cancellable = messagesNetworkService.getUnreadMessagesCount(token: token)
                 .sink(
                     receiveCompletion: { completion in
                         switch completion {
@@ -70,12 +78,15 @@ public class ApiMessagesService: MessagesServiceProtocol {
                         case .failure(let error):
                             continuation.resume(throwing: error)
                         }
+                        cancellable?.cancel()
+                        cancellable = nil
                     },
                     receiveValue: { value in
                         continuation.resume(returning: value)
+                        cancellable?.cancel()
+                        cancellable = nil
                     }
                 )
-                .store(in: &cancellables)
         }
 
         return unreadMessagesCount

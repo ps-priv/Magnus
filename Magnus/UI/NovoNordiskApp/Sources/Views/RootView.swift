@@ -71,9 +71,11 @@ struct RootView: View {
                 let authStorageService = DIContainer.shared.authStorageService
                 let isAuthenticated = try authStorageService.isAuthenticated()
                 let isTokenExpired = authStorageService.isTokenExpired()
+                let expirationDate = try authStorageService.getTokenExpirationDate()
 
                 print("isAuthenticated:", isAuthenticated)
                 print("isTokenExpired:", isTokenExpired)
+                print("expirationDate:", expirationDate ?? "No expiration date found")
 
                 let user = try authStorageService.getUserData()
                 print("User data:", user ?? "No user data found")
