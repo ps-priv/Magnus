@@ -35,11 +35,11 @@ let project = Project(
             name: "OneSignalNotificationServiceExtension",
             destinations: .iOS,
             product: .appExtension,
-            bundleId: "pl.mz.NovoNordiskApp.OneSignalNotificationServiceExtension",
+            bundleId: "pl.serwik.NovoIndexDoc.Prod.OneSignalNotificationServiceExtension",
             infoPlist: .extendingDefault(
                 with: [
                     "CFBundleDisplayName": "NovoNordiskApp",
-                    "CFBundleVersion": "33",
+                    "CFBundleVersion": "36",
                     "NSExtension": [
                         "NSExtensionPointIdentifier": "com.apple.usernotifications.service",
                         "NSExtensionPrincipalClass": "$(PRODUCT_MODULE_NAME).NotificationService",
@@ -134,11 +134,11 @@ let project = Project(
             name: "NovoNordiskApp",
             destinations: .iOS,
             product: .app,
-            bundleId: "pl.mz.NovoNordiskApp",
+            bundleId: "pl.serwik.NovoIndexDoc.Prod",
             infoPlist: .extendingDefault(
                 with: [
-                    "CFBundleShortVersionString": "1.0",
-                    "CFBundleVersion": "33",
+                    "CFBundleShortVersionString": "2.0",
+                    "CFBundleVersion": "36",
                     "UISupportedInterfaceOrientations": [
                         "UIInterfaceOrientationPortrait"
                     ],

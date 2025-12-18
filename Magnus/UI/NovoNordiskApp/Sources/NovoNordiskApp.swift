@@ -20,8 +20,8 @@ struct NovoNordiskApp: App {
         }
         OneSignal.Debug.setLogLevel(.LL_VERBOSE)
 
-        OneSignal.initialize("fdc9099d-cf34-484d-8030-ecdbb4f2be91", withLaunchOptions: nil)
-        //OneSignal.initialize("a676995a-0bc0-466b-bf7e-dc5ebf80fe27", withLaunchOptions: nil) //ustawienia dla NN_Rep_dev
+        //OneSignal.initialize("fdc9099d-cf34-484d-8030-ecdbb4f2be91", withLaunchOptions: nil) //onesignal mz
+        OneSignal.initialize("a676995a-0bc0-466b-bf7e-dc5ebf80fe27", withLaunchOptions: nil) //ustawienia dla NN_Rep_dev
 
         OneSignal.Notifications.requestPermission({ accepted in
         }, fallbackToSettings: true)
