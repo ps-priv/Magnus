@@ -35,7 +35,12 @@ public class MessageDetailViewModel: ObservableObject {
         }
 
         do {
+            
+            print("[MessageDetailViewModel] Loading message details for messageId: \(messageId)")
+            
             let data: ConferenceMessageDetails = try await messagesService.getMessageDetails(id: messageId)
+            
+            print("[MessageDetailViewModel] Message details loaded: \(data)")
             
             // Check if task was cancelled
             try Task.checkCancellation()
@@ -48,6 +53,7 @@ public class MessageDetailViewModel: ObservableObject {
             print("[MessageDetailViewModel] Load task was cancelled")
             return
         } catch let error {
+            print("[MessageDetailViewModel] Error loading message details: \(error)")
             await MainActor.run {
                 isLoading = false
                 errorMessage = error.localizedDescription

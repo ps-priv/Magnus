@@ -4,7 +4,7 @@ let packages: [Package] = [
     .package(url: "https://github.com/Alamofire/Alamofire.git", from: "5.8.0"),
     .package(url: "https://github.com/Swinject/Swinject.git", from: "2.9.1"),
     .package(url: "https://github.com/getsentry/sentry-cocoa", from: "8.53.2"),
-    .package(url: "https://github.com/EmergeTools/Pow", from: "1.0.5"),
+    .package(url: "https://github.com/EmergeTools/Pow", .branch("main")),
     .package(url: "https://github.com/onevcat/Kingfisher.git", from: "8.5.0"),
     .package(url: "https://github.com/exyte/PopupView.git", from: "4.1.11"),
     .package(url: "https://github.com/exyte/FloatingButton.git", from: "1.4.0"),
@@ -39,7 +39,7 @@ let project = Project(
             infoPlist: .extendingDefault(
                 with: [
                     "CFBundleDisplayName": "NovoNordiskApp",
-                    "CFBundleVersion": "38",
+                    "CFBundleVersion": "40",
                     "NSExtension": [
                         "NSExtensionPointIdentifier": "com.apple.usernotifications.service",
                         "NSExtensionPrincipalClass": "$(PRODUCT_MODULE_NAME).NotificationService",
@@ -138,7 +138,7 @@ let project = Project(
             infoPlist: .extendingDefault(
                 with: [
                     "CFBundleShortVersionString": "2.0",
-                    "CFBundleVersion": "38",
+                    "CFBundleVersion": "41",
                     "UISupportedInterfaceOrientations": [
                         "UIInterfaceOrientationPortrait"
                     ],

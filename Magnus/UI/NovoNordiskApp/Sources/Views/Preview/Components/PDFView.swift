@@ -34,7 +34,7 @@ private struct PDFContentView: View {
                     Image(systemName: "exclamationmark.triangle")
                         .foregroundColor(.orange)
                         .imageScale(.large)
-                    Text("Failed to load PDF")
+                    Text("Wystąpił błąd w trakcie pobierania pliku PDF")
                         .font(.novoNordiskBody)
                         .foregroundColor(.secondary)
                         .multilineTextAlignment(.center)
@@ -43,16 +43,11 @@ private struct PDFContentView: View {
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
             } else {
                 Color.clear
-                    .task {
-                        await load()
-                    }
             }
         }
         .background(Color.clear)
-        .onAppear {
-            if document == nil && !isLoading {
-                Task { await load() }
-            }
+        .task(id: fileURL) {
+            await load()
         }
     }
 

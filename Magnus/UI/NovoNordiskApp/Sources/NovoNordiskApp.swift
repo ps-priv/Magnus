@@ -21,7 +21,9 @@ struct NovoNordiskApp: App {
         OneSignal.Debug.setLogLevel(.LL_VERBOSE)
 
         //OneSignal.initialize("fdc9099d-cf34-484d-8030-ecdbb4f2be91", withLaunchOptions: nil) //onesignal mz
-        OneSignal.initialize("a676995a-0bc0-466b-bf7e-dc5ebf80fe27", withLaunchOptions: nil) //ustawienia dla NN_Rep_dev
+        //OneSignal.initialize("a676995a-0bc0-466b-bf7e-dc5ebf80fe27", withLaunchOptions: nil) //ustawienia dla NN produkcyjnego
+        
+        OneSignal.initialize("19539723-1006-4efa-8744-c90b55b4226e", withLaunchOptions: nil) //NN_Doc_Prod ma ustawienia z onesignal
 
         OneSignal.Notifications.requestPermission({ accepted in
         }, fallbackToSettings: true)

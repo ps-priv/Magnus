@@ -1,13 +1,13 @@
 {
-  "originHash" : "27a43b9f67f437f1795122dd22afcf72179ea1ae4607ba7551ae94fd81273aca",
+  "originHash" : "f6c9788e0c50ad7c19eb43c552d4afd117e1d6af1b7823250819e8baded38aa0",
   "pins" : [
     {
       "identity" : "alamofire",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/Alamofire/Alamofire",
       "state" : {
-        "revision" : "513364f870f6bfc468f9d2ff0a95caccc10044c5",
-        "version" : "5.10.2"
+        "revision" : "7595cbcf59809f9977c5f6378500de2ad73b7ddb",
+        "version" : "5.12.0"
       }
     },
     {
@@ -42,8 +42,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/Swinject/Swinject.git",
       "state" : {
-        "revision" : "be9dbcc7b86811bc131539a20c6f9c2d3e56919f",
-        "version" : "2.9.1"
+        "revision" : "b685b549fe4d8ae265fc7a2f27d0789720425d69",
+        "version" : "2.10.0"
       }
     }
   ],
