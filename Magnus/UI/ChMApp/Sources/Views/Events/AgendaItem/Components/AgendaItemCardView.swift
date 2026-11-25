@@ -142,6 +142,7 @@ struct AgendaItemCardView: View {
 #Preview("AgendaItemCardView") {
 
     var agenda = ConferenceEventAgendaContent(
+        id: "1",
         time_from: "10:00:00",
         time_to: "10:45:00",
         place: "Sala niebieska",

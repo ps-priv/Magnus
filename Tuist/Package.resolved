@@ -1,5 +1,5 @@
 {
-  "originHash" : "f6c9788e0c50ad7c19eb43c552d4afd117e1d6af1b7823250819e8baded38aa0",
+  "originHash" : "40a3efcdf319660a5d9417c0299ae1d752d8b7df42e6bc09a0f9813004fd02b3",
   "pins" : [
     {
       "identity" : "alamofire",
@@ -15,8 +15,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/exyte/PopupView.git",
       "state" : {
-        "revision" : "74c070e9a3b0b13735c031414e8b88f473406ab4",
-        "version" : "4.2.2"
+        "revision" : "38fe3de1d9b455a77dd119794e2fa22bdea3ba7f",
+        "version" : "5.0.9"
       }
     },
     {
@@ -24,8 +24,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/getsentry/sentry-cocoa",
       "state" : {
-        "revision" : "f196cbb98e0388381d57908f2f5a9bdc385cde68",
-        "version" : "8.58.4"
+        "revision" : "485e0622e00d60d71eb6b519822188e2eb7c29e3",
+        "version" : "9.35.0"
       }
     },
     {
