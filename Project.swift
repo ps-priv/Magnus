@@ -56,7 +56,9 @@ let project = Project(
             settings: .settings(
                 base: [
                     "IPHONEOS_DEPLOYMENT_TARGET": "18.5",
-                    "CURRENT_PROJECT_VERSION": "12"
+                    "CURRENT_PROJECT_VERSION": "12",
+                    "CODE_SIGN_STYLE": "Automatic",
+                    "DEVELOPMENT_TEAM": "X5NVKUSVAE",
                 ]
             )
         ),
@@ -85,7 +87,9 @@ let project = Project(
             settings: .settings(
                 base: [
                     "IPHONEOS_DEPLOYMENT_TARGET": "18.5",
-                    "CURRENT_PROJECT_VERSION": "11"
+                    "CURRENT_PROJECT_VERSION": "11",
+                    "CODE_SIGN_STYLE": "Automatic",
+                    "DEVELOPMENT_TEAM": "69392QSC2U",
                 ]
             )
         ),
