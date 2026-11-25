@@ -67,6 +67,7 @@ enum FontAwesome {
 
         // Medical/Health (dla NovoNordisk)
         case heart = "\u{f004}"
+        case star = "\u{f005}"
         case pills = "\u{f484}"
         case syringe = "\u{f48e}"
         case stethoscope = "\u{f0f1}"

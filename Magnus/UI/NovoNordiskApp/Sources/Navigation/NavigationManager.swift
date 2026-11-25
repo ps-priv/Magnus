@@ -82,6 +82,10 @@ class NavigationManager: ObservableObject {
         navigate(to: .eventQuiz(agendaId: agendaId))
     }
 
+    func navigateToAgendaAssessment(agendaContentId: String) {
+        navigate(to: .agendaAssessment(agendaContentId: agendaContentId))
+    }
+
     // func navigateToMaterials() {
     //     navigate(to: .materialsList)
     // }

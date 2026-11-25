@@ -92,6 +92,14 @@ public extension DIContainer {
         }
         return service
     }
+
+    /// Returns registered AgendaAssessmentService instance
+    var agendaAssessmentService: AgendaAssessmentService {
+        guard let service = resolve(ApiAgendaAssessmentService.self) else {
+            fatalError("ApiAgendaAssessmentService not registered in DI container")
+        }
+        return service
+    }
     
     // MARK: - Convenience Methods
     

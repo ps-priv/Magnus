@@ -382,5 +382,17 @@ enum LocalizedStrings {
 
     static let quizAlreadyAnsweredTitle = "QUIZ_ALREADY_ANSWERED_TITLE".localized
     static let quizAlreadyAnsweredMessage = "QUIZ_ALREADY_ANSWERED_MESSAGE".localized
+
+    //Agenda assessment
+    static let agendaAssessmentScreenTitle = "AGENDA_ASSESSMENT_SCREEN_TITLE".localized
+    static let agendaAssessmentHeader = "AGENDA_ASSESSMENT_HEADER".localized
+    static let agendaAssessmentDescriptionLabel = "AGENDA_ASSESSMENT_DESCRIPTION_LABEL".localized
+    static let agendaAssessmentDescriptionPlaceholder = "AGENDA_ASSESSMENT_DESCRIPTION_PLACEHOLDER".localized
+    static let agendaAssessmentSubmitButton = "AGENDA_ASSESSMENT_SUBMIT_BUTTON".localized
+    static let agendaAssessmentThankYouTitle = "AGENDA_ASSESSMENT_THANK_YOU_TITLE".localized
+    static let agendaAssessmentThankYouMessage = "AGENDA_ASSESSMENT_THANK_YOU_MESSAGE".localized
+    static let agendaAssessmentReturnButton = "AGENDA_ASSESSMENT_RETURN_BUTTON".localized
+    static let agendaAssessmentError = "AGENDA_ASSESSMENT_ERROR".localized
+    static let agendaAssessmentStarAccessibility = "AGENDA_ASSESSMENT_STAR_ACCESSIBILITY".localized
 }
 

@@ -392,3 +392,15 @@
 
 
 
+
+// Agenda assessment
+"AGENDA_ASSESSMENT_SCREEN_TITLE" = "Rating";
+"AGENDA_ASSESSMENT_HEADER" = "How would you rate this agenda item?";
+"AGENDA_ASSESSMENT_DESCRIPTION_LABEL" = "Comment (optional)";
+"AGENDA_ASSESSMENT_DESCRIPTION_PLACEHOLDER" = "Write a few words...";
+"AGENDA_ASSESSMENT_SUBMIT_BUTTON" = "Submit";
+"AGENDA_ASSESSMENT_THANK_YOU_TITLE" = "Thank you!";
+"AGENDA_ASSESSMENT_THANK_YOU_MESSAGE" = "Your rating has been submitted.";
+"AGENDA_ASSESSMENT_RETURN_BUTTON" = "Back";
+"AGENDA_ASSESSMENT_ERROR" = "Could not submit your rating. Please try again.";
+"AGENDA_ASSESSMENT_STAR_ACCESSIBILITY" = "%d of 5 stars";

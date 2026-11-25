@@ -35,6 +35,11 @@ public struct PushNotificationKeyNavigation {
                 //nawigacja do eventu, gdzie value to event id
                 navigationManager.navigateToEventDetail(eventId: value)
             }
+
+            if key == "assmt" && !value.isEmpty {
+                //nawigacja do oceny punktu agendy, gdzie value to agenda_content_id
+                navigationManager.navigateToAgendaAssessment(agendaContentId: value)
+            }
         }
     }
 }
