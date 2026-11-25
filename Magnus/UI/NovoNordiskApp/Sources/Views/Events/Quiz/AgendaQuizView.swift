@@ -258,8 +258,12 @@ struct AgendaQuizView: View {
                             })
                         } else if viewModel.currentQuestionNumber == 0 {
                             let _ = print("[QuizView] Rendering START screen")
-                            // Show start screen
-                            QuizStartView(totalQuestions: viewModel.totalQuestions)
+                            // Show start screen (HTML description from API replaces the default welcome)
+                            if let introDescription = viewModel.introDescription {
+                                QuizDescriptionView(html: introDescription)
+                            } else {
+                                QuizStartView(totalQuestions: viewModel.totalQuestions)
+                            }
                         } else if viewModel.isWaitingForQuestion {
                             let _ = print("[QuizView] Rendering WAIT screen")
                             // Show waiting screen for sequential quiz

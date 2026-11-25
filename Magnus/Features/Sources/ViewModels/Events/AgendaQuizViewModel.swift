@@ -1,3 +1,4 @@
+import MagnusApplication
 import MagnusDomain
 import Foundation   
 import Combine
@@ -68,6 +69,9 @@ public class AgendaQuizViewModel: ObservableObject {
 
             await MainActor.run {
                 quiz = data
+                if introDescription != nil && currentQuestionNumber == 0 {
+                    buttonTitle = FeaturesLocalizedStrings.quizStartWithDescriptionButton
+                }
                 isLoading = false
             }
             
@@ -396,6 +400,12 @@ public class AgendaQuizViewModel: ObservableObject {
     
     public var totalQuestions: Int {
         return quiz?.queries.count ?? 0
+    }
+
+    /// Wstęp quizu (HTML) – tylko gdy zawiera widoczny tekst.
+    public var introDescription: String? {
+        guard let description = quiz?.description, HtmlHelper.hasVisibleText(description) else { return nil }
+        return description
     }
     
     public func saveAnswer(queryId: String, answerIds: [String], textAnswer: String = "") {

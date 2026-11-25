@@ -351,6 +351,7 @@
 "QUIZ_QUESTIONS_COUNT" = "Number of questions:";
 
 "QUIZ_START_BUTTON" = "OK, let's start";
+"QUIZ_START_WITH_DESCRIPTION_BUTTON" = "Start quiz";
 "QUIZ_NEXT_BUTTON" = "Next question";
 "QUIZ_COMPLETE_BUTTON" = "Complete";
 

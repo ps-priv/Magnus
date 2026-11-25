@@ -353,6 +353,7 @@
 "QUIZ_QUESTIONS_COUNT" = "Ilość pytań:";
 
 "QUIZ_START_BUTTON" = "OK, zaczynamy";
+"QUIZ_START_WITH_DESCRIPTION_BUTTON" = "Rozpocznij quiz";
 "QUIZ_NEXT_BUTTON" = "Zapisz i pokaż następne";
 "QUIZ_COMPLETE_BUTTON" = "Zakończ";
 

@@ -30,3 +30,7 @@ struct QuizStartView: View {
         .padding(32)
     }
 } 
+
+#Preview("Bez opisu") {
+    QuizStartView(totalQuestions: 5)
+}
