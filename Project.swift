@@ -39,7 +39,7 @@ let project = Project(
             infoPlist: .extendingDefault(
                 with: [
                     "CFBundleDisplayName": "NovoNordiskApp",
-                    "CFBundleVersion": "40",
+                    "CFBundleVersion": "42",
                     "NSExtension": [
                         "NSExtensionPointIdentifier": "com.apple.usernotifications.service",
                         "NSExtensionPrincipalClass": "$(PRODUCT_MODULE_NAME).NotificationService",
@@ -138,10 +138,11 @@ let project = Project(
             infoPlist: .extendingDefault(
                 with: [
                     "CFBundleShortVersionString": "2.0",
-                    "CFBundleVersion": "41",
+                    "CFBundleVersion": "43",
                     "UISupportedInterfaceOrientations": [
                         "UIInterfaceOrientationPortrait"
                     ],
+                    "UIRequiresFullScreen": true,
                     "UILaunchScreen": [
                         "UIColorName": "",
                         "UIImageName": "",
@@ -192,7 +193,7 @@ let project = Project(
                     "DEVELOPMENT_TEAM": "X5NVKUSVAE",
                     "CODE_SIGN_IDENTITY": "Apple Development",
                     "CODE_SIGN_ENTITLEMENTS": "Magnus/UI/NovoNordiskApp/NovoNordiskApp.entitlements",
-                    "TARGETED_DEVICE_FAMILY": "1",
+                    "TARGETED_DEVICE_FAMILY": "1,2",
                     "IPHONEOS_DEPLOYMENT_TARGET": "18.5",
                 ],
                 configurations: [
