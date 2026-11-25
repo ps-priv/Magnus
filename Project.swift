@@ -58,7 +58,7 @@ let project = Project(
                     "IPHONEOS_DEPLOYMENT_TARGET": "18.5",
                     "CURRENT_PROJECT_VERSION": "12",
                     "CODE_SIGN_STYLE": "Automatic",
-                    "DEVELOPMENT_TEAM": "X5NVKUSVAE",
+                    "DEVELOPMENT_TEAM": "69392QSC2U",
                 ]
             )
         ),
@@ -194,7 +194,7 @@ let project = Project(
                 base: [
                     "ASSETCATALOG_COMPILER_APPICON_NAME": "NovoNordiskAppIcon",
                     "CODE_SIGN_STYLE": "Automatic",
-                    "DEVELOPMENT_TEAM": "X5NVKUSVAE",
+                    "DEVELOPMENT_TEAM": "69392QSC2U",
                     "CODE_SIGN_IDENTITY": "Apple Development",
                     "CODE_SIGN_ENTITLEMENTS": "Magnus/UI/NovoNordiskApp/NovoNordiskApp.entitlements",
                     "TARGETED_DEVICE_FAMILY": "1,2",
