@@ -35,7 +35,7 @@ struct AgendaAssessmentFormView: View {
                         RoundedRectangle(cornerRadius: 8)
                             .stroke(Color.gray.opacity(0.3), lineWidth: 1)
                     )
-                    .lineLimit(3...10)
+                    .lineLimit(6...12)
                     .focused($isDescriptionFocused)
                     .disabled(isSubmitting)
             }
