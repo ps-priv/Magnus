@@ -1,14 +1,14 @@
 import ProjectDescription
 
 let packages: [Package] = [
-    .package(url: "https://github.com/Alamofire/Alamofire.git", from: "5.8.0"),
-    .package(url: "https://github.com/Swinject/Swinject.git", from: "2.9.1"),
-    .package(url: "https://github.com/getsentry/sentry-cocoa", from: "8.53.2"),
+    .package(url: "https://github.com/Alamofire/Alamofire.git", from: "5.12.2"),
+    .package(url: "https://github.com/Swinject/Swinject.git", from: "2.10.0"),
+    .package(url: "https://github.com/getsentry/sentry-cocoa", from: "9.35.0"),
     .package(url: "https://github.com/EmergeTools/Pow", .branch("main")),
-    .package(url: "https://github.com/onevcat/Kingfisher.git", from: "8.5.0"),
-    .package(url: "https://github.com/exyte/PopupView.git", from: "4.1.11"),
-    .package(url: "https://github.com/exyte/FloatingButton.git", from: "1.4.0"),
-    .package(url: "https://github.com/OneSignal/OneSignal-iOS-SDK.git", from: "5.2.14")
+    .package(url: "https://github.com/onevcat/Kingfisher.git", from: "8.16.0"),
+    .package(url: "https://github.com/exyte/PopupView.git", from: "5.0.9"),
+    .package(url: "https://github.com/exyte/FloatingButton.git", from: "1.4.1"),
+    .package(url: "https://github.com/OneSignal/OneSignal-iOS-SDK.git", from: "5.8.1")
 
 ]
 

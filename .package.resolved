@@ -1,13 +1,67 @@
 {
-  "originHash" : "2b639b04525b8fb0c65947a9b6144d14e0e5b0fbea80dd7b092b4b266ef0ff90",
+  "originHash" : "1e8ba5b2f28c892fc936696938bed76b0ad2b8c68307a0387b0d448f34a182d7",
   "pins" : [
     {
       "identity" : "alamofire",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/Alamofire/Alamofire.git",
       "state" : {
-        "revision" : "513364f870f6bfc468f9d2ff0a95caccc10044c5",
-        "version" : "5.10.2"
+        "revision" : "bda9ed57d72988a3a2ada33d824583541f86eac6",
+        "version" : "5.12.2"
+      }
+    },
+    {
+      "identity" : "floatingbutton",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/exyte/FloatingButton.git",
+      "state" : {
+        "revision" : "10d2671e4678cf9400fcaee29dac2b20d40f2b38",
+        "version" : "1.4.1"
+      }
+    },
+    {
+      "identity" : "kingfisher",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/onevcat/Kingfisher.git",
+      "state" : {
+        "revision" : "21caad71af5d1cb34ab174786e75c864fd2417bd",
+        "version" : "8.16.0"
+      }
+    },
+    {
+      "identity" : "onesignal-ios-sdk",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/OneSignal/OneSignal-iOS-SDK.git",
+      "state" : {
+        "revision" : "9fd7f926cf6ce83175092ed6880f47fa0b800c87",
+        "version" : "5.8.1"
+      }
+    },
+    {
+      "identity" : "popupview",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/exyte/PopupView.git",
+      "state" : {
+        "revision" : "38fe3de1d9b455a77dd119794e2fa22bdea3ba7f",
+        "version" : "5.0.9"
+      }
+    },
+    {
+      "identity" : "pow",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/EmergeTools/Pow",
+      "state" : {
+        "branch" : "main",
+        "revision" : "1b4b1dda28c50b95f0872927ee2226fe8b58950e"
+      }
+    },
+    {
+      "identity" : "sentry-cocoa",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/getsentry/sentry-cocoa",
+      "state" : {
+        "revision" : "485e0622e00d60d71eb6b519822188e2eb7c29e3",
+        "version" : "9.35.0"
       }
     },
     {
@@ -15,8 +69,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/Swinject/Swinject.git",
       "state" : {
-        "revision" : "be9dbcc7b86811bc131539a20c6f9c2d3e56919f",
-        "version" : "2.9.1"
+        "revision" : "b685b549fe4d8ae265fc7a2f27d0789720425d69",
+        "version" : "2.10.0"
       }
     }
   ],
