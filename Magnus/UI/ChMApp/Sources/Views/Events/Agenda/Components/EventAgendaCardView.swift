@@ -39,8 +39,8 @@ struct EventAgendaCardView: View {
             eventDaysSection
             eventAgendaSection
         }
-        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
         .padding(16)
+        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
         .background(Color.novoNordiskBackgroundGrey)
         .onAppear {
             loadDays()
@@ -75,7 +75,7 @@ struct EventAgendaCardView: View {
             VStack {
                 ForEach(agendaItems.indices, id: \.self) { index in
                     let agendaItem = agendaItems[index]
-                    EventAgendaItem(agendaItem: agendaItem)
+                    EventAgendaItem(agendaItem: agendaItem, date: event.agenda[selectedDayIndex].date)
                 }
             }
             .transition(.asymmetric(

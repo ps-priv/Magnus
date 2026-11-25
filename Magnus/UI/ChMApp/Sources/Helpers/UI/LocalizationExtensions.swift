@@ -24,6 +24,7 @@ enum LocalizedStrings {
     static let loginButton = "LOGIN_BUTTON".localized
     static let registerButton = "REGISTER_BUTTON".localized
     static let loginError = "LOGIN_ERROR".localized
+    static let enterPasswordResetCode = "ENTER_PASSWORD_RESET_CODE".localized
 
     // Forgot Password View
     static let forgotPasswordTitle = "FORGOT_PASSWORD_TITLE".localized
@@ -49,6 +50,7 @@ enum LocalizedStrings {
     // Common
     static let loading = "LOADING".localized
     static let error = "ERROR".localized
+    static let warning = "WARNING".localized
     static let ok = "OK".localized
     static let cancel = "CANCEL".localized
     static let load_more = "LOAD_MORE".localized
@@ -59,6 +61,7 @@ enum LocalizedStrings {
     static let fieldRequired = "FIELD_REQUIRED".localized
     static let invalidEmail = "INVALID_EMAIL".localized
     static let passwordTooShort = "PASSWORD_TOO_SHORT".localized
+    static let invalidCurrentPassword = "INVALID_CURRENT_PASSWORD".localized
 
     // Main App
     static let appTitle = "APP_TITLE".localized
@@ -310,4 +313,74 @@ enum LocalizedStrings {
     static let registerScreenTitle = "REGISTER_SCREEN_TITLE".localized
     static let registerConfirmationTitle = "REGISTER_CONFIRMATION_TITLE".localized
     static let registerMoveToLogin = "REGISTER_MOVE_TO_LOGIN".localized
+
+    //Material Preview
+    static let materialPreviewScreenTitle = "MATERIAL_PREVIEW_SCREEN_TITLE".localized
+    static let addCommentButton = "ADD_COMMENT_BUTTON".localized
+
+    static let newsSearchPlaceholder = "NEWS_SEARCH_PLACEHOLDER".localized
+    static let newsSearchButton = "NEWS_SEARCH_BUTTON".localized
+
+    static let allowComments = "ALLOW_COMMENTS".localized
+
+    static let surveyStartTitle = "SURVEY_START_TITLE".localized
+    static let surveyStartDescription = "SURVEY_START_DESCRIPTION".localized
+    static let surveyTimeInfo = "SURVEY_TIME_INFO".localized
+    static let surveyTime = "SURVEY_TIME".localized
+
+    // Survey
+    static let surveyStartButton = "SURVEY_START_BUTTON".localized
+    static let surveyNextButton = "SURVEY_NEXT_BUTTON".localized
+    static let surveyCompleteButton = "SURVEY_COMPLETE_BUTTON".localized
+    static let surveyThankYouTitle = "SURVEY_THANK_YOU_TITLE".localized
+    static let surveyThankYouMessage = "SURVEY_THANK_YOU_MESSAGE".localized
+    static let surveyCompletionInfo = "SURVEY_COMPLETION_INFO".localized
+
+    static let surveyOpenAnswerPlaceholder = "SURVEY_OPEN_ANSWER_PLACEHOLDER".localized
+    static let surveySelectOneOption = "SURVEY_SELECT_ONE_OPTION".localized
+    static let surveyMultipleChoicePlaceholder = "SURVEY_MULTIPLE_CHOICE_PLACEHOLDER".localized
+    
+    // Survey validation
+    static let surveyValidationNoAnswer = "SURVEY_VALIDATION_NO_ANSWER".localized
+    static let surveyValidationEmptyAnswer = "SURVEY_VALIDATION_EMPTY_ANSWER".localized
+    static let surveyValidationNoSelection = "SURVEY_VALIDATION_NO_SELECTION".localized
+
+    static let surveyErrorTitle = "SURVEY_ERROR_TITLE".localized
+    static let surveyErrorInfo = "SURVEY_ERROR_INFO".localized
+    static let tryAgainButton = "TRY_AGAIN_BUTTON".localized
+
+    static let surveyBeforeTitle = "SURVEY_BEFORE_TITLE".localized
+    static let surveyAfterTitle = "SURVEY_AFTER_TITLE".localized
+    static let surveyAfterDescription = "SURVEY_AFTER_DESCRIPTION".localized
+    static let surveyBeforeDescription = "SURVEY_BEFORE_DESCRIPTION".localized
+
+    static let surveyBackToEventButton = "SURVEY_BACK_TO_EVENT_BUTTON".localized
+
+    static let surveyAlreadyCompletedTitle = "SURVEY_ALREADY_COMPLETED_TITLE".localized
+    static let surveyAlreadyCompletedDescription = "SURVEY_ALREADY_COMPLETED_DESCRIPTION".localized
+
+    //Quiz
+    static let eventQuizScreenTitle = "EVENT_QUIZ_SCREEN_TITLE".localized
+    static let quizWelcomeTitle = "QUIZ_WELCOME_TITLE".localized
+    static let quizWelcomeMessage = "QUIZ_WELCOME_MESSAGE".localized
+    static let quizQuestionsCount = "QUIZ_QUESTIONS_COUNT".localized
+    static let quizQuestion = "QUIZ_QUESTION".localized
+    static let quizYourAnswer = "QUIZ_YOUR_ANSWER".localized
+    static let quizJustificationRequired = "QUIZ_JUSTIFICATION_REQUIRED".localized
+    static let quizThankYouTitle = "QUIZ_THANK_YOU_TITLE".localized
+    static let quizThankYouMessage = "QUIZ_THANK_YOU_MESSAGE".localized
+    static let quizCompletionInfo = "QUIZ_COMPLETION_INFO".localized
+    static let quizResultSubtitle = "QUIZ_RESULT_SUBTITLE".localized
+    static let quizLegendTitle = "QUIZ_LEGEND_TITLE".localized
+    static let quizLegendCorrectSelected = "QUIZ_LEGEND_CORRECT_SELECTED".localized
+    static let quizLegendCorrectNotSelected = "QUIZ_LEGEND_CORRECT_NOT_SELECTED".localized
+    static let quizLegendIncorrectSelected = "QUIZ_LEGEND_INCORRECT_SELECTED".localized
+    static let quizLegendIncorrectNotSelected = "QUIZ_LEGEND_INCORRECT_NOT_SELECTED".localized
+    static let quizCloseButton = "QUIZ_CLOSE_BUTTON".localized
+    static let quizWaitForAnswerTitle = "QUIZ_WAIT_FOR_ANSWER_TITLE".localized
+    static let quizWaitForAnswerMessage = "QUIZ_WAIT_FOR_ANSWER_MESSAGE".localized
+
+    static let quizAlreadyAnsweredTitle = "QUIZ_ALREADY_ANSWERED_TITLE".localized
+    static let quizAlreadyAnsweredMessage = "QUIZ_ALREADY_ANSWERED_MESSAGE".localized
 }
+

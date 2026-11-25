@@ -12,11 +12,12 @@ struct AgendaItemCardView: View {
 
     init(
         agendaItem: ConferenceEventAgendaContent, location: ConferenceEventLocation,
-        action: @escaping () -> Void
+        action: @escaping () -> Void, date: String
     ) {
         self.agendaItem = agendaItem
         self.location = location
         self.action = action
+        self.date = date
     }
 
     var body: some View {
@@ -31,8 +32,9 @@ struct AgendaItemCardView: View {
                         .padding(.bottom, 10)
                     speakersSection
                         .padding(.bottom, 10)
-
                     descriptionSection
+                        .padding(.bottom, 10)
+                    quizSection
                 }
                 .padding(.horizontal, 15)
                 .padding(.vertical, 15)
@@ -42,6 +44,8 @@ struct AgendaItemCardView: View {
         .background(Color.white)
         .cornerRadius(20)
         .shadow(color: Color.black.opacity(0.1), radius: 4, x: 0, y: 2)
+        .padding(.horizontal, 15)
+        .padding(.vertical, 15)
     }
 
     @ViewBuilder
@@ -110,33 +114,71 @@ struct AgendaItemCardView: View {
     @ViewBuilder
     var speakersSection: some View {
         VStack(alignment: .leading) {
-            HStack {
-                Text(LocalizedStrings.eventAgendaSpeaker)
-                    .font(.novoNordiskMiddleText)
-                    .fontWeight(.bold)
-                    .foregroundColor(Color.novoNordiskTextGrey)
-                Text(agendaItem.speakers)
-                    .font(.novoNordiskMiddleText)
-                    .foregroundColor(Color.novoNordiskTextGrey)
+            if !agendaItem.speakers.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+                HStack {
+                    Text(LocalizedStrings.eventAgendaSpeaker)
+                        .font(.novoNordiskMiddleText)
+                        .fontWeight(.bold)
+                        .foregroundColor(Color.novoNordiskTextGrey)
+                    Text(agendaItem.speakers)
+                        .font(.novoNordiskMiddleText)
+                        .foregroundColor(Color.novoNordiskTextGrey)
+                }
             }
-            HStack {
-                Text(LocalizedStrings.eventAgendaPresenter)
-                    .font(.novoNordiskMiddleText)
-                    .fontWeight(.bold)
-                    .foregroundColor(Color.novoNordiskTextGrey)
-                Text(agendaItem.presenters)
-                    .font(.novoNordiskMiddleText)
-                    .foregroundColor(Color.novoNordiskTextGrey)
+            if !agendaItem.presenters.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+                HStack {
+                    Text(LocalizedStrings.eventAgendaPresenter)
+                        .font(.novoNordiskMiddleText)
+                        .fontWeight(.bold)
+                        .foregroundColor(Color.novoNordiskTextGrey)
+                    Text(agendaItem.presenters)
+                        .font(.novoNordiskMiddleText)
+                        .foregroundColor(Color.novoNordiskTextGrey)
+                }
             }
         }
     }
 
     @ViewBuilder
     var descriptionSection: some View {
-        Text(agendaItem.description)
+        // Text(agendaItem.description)
+        //     .font(.novoNordiskBody)
+        //     .foregroundColor(Color.novoNordiskTextGrey)
+
+        // ClickableTextView(text: agendaItem.description)
+        //     .font(.novoNordiskBody)
+        //     .foregroundColor(Color.novoNordiskTextGrey)
+
+        Text(makeLinksClickable(agendaItem.description))
             .font(.novoNordiskBody)
             .foregroundColor(Color.novoNordiskTextGrey)
+    }
+
+            func makeLinksClickable(_ text: String) -> AttributedString {
+            var attributedString = AttributedString(text)
+            let detector = try? NSDataDetector(types: NSTextCheckingResult.CheckingType.link.rawValue)
+            let matches = detector?.matches(in: text, options: [], range: NSRange(location: 0, length: text.utf16.count))
+            matches?.forEach { match in
+                if let url = match.url,
+                   let range = Range(match.range, in: attributedString) {
+                    attributedString[range].link = url
+                }
+            }
+            return attributedString
     }   
+
+    @ViewBuilder
+    var quizSection: some View {
+        // if QuizLaunchHelper.enableQuizLaunch(is_quiz: agendaItem.is_quiz, agendaDate: date, timeFrom: agendaItem.time_from, timeTo: agendaItem.time_to) {
+        //             EventAgendaQuizButton(action: { print("AgendaItemButtonTapped") })
+        //     }
+
+        if QuizLaunchHelper.enableQuizLaunch(is_quiz: agendaItem.is_quiz, agendaDate: date, timeFrom: agendaItem.time_from, timeTo: agendaItem.time_to) {
+                EventAgendaQuizButton(action: { 
+                    NavigationManager.shared.navigateToEventQuiz(agendaId: agendaItem.id)
+                    })
+        }
+    }
 }
 
 #Preview("AgendaItemCardView") {
@@ -172,7 +214,7 @@ struct AgendaItemCardView: View {
     )
 
     VStack {
-        AgendaItemCardView(agendaItem: agenda, location: location, action: {})
+        AgendaItemCardView(agendaItem: agenda, location: location, action: {}, date: "")
     }
     .frame(maxWidth: .infinity, maxHeight: .infinity)
     .padding(20)

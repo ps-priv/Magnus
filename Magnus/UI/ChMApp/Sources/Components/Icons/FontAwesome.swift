@@ -188,21 +188,31 @@ struct FAIcon: View {
     let type: FontAwesome.FontType
     let size: CGFloat
     let color: Color
+    let backgroundColor: Color?
 
     init(
         _ icon: FontAwesome.Icon,
         type: FontAwesome.FontType = .light,
         size: CGFloat = 16,
-        color: Color = Color("NovoNordiskBlue")
+        color: Color = Color("NovoNordiskBlue"),
+        backgroundColor: Color? = nil
     ) {
         self.icon = icon
         self.type = type
         self.size = size
         self.color = color
+        self.backgroundColor = backgroundColor
     }
 
     var body: some View {
         FontAwesome.icon(icon, type: type, size: size, color: color)
+            .background(
+                Group {
+                    if let backgroundColor = backgroundColor {
+                        backgroundColor
+                    }
+                }
+            )
             .onAppear {
                 // Test font loading only once
                 if icon == .home {

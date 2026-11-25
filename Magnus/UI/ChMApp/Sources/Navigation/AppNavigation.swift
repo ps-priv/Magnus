@@ -34,6 +34,8 @@ enum AppScreen: Equatable, Identifiable {
     case eventGallery(eventId: String)
     case eventAddPhoto(eventId: String)
     case eventAgendaItem(eventId: String)
+    case materialPreview(materialUrl: String, fileType: FileTypeEnum)
+    case eventQuiz(agendaId: String)
 
     var id: String {
         switch self {
@@ -97,6 +99,10 @@ enum AppScreen: Equatable, Identifiable {
             return "event_add_photo_\(eventId)"
         case let .eventAgendaItem(eventId):
             return "event_agenda_item_\(eventId)"
+        case let .materialPreview(materialUrl, fileType):
+            return "material_preview_\(materialUrl)_\(fileType)"
+        case let .eventQuiz(agendaId):
+            return "event_quiz_\(agendaId)"
         }
     }
 
@@ -162,6 +168,10 @@ enum AppScreen: Equatable, Identifiable {
             return LocalizedStrings.eventAddPhotoScreenTitle
         case .eventAgendaItem:
             return LocalizedStrings.eventAgendaScreenTitle
+        case .materialPreview:
+            return LocalizedStrings.materialPreviewScreenTitle
+        case .eventQuiz:
+            return LocalizedStrings.eventQuizScreenTitle   
         }
     }
 
@@ -187,7 +197,7 @@ enum AppScreen: Equatable, Identifiable {
             return .newsGroups
         case .academy:
             return .academy
-        case .profile, .settings, .messagesList, .messageDetail, .eventQrCode, .academyCategory, .newsEdit, .newsEditDraft, .newsDrafts:
+        case .profile, .settings, .messagesList, .messageDetail, .eventQrCode, .academyCategory, .newsEdit, .newsEditDraft, .newsDrafts, .eventQuiz:
             return nil
 
         case .eventAgenda:
@@ -207,6 +217,9 @@ enum AppScreen: Equatable, Identifiable {
             return .eventDetails
         case .eventAgendaItem:
             return .eventsAgenda
+
+        case .materialPreview:
+            return .materials
         }
     }
 
@@ -225,7 +238,7 @@ enum AppScreen: Equatable, Identifiable {
         switch self {
         case .profile, .settings, .eventPhoto, .eventAddPhoto:
             return false
-        case .eventQrCode, .materialDetail, .newsDetail:
+        case .eventQrCode, .materialDetail, .newsDetail, .materialPreview, .eventQuiz:
             return false // Ukryj również na ekranach szczegółów
         case .eventDetail:
             return true // Show bottom menu on event details to access agenda/location/dinner/survey
@@ -246,10 +259,11 @@ enum AppScreen: Equatable, Identifiable {
     // Helper to check if top bar search button should be shown
     var shouldShowSearchButton: Bool {
         switch self {
-        case .eventsList, .materialsList, .newsList, .messagesList:
-            return true
-        default:
+        //case .eventsList, .materialsList, .newsList, .messagesList:
+        case .dashboard:
             return false
+        default:
+            return true
         }
     }
 
@@ -277,7 +291,7 @@ enum AppScreen: Equatable, Identifiable {
     var shouldShowSettingsButton: Bool {
         switch self {
         case .profile:
-            return true // Show settings button on profile screen
+            return false // Show settings button on profile screen
         case .settings:
             return false // Don't show settings button on settings screen
         default:

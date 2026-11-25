@@ -107,7 +107,7 @@ struct ResetPasswordView: View {
                                         isEnabled: viewModel.canResetPassword
                                     ) {
                                         Task {
-                                            //await viewModel.sendResetPasswordEmail()
+                                            await viewModel.resetPassword()
                                         }
                                     }
                                     .disabled(!viewModel.canResetPassword)
@@ -124,6 +124,10 @@ struct ResetPasswordView: View {
                                 .padding(.top, 12)
                             }
                             .padding(.horizontal, 24)
+
+                            // Extra space for keyboard
+                            Spacer()
+                                .frame(height: 100)
 
                             // Bottom anchor for programmatic scrolling
                             Color.clear
@@ -143,21 +147,20 @@ struct ResetPasswordView: View {
                     }
                 }
                 .background(Color.white)
-                .ignoresSafeArea(.keyboard, edges: .bottom)
+                .dismissKeyboardOnTap()
                 .navigationBarTitleDisplayMode(.inline)
                 .navigationBarBackButtonHidden(true)
-                // .onChange(of: viewModel.emailSentSuccessfully) { _, success in
-                //     if success {
-                //         showConfirmation = true
-                //     }
-                // }
+                .onChange(of: viewModel.passwordResetSuccessfully) { oldValue, newValue in
+                    if newValue {
+                        showConfirmation = true
+                    }
+                }
                 .fullScreenCover(isPresented: $showConfirmation) {
-                    //            PasswordResetConfirmationView() {
-                    //                // When user taps "Go to password reset"
-                    //                showConfirmation = false
-                    //                // TODO: Navigate to password reset screen or back to login
-                    //                onCancel() // For now, go back to login
-                    //            }
+                    PasswordChangedConfirmationView {
+                        // When user taps "Go to login"
+                        showConfirmation = false
+                        onCancel() // Go back to login
+                    }
                 }
             }
         }

@@ -16,11 +16,12 @@ struct NewsAddCardView: View {
     @Binding public var title: String
     @Binding public var content: String
     @Binding public var image: Data?
+    @Binding public var allowComments: Bool
 
     @FocusState private var isFocusedTitle: Bool
     @FocusState private var isFocusedContent: Bool
 
-    public var canSendNews: Bool = false
+    public var canSendNews: Bool
 
     let saveAction: () -> Void
     let cancelAction: () -> Void
@@ -41,7 +42,8 @@ struct NewsAddCardView: View {
         title: Binding<String>,
         content: Binding<String>,
         image: Binding<Data?>,
-        canSendNews: Bool = false
+        allowComments: Binding<Bool>,
+        canSendNews: Bool
     ) {
         self.saveAction = saveAction
         self.cancelAction = cancelAction
@@ -54,28 +56,34 @@ struct NewsAddCardView: View {
         self._title = title
         self._content = content
         self._image = image
+        self._allowComments = allowComments
         self.canSendNews = canSendNews
     }
 
     var body: some View {
         VStack(spacing: 20) {
-            HStack {
-                PublishButton(
-                    action: {
-                        showSaveConfirmation = true
-                    }, isDisabled: !canSendNews)
-                // WhiteButton(
-                //     title: LocalizedStrings.saveButton,
-                //     action: saveAction,
-                //     isDisabled: !canSendNews)
-                Spacer()
-                WhiteButton(
-                    title: LocalizedStrings.cancelButton,
-                    action: cancelAction,
-                    isDisabled: !canSendNews)
+            // HStack {
+            //     PublishButton(
+            //         action: {
+            //             showSaveConfirmation = true
+            //         }, isDisabled: !canSendNews)
+            //     Spacer()
+            //     WhiteButton(
+            //         title: LocalizedStrings.cancelButton,
+            //         action: cancelAction,
+            //         isDisabled: !canSendNews)
 
-                //DeleteButton(action: deleteAction)
-            }
+            //     //DeleteButton(action: deleteAction)
+            // }
+        
+            SelectAndDisplayImage(
+                imageData: $image,
+                onImageSelected: {
+                    image = $0
+                }
+            )
+            
+            
             VStack(alignment: .leading) {
                 Text(LocalizedStrings.newsAddTitle)
                     .font(.novoNordiskRegularText)
@@ -97,12 +105,12 @@ struct NewsAddCardView: View {
             //     }
             // }
 
-            SelectAndDisplayImage(
-                imageData: $image,
-                onImageSelected: {
-                    image = $0
-                }
-            )
+//            SelectAndDisplayImage(
+//                imageData: $image,
+//                onImageSelected: {
+//                    image = $0
+//                }
+//            )
 
             AttachmentsManager(attachments: $attachments)
 
@@ -120,6 +128,14 @@ struct NewsAddCardView: View {
             }
             .frame(maxWidth: .infinity, alignment: .leading)
 
+
+            NovoNordiskCheckbox(
+                title: LocalizedStrings.allowComments,
+                isChecked: $allowComments,
+                //style: .regular
+            )
+
+
             VStack(alignment: .leading) {
                 Text(LocalizedStrings.newsAddTags)
                     .font(.novoNordiskRegularText)
@@ -128,66 +144,51 @@ struct NewsAddCardView: View {
             }
             .frame(maxWidth: .infinity, alignment: .leading)
 
+
+
             ChipView(chips: $tags, placeholder: "#Tag")
 
             AudienceSettings(selectedGroups: $selectedGroups, availableGroups: availableGroups)
 
-            HStack {
-                PublishButton(
-                    action: {
-                        showSaveConfirmation = true
-                    }, isDisabled: !canSendNews)
-                // WhiteButton(
-                //     title: LocalizedStrings.saveButton,
-                //     action: saveAction,
-                //     isDisabled: !canSendNews)
-                Spacer()
-                WhiteButton(
-                    title: LocalizedStrings.cancelButton,
-                    action: cancelAction,
-                    isDisabled: !canSendNews)
+            // HStack {
+            //     PublishButton(
+            //         action: {
+            //             showSaveConfirmation = true
+            //         }, isDisabled: !canSendNews)
+            //     Spacer()
+            //     WhiteButton(
+            //         title: LocalizedStrings.cancelButton,
+            //         action: cancelAction,
+            //         isDisabled: !canSendNews)
 
-                //DeleteButton(action: deleteAction)
-            }
-            .padding(.top, 20)
+            //     //DeleteButton(action: deleteAction)
+            // }
+            // .padding(.top, 20)
         }
-        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+        .frame(maxWidth: .infinity, alignment: .topLeading)
         .padding()
-        .toolbar {
-            ToolbarItemGroup(placement: .keyboard) {
-                Spacer()
-                Button(LocalizedStrings.endEditingButton) {
-                    hideKeyboard()
-                }
-                .foregroundColor(.white)
-                .padding(.horizontal, 12)
-                .padding(.vertical, 8)
-                .background(Color.novoNordiskBlue)
-                .cornerRadius(8)
-            }
-        }
-        .novoNordiskAlert(
-            isPresented: $showSaveConfirmation,
-            title: LocalizedStrings.newsSaveConfirmationMessage,
-            message: nil,
-            icon: .save,
-            primaryTitle: LocalizedStrings.saveButton,
-            primaryStyle: .destructive,
-            primaryAction: {
-                publishAction()
-                showToast = true
-                toastMessage = LocalizedStrings.newsSaveMessage
-                // DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-                //     navigationManager.navigateToTabRoot(.news)
-                // }
-            },
-            secondaryTitle: LocalizedStrings.cancelButton,
-            secondaryStyle: .cancel,
-            secondaryAction: {
-                // Cancel tapped
-            }
-        )
-        .toast(isPresented: $showToast, message: toastMessage)
+        // .novoNordiskAlert(
+        //     isPresented: $showSaveConfirmation,
+        //     title: LocalizedStrings.newsSaveConfirmationMessage,
+        //     message: nil,
+        //     icon: .save,
+        //     primaryTitle: LocalizedStrings.saveButton,
+        //     primaryStyle: .destructive,
+        //     primaryAction: {
+        //         publishAction()
+        //         showToast = true
+        //         toastMessage = LocalizedStrings.newsSaveMessage
+        //         // DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+        //         //     navigationManager.navigateToTabRoot(.news)
+        //         // }
+        //     },
+        //     secondaryTitle: LocalizedStrings.cancelButton,
+        //     secondaryStyle: .cancel,
+        //     secondaryAction: {
+        //         // Cancel tapped
+        //     }
+        // )
+        //.toast(isPresented: $showToast, message: toastMessage)
     }
 }
 
@@ -205,6 +206,7 @@ struct NewsAddCardView: View {
             title: .constant(""),
             content: .constant(""),
             image: .constant(nil),
+            allowComments: .constant(true),
             canSendNews: false)
     }
     .padding()

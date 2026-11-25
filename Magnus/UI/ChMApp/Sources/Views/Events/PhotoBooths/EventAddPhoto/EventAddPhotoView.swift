@@ -101,7 +101,7 @@ private struct CameraPicker: UIViewControllerRepresentable {
             .disabled(imageData == nil || isUploading)
         }
         .padding()
-        .toast(isPresented: $showToast, message: toastMessage)
+        //.toast(isPresented: $showToast, message: toastMessage)
         .sheet(isPresented: $showCamera) {
             CameraPicker(imageData: $imageData)
                 .ignoresSafeArea()

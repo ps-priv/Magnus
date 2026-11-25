@@ -91,16 +91,18 @@ struct EventCardView: View {
                             .foregroundColor(.novoNordiskTextGrey)
 
 
-                        HStack {
-                            EventSeatsInfoView(seats: event.seats)
-                                .padding(.trailing, 10)
-                            Spacer()
-                        }
-                        .padding(.top, 10)
+                        // HStack {
+                        //     EventSeatsInfoView(seats: event.seats)
+                        //         .padding(.trailing, 10)
+                        //     Spacer()
+                        // }
+                        // .padding(.top, 10)
                     }
+                    .frame(maxHeight: .infinity, alignment: .top)
                     .padding(.horizontal, 20)
                     .padding(.top, 20)
                 }
+                .background(Color.novoNordiskBackgroundGrey)
             }
         }
         .buttonStyle(PlainButtonStyle())

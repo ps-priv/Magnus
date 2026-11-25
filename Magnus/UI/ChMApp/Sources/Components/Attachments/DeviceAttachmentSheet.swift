@@ -145,6 +145,7 @@ struct DeviceAttachmentSheet: View {
             onAdd(attachment)
             dismiss()
         } catch {
+            print("Dodawanie zalacznika: \(error)")
             // optionally handle error (log, show alert)
         }
     }

@@ -51,10 +51,9 @@ struct NewsDetailView: View {
                                 await viewModel.addCommentToNews(comment: text)
                             }
                         },
-                        allowEdit: viewModel.allowEdit,
-                        currentUserId: viewModel.currentUserId
+                        userPermissions: viewModel.userPermissions
                     )
-                    .toast(isPresented: $viewModel.showPopup, message: viewModel.popupMessage)
+                    //.toast(isPresented: $viewModel.showPopup, message: viewModel.popupMessage)
                     .padding(.top, 16)
                     .padding(.horizontal, 16)
                     .padding(.bottom, 16)
@@ -62,6 +61,9 @@ struct NewsDetailView: View {
                     NewsDetailsNotFound()
                 }
             }
+        }
+        .onDisappear {
+            viewModel.showPopup = false
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
         .background(Color.novoNordiskBackgroundGrey)
@@ -87,7 +89,6 @@ struct NewsDetailView: View {
             secondaryAction: {
                 // Cancel tapped
             }
-        )
-        .toast(isPresented: $showToast, message: toastMessage)
+        )  
     }
 }

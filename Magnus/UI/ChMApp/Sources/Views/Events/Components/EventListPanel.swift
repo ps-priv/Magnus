@@ -37,7 +37,7 @@ struct EventListPanel: View {
             }
             .padding(.top, 20)
             Spacer()
-            EventsListLink(action: action)
+            //EventsListLink(action: action)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Color.novoNordiskBackgroundGrey)

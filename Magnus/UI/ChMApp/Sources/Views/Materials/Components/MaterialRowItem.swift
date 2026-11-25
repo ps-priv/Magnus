@@ -4,7 +4,7 @@ import MagnusFeatures
 import SwiftUI
 
 struct MaterialRowItem: View {
-
+    @EnvironmentObject var navigationManager: NavigationManager
     let material: ConferenceMaterialListItem
     let isSelected: Bool
 
@@ -15,7 +15,10 @@ struct MaterialRowItem: View {
 
     var body: some View {
         Button(action: {
-            MaterialNavigatorHelper.navigateToMaterial(material: material)
+            if !material.link.isEmpty {
+                navigationManager.navigateToMaterialPreview(
+                    materialUrl: material.link, fileType: material.file_type)
+            }
         }) {
             HStack(alignment: .top) {
                 FAIcon(
@@ -51,4 +54,3 @@ struct MaterialRowItem: View {
         }
     }
 }
-

@@ -128,7 +128,7 @@ struct ForgotPasswordView: View {
                 }
             }
             .background(Color.white)
-            .ignoresSafeArea(.keyboard, edges: .bottom)
+            .dismissKeyboardOnTap()
             .navigationBarTitleDisplayMode(.inline)
             .navigationBarBackButtonHidden(true)
             .onChange(of: viewModel.emailSentSuccessfully) { _, success in
@@ -137,12 +137,18 @@ struct ForgotPasswordView: View {
                 }
             }
             .fullScreenCover(isPresented: $showConfirmation) {
-                //            PasswordResetConfirmationView() {
-                //                // When user taps "Go to password reset"
-                //                showConfirmation = false
-                //                // TODO: Navigate to password reset screen or back to login
-                //                onCancel() // For now, go back to login
-                //            }
+                PasswordResetConfirmationView(
+                    onGoToLogin: {
+                        // When user taps "Go to login"
+                        showConfirmation = false
+                        onCancel() // Go back to login
+                    },
+                    onEnterPasswordResetCode: {
+                        // When user taps "Enter password reset code"
+                        showConfirmation = false
+                        showResetPassword = true
+                    }
+                )
             }
             .fullScreenCover(isPresented: $showResetPassword) {
                 ResetPasswordView {

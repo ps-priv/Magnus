@@ -81,10 +81,6 @@ struct EventLocationCardView: View {
                 Spacer()
             }
 
-            Text(location.name)
-                .font(.novoNordiskMiddleText)
-                .fontWeight(.bold)
-                .foregroundColor(Color.novoNordiskTextGrey)
             
                 Button {
                     if let url = URL(string: location.www) {
@@ -99,21 +95,20 @@ struct EventLocationCardView: View {
 
             KFImage(URL(string: location.image))
                 .placeholder {
-                    Rectangle().fill(Color.gray.opacity(0.3))
-                        .overlay(
-                            VStack {
-                                ProgressView()
-                                    .scaleEffect(1.2)
-                                    .tint(.novoNordiskBlue)
-                                FAIcon(.newspaper, type: .light, size: 40, color: .gray)
-                                    .padding(.top, 8)
-                            }
-                        )
+                    ZStack {
+                        Color.gray.opacity(0.3)
+                        VStack {
+                            ProgressView()
+                                .scaleEffect(1.2)
+                                .tint(.novoNordiskBlue)
+                            FAIcon(.newspaper, type: .light, size: 40, color: .gray)
+                                .padding(.top, 8)
+                        }
+                    }
                 }
                 .resizable()
                 .aspectRatio(contentMode: .fill)
-                .frame(height: 190)
-                .clipped()
+                //.frame(height: 190)
                 .cornerRadius(12)
 
             Text(location.description)

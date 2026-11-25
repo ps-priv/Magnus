@@ -267,6 +267,7 @@ let project = Project(
                 .package(product: "Pow"),
                 .package(product: "Kingfisher"),
                 .package(product: "PopupView"),
+                .package(product: "FloatingButton"),
                 .package(product: "OneSignalFramework"),
                 .target(name: "ChMOneSignalNotificationServiceExtension"),
             ],

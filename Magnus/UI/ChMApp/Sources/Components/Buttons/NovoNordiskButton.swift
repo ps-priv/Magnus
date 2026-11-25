@@ -46,6 +46,7 @@ struct NovoNordiskButton: View {
 enum NovoNordiskButtonStyle {
     case primary
     case secondary
+    case disabled
     case outline
     case danger
     
@@ -55,6 +56,8 @@ enum NovoNordiskButtonStyle {
             return Color("NovoNordiskBlue")
         case .secondary:
             return Color.gray.opacity(0.1)
+        case .disabled:
+            return Color.gray.opacity(0.3)
         case .outline:
             return Color.clear
         case .danger:
@@ -68,6 +71,8 @@ enum NovoNordiskButtonStyle {
             return Color.white
         case .secondary:
             return Color("NovoNordiskBlue")
+        case .disabled:
+            return Color.gray.opacity(0.6)
         case .outline:
             return Color("NovoNordiskBlue")
         case .danger:
@@ -80,6 +85,8 @@ enum NovoNordiskButtonStyle {
         case .primary:
             return Color.clear
         case .secondary:
+            return Color.clear
+        case .disabled:
             return Color.clear
         case .outline:
             return Color("NovoNordiskBlue")
@@ -94,6 +101,8 @@ enum NovoNordiskButtonStyle {
             return 0
         case .outline:
             return 2
+        case .disabled:
+            return 0
         }
     }
     

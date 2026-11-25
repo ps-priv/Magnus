@@ -6,13 +6,16 @@ import SwiftUI
 struct EventAgendaItem: View {
     let agendaItem: ConferenceEventAgendaContent
     let storageService: MagnusStorageService
+    let date: String
 
     init(
         agendaItem: ConferenceEventAgendaContent,
-        storageService: MagnusStorageService = DIContainer.shared.storageService
+        storageService: MagnusStorageService = DIContainer.shared.storageService,
+        date: String
     ) {
         self.agendaItem = agendaItem
         self.storageService = storageService
+        self.date = date
     }
 
     var body: some View {
@@ -21,11 +24,14 @@ struct EventAgendaItem: View {
                 Text(TimeHelper.formatPublishDate(agendaItem.time_from))
                     .font(.novoNordiskSectionTitle)
                     .foregroundColor(Color.novoNordiskBlue)
+                Text(" - ")
+                    .font(.novoNordiskSectionTitle)
+                    .foregroundColor(Color.novoNordiskBlue)
                 Text(TimeHelper.formatPublishDate(agendaItem.time_to))
                     .font(.novoNordiskSectionTitle)
                     .foregroundColor(Color.novoNordiskBlue)
 
-                if !agendaItem.place.isEmpty {
+                if !agendaItem.place.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
                     Text("|")
                         .font(.novoNordiskSectionTitle)
                         .foregroundColor(Color.novoNordiskTextGrey)
@@ -50,7 +56,7 @@ struct EventAgendaItem: View {
             }
             .padding(.bottom, 6)
 
-            if !agendaItem.speakers.isEmpty {
+            if !agendaItem.speakers.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
                 HStack {
                     Text("\(LocalizedStrings.eventAgendaSpeaker): ")
                         .font(.novoNordiskMiddleText)
@@ -63,7 +69,7 @@ struct EventAgendaItem: View {
                 }
             }
             
-            if !agendaItem.presenters.isEmpty {
+            if !agendaItem.presenters.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
                 HStack {
                     Text("\(LocalizedStrings.eventAgendaPresenter): ")
                         .font(.novoNordiskMiddleText)
@@ -76,20 +82,37 @@ struct EventAgendaItem: View {
                 }
             }
 
-            Text(agendaItem.description)
-                .font(.novoNordiskMiddleText)
+            // Text(agendaItem.description)
+            //     .font(.novoNordiskMiddleText)
+            //     .foregroundColor(Color.novoNordiskTextGrey)
+            //     .lineLimit(3)
+            //     .padding(.top, 4)
+            //     .padding(.bottom, 4)
+
+            // ClickableTextView(text: agendaItem.description)
+            //     .font(.novoNordiskBody)
+            //     .foregroundColor(Color.novoNordiskTextGrey)
+            //     .lineLimit(3)
+            //     .padding(.top, 4)
+            //     .padding(.bottom, 4)
+
+            Text(makeLinksClickable(agendaItem.description))
+                .font(.novoNordiskBody)
                 .foregroundColor(Color.novoNordiskTextGrey)
                 .lineLimit(3)
                 .padding(.top, 4)
                 .padding(.bottom, 4)
+    
 
             HStack {
-                
                 // EventAgendaJoinOnlineButton(
                 //     isOnline: agendaItem.is_online, action: { print("AgendaItemButtonTapped") })
-                // if agendaItem.is_quiz == 1 {
-                //     EventAgendaQuizButton(action: { print("AgendaItemButtonTapped") })
-                // }
+                if QuizLaunchHelper.enableQuizLaunch(is_quiz: agendaItem.is_quiz, agendaDate: date, timeFrom: agendaItem.time_from, timeTo: agendaItem.time_to) {
+                    EventAgendaQuizButton(action: { 
+                        print("AgendaItemButtonTapped") 
+                        navigateToQuiz()
+                        })
+                }
                 Spacer()
                 Button(action: {
                     navigateToAgendaItem()
@@ -126,21 +149,36 @@ struct EventAgendaItem: View {
     }
 
     private func navigateToAgendaItem() {
-
         do {
             try storageService.saveAgendaItem(agendaItem: agendaItem)
-            NavigationManager.shared.navigate(to: .eventAgendaItem(eventId: ""))
+            NavigationManager.shared.navigate(to: .eventAgendaItem(eventId: agendaItem.id))
         } catch {
             print("Error saving agenda item: \(error)")
         }
     }
+    private func navigateToQuiz() {
+        NavigationManager.shared.navigateToEventQuiz(agendaId: agendaItem.id)
+    }  
+
+                func makeLinksClickable(_ text: String) -> AttributedString {
+                var attributedString = AttributedString(text)
+                let detector = try? NSDataDetector(types: NSTextCheckingResult.CheckingType.link.rawValue)
+                let matches = detector?.matches(in: text, options: [], range: NSRange(location: 0, length: text.utf16.count))
+                matches?.forEach { match in
+                    if let url = match.url,
+                    let range = Range(match.range, in: attributedString) {
+                        attributedString[range].link = url
+                    }
+                }
+                return attributedString
+            } 
 }
 
 #Preview("EventAgendaItem - Quiz, online") {
     let agendaItem = EventAgendaMock.getEventAgendaContent(
         hasQuiz: true, hasOnline: true, timeFrom: "18:00:00", timeTo: "19:7:00")
     VStack {
-        EventAgendaItem(agendaItem: agendaItem)
+        EventAgendaItem(agendaItem: agendaItem, date: "")
     }
     .padding(20)
     .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -150,7 +188,7 @@ struct EventAgendaItem: View {
 #Preview("EventAgendaItem") {
     let agendaItem = EventAgendaMock.getEventAgendaContent(hasQuiz: false, hasOnline: false)
     VStack {
-        EventAgendaItem(agendaItem: agendaItem)
+        EventAgendaItem(agendaItem: agendaItem, date: "")
     }
     .padding(20)
     .frame(maxWidth: .infinity, maxHeight: .infinity)

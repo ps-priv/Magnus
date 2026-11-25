@@ -10,6 +10,7 @@ struct MainNavigationContainer: View {
     private let authStorageService: AuthStorageService
 
     @State private var allowEdit: Bool = false
+    @State private var allowAddNews: Bool = false
 
     public init(
         authStorageService: AuthStorageService = DIContainer.shared.authStorageService
@@ -23,6 +24,7 @@ struct MainNavigationContainer: View {
             let userData = try authStorageService.getUserData()
             let role = userData?.role
             allowEdit = (role == .przedstawiciel)
+            allowAddNews = userData?.getUserPermissions().canAddNews() ?? false
         } catch {
             allowEdit = false
         }
@@ -169,6 +171,10 @@ struct MainNavigationContainer: View {
             EventAddPhotoView(eventId: eventId)
         case let .eventAgendaItem(eventId):
             AgendaItemView(eventId: eventId)
+        case let .materialPreview(materialUrl, fileType):
+            MaterialPreview(materialUrl: materialUrl, fileType: fileType)
+        case let .eventQuiz(agendaId):
+            AgendaQuizView(agendaId: agendaId)
         }
     }
 
@@ -242,11 +248,12 @@ struct MainNavigationContainer: View {
 
             if allowedFunctions.allowNews {
                 tabs.append(.news)
-                tabs.append(.newsGroups)
+                //tabs.append(.newsGroups)
+                tabs.append(.events)
                 tabs.append(.newsBookmarks)
             }
 
-            if allowedFunctions.allowNewsCreate && allowEdit {
+            if allowedFunctions.allowNewsCreate && allowAddNews {
                 tabs.append(.newsCreate)
             }
 

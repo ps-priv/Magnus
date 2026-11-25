@@ -1,6 +1,14 @@
 import SwiftUI
 
 struct PasswordResetConfirmationView: View {
+    let onGoToLogin: () -> Void
+    let onEnterPasswordResetCode: () -> Void
+    
+    init(onGoToLogin: @escaping () -> Void = {}, onEnterPasswordResetCode: @escaping () -> Void = {}) {
+        self.onGoToLogin = onGoToLogin
+        self.onEnterPasswordResetCode = onEnterPasswordResetCode
+    }
+    
     var body: some View {
         NavigationView {
             GeometryReader { geometry in
@@ -48,14 +56,21 @@ struct PasswordResetConfirmationView: View {
                         Spacer(minLength: 40)
                         
                         // Bottom section
-                        VStack(spacing: 32) {
-                            
-                            // Go to password reset button
+                        VStack(spacing: 12) {
                             NovoNordiskButton(
-                                title: LocalizedStrings.goToPasswordReset,
+                                title: LocalizedStrings.enterPasswordResetCode,
+                                style: .outline
+                            ) {
+                                onEnterPasswordResetCode()
+                            }
+                            .padding(.horizontal, 24)
+
+                            // Go to login button
+                            NovoNordiskButton(
+                                title: LocalizedStrings.back,
                                 style: .primary
                             ) {
-  
+                                onGoToLogin()
                             }
                             .padding(.horizontal, 24)
                         }

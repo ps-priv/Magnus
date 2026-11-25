@@ -295,35 +295,64 @@
 "ACADEMY_EMPTY_MATERIALS_LIST_TITLE"="Brak materiałów";
 "ACADEMY_EMPTY_MATERIALS_LIST_DESCRIPTION"="Nie znaleziono materiałów";
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// Synced from NovoNordiskApp
+"ENTER_PASSWORD_RESET_CODE" = "Wprowadź kod";
+"WARNING" = "Uwaga";
+"REGISTER_SCREEN_TITLE"="Twoje dane";
+"REGISTER_CONFIRMATION_TITLE"="Rejestracja zakończona";
+"REGISTER_MOVE_TO_LOGIN"="Przejdź do logowania";
+"MATERIAL_PREVIEW_SCREEN_TITLE"="Podgląd materiału";
+"ADD_COMMENT_BUTTON"="Dodaj komentarz";
+"NEWS_SEARCH_PLACEHOLDER"="Wpisz szukany tytuł...";
+"NEWS_SEARCH_BUTTON"="Szukaj";
+"ALLOW_COMMENTS"="Zezwalaj na komentarze";
+"SURVEY_START_TITLE" = "Twoja opinia jest ważna.";
+"SURVEY_START_DESCRIPTION" = "Prosimy Cię o odpowiedź na kilka pytań związanych z konferencją.";
+"SURVEY_TIME_INFO" = "Czas potrzebny na wypełnienie:";
+"SURVEY_TIME" = "około 2 min.";
+"SURVEY_START_BUTTON" = "OK, zaczynamy";
+"SURVEY_NEXT_BUTTON" = "Zapisz i pokaż kolejne pytanie";
+"SURVEY_COMPLETE_BUTTON" = "Zakończ";
+"SURVEY_THANK_YOU_TITLE" = "Dziękujemy!";
+"SURVEY_THANK_YOU_MESSAGE" = "To już wszystko.";
+"SURVEY_COMPLETION_INFO" = "Dziękujemy za Twoją czas i wkład w ulepszenie kolejnych spotkań";
+"SURVEY_OPEN_ANSWER_PLACEHOLDER" = "Wpisz swoją odpowiedź...";
+"SURVEY_SELECT_ONE_OPTION" = "Wybierz jedną opcję:";
+"SURVEY_MULTIPLE_CHOICE_PLACEHOLDER" = "Wybierz jedną lub więcej opcji:";
+"SURVEY_VALIDATION_NO_ANSWER" = "Proszę wskazać odpowiedź.";
+"SURVEY_VALIDATION_EMPTY_ANSWER" = "Proszę wpisać swoją odpowiedź.";
+"SURVEY_VALIDATION_NO_SELECTION" = "Proszę wybrać co najmniej jedną opcję.";
+"SURVEY_ERROR_TITLE" = "Wystąpił błąd.";
+"SURVEY_ERROR_INFO" = "Wystąpił błąd podczas prezentowania ankiety. Proszę spróbować ponownie. Jeśli problem będzie się powtarzać, skontaktuj się z nami.";
+"TRY_AGAIN_BUTTON" = "Spróbuj ponownie";
+"SURVEY_BEFORE_TITLE" = "Ankieta jest jeszcze nieaktywna";
+"SURVEY_AFTER_TITLE" = "Ankieta jest już nieaktywna";
+"SURVEY_AFTER_DESCRIPTION" = "Ankieta jest już nieaktywna. Dziękujemy za Twoją opinię.";
+"SURVEY_BEFORE_DESCRIPTION" = "Ankieta jest jeszcze nieaktywna. Proszę czekać na rozpoczęcie ankiety.";
+"SURVEY_BACK_TO_EVENT_BUTTON" = "Powrót do wydarzenia";
+"SURVEY_ALREADY_COMPLETED_TITLE" = "Ankieta została już wypełniona";
+"SURVEY_ALREADY_COMPLETED_DESCRIPTION" = "Ankieta została już wypełniona. Dziękujemy za Twoją opinię.";
+"EVENT_QUIZ_SCREEN_TITLE" = "Quiz";
+"QUIZ_WELCOME_TITLE" = "Witaj w Quizie";
+"QUIZ_WELCOME_MESSAGE" = "Odpowiedz na kilka pytań, sprawdź swoją wiedzę";
+"QUIZ_QUESTIONS_COUNT" = "Ilość pytań:";
+"QUIZ_START_BUTTON" = "OK, zaczynamy";
+"QUIZ_NEXT_BUTTON" = "Zapisz i pokaż następne";
+"QUIZ_COMPLETE_BUTTON" = "Zakończ";
+"QUIZ_YOUR_ANSWER" = "Twoja odpowiedź";
+"QUIZ_JUSTIFICATION_REQUIRED" = "Uzasadnienie (wymagane)";
+"QUIZ_THANK_YOU_TITLE" = "Dziękujemy!";
+"QUIZ_THANK_YOU_MESSAGE" = "Twoje odpowiedzi zostały zapisane";
+"QUIZ_COMPLETION_INFO" = "Możesz teraz zamknąć quiz";
+"QUIZ_QUESTION" = "Pytanie";
+"QUIZ_RESULT_SUBTITLE" = "Twój wynik to:";
+"QUIZ_LEGEND_TITLE" = "Legenda:";
+"QUIZ_LEGEND_CORRECT_SELECTED" = "Poprawna odpowiedź wybrana przez Ciebie";
+"QUIZ_LEGEND_CORRECT_NOT_SELECTED" = "Poprawna odpowiedź, której nie wybrałeś";
+"QUIZ_LEGEND_INCORRECT_SELECTED" = "Niepoprawna odpowiedź wybrana przez Ciebie";
+"QUIZ_LEGEND_INCORRECT_NOT_SELECTED" = "Niepoprawna odpowiedź nie wybrana";
+"QUIZ_CLOSE_BUTTON" = "Zamknij";
+"QUIZ_WAIT_FOR_ANSWER_TITLE" = "Czekamy na pytanie";
+"QUIZ_WAIT_FOR_ANSWER_MESSAGE" = "Czekamy, aż nowe pytanie zostanie udostępnione.";
+"QUIZ_ALREADY_ANSWERED_TITLE" = "Quiz został już wypełniony";
+"QUIZ_ALREADY_ANSWERED_MESSAGE" = "Quiz został już przez Ciebie wypełniony. Dziękujemy!";

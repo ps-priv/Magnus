@@ -1,8 +1,9 @@
+import Foundation
 import Kingfisher
 import MagnusApplication
 import MagnusDomain
 import MagnusFeatures
-import Pow
+import PopupView
 import SwiftUI
 
 struct NewsDetailCardView: View {
@@ -15,10 +16,10 @@ struct NewsDetailCardView: View {
     let onDeleteTap: () -> Void
     let onReactionTap: (ReactionEnum) -> Void
     let onCommentTap: (String) -> Void
-    let allowEdit: Bool
-    let currentUserId: String
+    let userPermissions: UserPermissions
 
     @State var isBookmarked: Bool
+    @State var selectedReaction: ReactionEnum
     @State var showReactionsMenu: Bool = false
     @State private var showDeleteConfirmation: Bool = false
     @State private var showToast: Bool = false
@@ -49,8 +50,7 @@ struct NewsDetailCardView: View {
         onDeleteTap: @escaping () -> Void,
         onReactionTap: @escaping (ReactionEnum) -> Void,
         onCommentTap: @escaping (String) -> Void,
-        allowEdit: Bool,
-        currentUserId: String
+        userPermissions: UserPermissions
     ) {
         self.news = news
         self.isCommentsEnabled = isCommentsEnabled
@@ -61,150 +61,162 @@ struct NewsDetailCardView: View {
         self.onReactionTap = onReactionTap
         _isBookmarked = State(initialValue: news.isBookmarked)
         self.onCommentTap = onCommentTap
-        self.allowEdit = allowEdit
-        self.currentUserId = currentUserId
+        self.userPermissions = userPermissions
+
+        selectedReaction =
+            news.reactions.first(where: { $0.author.id == userPermissions.id })?.reaction ?? .SMILE
     }
 
     var body: some View {
         ScrollView(.vertical, showsIndicators: true) {
             ZStack {
-                Button(action: onTap) {
-                    VStack(alignment: .leading, spacing: 12) {
-                        KFImage(URL(string: news.image))
-                            .placeholder {
-                                Rectangle().fill(Color.gray.opacity(0.3))
-                                    .overlay(
-                                        VStack {
-                                            ProgressView()
-                                                .scaleEffect(1.2)
-                                                .tint(.novoNordiskBlue)
-                                            FAIcon(.newspaper, type: .light, size: 40, color: .gray)
-                                                .padding(.top, 8)
-                                        }
-                                    )
+                    Button(action: onTap) {
+                        VStack(alignment: .leading, spacing: 12) {
+                            KFImage(URL(string: news.image))
+                                .placeholder {
+                                    Rectangle().fill(Color.gray.opacity(0.3))
+                                        .overlay(
+                                            VStack {
+                                                ProgressView()
+                                                    .scaleEffect(1.2)
+                                                    .tint(.novoNordiskBlue)
+                                                FAIcon(.newspaper, type: .light, size: 40, color: .gray)
+                                                    .padding(.top, 8)
+                                            }
+                                        )
+                                }
+                                .resizable()
+                                .aspectRatio(contentMode: .fill)
+                                .frame(height: 190)
+                                .clipped()
+                                .cornerRadius(12)
+
+                            VStack(alignment: .leading) {
+                                titleSection
+                                    .padding(.bottom, 4)
+                                descriptionSection
+                                    .padding(.bottom, 3)
+                                tagsSection
+                                    .padding(.bottom, 3)
+                                footerSection
+                                attachmentsSection
                             }
-                            .resizable()
-                            .aspectRatio(contentMode: .fill)
-                            .frame(height: 190)
-                            .clipped()
-                            .cornerRadius(12)
-
-                        VStack(alignment: .leading) {
-                            titleSection
-                                .padding(.bottom, 4)
-                            descriptionSection
-                                .padding(.bottom, 3)
-                            tagsSection
-                                .padding(.bottom, 3)
-                            footerSection
+                            .padding(.horizontal, 16)
+                            .padding(.bottom, 16)
                         }
-                        .padding(.horizontal, 16)
-                        .padding(.bottom, 16)
+
                     }
-                }
-                .buttonStyle(PlainButtonStyle())
-                .background(Color.novoNordiskLightBlueBackground)
-                .cornerRadius(12)
-                .overlay(
-                    RoundedRectangle(cornerRadius: 12)
-                        .stroke(Color.novoNordiskLightBlue, lineWidth: 1)
-                )
-                .shadow(color: .black.opacity(0.1), radius: 4, x: 0, y: 2)
-
-                // Menu reakcji jako overlay
-                if showReactionsMenu {
-                    VStack(spacing: 8) {
-                        // Thumbs Up
-                        Button(action: {
-                            onReactionTap(.THUMBS_UP)
-                            showReactionsMenu = false
-                        }) {
-                            FAIcon(
-                                FontAwesome.Icon.thumbsUp,
-                                type: .thin,
-                                size: 20,
-                                color: Color.novoNordiskBlue
-                            )
-                        }
-
-                        // Heart
-                        Button(action: {
-                            onReactionTap(.HEART)
-                            showReactionsMenu = false
-                        }) {
-                            FAIcon(
-                                FontAwesome.Icon.heart,
-                                type: .thin,
-                                size: 20,
-                                color: Color.novoNordiskBlue
-                            )
-                        }
-
-                        // Clapping Hands
-                        Button(action: {
-                            onReactionTap(.CLAPPING_HANDS)
-                            showReactionsMenu = false
-                        }) {
-                            FAIcon(
-                                FontAwesome.Icon.clappingHands,
-                                type: .thin,
-                                size: 20,
-                                color: Color.novoNordiskBlue
-                            )
-                        }
-
-                        // Lightbulb
-                        Button(action: {
-                            onReactionTap(.LIGHT_BULB)
-                            showReactionsMenu = false
-                        }) {
-                            FAIcon(
-                                FontAwesome.Icon.lightBulb,
-                                type: .thin,
-                                size: 20,
-                                color: Color.novoNordiskBlue
-                            )
-                        }
-
-                        // Hand with Heart
-                        Button(action: {
-                            onReactionTap(.HAND_HOLDING_HEART)
-                            showReactionsMenu = false
-                        }) {
-                            FAIcon(
-                                FontAwesome.Icon.handHoldingHeart,
-                                type: .thin,
-                                size: 20,
-                                color: Color.novoNordiskBlue
-                            )
-                        }
-
-                        // Thumbs Down
-                        Button(action: {
-                            onReactionTap(.THUMBS_DOWN)
-                            showReactionsMenu = false
-                        }) {
-                            FAIcon(
-                                FontAwesome.Icon.thumbsDown,
-                                type: .thin,
-                                size: 20,
-                                color: Color.novoNordiskBlue
-                            )
-                        }
-                    }
-                    .padding(.vertical, 12)
-                    .padding(.horizontal, 8)
-                    .background(Color.white)
-                    .cornerRadius(20)
+                    .buttonStyle(PlainButtonStyle())
+                    .background(Color.novoNordiskLightBlueBackground)
+                    .cornerRadius(12)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 12)
+                            .stroke(Color.novoNordiskLightBlue, lineWidth: 1)
+                    )
                     .shadow(color: .black.opacity(0.1), radius: 4, x: 0, y: 2)
-                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottomTrailing)
-                    .offset(x: -10, y: -20)
-                    .zIndex(1000)
-                    .transition(.opacity.combined(with: .scale))
-                }
+
+                    // Menu reakcji jako overlay
+                    if showReactionsMenu {
+                        VStack(spacing: 20) {
+                            // Thumbs Up
+                            Button(action: {
+                                onReactionTap(.THUMBS_UP)
+                                selectedReaction = .THUMBS_UP
+                                showReactionsMenu = false
+                            }) {
+                                FAIcon(
+                                    FontAwesome.Icon.thumbsUp,
+                                    type: .thin,
+                                    size: 25,
+                                    color: Color.novoNordiskBlue
+                                )
+                            }
+
+                            // Heart
+                            Button(action: {
+                                onReactionTap(.HEART)
+                                selectedReaction = .HEART
+                                showReactionsMenu = false
+
+                            }) {
+                                FAIcon(
+                                    FontAwesome.Icon.heart,
+                                    type: .thin,
+                                    size: 25,
+                                    color: Color.novoNordiskBlue
+                                )
+                            }
+
+                            // Clapping Hands
+                            Button(action: {
+                                onReactionTap(.CLAPPING_HANDS)
+                                showReactionsMenu = false
+                            }) {
+                                FAIcon(
+                                    FontAwesome.Icon.clappingHands,
+                                    type: .thin,
+                                    size: 20,
+                                    color: Color.novoNordiskBlue
+                                )
+                            }
+
+                            // Lightbulb
+                            Button(action: {
+                                onReactionTap(.LIGHT_BULB)
+                                selectedReaction = .LIGHT_BULB
+                                showReactionsMenu = false
+                            }) {
+                                FAIcon(
+                                    FontAwesome.Icon.lightBulb,
+                                    type: .thin,
+                                    size: 25,
+                                    color: Color.novoNordiskBlue
+                                )
+                            }
+
+                            // Hand with Heart
+                            Button(action: {
+                                onReactionTap(.HAND_HOLDING_HEART)
+                                selectedReaction = .HAND_HOLDING_HEART
+                                showReactionsMenu = false
+                            }) {
+                                FAIcon(
+                                    FontAwesome.Icon.handHoldingHeart,
+                                    type: .thin,
+                                    size: 25,
+                                    color: Color.novoNordiskBlue
+                                )
+                            }
+
+                            // Thumbs Down
+                            Button(action: {
+                                onReactionTap(.THUMBS_DOWN)
+                                selectedReaction = .THUMBS_DOWN
+                                showReactionsMenu = false
+                            }) {
+                                FAIcon(
+                                    FontAwesome.Icon.thumbsDown,
+                                    type: .thin,
+                                    size: 25,
+                                    color: Color.novoNordiskBlue
+                                )
+                            }
+                        }
+                        .padding(.vertical, 12)
+                        .padding(.horizontal, 8)
+                        .background(Color.white)
+                        .cornerRadius(20)
+                        .shadow(color: .black.opacity(0.1), radius: 4, x: 0, y: 2)
+                        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottomTrailing)
+                        .offset(x: -10, y: -20)
+                        .zIndex(1000)
+                        .transition(.opacity.combined(with: .scale))
+                    }
             }
             tabSection
         }
+        .keyboardAdaptiveMedium()
+        .dismissKeyboardOnTap()
         .novoNordiskAlert(
             isPresented: $showDeleteConfirmation,
             title: LocalizedStrings.newsDeleteConfirmationMessage,
@@ -226,7 +238,6 @@ struct NewsDetailCardView: View {
                 // Cancel tapped
             }
         )
-        .toast(isPresented: $showToast, message: toastMessage)
     }
 
     @ViewBuilder
@@ -257,25 +268,25 @@ struct NewsDetailCardView: View {
             isBookmarked.toggle()
         }) {
             //if !news.is_bookmarked {
-            if isBookmarked {
+            if !isBookmarked {
                 FAIcon(
                     FontAwesome.Icon.bookmark,
                     type: .light,
-                    size: 16,
+                    size: 25,
                     color: Color.novoNordiskTextGrey
                 )
             } else {
                 FAIcon(
                     FontAwesome.Icon.bookmark,
                     type: .solid,
-                    size: 16,
+                    size: 25,
                     color: Color.novoNordiskLightBlue
                 )
             }
         }
         .changeEffect(
             .spray(origin: UnitPoint(x: 0.25, y: 0.5)) {
-                if !isBookmarked {
+                if isBookmarked {
                     FAIcon(
                         FontAwesome.Icon.bookmark,
                         type: .solid,
@@ -288,7 +299,7 @@ struct NewsDetailCardView: View {
 
     @ViewBuilder
     var editSection: some View {
-        if currentUserId == news.author.id {
+        if userPermissions.canEditNews(newsAuthorId: news.author.id) {
             Menu {
                 Button {
                     onEditTap()
@@ -305,19 +316,24 @@ struct NewsDetailCardView: View {
                 FAIcon(
                     FontAwesome.Icon.ellipsisVertical,
                     type: .light,
-                    size: 16,
-                    color: Color.novoNordiskTextGrey
+                    size: 25,
+                    color: Color.novoNordiskTextGrey,
+                    backgroundColor: Color.novoNordiskLightBlueBackground
                 )
+                .frame(width: 20, height: 25)
+                .background(Color.novoNordiskLightBlueBackground)
             }
             .menuStyle(BorderlessButtonMenuStyle())
             .background(Color.white)
         }
-        //.shadow(color: .black.opacity(0.9), radius: 12, x: 0, y: 0)
     }
 
     @ViewBuilder
     var descriptionSection: some View {
-        Text(news.description)
+        // ClickableTextView(text: news.description)
+        //     .font(.novoNordiskBody)
+        //     .foregroundColor(Color.novoNordiskTextGrey)
+        Text(makeLinksClickable(news.description))
             .font(.novoNordiskBody)
             .foregroundColor(Color.novoNordiskTextGrey)
     }
@@ -344,9 +360,11 @@ struct NewsDetailCardView: View {
                 Text(news.author.name)
                     .font(.novoNordiskAuthorName)
                     .foregroundColor(Color.novoNordiskTextGrey)
-                Text(news.author.groups)
-                    .font(.novoNordiskAuthorGroups)
-                    .foregroundColor(Color.novoNordiskBlue)
+                if (news.author.groups.trimmingCharacters(in: .whitespacesAndNewlines)   != "") {
+                    Text(news.author.groups)
+                        .font(.novoNordiskAuthorGroups)
+                        .foregroundColor(Color.novoNordiskBlue)
+                }
             }
         }
     }
@@ -374,21 +392,18 @@ struct NewsDetailCardView: View {
 
     @ViewBuilder
     var reactionsSection: some View {
-        Button(action: {
-            withAnimation(.easeInOut(duration: 0.2)) {
-                showReactionsMenu.toggle()
-            }
-        }) {
-            HStack(spacing: 2) {
-                FAIcon(
-                    FontAwesome.Icon.smile,
-                    type: .light,
-                    size: 14,
-                    color: Color.novoNordiskTextGrey
-                )
-                Text(String(news.reactions_count))
-                    .font(.novoNordiskSmallText)
-                    .foregroundColor(Color.novoNordiskTextGrey)
+        if news.allowReactions() {
+            Button(action: {
+                withAnimation(.easeInOut(duration: 0.2)) {
+                    showReactionsMenu.toggle()
+                }
+            }) {
+                HStack(spacing: 2) {
+                    RectionComponent(
+                        reactionsCount: news.reactions_count,
+                        selectedReaction: selectedReaction
+                    )
+                }
             }
         }
     }
@@ -400,7 +415,7 @@ struct NewsDetailCardView: View {
                 FAIcon(
                     FontAwesome.Icon.eye,
                     type: .light,
-                    size: 14,
+                    size: 20,
                     color: Color.novoNordiskTextGrey
                 )
                 Text(String(news.read_count))
@@ -412,7 +427,7 @@ struct NewsDetailCardView: View {
                 FAIcon(
                     FontAwesome.Icon.comment,
                     type: .light,
-                    size: 14,
+                    size: 20,
                     color: Color.novoNordiskTextGrey
                 )
                 Text(String(news.comments_count))
@@ -427,29 +442,62 @@ struct NewsDetailCardView: View {
     var tabSection: some View {
         VStack(alignment: .leading, spacing: 10) {
             HStack(spacing: 16) {
-                ForEach(StatsTab.allCases, id: \.self) { tab in
-                    Button(action: { selectedStatsTab = tab }) {
-                        Text(tab.title)
+
+                if news.allowComments() {
+                    Button(action: { selectedStatsTab = .comments }) {
+                        Text(LocalizedStrings.newsDetailsCommentsTab)
                             .font(.system(size: 14))
-                            .fontWeight(selectedStatsTab == tab ? .bold : .regular)
+                            .fontWeight(selectedStatsTab == .comments ? .bold : .regular)
                             .foregroundColor(Color.novoNordiskBlue)
                     }
                     .buttonStyle(.plain)
+                }
+
+                if news.allowReactions() {
+                    Button(action: { selectedStatsTab = .reactions }) {
+                        Text(LocalizedStrings.newsDetailsReactionsTab)
+                            .font(.system(size: 14))
+                            .fontWeight(selectedStatsTab == .reactions ? .bold : .regular)
+                            .foregroundColor(Color.novoNordiskBlue)
+                    }
+                    .buttonStyle(.plain)
+                }
+
+                Button(action: { selectedStatsTab = .reads }) {
+                    Text(LocalizedStrings.newsDetailsReadsTab)
+                        .font(.system(size: 14))
+                        .fontWeight(selectedStatsTab == .reads ? .bold : .regular)
+                        .foregroundColor(Color.novoNordiskBlue)
+                }
+                .buttonStyle(.plain)
+            }
+            .onAppear(){
+                if (news.allowComments()) {
+                    selectedStatsTab = .comments
+                } else if ( news.allowComments() == false && news.allowReactions()) {
+                    selectedStatsTab = .reactions
+                } else {
+                    selectedStatsTab = .reads
                 }
             }
 
             Group {
                 switch selectedStatsTab {
                 case .comments:
-                    VStack {
-                        CommentsListForNews(comments: news.comments)
-                        if isCommentsEnabled {
-                            CreateCommentForNewsView(onSendTap: onCommentTap, onCancelTap: {})
+                    if news.allowComments() {
+                        VStack {
+                            CommentsListForNews(comments: news.comments)
+                            if isCommentsEnabled {
+                                CreateCommentForNewsView(onSendTap: onCommentTap, onCancelTap: {})
+                                    .padding(.top, 30)
+                            }
                         }
                     }
 
                 case .reactions:
-                    ReactionListForNews(reactions: news.reactions)
+                    if news.allowReactions() {
+                        ReactionListForNews(reactions: news.reactions)
+                    }
 
                 case .reads:
                     ReadListForNews(read: news.read)
@@ -460,6 +508,31 @@ struct NewsDetailCardView: View {
         }
         .padding(.top, 10)
     }
+
+    @ViewBuilder
+    private var attachmentsSection: some View {
+        if !news.attachments.isEmpty {
+            VStack(alignment: .leading, spacing: 12) {
+                ForEach(news.attachments, id: \.id) { attachment in
+                    NewsMaterialRowItem(material: attachment)
+                }
+            }
+            .padding(.top, 16)
+        }
+    }
+
+        func makeLinksClickable(_ text: String) -> AttributedString {
+            var attributedString = AttributedString(text)
+            let detector = try? NSDataDetector(types: NSTextCheckingResult.CheckingType.link.rawValue)
+            let matches = detector?.matches(in: text, options: [], range: NSRange(location: 0, length: text.utf16.count))
+            matches?.forEach { match in
+                if let url = match.url,
+                   let range = Range(match.range, in: attributedString) {
+                    attributedString[range].link = url
+                }
+            }
+            return attributedString
+        }  
 }
 
 #Preview("JSON") {
@@ -487,8 +560,8 @@ struct NewsDetailCardView: View {
             onCommentTap: { text in
                 print("Comment tapped: \(text)")
             },
-            allowEdit: true,
-            currentUserId: "")
+            userPermissions: UserPermissions(
+                id: "1", admin: 1, news_editor: 1, photo_booths_editor: 1))
         Spacer()
     }
     .frame(maxWidth: .infinity, maxHeight: .infinity)

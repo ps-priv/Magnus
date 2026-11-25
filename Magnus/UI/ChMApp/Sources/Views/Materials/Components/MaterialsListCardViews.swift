@@ -121,23 +121,30 @@ struct MaterialsListCardView: View {
     // MARK: - Tab Contents
     @ViewBuilder
     private var GeneralTabContent: some View {
-        VStack(alignment: .leading, spacing: 12) {
-            ForEach(Array(generalMaterials.enumerated()), id: \.offset) { index, item in
-                MaterialRowItem(material: item, isSelected: item.id == materialId)
-                    .id(item.id)
+        if generalMaterials.isEmpty {
+            MaterialsListEmptyView()
+        } else {    
+            VStack(alignment: .leading, spacing: 12) {
+                ForEach(Array(generalMaterials.enumerated()), id: \.offset) { index, item in
+                    MaterialRowItem(material: item, isSelected: item.id == materialId)
+                        .id(item.id)
+                }
             }
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .padding(.top, 8)
+            .padding(.horizontal, 10)
+            .background(Color.white)
+            .cornerRadius(20)
+            .shadow(color: Color.black.opacity(0.1), radius: 4, x: 0, y: 2)
         }
-        .frame(maxWidth: .infinity, alignment: .leading)
-        .padding(.top, 8)
-        .padding(.horizontal, 10)
-        .background(Color.white)
-        .cornerRadius(20)
-        .shadow(color: Color.black.opacity(0.1), radius: 4, x: 0, y: 2)
     }
 
     @ViewBuilder
     private var ForEventTabContent: some View {
         // Placeholder content for event-specific materials
+        if eventMaterials.isEmpty {
+            MaterialsListEmptyView()
+        } else {
         VStack(alignment: .leading, spacing: 12) {
             ForEach(Array(eventMaterials.enumerated()), id: \.offset) { index, item in
                MaterialsInEvent(eventMaterials: item, selectedMaterialId: materialId)
@@ -148,6 +155,7 @@ struct MaterialsListCardView: View {
         .background(Color.white)
         .cornerRadius(20)
         .shadow(color: Color.black.opacity(0.1), radius: 4, x: 0, y: 2)
+        }
     }
 }
 

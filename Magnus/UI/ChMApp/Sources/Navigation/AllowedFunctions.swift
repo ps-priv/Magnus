@@ -16,4 +16,7 @@ public struct AllowedFunctions {
 
     //events
     public var allowSurvey = false
+
+    //quiz
+    public var allowQuiz = false 
 }
