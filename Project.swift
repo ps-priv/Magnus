@@ -39,7 +39,7 @@ let project = Project(
             infoPlist: .extendingDefault(
                 with: [
                     "CFBundleDisplayName": "NovoNordiskApp",
-                    "CFBundleVersion": "43",
+                    "CFBundleVersion": "44",
                     "NSExtension": [
                         "NSExtensionPointIdentifier": "com.apple.usernotifications.service",
                         "NSExtensionPrincipalClass": "$(PRODUCT_MODULE_NAME).NotificationService",
@@ -142,7 +142,7 @@ let project = Project(
             infoPlist: .extendingDefault(
                 with: [
                     "CFBundleShortVersionString": "2.0",
-                    "CFBundleVersion": "43",
+                    "CFBundleVersion": "44",
                     "UISupportedInterfaceOrientations": [
                         "UIInterfaceOrientationPortrait"
                     ],
