@@ -68,3 +68,7 @@ Derived/
 
 ### Tuist managed dependencies ###
 Tuist/.build
+### OpenSpec – lokalna dokumentacja, nie trafia do git ###
+openspec/
+.claude/commands/opsx/
+.claude/skills/openspec-*/
